@@ -1,0 +1,18 @@
+Mobile Visual Computing
+
+Cada vez mais, dispositivos móveis começam a ser uma fonte mais viável para fotografia. Juntamente com a fotografia podem ser acrescentados mais dados com recursos a sensores, tais como, GPS, acelarómetros, bússulas. Neste paper são referidas
+várias formas para melhorar e acelarar o tempo de processamento de fotografias superando as limitações dos sensores tradicionais e criar novas imagens que não seria possível realizar através das tradicionais câmaras, expandindo assim a área da fotografia computacional. 
+Algumas das formas de melhoramento incluem a existência de processadores separados com a função específica de tratar das imagens, o uso de DSPs (Digital Signal Processing) para encode e decode de imagens. Ambas as soluções apresentam algumas desvantagens na medida em que, a existência de processadores especializados acabam por ocupar demasiado espaço no dispositivo que poderia ser utilizado para um aumento de bateria ou aumento de espaço de armazenamento, e o uso de DSPs acaba por não ser uma opção viável por não estar disponível a todos os programadores de aplicações.
+Alternativas melhores acabam por ser o uso de APIs como OpenGL ES ou M3G que permitem um novo tipo de aplicações para estes dispositivos que já se encontram optimizadas para o rápido processamento de imagens. Com o aparecimento dos GPUs, surge ainda mais uma alternativas que é o uso de OpenCL como API que permite o uso dos GPUs em vez dos CPUs para efectuar as computações.
+Com estas tecnologias torna-se possível aplicações de realidade aumentada como o uso de reconhecimento de objectos em tempo real, modelagem de cenas e tracking de movimento em tempo real sem grande perca de performance e com recurso a serviços externos. Outra vantagem é permitir criar fotografias que não seriam possíveis com as câmaras normais, como imagens HDR e fotografias panorâmicas.
+
+
+PARA VER:
+- SURFTrac
+- Artifact-free high dynamic rang imaging.
+- Considerar o uso de OpenGL, M3G ou OpenCL
+
+FEATURES A RETER:
+- HDR imaging
+- Fotografias com metadados tirados de outros sensores (GPS,acelarometro,etc..)
+- Object recognition intercalado com deteccão de movimento

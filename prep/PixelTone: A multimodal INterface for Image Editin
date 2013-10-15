@@ -1,0 +1,26 @@
+PixelTone: A multimodal INterface for Image Editing
+
+Este paper descreve uma aplicação iPad que funciona através duma interface multimodal que combina reconhecimento de voz e interacção directa do utilizador para manipulação de imagens. É utilizada linguagem natural para expressar como desejam modificar a imagem, com possibilidade de desenhar áreas específicas.
+Com recurso aos dois inputs torna-se possível seleccionar objectos na imagem e, com recurso a voz, intitular um objecto, criando uma tag que poderá servir para identificação futura através de reconhecimento vocal.
+O reconhecimento de voz foi feito com computação local e com uso de um servidor externo que processa a voz e reconhece os comandos a executar.
+Quando não é possível identificar a intenção do utilizador através do reconhecimento de voz, o PixelTone mostra uma galeria com opções que poderão ser apropriadas. Desta forma, este mecanismo de reserva (fallback) permite que o utilizador também aprenda o vocabulário do sistema enquanto edita a imagem com sucesso.
+Através duma pesquisa realizada pelos autores, puderam concluir que uma interface multimodal é mais eficaz que uma simples interface visual. Puderam também definir algumas necessidades relevantes, tais como:
+- um conjunto de directrizes de design a seguir para integrar o reconhecimento de voz com a edição de imagem
+- uma interface multimodal que combinasse voz, com galerias e manipulação directa para edição de foto
+- um conjunto de mecanismos de reserva que melhorassem o reconhecimento de voz e sua interpretação
+- e um algoritmo que transformasse a linguagem natural, sem restrições ao vocabulário, em operação para edição de imagem
+
+Com recurso a vários inquéritos, puderam descobrir qual o vocabulário mais utilizado pelos profissionais em edição de imagem e fotografia para que pudessem criar um interpretador para uma linguagem simples e centrada na área da edição de imagem.
+Com o objectivo de estudarem a linguagem a usar, exploraram o uso de anotações em fotografias profissionais. Embora que usado duma maneira diferente, a possibilidade de anotações em fotografias para este trabalho, seria uma feature interessante a explorar.
+Após feitos os testes de utilização, foram seleccionados vários utilizadores com várias experiências em edição de imagem. O facto de existirem utilizadores mais experientes revelou-se um factor de distinção, na medida em que estes usavam menos os comandos por voz, em comparação aos utilizadores mais novatos. Outro factor foi a existência de utilizadores que não falavam inglês nativamente. Neste caso, também usavam a interface de voz menos vezes comparativamente aos utilizadores que tinham inglês como língua materna.
+Concluindo, a generalidade dos utilizadores deram preferência à interface multimodal e eram capazes de usar a aplicação eficazmente num cenário realista.
+
+PARA VER:
+- Multi-exposure imaging on mobile devices. Gelfand, N., Adams, A., Park, S.H., and Pulli, K.
+- Instagram, Camera+, Photoshop Express, Photosynth, SnapSeed, Vapp
+- OpenEars for local speech recognition
+
+FEATURES A RETER:
+- Comandos simples de voz
+- Selecção de objectos na imagem
+- Possibilidade de anotações profisssionais nas fotos através de touch
