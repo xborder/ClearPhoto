@@ -1,0 +1,6 @@
+Optimizing Photo Composition
+
+Neste paper relata o desenvolvimento e avaliação de um algoritmo para melhorar a composição de uma foto recorrendo a regras seguidas para fotografia profissional.
+Estas regras de composição indicam aos fotografos rios aspectos a considerar quando se tira uma fotografia, tal como, simplificação, linhas, espaços negativos, regra dos terços, regra das probabilidades, entre outros.
+O autor desenvolveu um algoritmo que avalia uma imagem, corta e muda o foco da foco com base na regra dos terços, dominancia diagonal, balanço visual e tamanho da região. Com a ajuda de mapas de saliências, o algoritmo usa estas regras para calcular uma pontuação, e com base nesta pontuação geram opções com o mesmo aspect ratio da imagem original, cortadas e com um ponto de foco diferente.
+Na avaliação, os autores puderam concluir que as imagens resultantes se assemelhavam bastante ao resultado final de uma fotografia modificada por um fotógrafo profissional. No entanto, existem limitações, uma vez que este método não substituí o trabalho de um fotógrafo profissional porque às vezes não seguem estas guidelines à risca nem substitui a creatividade dum autor. 
