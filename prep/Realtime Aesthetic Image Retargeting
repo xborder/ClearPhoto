@@ -1,0 +1,4 @@
+Realtime Aesthetic Image Retargeting
+
+Este paper descreve uma maneira mais rápida de realizar retargeting/resizing sobre uma imagem em tempo-real. Os autores abordaram um método diferente do tomado em Optimizing Photo Composition. Este método permite que sejam alterados parâmetros e visualizar os seus efeitos em tempo real.
+Neste método continua a ser utilizado um mapa de saliências para detecção de objectos e linhas predominantes. Com base nesse mapa, é gerado uma malha de triângulos e os pontos relevantes são mapeados na malha. Usando as mesmas regras de composição em Optimizing Photo Composition, calcula-se os pontos de beleza da imagem. Com o intuito maximizar estes pontos, utilizam-se restrições que modificam a imagem embelezando a mesma. Tais como, a garantia de que as coordenadas dos pontos de fronteira, permanecem nas fronteiras
