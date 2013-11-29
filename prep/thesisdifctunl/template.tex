@@ -49,8 +49,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\documentclass[prepmsc,pt,
-twoside,11pt,utf8,a4paper,
-% bibbychapter
+twoside,11pt,utf8,a4paper
+% ,bibbychapter
 ]{thesisdifctunl}
 
 
@@ -128,21 +128,20 @@ twoside,11pt,utf8,a4paper,
 
 % Title of the dissertation/thesis
 % USe "\\" to break the title into two or more lines
-\title{[Título da tese]}
+\title{ClearPhoto - Fotografia Aumentada}
 
 % Autor
-\author[f]{[Nome completo do autor]} 
-\authordegree{[Habilitações académcias]}
+\author[m]{Hélder Filipe Gouveia Gregório} 
+\authordegree{Licenciatura em Engenharia Informática}
 
 % Date
-\themonth{MÊS}
-\theyear{ANO}
+\themonth{Janeiro}
+\theyear{2014}
 
 
 % Supervisors (maximum of 9)
 % use [f] for female and [m] for male
-\adviser[m]{[Nome do orientador]}{[Cargo]}{[Instituição]}
-\adviser[m]{[Nome do orientadoror 2]}{[Prof.\ Catedrático]}{[Universidade Nova de Lisboa]}
+\adviser[m]{Nuno Manuel Robalo Correia}{Prof.\ Catedrático}{Universidade Nova de Lisboa}
 % A trick to force the University to go to the next line :)
 % \adviser[m]{João M. S. Lourenço}{Prof.\ Auxiliar}{\\&Universidade Nova de Lisboa}
 
@@ -191,26 +190,27 @@ twoside,11pt,utf8,a4paper,
 
 
 % The List of Figures. Comment to omit.
-\printlistoffigures 
+%\printlistoffigures 
 
 % The List of Tables. Comment to omit.
-\printlistoftables 
+%\printlistoftables 
 
 % The List of Code Listings. Comment to omit.
-\printlistoflistings 
+%\printlistoflistings 
 
 
 % Text chapters
 % syntax: \chapterfile{file}
-\chapterfile{chapter1}
-\chapterfile{chapter2}
-\chapterfile{chapter3}
+\chapterfile{introduction}
+\chapterfile{concepts}
+\chapterfile{related_work}
+\chapterfile{work_plan}
 
 
 % Text appendixes
 % sintax: \appendixfile{file}
 % Comment if not needed
-\appendixfile{appendix1}
+%\appendixfile{appendix1}
 
 % BibTeX bibiography files. Can be used multiple times with a single file nae each time.
 \addbibfile{bibliography}
