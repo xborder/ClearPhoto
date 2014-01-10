@@ -4,30 +4,104 @@
 \chapter{Trabalho relacionado}
 \label{cha:related_work}
 \todo[inline]{Rever e completar}
-Neste capítulo serão apresentados conceitos e técnicas relacionadas com o tema proposto por esta tese. Foram lidos alguns trabalhos de investigação e aplicações em produção relacionados com estes conceitos e técnicas para fundamentar o trabalho que se pretende realizar com este tema. Este capítulo será dividido em duas grandes secções. Na primeira secção está repartida por 3 subsecções onde serão discutidas aplicações e técnicas utilizadas na altura de tirar a fotografia e na pós-produção da mesma. Na segunda secção \todo{quantas subsecções?}serão discutidos técnicas que permitem a avaliação e classificação de fotografias com base em regras de composição.
+In this chapter I will explain some concepts and techniques related to the theme proposed by this thesis.
+There was made some investigation work and a thorough analysis to some application in production state related to this concepts and techniques, in order to fundament the work that we intend to accomplish with this thesis.
+This chapter is divided into four main sections. In the first section we explain some of the fundamental concepts that are necessary in order to take a good picture and understand how a camera works. In the second section we enumerate some techniques used to produce astonishing and high quality image in photography. Since there are many mobile applications related to photography, the third section presents a summary of some of those application during and after the capture of the moment. The last section, refers to the state of the art related to evaluation of photography based on rules of composition.
 
-% # SECTION: Captura e Tratamento de Fotografia #
-\section{Captura e Tratamento de Fotografia}
-\label{sec:foto_capture_handle}
+% # SUBSECTION: Processing techniques for photography #
+\section{Processing techniques for photography}
+\label{sub:photo_techniques}
 
-% # SUBSECTION: Captura de Fotografia #
-\subsection{Captura de Fotografia}
-\label{sub:foto_capture}
+To take advantage of the most recent capturing technology, new techniques and add-ons are being created to obtain the most pure and stunning result without any kind of editing. This techniques are achieved by exploring many elements related to a camera’s structure, such as the ones described in the previous section. This chapter will describe some of these techniques and how they can be achieved. Along with this description, some research work will be referred and compared with the pure techniques.
 
-O mercado Android já apresenta uma vasta panóplia de aplicações fotográficas para além das existentes no sistema operativo. 
-\todo[inline]{Instagram, Photoshop Express, Photosynth/Photo Sphere, SnapSeed, 6tag, Camera FV5}
 
-% # SUBSECTION: Técnicas de Fotografia #
-\subsection{Técnicas de Fotografia}
-\label{sub:foto_tecniques}
+\subsection{Long-Exposure Photography}
 
-\todo[inline]{Longe exposure, Panoramic, HDR, Controlar a profundidade do campo (ter tudo em foco ou apenas uma pequena parte em foco.. pode não ser possível), Panning, Tilt-shift, Black and white, Infrared? (não há sensor), Cinemagraph, control de focus, aperture, shutter speed, white balance, metering, iso speed, auto focus}
-	
-% # SUBSECTION: Pós-Produção de Fotografia #
-\subsection{Pós-Produção de Fotografia}
-\label{sub:foto_post_prod}
+Long-exposure (or time-exposure) photography exists since the popularization of photography. In the beginning, a person was obligated to stand completely immobile in front of a camera so that the final result would be as sharp as possible.
+With this premise, long-exposure photography is a technique taking a picture with a long shutter-speed. This way the camera sensor will record every movement while the shutter is open, resulting in perfectly sharp capture of stationary objects and blurring or obscuring of moving elements.
+This technique is more successful under low light conditions due to the time that the sensor is exposed to light. By taking so long to close the shutter, the sensor keeps absorbing light creating a brighter photograph producing a near daytime effect.
+This technique made easier for professionals to photograph at night, and gave form to new types of photography such as light painting where a person with a light source can draw paths in the air. Being more sensitive to light, while the shutter is open, the sensor records all the paths drawn resulting in an image where the paths form a continuous line and the person or object moving the light source is obscured, as shown in Figure X.
 
-\todo[inline]{Edit options: Instagram, Photoshop Express, Photosynth/Photo Sphere, SnapSeed, 6tag, Camera FV5}
+
+\subsection{HDR Imaging}
+
+Although there is a big improvement in the technologies related to photography, cameras still have a problem of not being able to perceive colors the same way as the human eye. Due to that fact, depending on the exposure, different zones are represented with colors different from reality and it is possible to lose information in bright or dark zones. High Dynamic Range Imaging is based on a capture that can represent a more accurately range of intensity levels found in real scenes compensating this problem.
+In photography, this technique is achieved by taking multiple Low Dynamic Range (LDR) photographs of the same scenario with different exposure values that can vary depending on the device. After taking all the samples, the process consists in combining all the raw data of over-exposed and under-exposed areas in one image. By doing this, the image will result in a photograph with a broader tonal range, as shown in Figure X.
+There have been some developments in research for architectures and algorithms that can create fast and reliable HDR images.
+One of the method described in Fast HDR image generation from multi-exposed multiple-view LDR images involves a three adjusted cameras with parallel optical axis that can be seen in Figure X. Each of this cameras takes a photograph with different exposure values, taking a picture underexposed, a second picture with the normal exposure, and a third picture overexposed. 
+Since the three cameras are in different positions through the sames axis, the algorithm starts by aligning the three images. After the alignment, some objects in one image might be occluded in the others, so it calculates one error map for both overexposed and underexposed images in order to detect pixels that cannot be used in exposure blending because they belong in the picture with the normal exposure, but not in the  other two.
+To finalize, the normally exposed picture is chosen as reference and its darker pixels are combined with brighter pixels from the overexposed one. Similarly, brighter pixel are combined with darker pixels from the underexposed image.
+
+\subsection{Panoramic Photography}
+
+ Panoramic photography is a technique creates an image with an enlarged field of view which approximates or exceed the human eye (160º by 75º). Between specialized methods and devices, one of interest is the use of Catadioptric cameras. This cameras are based on a system of lenses and curved mirrors that allow a field of view of 360º over a single viewpoint, bypassing the need of motion as is the case with other methods. Since it uses mirrors and lenses, the light rays bent preventing any kind of distortion or chromatic aberration. Since there is no need of computation, another advantage is the use of this cameras for video shooting of 360º panoramas. 
+There are on the market some add-on lenses for mobiles devices that make this technique possible, such as GoPano micro (Figure X).
+There are also methods to generate panoramas by stitching multiple horizontal images through software. Creating Full View Panoramic Image Mosaics and Environment Maps describes a method to create full view panoramic mosaics. Unlike many other stitching methods, this algorithm does not need a set of pure horizontal images. Instead, as long as there is no strong motion between images, there are no constraints on how images are taken, making photographs taken by hand-held devices without a tripod a reliable source for creating panoramas.
+Comparing this algorithm with catadioptric cameras, since the panorama is made by stitching multiple images, the final product presents distortions around the viewpoint that each image had at the time it was taken. This is because of a necessary warp to cylindrical or spherical coordinates so that they were correctly stitched.
+
+% # SUBSECTION: Image capturing and processing apps #
+\section{Image Capturing and Processing}
+\label{sub:capturing_processing}
+
+ Since the first attempts to capture a scenery by Thomas Wedgwood, to its popularization in the XIX century, the world of photography has suffered improvements, that still shock many professionals in the business. Since the upgrade of analog cameras to the digital world, the use of negatives and dark rooms to new techniques like tilt-shift and HDR, the current market has been increasingly overwhelmed by mobile devices and their ability to easily dethrone today’s digital cameras. Proof of this fact is the wide range of applications related to photography presented in mobile devices application stores like Google Play and App Store. Some with a more professional objective than others, throughout this chapter, it will be discussed some of those applications for image capturing and processing. Along with these applications, some investigation that has been done in this field, will also be discussed.
+
+\subsection{Image Capturing}
+
+\subsubsection{Android and iOS Native Applications}
+
+ By default, the newest mobile operating systems, already have an incorporated application to take photos. For example, on iOS, the default application is rather simple. It has very few customization options for a user who pretends to capture scenes to a more professional level, although it is possible to record videos and choose between full screen photos or photos with a squared format, using one of the two cameras available, with or without flash. Besides these, iOS native application offers a shortcut to access the device’s gallery.
+
+ On the other hand, android’s native application is a flexible alternative, in such a way that offers access to functionalities, allowing the user to take the advantage of how she can capture the scenery, in the likeness of today’s digital cameras.
+Some of these options include messing around with ISO and exposure values, white-balancing, contrasts, and choose the resolution of the final product. It allows the user to choose the correct capture mode for the moment, e.g. sports mode, indoor, portrait, etc.
+Android's application has a nice tweak, it is possible to add metadata tags to the image which may include GPS location a rename the file based on that location. It also becomes user friendly, when it displays a grid on the screen, helping the user to center the object that is being photographed. Despite all the options, one of the main features is the anti-shake system that applies corrections on the image to compensate user’s movements.
+
+\subsubsection{Instagram (iOS)}
+
+ With already a notorious percentage of popularity and very centered in social networking, Instagram is an application that offers the main features of a native application. Some of these features include the possibility of taking a photograph or record a video and choose between between the front and rear camera, if they both exist on the device. With direct access to the device’s gallery in both modes, the shooting mode, in similarity with Android’s default, shows a grid in the display, and control options for flash.
+The presence of menu bars at the top and bottom of the screen reduces the space available to preview the shoot and maintains a squared shape for both the preview and the shoot taken, as shown in Figure X.
+
+\subsubsection{Photoshop Express (iOS)}
+
+ Tool developed by Adobe that has a shooting mode with some extra features in comparison with the native application. Some of these extra features are the timer option and a preview of the image taken.
+Between these two, the preview is an interesting option to be used in a more professional context allowing the user to decide if it is an usable photo before saving it in the gallery.
+Although in most of the available applications, the zoom feature is already a given, in Photoshop Express it can be controlled by an horizontal slider. This fact that is an horizontal slider always visible, comes in handy to the user because it is understand how to make zoom comparatively to the default applications. 
+In those default applications, the user can perform a zoom by pinching the screen which may not be intuitive. This way, the horizontal slider may be a good alternative for a more intuitive interface.
+
+\subsubsection{Photosynth (iOS)}
+
+ In resemblance to Instagram, Photosynth was developed by Microsoft, with the objective of creating a social network centered in sharing panoramic photos. The social features will be ignored since they are not the main topic of this thesis.
+Regarding the image capturing abilities, this application allows the user to create a software generated panoramic image. For capturing, the device displays a 3-dimensional spherical space that rotates with the user’s movement. As soon as the capture starts, Photosynth automatically captures the initial scene and all the adjacent scenes while the user is rotating. After finishing the capture, this application identifies specific features in one photograph and matches with other photographs features and by analyzing the position of matching features within each photograph thus identifying which photographs belong on which side of others and identifying images of the same area. 
+To visualize the panoramic image, the stitched images are displayed in a 3-dimensional spherical space similar to the one presented on the capture display, with the particularity that the user must scroll to see the final result. Outside the application, previewing the image in the gallery, it presents some deformations that were required in order to represent it in the 3 dimensional dome inside Photosynth.
+
+\subsubsection{Camera FV5 (Android)}
+
+ Camera FV5 is by far, one of the most complete applications for photography in the Play Store market. Although it has a screen with lots of options and information, it is what most resembles to a digital camera display. It offers full control over exposure, ISO and white-balance. Exposure can be manually selected by the user or, alternatively, she can choose between modes that automatically determine exposure values based specific regions of the image displayed in viewfinder. 
+Multiple focusing modes are available, that allow macros, setting the focus to infinity or taping the display and select the object to focus.
+More related to camera utilities, various flash modes are available, including a flashing mode that fixes red eyes on photos, shooting utilities which include a shooting timer, image stabilization and burst mode.
+For a more inexperienced user, default programs with pre-defined exposure options can be used.
+The most interesting trait are the indicators in the viewfinder that display values of exposure time, aperture, ISO, battery remaining and how many photos are in buffer.
+The fact that it allows all photographic parameters to be controlled, it makes possible the creation of photos with photography techniques like long-exposure, although, due to hardware limitations, this technique is all emulated by software and not with the hardware.
+
+\subsubsection{SketchCam}
+
+ SketchCam appears as an investigation project that uses a different approach towards mobile devices as photography. With a touch screen, it enables children to capture images by sketching the area of interest on the display. 
+Using this different approach, it allows the user to become more selective towards the scenario in front of her, and creative, in a way that the user may be able to create different frames for the picture that is being taken.  After selecting the point of interest in the view display, it creates an object that can be used for future collages. This may help teaching the basic concepts of composition and photo editing by using a different display.
+
+\subsubsection{Frankencamera}
+
+ Although there are many mobile devices with capabilities to take photos, most of them don’t take full advantage of the imaging hardware and offer a highly simplified API. The programmer can’t control the camera’s exposure time or retrieval of raw sensor data. Based on this problems, Frankencamera is an open-source architecture with a custom-built camera based on Linux and gives full control of the hardware to the programmer through C++ language. This architecture consists in an application processor, a set of photographic devices such as flashes and lenses, and one or more image sensors, each with a specialized image processor, forming a tightly coupled pipeline to coordinate all elements. All sensors, devices and parameters that describe the capture and post-processing of a single output image, can be programmed through its API allowing a mechanism to precisely manipulate the hardware state over time.
+Being a custom made platform, brings some advantages towards closed platforms. One of these advantages is the ability to take long-exposure photos without a tripod. Using an embedded gyroscope, the camera will stream full-resolution raw frames that will be stored, only if their gyroscope tags indicate a low motion when the frame was taken. 
+Another useful application is the creation of panoramic photos with extended dynamic range. In most devices, the user has to take various individual photographs and stitch them together on a computer, but with this system, it is possible to individually set the exposure time of each shot creating a panorama with extended dynamic range and previewing the result instantly.
+
+\subsubsection{Discussion}
+
+ All commercial applications and research projects share the most basic features that should come embedded in any system takes photos. These features include access to a gallery, control over flash, control which camera to use, an auxiliary grid and control over zoom.
+In order to dethrone digital cameras, stock applications such as the ones that come by default with Android and iOS, started that process of mass dissemination of a portable, simple and completely capable option to take casual photos. 
+Android applications, comparatively to iOS, offer more control over the device’s hardware, such as shooting mode, resolution and image quality, aperture and ISO values. Allowing almost full control of the hardware to the user, is a very important feature that must taken in consideration when developing an application to take photos. Given this fact, Android becomes a more reliable platform for users that pretend to use their mobile device for something more than casual photos.
+With some interesting features, Camera FV5  is one of those applications for amateur photographers that presents very similar interface to a digital camera with a possibility of adjust all photographic parameters and introduces the emulation of some photography techniques.
+Interesting features that should be noted on Photosynth, is the way the application handles the creation and preview of panoramas. The existence of a spherical 3-dimensional that takes multiple photos and detects differences according to the previously taken, is an automated process that can be easily learned by every user.
+In the research field, SketchCam and FrankenCamera can go beyond what is available on regular systems. Although designed for kids, Sketchcam presents a system with a very different way to interact with the user in how she takes a photo. Selecting the point of interest by sketching a continuous path and giving form to different shapes of frames in a display with a live video feed, can be handy when a user only wants to emphasize a region or object in the viewfinder.
+Frankencamera is allowing computational photography to take a step further. It is the perfect of what is possible by taking full advantage of a device capabilities. It allows to take long-exposure photos using the available gyroscope proving that better photos can be taken using multiple sensors available.
 
 %------------------------------------------------------------------------------------------------------------------
 %------------------------------------------------------------------------------------------------------------------
