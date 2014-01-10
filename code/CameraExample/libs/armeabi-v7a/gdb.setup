@@ -1,0 +1,2 @@
+set solib-search-path ./obj/local/armeabi-v7a
+directory /home/helder/Documents/tese/adt/ndk/platforms/android-14/arch-arm/usr/include /home/helder/Documents/tese/adt/opencv-android/sdk/native/jni/include/opencv /home/helder/Documents/tese/adt/opencv-android/sdk/native/jni/include /home/helder/Documents/tese/adt/ndk/sources/cxx-stl/gnu-libstdc++/4.6/include /home/helder/Documents/tese/adt/ndk/sources/cxx-stl/gnu-libstdc++/4.6/libs/armeabi-v7a/include /home/helder/Documents/tese/adt/ndk/sources/cxx-stl/gnu-libstdc++/4.6/include/backward
