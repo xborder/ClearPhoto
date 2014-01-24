@@ -5,10 +5,54 @@
 %  Created by joão Lourenço on 2010-03-14.
 %  Copyright 2010 DI-FCT-UNL. All rights reserved.
 %
-\chapter{Introdução}
-\label{cha:introducao}
+\chapter{Introduction}
+\label{cha:intro}
 
-\todo[inline]{Falar de motivação}
-\todo[inline]{Descrição e Contexto}
-\todo[inline]{Principais Contribuições Previstas}
-\todo[inline]{Organização do Documento}
+Decades before photography was created, La Roche (1729 - 1778) described in his imaginary tale \emph{Giphantie}, the possibility to permanently capture images from nature, on a canvas which had been coated with a sticky substance. Following La Roche prediction, Thomas Wedgwood succeeded in capturing the first silhouettes temporarily, culminating in the first successful picture by Joseph Niépce in 1826. \cite{Leggat1995}
+
+Since that time, there were major changes in film photography and creation of digital photography. Through out the past 20 years since the commercialization of the first digital cameras, photographers had to overcome some hardships.
+Aided by the invention of photo editing software and consequently evolution of the industry, there was a mass popularization of multi-function mobile systems with the capability of taking high quality photos. These have been proven has a major breakthrough for these hardships that once were felt.
+Taking advantage of this systems and creating software that can facilitate a photographer's job or improve the learning conditions of such a task, is the next logical step to take.
+
+It was predicted that by the end of 2013, 1.4 billion smart-phones would be in use, where one in every five people in a world population of 7 billion would own one.\cite{Leonard2013} While this hand-held devices might not have cameras so powerful as the latest digital single-lens reflex (DSLR) cameras, many manufacturers are taking a different approach by creating lenses for this devices \cite{Bolton2013}, making them a reliable tool for high quality photography.
+
+On this note, this is the perfect scenario for developing applications that explore the world of photography with smart-phones and take full advantage of this devices, in an attempt to reduce the gap between amateur photography and professional photography.
+
+\section{Problem Description}
+
+Digital photography is tightly related to computational photography.Although the concept is in a growing state, it refers broadly to sensing strategies and algorithmic techniques that enhance or extend the capabilities of digital photography \cite{Szeliski2012} , creating new kind of images that cannot be captured with a traditional camera \cite{Pulli}. 
+
+Taking full advantage of multi purpose hand-held devices and obtaining the most aesthetic results, is a process that is not well explored. 
+Of the many devices that make part of our daily life, the smart-phone might be the most widely disseminated one. Although, for many professionals it might not replace the most recent DSLR, we can't deny the fact that many smart-phone owners use the embedded camera and have taken photography in a different perspective since the device popularization. A major problem is that the manufacturers do not take full advantage of the embedded camera capabilities on their default mobile operating systems, due to the lack of control offered through their APIs.
+
+There is a lot of work done in terms of improving a photo by using edition software (e.g. Adobe Photoshop), but the main purpose of this tools is to edit the result after a photo session. For instance, imagine that a photographer is trying to take a photo of a mountain scenery. Unless the individual is experienced and took many photographs of the same scenery in different angles and different focal lengths, for an amateur, the more common option will be to photograph with the mountain centred in the viewfinder, since this is the subject. Completely unaware of the aesthetic difference between a mountain centred and a dislocated one, this kind of photograph would be impossible to edit without including some degree of distortion.
+
+Even though the APIs lack on support, using this type of systems to reduce the gap between professional and amateur photographers, and enriching the users experience by offering options beyond the standard ones, is a problem that should be approached.
+
+\section{Presented Solution}
+
+The aim is to provide a more enriching experience for the smart-phone owner that uses the camera application frequently. The idea is to aid a photographer by offering a capturing system able to interpret a scene, in a semi-automatic way, with the final purpose of obtaining the best results and additional information for later digital manipulation.
+
+Before capturing an image, the user will be able the fully customize the camera's available options, including ISO value, exposure values and others. While visualizing the image in the viewfinder, the user will face an interface similar, but less confusing, to a digital camera. 
+These interface will include a set of grids and suggestions that will aid when taking a photo. While the grids will help in the correct placement of the subject that is being photographed, the suggestions will consist in a rating calculated from the scene that is being captured at the moment. 
+The calculation of this rating might be dependent on the currently selected mode that will vary according to the scenery, meaning that some of the rules used to evaluate an image in portrait mode might not be the same for an image in landscape mode. Another type of suggestion is the detection of trembling when taking a picture using the embedded gyroscope, and suggestion of monochromatic mode when low saturation is detected.
+
+After the capture, the user will have access to a set of utilities to photo manipulate the image. This utilities will include tools such as rotate, crop, apply a set of available filters, auto white-balance and  more.
+Although, good photographers can end up with stunning results after a shooting session, some specific areas of the image might not look like it was expected. On that note, the use of a more capable manipulation software might be needed and they must know what areas should be corrected and what correction they should apply. After the capture, the user can proceed to an annotation screen where she can freely select and write any notes regarding that picture with a pen. When finished, a copy of the image with the annotations will be stored in the system. Still related to the image annotation, it will be considered the detection of a subset of handwritten words that will be directly related to image corrections. The purpose of this feature is to allow the user to apply effects directly to specific area of the image while taking note.
+
+Since nowadays, the internet turns around information, and more recently around information sharing, after capturing, the user will be capable of sharing photos through some known social networks. While sharing, these photos will also contain geolocation information directly obtain from the device's GPS.
+
+The technology used to develop this solution is a smart-phone with an Android operating system. Currently we are using the Samsung Galaxy Note with Android 4.1 as it has support for both camera and specialized pen for ink based writing. The system will be developed in Java and C++ using both Software Development Kit \cite{SDK} and Native Development Kit \cite{NDK} available for Android.  Along with the NDK, the OpenCV (Open Source Computer Vision) \cite{OCV} library will be used for image processing.
+
+\section{Expected Contributions}
+
+This application will be expected to contribute in the industry of mobile applications, by breaking the standards and introducing a novel approach, incorporating the knowledge of how to obtain nice aesthetic results, instead of simply taking a picture. 
+
+Another expected contribution will be in the academical field making this a guideline to create the computational equivalent to some of the techniques used in photography, exploring the technological advancements of image processing units in mobile devices. The purpose is not to just make them computationally possible but also inspire the implementation of new and improved methods for the field of computational photography. It is expected to contribute in some scientific conferences, by presenting an application and a modular and heterogeneous library that can be coupled to any other mobile application.
+
+Many have embraced the world of photography but just a few know how to use a camera and all of its functionalities. The main objective of this work is to make those functionalities and knowledge in photo composition available to the most casual user, resulting in a thinner gap between amateur and professional photographers.
+
+\section{Document Structure}
+
+This document is divided in three main chapter - introduction, related work and work plan. In the first chapter, \textbf{Introduction}, presents an overview of the main topic of this dissertation, in which includes the motivation and context, a description of the problem, a solution for the presented problem and expected contributions.
+In the second chapter, \textbf{Related Work}, describes a couple of systems, and necessary concepts to grasp this topic. The main focus is given to some fundamental concepts to better understand how photography works, some processing techniques related to photography, image capturing and image processing systems, image evaluation rules and systems that implement them, and description of some algorithms used in feature detection. In the final chapter, \textbf{Work Plan}, will describe some of the experiences done so far and a detailed description and time-line concerning the necessary tasks to implement the proposed solution.
