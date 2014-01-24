@@ -273,9 +273,9 @@ Frankencamera is allowing computational photography to take a step further. It i
 
 % # SECTION: Avaliação de Fotografia #
 \section{Image Evaluation}
-\label{sec:foto_eval}
+\label{sec:photo_eval}
 To understand aesthetic problems, \citeauthor{Hoenig2005} in \cite{Hoenig2005}, described and formalized a set of theorems and components that could provide a measurable basis for aesthetics.
-According to the author, in 1933, George David Birkhoff came up with a formula that encapsulated his insights into aesthetic value, described by $ M = Order/Complexity $. This represents the reward one gets, by experiencing orderliness while putting effort in focusing details, giving higher aesthetic value to beauty over complexity. Birkhoff concept sparked interest of computer scientists in aesthetics, creating the term computational aesthetics. This therm is described as a set of computational methods that can make applicable aesthetic decisions in a similar fashion as humans can.
+According to the author, in 1933, George David Birkhoff came up with a formula that encapsulated his insights into a aesthetic value, described by $ M = Order/Complexity $. This represents the reward one gets, by experiencing orderliness while putting effort in focusing details, giving higher aesthetic value to beauty over complexity. Birkhoff's concept sparked interest of computer scientists in aesthetics, creating the term computational aesthetics. This therm is described as a set of computational methods that can make applicable aesthetic decisions in a similar fashion as humans can.
 
 %A professional photographer might have a good equipment, the perfect light and a good control over exposure, but one key feature is the composition of the picture. Many of the rules of composition used by photographer have been copied from classical painters.
 %Photographers have the challenger of taking an interesting photography, and a good composition encourages the viewers eyes to roam around the image and capture hers attention.
@@ -283,55 +283,116 @@ According to the author, in 1933, George David Birkhoff came up with a formula t
 
 % # SUBSECTION: Regras de Composição #
 \subsection{Composition Rules}
-\label{sub:foto_rules}
+\label{sub:photo_rules}
 
-To obtain aesthetic results, photographers follow certain rules of composition that are the result of centuries of artistic development. These rules are now considered rules of thumb and proven to be pleasing to the eye.
-There is no recipe for a good composition, and for that reason a photographer must have in consideration of how an image is read by the majority of population. The inherent tendency to sweep an image from left to right, and from top to bottom, with the knowledge of how the human eye reacts to color, luminosity and  lines, are facts that need to be taken into account when shooting. This section describes of the rules that captures the viewers attention and can be used in computational aesthetics.
+To obtain aesthetic results, photographers follow certain rules of composition that are the result of centuries of artistic development. These rules are now considered as rules of thumb, and proven to be pleasing to the eye.
+There is no recipe for a good composition, and for that reason, a photographer must have in consideration of how an image is read by the majority of population. The inherent tendency to sweep an image from left to right, and from top to bottom, with the knowledge of how the human eye reacts to color, luminosity and  lines, are facts that need to be taken into account when shooting. This section describes of the rules that captures the viewers attention and can be used in computational aesthetics.
 
 \subsubsection{Color Balance}
 \label{subsub:color_balance}
-Although a good photography is dependent on the subject that is being captured, color has a major impact over the viewer by creating a certain mood and empathy with the viewer. Since in digital photography what is captured is the transmitted light and not the reflected light, the primary transmitted colors are composed by red, green and blue (RGB), and consequent secondary colors obtained by merging this three components. It is rare for a color to be isolated in a photo shoot, and depending on the colors, a different relation between them will be established, creating similar or different emotions that can be explored in a composition.
-Exploring the color palette, a relation created by two complementary colors gives a sensation of balance, but if both colors have different luminosity values, the less luminous color must be present in a greater amount comparing to its complement (FIgure X).
-To evoke a mood and arouse emotions, each color has its own meaning and can be interpreted in different manners by different people. For the western civilization, yellow symbolizes cheerfulness, joy and optimism, but for the eastern civilization, it is related to the imperial kingdom and symbolizes something sacred. On the other hand, in the Egipt, is a color for mourning.
+
+Although a good photography is dependent on the subject that is being captured, color has a major impact in creating a certain mood and empathy with the viewer. 
+%In digital photography what is captured is the transmitted light and not the reflected light, the primary transmitted colors are composed by red, green and blue (RGB), and consequent secondary colors obtained by merging this three components. 
+
+It is rare for a color to be isolated in a photo shoot, and depending on the color palette, a different relation between them will be established. These relations can create similar or different emotions that can be explored in a composition \cite{Santos}.
+A relation created by two complementary colors gives a sensation of balance, but if both colors have different luminosity values, the less luminous color must be present in a greater amount comparing to its complement (Figure \ref{fig:color_balance_image}).
+To evoke a mood and arouse emotions, each color has its own meaning that can be interpreted in different ways by different cultures. For the western civilization, yellow symbolizes cheerfulness, joy and optimism, but for the eastern civilization, it is related to the imperial kingdom and symbolizes something sacred. On the other hand, in the Egypt, is a color for mourning.
+
+\begin{figure}[htbp]
+    \centering
+	\label{fig:color_balance_example}
+    \includegraphics[scale=0.3]{color_balance_example.jpg}
+  \caption{Image of two complementary colors balanced in a frame. \cite{Santos}}
+  \label{fig:color_balance_image}
+\end{figure}
 
 \subsubsection{Rule of the Golden Section and Golden Spiral}
 \label{subsub:golden_section}
 
-Rules used by many photographers, artists, architects, and considered to obtain very appealing and aesthetic results. The golden section is a base for other rules of composition that is based on a golden average which results from a division between two consecutive numbers of a Fibonacci sequence. For example, defining the sequence [8,13,21] as a subsequence of the original Fibonacci, dividing 13 by 8, and 21 by 13 will result in an average, that in the limit, will be equal to the golden number (i.e. =1.6180339...). This golden number is the ratio that defines a golden section. This section, which is believed to be aesthetically pleasing, consists of a group of rectangles in which the ratio of the longer side to the shorter is the golden ratio. In the golden section, it is possible to draw a logarithmic spiral whose growth factor is equal to this ratio, called the golden spiral which converges to the smallest rectangle in the section. From this point onward, the conversion point will be treated as power point. 
-With this concept, it is possible to create a grid is formed by the intersection of vertical and horizontal lines in four specific spots obtained by converging a golden spiral from each vertice of the golden section (Figure X). This grid will result in a guideline with reference lines and imaginary points that indicate where the main subject of the scene should be located, usable in portrait and landscape mode.
+Rules used by many photographers, artists, architects, and considered to obtain very appealing and aesthetic results. The golden section rule is based on the golden average. This value can be achieved from a division between two consecutive numbers in a Fibonacci sequence. For example, defining the sequence [8,13,21] as a subsequence of the original Fibonacci, dividing 13 by 8, and 21 by 13 will result in a ratio, that in the limit, will be equal to the golden number (i.e. $\approx 1.6180339$). This golden number is what defines a golden section \cite{Santos}. 
+
+This section, which is believed to be aesthetically pleasing, consists of a group of rectangles in which the ratio of the longer side to the shorter is equal to the golden ratio. It is possible to draw a logarithmic spiral whose growth factor is equal to this ratio, called the golden spiral, which converges to the smallest rectangle in the section. From this point onward, the convergence point will be treated as \emph{power point}. 
+
+With this concept, it is possible to create a grid formed by the intersection of vertical and horizontal lines that pass through four specific points. The points correspond to \emph{power points} obtained by converging a golden spiral from each vertex of the golden section (Figure X). This grid will result in a guideline with reference lines and imaginary points that indicate where the main subject of the scene should be located, usable in portrait and landscape mode.
 
 \subsubsection{Rule of Thirds}
 \label{subsub:rule_thirds}
 
-The rule of thirds is based on the golden section. While this last one results in a guideline where the power points respect the conversion point of a golden spiral, the rule of thirds consists in dividing the rectangle in nine equal parts, dividing the scene in thirds both horizontally and vertically with power points in the intersections.
-Being a derivation of the golden section, the fundamental concept of where the focal point remains the same, where the main subject should be positioned in one of the power points and along one of the horizontal a vertical lines, as shown in Figure X.
+The rule of thirds is based on the golden section. While this last one results in a guideline where the \emph{power points} respect the conversion point of a golden spiral, the rule of thirds consists in dividing the rectangle in nine equal parts. The scene is divided in thirds both horizontally and vertically with power points at the intersections \cite{Santos}.
+Being a derivation of the golden section, the fundamental concept of where the object should be, remains the same. The main subject should be positioned in one of the \emph{power points} and along the the lines, as shown in Figure \ref{fig:rule_of_thirds_image}.
 
-\subsubsection{Rule of Golden Triangles}
+\begin{figure}[htbp]
+    \centering
+	\label{fig:rule_of_thirds_example}
+    \includegraphics[scale=0.2]{rule_of_thirds.jpg}
+	\caption{Guidelines of the rule of thirds with nine equal rectangles and respective \emph{power points} circled in red.}
+	\label{fig:rule_of_thirds_image}
+\end{figure}
+
+\subsubsection{Golden Triangles Rule}
 \label{subsub:rule_triangles}
 
-The rule of golden triangles uses a serie of triangles that follow the proportions described by the golden section. Using a golden section, we draw a diagonal line between two corners of the rectangle and connect a perpendicular line to each of the remaining corners. In some cases, this can be simplified to only one perpendicular, having only one power point in the intersection with the diagonal line and a suggestive region in the frame to place the elements.
+The golden triangles rule uses a group of triangles that follow the proportions described by the golden section. Using a golden section, we draw a diagonal line between two corners of the rectangle and connect a perpendicular line to each of the remaining corners. In some cases, this can be simplified to only one perpendicular, having only one power point in the intersection with the diagonal line and a suggestive region in the frame to place the elements \cite{Santos}.
+
+\begin{figure}[htbp]
+    \centering
+	\label{fig:golden_triangle_example}
+    \includegraphics[scale=0.5]{golden_triangle.png}
+	\caption{Guidelines obtained by the golden triangles rule.}
+	\label{fig:golden_triangle_image}
+\end{figure}
 
 \subsubsection{Usage of leading lines}
 \label{subsub:leading_lines}
 
-Lines can be used implicitly by creating an imaginary line between two focal points, or explicitly, like the edges of a building. These lines can be formed of just about anything, and have the purpose of leading the viewer to a specific area enhancing the focal point. These lines can be be vertical, horizontal, diagonal or curved.
-Since humans have binocular vision, unconsciously, horizontal lines are easier to interpret and give a sensation of stability and safety. Vertical lines are related to compelling visual cues, such as humans and trees. They can delimit the begin and the end of a scene and work as an enforcement for horizontal lines.
-Diagonal lines are free of interpretations and responsible for creating perspective in a photo. Diagonals can direct a viewer to outside of the frame if the photo does not have a focal point, but on the other hand, the viewer eyes can be imprisoned by using straight angles. 
-Curved lines can have an number of angles, and for that reason, they can give a sensation of movement. Although, depending on the focal point and depth of field, the same curves, might have different results.
+Lines can be used implicitly by creating an imaginary line between two subjects in a picture, or explicitly, like the edges of a building. These lines can be formed of just about anything, and have the purpose of leading the viewer to a specific area enhancing the subject being photographed \cite{Kamps2012} (Figure \ref{fig:leading_lines_image}). These lines can be vertical, horizontal, diagonal or curved.
 
+Since humans have binocular vision, unconsciously, horizontal lines are easier to interpret and give a sensation of stability and safety. Vertical lines can delimit the begin and the end of a scene, and work as an enforcement for horizontal lines.
+Free of interpretations, diagonal lines are responsible for creating perspective in a photo. If the photo does not have a specific subject to photograph, diagonals can direct a viewer to outside of the frame, but on the other hand, the viewer eyes can be imprisoned by using straight angles. 
+Curved lines can have an number of angles, and for that reason, they can give a sensation of movement. Although, depending on the subject and depth of field, the same curves, might have different results.
+
+\todo[inline]{source: http://digital-photography-school.com/how-to-use-leading-lines-for-better-compositions}
+
+\begin{figure}[htbp]
+        \centering
+    \subfigure[] {
+                \label{fig:leading_lines1}
+                \includegraphics[scale=0.4]{leading_lines1.jpg}
+    }
+    \subfigure[] {
+                \label{fig:leading_lines2}
+                \includegraphics[scale=0.4]{leading_lines2.jpg}
+    }
+  \caption{Examples of a curved line (a) that redirects the viewer's eye to the maple tree, and vertical lines (b) redirect the subject in the photo.}
+  \label{fig:leading_lines_image}
+\end{figure}
 
 \subsubsection{Balance of elements}
 \label{subsub:balance_elements}
 
-Unconsciously, the human mind evaluates a photo and look if there exists any balance or unbalance between the elements.
+Unconsciously, the human mind evaluates a photo and look if there exists any balance or unbalance between the elements \cite{Santos}.
 To judge the balance between the elements of a composition, we must imagine a frame divided by two and a scale that will measure the weight of the left side with the right side.
-When the scale is perfectly balanced which is very common in symmetrical images, it means that both sides of the have the same weight, creating what is called static balance.
-In dynamical balance, It is possible to create a balance in the image between the two two imbalanced sides. This can be achieved if one of the sides has a larger element and the remaining side has a smaller but brighter object.
-The scale doesn’t have to be perfectly balanced. A strong composition can be created with unbalanced sceneries. This way, the viewers attention will lie over the same side, empowering the focal point.
+When the scale is perfectly balanced which is very common in symmetrical images, it means that both sides have the same weight visually, creating what is called static balance.
+In dynamic balance, it is possible to create a balance in the image between with two imbalanced sides. This can be achieved if one of the sides has a larger element but the remaining side has a smaller but brighter object.
+The scale doesn’t have to be perfectly balanced and a strong composition can be created with unbalanced sceneries. This way, the viewers attention will lie over the same side, empowering the subject in the frame.
 
 
-\subsection{Pratical Application of Aesthetic Evaluation Systems}
+\subsection{Practical Application of Aesthetic Evaluation Systems}
 \label{subsub:eval_applications}
 
-As referred in \ref{sec:foto_eval}, computational aesthetics can be described by aesthetic decisions made by computational methods. 
-To increase aesthetic awareness, many systems have applied some of the rules described in \ref{sub:foto_rules}.
+\todo[inline]{Falar de \cite{Liu2010}, \cite{Liu2010a}, \cite{Lok2004}?}
+
+As referred in \ref{sec:photo_eval}, computational aesthetics can be described by aesthetic decisions made by computational methods. Increasing aesthetic awareness, researches developed systems and algorithms that extract and evaluate features of an image based  in the rules described at \ref{sub:photo_rules}.
+
+Defining aesthetics as a \"concern with beauty and art and understanding of beautiful thing\", \citeauthor{Datta} described in \cite{Datta}, a system capable of extracting visual properties of images and automatically tell the difference between aesthetically pleasing and displeasing images. 
+Based on a data extracted from an online photo sharing community, a set of images and aesthetic ratings given by the community, were used in to train a classifier.
+
+In photography and color psychology, color tone and saturation have important roles, and for that the images were converted from \emph{RGB} to \emph{HSV} color space, producing two-dimensional matrices for each of the components. There were extracted a total of 56 candidate features related to image properties, e.g. exposure, hue, saturation, size and aspect ratio, and composition, e.g. rule of thirds, use of texture and shape convexity.
+From all the candidate features, it was selected a total of 15 visual features that established a significant correlation between the visual properties of photographic images and their aesthetics ratings given by the community. The selected features would later be used by the classifier to attribute a rating to an image.
+This system was later to build an interface that would determine the aesthetic value of an image submitted by a user \cite{Datta2010}.
+
+Similar systems have been implemented. In \cite{Yeh}, \citeauthor{Yeh} described mutable ranking system. This system listed 1000 ranked photographs ordered from the highest rank to the lowest. The score of each photograph was considered as a linear combination of each feature and its corresponding optimal weighting factor that is found after the extraction of features. However, since the optimal weights might not combine with the users preferences, it enables them to combine personal taste with a trained model, and rearrange the ordered list of ranked photographs.
+The weighting adjustments can be feature-based where the user can personally select the weight of each feature, or an example-based approach, where she selected a photograph they like and have the system update the weighting based on the example chosen.
+The features chosen to extract, are quite similar to the ones used in \cite{Datta}, but introduce an interesting composition rule. They extract the subject region and assess the simplicity of a photograph by the color distribution of the remaining region that corresponds to the background.
+
+
