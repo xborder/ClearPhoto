@@ -45,15 +45,11 @@ public class Tutorial2Activity extends Activity implements CvCameraViewListener2
 
     private CameraBridgeViewBase   mOpenCvCameraView;
 
-//    private File                   mCascadeFile;
-//    private DetectionBasedTracker  mNativeDetector;
-    
     static {
         if (!OpenCVLoader.initDebug()) {
             // Handle initialization error
         } else {
             System.loadLibrary("mixed_sample");
-//            System.loadLibrary("facedetection");
         }
     }
     
