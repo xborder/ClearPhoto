@@ -4,8 +4,6 @@
 #include <opencv2/features2d/features2d.hpp>
 #include <opencv2/opencv.hpp>
 #include <vector>
-#include "DetectionBasedTracker_jni.h"
-
 #include <android/log.h>
 
 #define LOG_TAG "Mixed_SampleMixed_SampleMixed_Sample"
