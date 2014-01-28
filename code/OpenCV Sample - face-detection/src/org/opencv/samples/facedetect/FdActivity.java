@@ -176,7 +176,8 @@ public class FdActivity extends Activity implements CvCameraViewListener2 {
 		}
 
 		Rect[] facesArray = faces.toArray();
-//		boolean drawRect = facesArray.length == 3;
+		boolean drawRect = facesArray.length == 3;
+		Log.d(TAG, ">>>>>>>>>> "+facesArray.length);
 		if(facesArray.length > 0) {
 			Rect first = facesArray[0];
 			Rect prev = facesArray[0];
@@ -184,11 +185,11 @@ public class FdActivity extends Activity implements CvCameraViewListener2 {
 			for (int i = 0; i < 3 && i < facesArray.length; i++) {
 				cur = facesArray[i];
 				Core.rectangle(mRgba, cur.tl(), cur.br(), FACE_RECT_COLOR, 3);
-//				if(drawRect)
-				Core.line(mRgba, new Point(cur.x+cur.width/2, cur.y+cur.height/2), new Point(prev.x+prev.width/2, prev.y+prev.height/2), FACE_RECT_COLOR,3);
+				if(drawRect)
+					Core.line(mRgba, new Point(cur.x+cur.width/2, cur.y+cur.height/2), new Point(prev.x+prev.width/2, prev.y+prev.height/2), FACE_RECT_COLOR,3);
 				prev = cur;
 			}
-//			if(drawRect)
+			if(drawRect)
 				Core.line(mRgba, new Point(first.x+first.width/2, first.y+first.height/2), new Point(prev.x+prev.width/2, prev.y+prev.height/2), FACE_RECT_COLOR,3);
 		}
 		return mRgba;
