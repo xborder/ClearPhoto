@@ -4,7 +4,7 @@ include $(CLEAR_VARS)
 
 OPENCV_CAMERA_MODULES:=on
 OPENCV_INSTALL_MODULES:=on
-OPENCV_LIB_TYPE:=STATIC
+#OPENCV_LIB_TYPE:=STATIC
 
 include /home/helder/Documents/tese/adt/opencv-android/sdk/native/jni/OpenCV.mk
 

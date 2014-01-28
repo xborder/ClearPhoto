@@ -69,7 +69,6 @@ obj/local/armeabi-v7a/objs/mixed_sample/jni_part.o: jni/jni_part.cpp \
  /home/helder/Documents/tese/adt/ndk/sources/cxx-stl/gnu-libstdc++/4.6/include/valarray \
  /home/helder/Documents/tese/adt/opencv-android/sdk/native/jni/include/opencv2/contrib/openfabmap.hpp \
  /home/helder/Documents/tese/adt/ndk/sources/cxx-stl/gnu-libstdc++/4.6/include/set \
- jni/DetectionBasedTracker_jni.h \
  /home/helder/Documents/tese/adt/ndk/platforms/android-8/arch-arm/usr/include/android/log.h
 
 /home/helder/Documents/tese/adt/ndk/platforms/android-8/arch-arm/usr/include/jni.h:
@@ -211,7 +210,5 @@ obj/local/armeabi-v7a/objs/mixed_sample/jni_part.o: jni/jni_part.cpp \
 /home/helder/Documents/tese/adt/opencv-android/sdk/native/jni/include/opencv2/contrib/openfabmap.hpp:
 
 /home/helder/Documents/tese/adt/ndk/sources/cxx-stl/gnu-libstdc++/4.6/include/set:
-
-jni/DetectionBasedTracker_jni.h:
 
 /home/helder/Documents/tese/adt/ndk/platforms/android-8/arch-arm/usr/include/android/log.h:
