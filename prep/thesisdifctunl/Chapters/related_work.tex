@@ -178,12 +178,17 @@ Another approach taken by \cite{Vavilin2011} involves three cameras, side by sid
 
 \subsection{Panoramic Photography}
 
+\todo[inline]{rever}
 Panoramic photography is a technique that creates an image with an enlarged field of view which approximates or exceeds the human eye (160º by 75º). Among specialized methods and devices, one of interest is the use of Catadioptric cameras and lenses. These cameras are based on a system of lenses and curved mirrors that allow a field of view of 360º over a single viewpoint, bypassing the need of horizontal panning as it occurs with other methods. Since it uses mirrors and lenses, the light rays bent preventing any kind of distortion or chromatic aberration. Without the need of computation, another advantage is the use of this cameras for video shooting of 360º panoramas. 
 There are on the market some add-on lenses for mobiles devices that make this technique possible, such as GoPano micro (Figure \ref{fig:gopano}).
 
-There are also methods to generate panoramas by stitching multiple horizontal images through software. \citeauthor{Szeliski} \cite{Szeliski} describes a method to create full view panoramic mosaics. 
-Unlike many other stitching methods, this algorithm does not need a set of pure horizontal images. Instead, as long as there is no strong motion between sampled images, there are no constraints on how images are taken. This makes photographs taken by hand-held devices without a tripod a reliable source for creating panoramas. According to \citeauthor{Szeliski}, the center point of the sampled images can be described in 3D by a set of matrices which correspond to the image plane translation, the focal length scaling and a 3D rotation matrix. After estimating the mean focal length of the images and rotation matrix, they can stitch the images in a 3D dimensional space.
-Since it is made by stitching multiple images, the final product presents distortions at the north pole. This is because of a necessary warp to cylindrical or spherical coordinates (Figure \ref{fig:panoramic_image}) to have a full view of the panorama without using a specialized viewer.
+There are also methods to generate panoramas by stitching multiple horizontal images through software.
+\citeauthor{Brown2006} \cite{Brown2006} described an algorithm that would generate a graph to recognize individual panoramas by find all pairwise image overlaps using feature-based methods. After finding all images with matching features, it would readjust the rotation of the images to generate a panoramic image. This method would be insensitive to the ordering, orientation, scale and illumination of the input images. After
+
+\citeauthor{Szeliski} \cite{Szeliski} describes methods to create full view panoramic mosaics. Firstly, it describes a method of generation cylindrical panoramas with a sequence of images taken by a camera mounted on a levelled tripod. This algorithm consists in estimating consecutive horizontal and vertical translations for each image. To recover the translational motion, the incremental translation is estimated by maximizing the corresponding points between them. It would be possible to convert an image to 2D spherical or cylindrical coordinates for a known tilting angle but it would not minimize the error between two images, therefore, this method can only handle the simple case of pure panning motion.
+
+\citeauthor{Szeliski} \cite{Szeliski}, an algorithm that does not need a set of pure horizontal images. Instead, as long as there is no strong motion between sampled images, there are no constraints on how images are taken. This makes photographs taken by hand-held devices without a tripod a reliable source for creating panoramas. According to \citeauthor{Szeliski}, the center point of the sampled images can be described in 3D by a set of matrices which correspond to the image plane translation, the focal length scaling and a 3D rotation matrix. After estimating the mean focal length of the images and rotation matrix, they can stitch the images in a 3D dimensional space.
+Since it is made by stitching multiple images, the final product presents distortions at the north pole. This is because of a necessary warp to cylindrical or spherical coordinates (Figure \ref{fig:panoramic_example}) to have a full view of the panorama without using a specialized viewer.
 
 \begin{figure}[htbp]
         \centering
@@ -192,10 +197,10 @@ Since it is made by stitching multiple images, the final product presents distor
                 \includegraphics[scale=0.3]{gopano.jpg}
     }
     \subfigure[] {
-                \label{fig:long_exposure_example2}
+                \label{fig:panoramic_example}
                 \includegraphics[scale=0.45]{panorama_example.jpg}
     }
-  \caption{Image of attachable lens for iPhone, GoPano micro (a), and panorama made by the algorithm described at \cite{Szeliski} with distortion at the north pole.}
+  \caption{Image of attachable lens for iPhone, GoPano micro (a), and panorama made by the algorithm described at \citeauthor{Szeliski} \cite{Szeliski} with distortion at the north pole.}
   \label{fig:panoramic_image}
 \end{figure}
 
