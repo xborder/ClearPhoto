@@ -158,12 +158,10 @@ Another approach taken by \cite{Vavilin2011} involves three cameras, side by sid
 \begin{figure}[htbp]
         \centering
     \subfigure[Non HDR] {
-                \label{fig:long_exposure_example1}
-                \includegraphics[scale=0.15]{hdr_example1.jpg}
+                \includegraphics[scale=0.18]{hdr_example1.jpg}
     }
     \subfigure[HDR] {
-                \label{fig:long_exposure_example2}
-                \includegraphics[scale=0.15]{hdr_example2.jpg}
+                \includegraphics[scale=0.18]{hdr_example2.jpg}
     }
   \caption{Example of a picture taken with High Dynamic Range (b) versus the same picture with Standard Dynamic Range (a).}
   \label{fig:hdr_example}
@@ -185,9 +183,9 @@ There are on the market some add-on lenses for mobiles devices that make this te
 There are also methods to generate panoramas by stitching multiple horizontal images through software.
 \citeauthor{Brown2006} \cite{Brown2006} described an algorithm that would generate a graph to recognize individual panoramas by find all pairwise image overlaps using feature-based methods. After finding all images with matching features, it would readjust the rotation of the images to generate a panoramic image. This method would be insensitive to the ordering, orientation, scale and illumination of the input images. After
 
-\citeauthor{Szeliski} \cite{Szeliski} describes methods to create full view panoramic mosaics. Firstly, it describes a method of generation cylindrical panoramas with a sequence of images taken by a camera mounted on a levelled tripod. This algorithm consists in estimating consecutive horizontal and vertical translations for each image. To recover the translational motion, the incremental translation is estimated by maximizing the corresponding points between them. It would be possible to convert an image to 2D spherical or cylindrical coordinates for a known tilting angle but it would not minimize the error between two images, therefore, this method can only handle the simple case of pure panning motion.
+\citeauthor{Szeliski} \cite{Szeliski} describes methods to create full view panoramic mosaics. He first describes a method of generation cylindrical panoramas with a sequence of images taken by a camera mounted on a levelled tripod. This algorithm consists in estimating consecutive horizontal and vertical translations for each image. To recover the translational motion, the incremental translation is estimated by maximizing the corresponding points between them. It would be possible to convert an image to 2D spherical or cylindrical coordinates for a known tilting angle but it would not minimize the error between two images, therefore, this method can only handle the simple case of pure panning motion.
 
-\citeauthor{Szeliski} \cite{Szeliski}, an algorithm that does not need a set of pure horizontal images. Instead, as long as there is no strong motion between sampled images, there are no constraints on how images are taken. This makes photographs taken by hand-held devices without a tripod a reliable source for creating panoramas. According to \citeauthor{Szeliski}, the center point of the sampled images can be described in 3D by a set of matrices which correspond to the image plane translation, the focal length scaling and a 3D rotation matrix. After estimating the mean focal length of the images and rotation matrix, they can stitch the images in a 3D dimensional space.
+Secondly, \citeauthor{Szeliski} \cite{Szeliski} introduced an algorithm that does not need a set of pure horizontal images. Instead, as long as there is no strong motion between sampled images, there are no constraints on how images are taken. This makes photographs taken by hand-held devices without a tripod a reliable source for creating panoramas. According to \citeauthor{Szeliski}, the center point of the sampled images can be described in 3D by a set of matrices which correspond to the image plane translation, the focal length scaling and a 3D rotation matrix. After estimating the mean focal length of the images and rotation matrix, they can stitch the images in a 3D dimensional space.
 Since it is made by stitching multiple images, the final product presents distortions at the north pole. This is because of a necessary warp to cylindrical or spherical coordinates (Figure \ref{fig:panoramic_example}) to have a full view of the panorama without using a specialized viewer.
 
 \begin{figure}[htbp]
@@ -245,7 +243,7 @@ To visualize the panoramic image, the stitched images are displayed in a 3-dimen
 
 \subsubsection{Camera FV-5 (Android)}
 
-Camera FV-5 is one of the most complete applications for photography in the Play Store. Although it has a screen with many options and information, it is what most resembles to a digital camera display. It offers full control over exposure, ISO and white-balance. Exposure can be manually selected by the user or, alternatively, she can choose between modes that automatically determine exposure values based specific regions of the image displayed in viewfinder. 
+Camera FV-5 \cite{FV5} is one of the most complete applications for photography in the Play Store. Although it has a screen with many options and information, it is what most resembles to a digital camera display. It offers full control over exposure, ISO and white-balance. Exposure can be manually selected by the user or, alternatively, she can choose between modes that automatically determine exposure values based specific regions of the image displayed in viewfinder. 
 Multiple focusing modes are available, that allow macros, setting the focus to infinity or taping the display and select the object to focus.
 More related to camera utilities, multiple flash modes are available including a flashing mode that fixes red eyes on photos, and other shooting utilities that include a shooting timer, image stabilization and burst mode.
 For a more inexperienced user, default programs with pre-defined exposure settings can be used.
@@ -262,20 +260,20 @@ Camera FV-5 allows control over the available parameters, recreating some photog
                 \label{fig:FV52}
                 \includegraphics[scale=0.45]{FV52.jpg}
     }
-  \caption{Interface of Camera FV5 (a) and interface indicator (b) of aperture, exposure time, ISO, etc. \cite{FV5}}
+  \caption{Interface of Camera FV5 (a) and interface indicator (b) of aperture, exposure time, ISO, etc \cite{FV5}.}
   \label{fig:FV5_image}
 \end{figure}
 
 
 \subsubsection{SketchCam}
 
-SketchCam appears as a research project that uses a different approach towards mobile devices in photography. With a touch screen, it enables children to capture images by sketching the area of interest on the display. 
+SketchCam \cite{Labrune} appears as a research project that uses a different approach towards mobile devices in photography. With a touch screen, it enables children to capture images by sketching the area of interest on the display. 
 Using this approach, it allows the user to become more selective towards the scenario in front of her. It enables creativity in a way that the user may be able to create different frames for the picture that is being taken.  After selecting the point of interest in the view display, it creates an object that can be used for future collages. This may help teaching the basic concepts of composition and photo editing by using a different display. 
 
 
 \subsubsection{Frankencamera}
 
-Although there are many mobile devices with capabilities to take photos, most of them don't take full advantage of the imaging hardware and offer a highly simplified API. The programmer can't control the camera exposure time or retrieval of raw sensor data. Motivated by these problems, Frankencamera is an open-source architecture with a custom-built camera based on Linux and gives full control of the hardware to the programmer through C++ language. These architecture consists in an application processor, a set of photographic devices such as flashes and lenses, and one or more image sensors, each with a specialized image processor, forming a tightly coupled pipeline to coordinate all elements. All sensors, devices and parameters that describe the capture and post-processing of a single output image, can be programmed through its API allowing a mechanism to precisely manipulate the hardware state over time.
+Although there are many mobile devices with capabilities to take photos, most of them don't take full advantage of the imaging hardware and offer a highly simplified API. The programmer can't control the camera exposure time or retrieval of raw sensor data. Motivated by these problems, Frankencamera \cite{Szeliski2012} is an open-source architecture with a custom-built camera based on Linux and gives full control of the hardware to the programmer through C++ language. These architecture consists in an application processor, a set of photographic devices such as flashes and lenses, and one or more image sensors, each with a specialized image processor, forming a tightly coupled pipeline to coordinate all elements. All sensors, devices and parameters that describe the capture and post-processing of a single output image, can be programmed through its API allowing a mechanism to precisely manipulate the hardware state over time.
 
 Being a custom made platform, it brings some advantages towards closed platforms. One of these advantages is the ability to take long-exposure photos without a tripod. Using an embedded gyroscope, the camera will stream full-resolution raw frames that will be stored, only if their gyroscope tags indicate a low motion when the frame was taken. 
 Another useful application is the creation of panoramic photos with extended dynamic range. In most devices, the user has to take various individual photographs and stitch them together on a computer, but with this system it is possible to individually set the exposure time of each shot creating a panorama with extended dynamic range and previewing the result instantly.
@@ -287,7 +285,7 @@ All commercial applications and research projects share the most basic features 
 Android applications, comparatively to iOS, offer more control over the device's hardware, such as shooting mode, resolution and image quality, aperture and ISO values. Allowing almost full control of the hardware to the user, is a very important feature that must taken in consideration when developing an application to take photos. Given this fact, Android became a more reliable platform for users that want to use their mobile device for something more than casual photos.
 
 With some interesting features, Camera FV5  is one of those applications for amateur photographers that presents a similar interface to a digital camera with a possibility of adjusting some photographic parameters and introduces the emulation of photography techniques.
-Interesting features that should be noted on Photosynth is the way the application handles the creation and preview of panoramas. The existence of a 3-dimensional spherical space that takes multiple photos and detects differences according to the previously taken, is an automated process that can be easily learned when generating panoramic photos.
+Interesting features that should be noted on Photosynth is the way the application handles the creation and preview of panoramas, where it detects and stitches in real-time, a sequence of consecutive photos by matching features on a 3-dimensional spherical space.
 
 As research projects, SketchCam and FrankenCamera can go beyond what is available on regular systems. Although designed for kids, Sketchcam presents a system with a very different way to interact with the user in how she takes a photo. Selecting the point of interest by sketching a continuous path and giving form to different shapes of frames in a display with a live video feed, can be handy when a user only wants to emphasize a region or object in the viewfinder.
 Frankencamera allows computational photography to take a step further. It is the perfect example of what is possible by taking full advantage of a device capabilities. It allows to take long-exposure photos using the available gyroscope proving that better photos can be taken using multiple sensors available.
@@ -313,8 +311,9 @@ According to the author, in 1933, George David Birkhoff came up with a formula t
 \subsection{Composition Rules}
 \label{sub:photo_rules}
 
-To obtain aesthetic results, photographers follow certain rules of composition that are the result of centuries of artistic development. These rules are now considered as rules of thumb, and proven to be pleasing to the eye.
-There is no recipe for a good composition, and for that reason, a photographer must have in consideration of how an image is read by the majority of population. The inherent tendency to sweep an image from left to right, and from top to bottom, with the knowledge of how the human eye reacts to color, luminosity and  lines, are facts that need to be taken into account when shooting. This section describes some of the rules that captures the viewers attention and can be used in computational aesthetics.
+\todo[inline]{rever}
+To obtain aesthetic results, photographers follow certain rules of composition that are the result of centuries of artistic development. These rules are now considered as rules of thumb and serve as guidelines. Following these guidelines helps obtaining pleasant results but this is not absolute. Professional photographers also criticize them and defend that one must know when to break them.
+Being such a subjective topic, there is no recipe for a good composition and professional photographers always have the final call when taking a photo. This section describes some of the rules that captures the viewers attention and can be used in computational aesthetics.
 
 \subsubsection{Color Balance}
 \label{subsub:color_balance}
@@ -390,14 +389,12 @@ The golden triangles rule uses a group of triangles that follow the proportions 
 
 \subsubsection{Usage of leading lines}
 \label{subsub:leading_lines}
+\todo[inline]{rever}
+Lines can be used implicitly by creating an imaginary line between two subjects in a picture, or explicitly, like the edges of a building. In the perspective of \citeauthor{Kamps2012} \cite{Kamps2012} vertical, horizontal, diagonal or curved lines can be formed of just about anything and have the purpose of leading the viewer to a specific area, giving emphasis to the subject being photographed (Figure \ref{fig:leading_lines_image}\footnote{Source: \url{http://goo.gl/7m0mSS}}).
 
-Lines can be used implicitly by creating an imaginary line between two subjects in a picture, or explicitly, like the edges of a building. In the perspective of \citeauthor{Kamps2012} \cite{Kamps2012}, these lines can be formed of just about anything and have the purpose of leading the viewer to a specific area, giving emphasis to the subject being photographed (Figure \ref{fig:leading_lines_image}). These lines can be vertical, horizontal, diagonal or curved.
-
-Since humans have binocular vision, unconsciously, horizontal lines are easier to interpret and give a sensation of stability and safety. Vertical lines can delimit the begin and the end of a scene, and work as an enforcement for horizontal lines.
+Horizontal lines are easier to interpret and give a sensation of stability and safety. Vertical lines can delimit the begin and the end of a scene, and work as an enforcement for horizontal lines.
 Free of interpretations, diagonal lines are responsible for creating perspective in a photo. If the photo does not have a specific subject to photograph, diagonals can direct a viewer to outside of the frame, but on the other hand, the viewer eyes can be imprisoned by using straight angles. 
-Curved lines can have an number of angles, and for that reason, they can give a sensation of movement. Although, depending on the subject and depth of field, the same curves, might have different results.
-
-\todo[inline]{source: http://digital-photography-school.com/how-to-use-leading-lines-for-better-compositions}
+Curved lines can have an number of angles, and for that reason, they can give a sensation of movement. Although, depending on the subject and depth of field, the same curves, might have different results. It is important to refer that these interpretations can depend on the viewer.
 
 \begin{figure}[htbp]
         \centering
@@ -428,21 +425,47 @@ The scale doesn't have to be perfectly balanced and a strong composition can be 
 \subsection{Practical Application of Aesthetic Evaluation Systems}
 \label{subsub:eval_applications}
 
-\todo{Falar de \cite{Liu2010}, \cite{Liu2010a}, \cite{Lok2004}?}
-
 As referred in Section \ref{sec:photo_eval}, computational aesthetics can be described has aesthetic decisions made by computational methods. Increasing aesthetic awareness, researches developed systems and algorithms that extract and evaluate features of an image based in rules such as the ones described at Section \ref{sub:photo_rules}.
 
 Defining aesthetics as a "concern with beauty and art and understanding of beautiful thing", \citeauthor{Datta} \cite{Datta} described, a system capable of extracting visual properties and automatically tell the difference between aesthetically pleasing and displeasing images. 
 Based on a data extracted from an on-line photo sharing community, a set of images and associated aesthetic ratings given by the community, were used to train a classifier.
 
-Using \emph{HSV} color space, they obtained two-dimensional matrices for each of the components and extracted a total of 56 candidate features related to image properties, e.g. exposure, hue, saturation, size and aspect ratio, and composition, e.g. rule of thirds, use of texture and shape convexity.
+\todo[inline]{rever}
+Obtaining two-dimensional matrices for each of the components and extracted a total of 56 candidate features related to image properties, e.g. exposure, hue, saturation, size and aspect ratio, and composition, e.g. rule of thirds, use of texture and shape convexity. These features were chosen to study patterns that could lead to higher or lower aesthetics ratings. By using a segmentation method based on clustering, information relevant to some features was extracted from objects within the photographs.
 From all the candidate features, it was selected a total of 15 visual features that established a significant correlation between the visual properties of photographic images and their aesthetics ratings given by the community. The selected features would later be used by the classifier to attribute a rating to an image.
-This system was later to build an interface that would determine the aesthetic value of an image submitted by a user \cite{Datta2010}.
+Later, a publicly accessible system called \emph{ACQUINE} \cite{Datta2010} was developed. A user could upload their photographs and have them rated automatically for aesthetic quality. Compromising on a subset of the features previously presented, \emph{ACQUINE} was able to generate quick responses through a simple interface (Figure \ref{fig:acquine_interface1}) that kept the underlying classifier hidden. A user would then submit an image and wait for the classifiers prediction of aesthetic value. The user could also give a rating on a 7-star scale (Figure \ref{fig:acquine_interface2}) (similar to Photo.net's rating scale) that would be stored for future validation and improvements on the classifier.
+
+\begin{figure}[htbp]
+        \centering
+    \subfigure[] {
+                \label{fig:acquine_interface1}
+                \includegraphics[scale=.4]{acquine_interface1.jpg}
+    }
+    \subfigure[] {
+                \label{fig:acquine_interface2}
+                \includegraphics[scale=0.4]{acquine_interface2.jpg}
+    }
+  \caption{(a) The frontpage of the ACQUINE system, where the users could upload photos. The list of top users on the right side and photos with high ACQUINE aesthetics scores randomly selected at the bottom. (b) Screenshot of the ratings page after a photo upload. \cite{Datta2010}}
+  \label{fig:acquine_image}
+\end{figure}
 
 Following the same methodology, \citeauthor{Yeh} \cite{Yeh}, described mutable ranking system. This system listed 1000 ranked photographs ordered from the highest rank to the lowest. The score of each photograph was considered as a linear combination of each feature and its corresponding optimal weighting factor, that was found after the extraction of features. However, since the optimal weights might not combine with the users preferences, it enables them to combine personal taste with a trained model, and rearrange the ordered list of ranked photographs.
-The weighting adjustments can be feature-based where the user can personally select the weight of each feature, or an example-based approach, where she selected a photograph they like and have the system update the weighting based on the example chosen.
-The features chosen to extract, are quite similar to the ones used in \cite{Datta}, but introduce an interesting composition rule. They extract the subject region and assess the simplicity of a photograph by the color distribution of the remaining region that corresponds to the background.
+The weighting adjustments can be feature-based where the user can personally select the weight of each feature (Figure \ref{fig:system_eval1}), or an example-based approach (Figure \ref{fig:system_eval2}), where she selected a photograph they like and have the system update the weighting based on the example chosen.
+The features chosen to extract, are quite similar to the ones used in \cite{Datta}, but introduces an interesting composition rule. They extract the subject region and assess the simplicity of a photograph by the color distribution of the remaining region that corresponds to the background.
 
+\begin{figure}[htbp]
+    \centering
+    \subfigure[] {
+                \label{fig:system_eval1}
+                \includegraphics[scale=0.25]{system_eval1.jpg}
+    }
+    \subfigure[] {
+                \label{fig:system_eval2}
+                \includegraphics[scale=0.25]{system_eval2.jpg}
+    }
+  \caption{(a) Re-ranking photographs by adjusting the feature weighting and by (b) selecting a few photographs as example \cite{Yeh}.}
+  \label{fig:acquine_image}
+\end{figure}
 
 \section{Computer Vision Algorithms}
 \subsection{Keypoint Detection}
