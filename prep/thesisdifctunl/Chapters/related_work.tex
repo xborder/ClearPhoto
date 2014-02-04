@@ -185,7 +185,7 @@ There are also methods to generate panoramas by stitching multiple horizontal im
 
 \citeauthor{Szeliski} \cite{Szeliski} describes methods to create full view panoramic mosaics. He first describes a method of generation cylindrical panoramas with a sequence of images taken by a camera mounted on a levelled tripod. This algorithm consists in estimating consecutive horizontal and vertical translations for each image. To recover the translational motion, the incremental translation is estimated by maximizing the corresponding points between them. It would be possible to convert an image to 2D spherical or cylindrical coordinates for a known tilting angle but it would not minimize the error between two images, therefore, this method can only handle the simple case of pure panning motion.
 
-Secondly, \citeauthor{Szeliski} \cite{Szeliski} introduced an algorithm that does not need a set of pure horizontal images. Instead, as long as there is no strong motion between sampled images, there are no constraints on how images are taken. This makes photographs taken by hand-held devices without a tripod a reliable source for creating panoramas. According to \citeauthor{Szeliski}, the center point of the sampled images can be described in 3D by a set of matrices which correspond to the image plane translation, the focal length scaling and a 3D rotation matrix. After estimating the mean focal length of the images and rotation matrix, they can stitch the images in a 3D dimensional space.
+Secondly, \citeauthor{Szeliski} \cite{Szeliski} introduced an algorithm that does not need a set of pure horizontal images. Instead, as long as there is no strong motion between sampled images, there are no constraints on how images are taken. This makes photographs taken by handheld devices without a tripod a reliable source for creating panoramas. According to \citeauthor{Szeliski}, the center point of the sampled images can be described in 3D by a set of matrices which correspond to the image plane translation, the focal length scaling and a 3D rotation matrix. After estimating the mean focal length of the images and rotation matrix, they can stitch the images in a 3D dimensional space.
 Since it is made by stitching multiple images, the final product presents distortions at the north pole. This is because of a necessary warp to cylindrical or spherical coordinates (Figure \ref{fig:panoramic_example}) to have a full view of the panorama without using a specialized viewer.
 
 \begin{figure}[htbp]
@@ -414,7 +414,7 @@ Being a derivation of the golden section, the fundamental concept of where the o
 
 \subsubsection{Triangles and Golden Triangles Rule}
 \label{subsub:rule_triangles}
-The most common shape of composition in a portrait is that of a triangle, imagining a portrait with the head being the peak and the width of the body being the base.
+The most common shape of composition in a portrait is that of a triangle, imagining a portrait with the head being the peak and the width of the body being the base \cite{Cleghorn2004}. This enhances the subject a boots the composition.
 
 The golden triangles rule uses a group of triangles that follow the proportions described by the golden section. Using a golden section, we draw a diagonal line between two corners of the rectangle and connect a perpendicular line to each of the remaining corners. In some cases, this can be simplified to only one perpendicular, having only one power point in the intersection with the diagonal line and a suggestive region in the frame to place the elements \cite{Santos}.
 
@@ -507,11 +507,35 @@ The features chosen to extract, are quite similar to the ones used in \cite{Datt
 \end{figure}
 
 \section{Computer Vision Algorithms}
+
+Feature detection and matching are an essential component of many computer vision applications. Feature detection refers to extract information from an interesting part of the image that can be later used for matching over a set of images and find a correlation between them. In this chapter we will describe different types of features that can be used to determine different relations between images.
+
 \subsection{Keypoint Detection}
-\subsubsection{FAST}
-\subsubsection{SWIFT}
+\label{sub:keypoint}
+
+Keypoint detection is based on specific locations in the images that can be easily distinguished in other images.  these localized features are often described by the appearance of patches of pixels surrounding the point location \cite{Szeliski2010}.
+There are several feature detectors for this type. In this section, we will describe three: SIFT\cite{Lowe1999}, SURF\cite{Bay}, and FAST\cite{Rosten}.
+
+\subsubsection{SIFT}
+\label{subsub:sift}
+Scale Invariant Feature Transform (SIFT) \cite{Lowe1999}, is an algorithm used for object recognition. This algorithm uses a set of features that are invariant to image scaling, translation, and rotation, and partially invariant to illumination changes, noise and minor variations in the viewpoint.
+The algorithm starts by identifying stable points that remain invariant to scale transformations. Extracted the first keypoints, eliminating the ones that have low contrast and are badly localized alongside an edge, narrows the total number of keypoints. Ensuring that the keypoints are more stable for matching and recognition, dominant orientations are assigned to each keypoint based on local image gradient direction. A descriptor vector for each of the remaining keypoints is computed in the final stage.
+
 \subsubsection{SURF}
+\label{subsub:surf}
+
+Speeded Up Robust Features (SURF) \cite{Bay} is an algorithm that detects points of interest that are scale and rotation invariant, claiming to be faster a more robust than SIFT (Section \ref{subsub:sift}). This algorithm uses a Hessian matrix with the convolution of Gaussian functions for feature detection. The SURF descriptor reproduces the orientation based on a circular region around a point of interest and constructs a square region aligned to the selected orientation extracting the descriptor from it.
+
+\subsubsection{FAST}
+\label{subsub:fast}
+
+Features from accelerated segment test (FAST) \cite{Rosten} is a fast algorithm capable of detection feature points in real-time frame-rate applications. FAST is a corner detector algorithm that detects a candidate point and tests if it is a corner through its adjacent points inside a perimeter of 16 pixels. Although it is faster than both SIFT (Section \ref{subsub:sift}) and SURF (Section \ref{subsub:surf}), FAST is not as robust. The reduced ability to average out noise is why the results are not as good as the other algorithms, but can be used to process image features in real-time.
+
 \subsection{Colour Features}
+
+Colour also provides valuable information for object description and matching. However, there can be large variations in lighting and viewing conditions, complicating the description of images, therefore, the properties of colour features extracted must be invariant.
+SIFT (Section \ref{subsub:sift}) has proven to be a very robust and precise feature descriptor, but it is designed mainly for gray images. \citeauthor{Abdel-Hakim2006} \cite{Abdel-Hakim2006} extends this algorithm by proposing Coloured SIFT (CSIFT), building the SIFT descriptor in a colour invariant space.
+
 \subsection{Texture Features}
 
 
