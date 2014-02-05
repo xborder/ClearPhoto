@@ -8,26 +8,26 @@
 \chapter{Introduction}
 \label{cha:intro}
 
-Decades before photography was created La Roche (1729 - 1778) described, in his imaginary tale \emph{Giphantie} the possibility to permanently capture images from nature, on a canvas which had been coated with a sticky substance. Following La Roche prediction, Thomas Wedgwood succeeded in capturing the first silhouettes temporarily, culminating in the first successful picture by Joseph Niépce in 1826 \cite{Leggat1995}. 
+Decades before photography was created La Roche (1729 - 1778) described, in his imaginary tale \emph{Giphantie} the possibility to permanently capture images from nature, on a canvas which had been coated with a sticky substance. Following La Roche prediction, Thomas Wedgwood succeeded in capturing the first silhouettes temporarily, culminating in the first successful picture by Joseph Niépce in 1826 \cite{lemagny1987history}. 
 
 Since that time, photography has evolved from revealing pictures in the photographic paper to its digitization. The development of digital cameras and its commercialization through the last 20 years enabled photographers to explore and master new techniques.
-Aided by the invention of photo editing software and the evolution of the industry, there was a mass popularization of multi-function mobile systems with the capability of taking high quality photos. These have been proven a major breakthrough for these hardships that once were felt.
+Aided by the invention of photo editing software and the evolution of the industry, there was a mass popularization of multi-function mobile systems with the capability of taking high quality photos. 
 Taking advantage of these systems and creating software that can facilitate a photographer's job or improve the learning conditions of such a task, is the next logical step to take.
 
-It was predicted that by the end of 2013, 1.4 billion smart-phones would be in use, where one in every five people in a world population of 7 billion would own one \cite{Leonard2013}. While these handheld devices might not have cameras so powerful as the latest digital single-lens reflex (DSLR) cameras, many manufacturers are taking a different approach by creating lenses for these devices \cite{Bolton2013}, making them a reliable tool for high quality photography.
+It was predicted that by the end of 2013, 1.4 billion smartphones would be in use, where one in every five people in a world population of 7 billion would own one \cite{Leonard2013}. While these handheld devices might not have cameras so powerful as the latest digital single-lens reflex (DSLR) cameras, manufacturers are taking a different approach by creating lenses for these devices \cite{Bolton2013}, making them a reliable tool for high quality photography.
 
-This is the perfect scenario for developing applications that explore the world of photography with smart-phones and take full advantage of these devices, in an attempt to reduce the gap between amateur photography and professional photography.
+This is the perfect scenario for developing applications that explore the world of photography with smartphones and take full advantage of these devices, in an attempt to reduce the gap between amateur photography and professional photography.
 
 \section{Problem Description}
 
-Digital photography is tightly related to computational photography. Although the concept is increasingly being adopted, it refers broadly to sensing strategies and algorithmic techniques that enhance or extend the capabilities of digital photography \cite{Szeliski2012} , creating new kind of images that cannot be captured with a traditional camera \cite{Pulli}. 
+Digital photography is tightly related to computational photography. Although the concept is increasingly being adopted, it refers broadly to sensing strategies and algorithmic techniques that enhance or extend the capabilities of digital photography \cite{szeliski2012technical} , creating new kind of images that cannot be captured with a traditional camera \cite{pulli2009mobile}. 
 
-Taking full advantage of multi purpose handheld devices and obtaining the best aesthetic results, is a process that is not yet well explored. 
+Taking full advantage of multi purpose handheld devices in order to obtain the best aesthetic results, is a process that is not yet well explored. 
 Of the many devices that make part of our daily life, the smartphone might be the most widely disseminated one. Although, for many professionals it might not replace the most recent DSLR, we can't deny the fact that many smartphone owners use the embedded camera and have taken photography in a different perspective since the device popularization. A major problem is that the manufacturers do not take full advantage of the embedded camera capabilities on their default mobile operating systems, due to the lack of control offered through their APIs.
 
 There is a lot of work done in terms of improving a photo by using editing software (e.g, Adobe Photoshop), but the main purpose of these tools is to edit the result after a photo session. For instance, imagine that a photographer is trying to take a photo of a mountain scenery. Unless the individual is experienced and took many photographs of the same scenery in different angles and different focal lengths, for an amateur, the more common option will be to photograph with the mountain centred in the viewfinder, since this is the subject. Completely unaware of the aesthetic difference between a mountain centred and a dislocated one, this kind of photograph would be impossible to edit without reducing its size, or relocate the subject without including some degree of distortion.
 
-Even though the APIs lack  support, using this type of systems to reduce the gap between professional and amateur photographers, and enriching the users experience by offering options beyond the standard ones, is an approach that could be considered.
+Even though the APIs lack  support, using this type of systems to reduce the gap between professional and amateur photographers, and enriching the users experience by offering options beyond the standard ones, is the approach considered in this dissertation.
 
 \section{Presented Solution}
 
@@ -40,31 +40,24 @@ The calculation of this rating might be dependent on the currently selected mode
 After the capture, the user will have access to a set of utilities to photo manipulate the image. This utilities will include tools such as rotate, crop, apply a set of available filters, auto white-balance and  more.
 Although good photographers can end up with stunning results after a shooting session, some specific areas of the image might not look like it was expected. The use of a more capable manipulation software might be needed and they must know what areas should be corrected and what correction they should apply. After the capture, the user can proceed to an annotation screen where she can freely select and write any notes regarding that picture with a pen. When finished, a copy of the image with the annotations will be stored in the system. Still related to the image annotation, it will be considered the detection of a subset of handwritten words that will be directly related to image corrections. The purpose of this feature is to allow the user to apply effects directly a specific area of the image while taking notes.
 
-Internet revolves around information and most recently and ways to share information have been increasingly exploited recently. Taking advantage of available social networks, after capturing, the user will be capable of sharing photos through social networks. While sharing, these photos will also contain geolocation information directly obtained from the device's GPS.
+Internet revolves around information and most recently, ways to share information have been increasingly exploited. Taking advantage of available social networks, after capturing, the user will be capable of sharing photos through social networks. While sharing, these photos will also contain geolocation information directly obtained from the device's GPS.
 
 The technology used to develop this solution is a smartphone with an Android operating system. Currently we are using the Samsung Galaxy Note with Android 4.1 as it has support for both camera and specialized pen for ink based writing. The system will be developed in Java and C++ using both Software Development Kit \cite{SDK} and Native Development Kit \cite{NDK} available for Android.  Along with the NDK, the OpenCV (Open Source Computer Vision) \cite{OCV} library will be used for image processing.
 
 \section{Expected Contributions}
-\todo[inline]{rever}
-The main expected contributions for this thesis are:
+
+The main expected contributions of this thesis are:
 \begin{enumerate}
-	\item \textbf{Industry of mobile applications}: Breaking the standards and introducing a novel approach, incorporating the knowledge of how to obtain pleasant aesthetic results;
+	\item \textbf{Tools for mobile applications}: Breaking the standards and introducing a novel approach, incorporating the knowledge of how to obtain pleasant aesthetic results;
 
-	\item \textbf{Research field}: Making this application a guideline to create the computational equivalent to some of the techniques used in photography, exploring the technological advancements of image processing units in mobile devices. The purpose is not to just make them computationally possible but also inspire the implementation of new and improved methods for the field of computational photography. This includes contributing in some scientific conferences by presenting the application and  approach taken;
+	\item \textbf{Guideline for photography analysis}: Making this application a guideline to create the computational equivalent to some of the techniques used in photography, exploring the technological advancements of image processing units in mobile devices. The purpose is not to just make them computationally possible but also inspire the implementation of new and improved methods for the field of computational photography. This includes contributing in some scientific conferences by presenting the application and approach taken;
 	
-	\item \textbf{Library for image processing}: Contribute with a modular and heterogeneous library with a set of calls for later use in any application;
+	\item \textbf{Library for image processing}: Contribute with a modular library with a set of calls for later use in any application;
 	
-	\item \textbf{Teaching tool}: Since not all users with mobile devices have enough \emph{know-how} when taking photographs, the main objective of this work is to make functionalities and knowledge in photo composition available to the most casual user, resulting in a thinner gap between amateur and professional photographers.
+	\item \textbf{Assistance tool}: Since not all users with mobile devices have enough \emph{know-how} when taking photographs, the main objective of this work is to make functionalities and knowledge in photo composition available to the most casual user, resulting in a thinner gap between amateur and professional photographers.
 \end{enumerate}
-
-
-%This application will be expected to contribute in the industry of mobile applications, by breaking the standards and introducing a novel approach, incorporating the knowledge of how to obtain pleasant aesthetic results. 
-
-%Another expected scientific contribution will be making this a guideline to create the computational equivalent to some of the techniques used in photography, exploring the technological advancements of image processing units in mobile devices. The purpose is not to just make them computationally possible but also inspire the implementation of new and improved methods for the field of computational photography. It is expected to contribute in some scientific conferences, by presenting an application and a modular and heterogeneous library that can be coupled to any other mobile application.
-
-%Many have embraced the world of photography but just a few know how to use a camera and all of its functionalities. The main objective of this work is to make those functionalities and knowledge in photo composition available to the most casual user, resulting in a thinner gap between amateur and professional photographers.
 
 \section{Document Structure}
 
 This document is divided in three main chapters - introduction, related work and work plan. The first chapter, \textbf{Introduction}, presents an overview of the main topic of this dissertation, in including the motivation and context, a description of the problem, a solution for the presented problem and expected contributions.
-The second chapter, \textbf{Related Work}, describes related systems and the necessary concepts to grasp this topic. The main focus is given to some fundamental concepts to better understand how photography works, processing techniques related to photography, image capturing and image processing systems, image evaluation rules and systems that implement them, and description of some algorithms used in feature detection. The final chapter, \textbf{Work Plan}, will describe some of the experiences done so far and a detailed description and time-line concerning the necessary tasks to implement the proposed solution.
+The second chapter, \textbf{Related Work}, describes related systems and the necessary concepts to grasp this topic. The main focus is given to some fundamental concepts to better understand how photography works, processing techniques related to photography, image capturing and image processing systems, image evaluation rules and systems that implement them, and description of algorithms used in feature detection. The final chapter, \textbf{Work Plan}, will describe some of the experiences done so far and a detailed description and time-line concerning the necessary tasks to implement the proposed solution.

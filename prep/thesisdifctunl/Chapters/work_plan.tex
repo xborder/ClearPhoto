@@ -8,10 +8,11 @@
 In this chapter, it will be presented work done so far, as well as the work plan and necessary tasks to conclude the development of the proposed solution.
 
 \subsection{Previous work}
+\label{sub:previous_work}
 
 For a better understanding of the technologies that were going to be used, we conducted a few experiments integrating OpenCV with Android.
-Already described in Section \ref{sub:eval_applications}, \citeauthor{Datta} \cite{Datta} implemented a system capable of extracting features of a photograph and give a classification based on a set of features extracted.
-For the first experiment, we started by implementing three of those features in real-time. Receiving each frame captured by the phone's camera, we started by converting the frames from \emph{RGB} to a \emph{HSV} color space. After converting, we obtained three 2-dimensional matrices corresponding to each of the \emph{HSV} components. For each of the matrices, we calculated the average pixel intensity to characterize the use of light (\emph{V}), the average of saturation as the saturation indicator (\emph{S}) and similarly for the hue (\emph{H}). Currently, the interpretation of the values might not be clear. For \emph{HSV}, Hue range is $[0,179]$, Saturation range is $[0,255]$ and Value range is $[0,255]$ \cite{OCV}.
+Already described in Section \ref{sub:eval_applications}, \citeauthor{datta2006studying} \cite{datta2006studying} implemented a system capable of extracting features of a photograph and give a classification based on a set of features extracted.
+For the first experiment, we started by implementing three of those features in real-time. Receiving each frame captured by the phone's camera, we started by converting the frames from RGB to a HSV color space. After converting, we obtained three 2-dimensional matrices corresponding to each of the HSV components. For each of the matrices, we calculated the average pixel intensity to characterize the use of light (V), the average of saturation as the saturation indicator (S) and similarly for the hue (H). Currently, the interpretation of the values might not be clear. For HSV, Hue range is $[0,179]$, Saturation range is $[0,255]$ and Value range is $[0,255]$ \cite{OCV}.
 
 The calculation of such features can be defined as:
 \begin{equation}
@@ -25,7 +26,7 @@ The calculated averages are then presented to the user at the viewfinder (Figure
 \begin{figure}[htbp]
     \centering
     \includegraphics[scale=0.25]{experiment1.png}
-	\caption{Experiment displaying average values of hue, saturation and value calculated with equation \ref{eq:average_hsv}\cite{Datta}.}
+	\caption{Experiment displaying average values of hue, saturation and value calculated with equation \ref{eq:average_hsv}\cite{datta2006studying}.}
 	\label{fig:experiment1}
 \end{figure}
 
@@ -39,4 +40,26 @@ As a second experiment we experimented a visualization of detecting a triangular
 \end{figure}
 
 This experiment was made using a Cascade Classifier in JAVA and C++ implemented by OpenCV. Both Cascade Classifiers used the same pre-trained classifier for frontal face detection. JAVA's classifier presented a better performance in both speed and detection. C++'s classifier was unable to detect faces between consecutive frames with minimum or without movement.
+
 \subsection{Work Plan}
+\label{sub:work_plan}
+
+To develop the proposed solution is then presented a work plan with a set of tasks to accomplish over time, as well as some that have been completed or are in progress. Divided into 6 major tasks, Figure \ref{fig:workplan_diagram} contains a detailed schedule of tasks to be performed and respective duration.
+
+The first group is dedicated to the final document to be delivered, that will include the state of the art studied and all of the developed work. The document will be written at the same time as the other tasks.
+
+The second group involves the study of the state of the art. Already finished, it involves a study of related applications for image capture and process, and a study of rules of composition that can be applied in the scenario that our approach covers. Some applications are already described in Section \ref{sub:capturing_processing} and Section \ref{sub:previous_work} describes some experiments already made.
+
+The group entitled Related Work, involves tasks that lead to a better understanding of the subject of this thesis and state of the art. Ideas and necessary techniques to develop our proposed solution, are also included in this group.
+
+How this application will interact with the user, is something that should be taken in consideration. The fourth group, consists of tasks related to the mobile interface design and how it will react the users input.
+
+The Development group consists of tasks that will be related to the development of the application. Is divided in two subtasks that include the development of the interface designed and the responses to received inputs from the user, and the functionalities available. As mentioned before, these functionalities must allow a user to capture images, and edit them. To support the main subject of these dissertation, functionalities related to the evaluation of a scene, are also included. The mobile application will be developed in Android and C++ using the OpenCV framework\cite{OCV}. 
+
+The final application will be put to a series of tests, and not just system tests, but also usability tests. Two groups of people will be used for usability evaluation, by testing how they react to the interface and how they expect it to react. One of the groups will contain people will enough knowledge in photography that can be considered as a amateur or professional photographer. The remaining group will be composed of people that don’t have any knowledge in the area.
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.98\textheight,angle=90]{workplan.pdf}
+	\caption{Task schedule represented by a Gantt diagram.}
+	\label{fig:workplan_diagram}
+\end{figure}
