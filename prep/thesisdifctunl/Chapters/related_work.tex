@@ -539,7 +539,7 @@ Features from Accelerated Segment Test (FAST) \cite{rosten2006machine} is a fast
 
 Colour also provides valuable information for object description and matching. However, there can be large variations in lighting and viewing conditions, complicating the description of images. Therefore, the properties of colour features extracted must be invariant.
 SIFT (Section \ref{subsub:sift}) has proven to be a very robust and precise feature descriptor, but invariants such as light color changes have no effect because the image is converted to gray-scale \cite{van2008comparison}. \citeauthor{abdel2006csift} \cite{abdel2006csift} extends this algorithm by proposing Coloured SIFT (CSIFT), building the SIFT descriptor in a colour invariant space.
-\citeauthor{bosch2007representing} \cite{bosch2007representing} also presented an algorithm that computes SIFT features over all three channels of the HSV color model. However, for this algorithm, only S is invariant to light color changes. H and S are only invariant to scale a shift transformations.
+\citeauthor{bosch2007representing} \cite{bosch2007representing} also presented an algorithm that computes SIFT features over all three channels of the HSV color model. However, for this algorithm, only S is invariant to light color changes. H and S are only invariant to scale and shift transformations.
 
 \subsection{Texture Features}
 
