@@ -9,8 +9,13 @@ import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.CameraBridgeViewBase.CvCameraViewFrame;
 import org.opencv.android.LoaderCallbackInterface;
 import org.opencv.android.OpenCVLoader;
+import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
+import org.opencv.core.Point;
+import org.opencv.core.Scalar;
+import org.opencv.core.Size;
+import org.opencv.core.TermCriteria;
 import org.opencv.android.CameraBridgeViewBase;
 import org.opencv.android.CameraBridgeViewBase.CvCameraViewListener2;
 import org.opencv.imgproc.Imgproc;
@@ -27,10 +32,14 @@ import android.view.WindowManager;
 public class Tutorial2Activity extends Activity implements CvCameraViewListener2 {
     private static final String    TAG = "OCVSample::Activity";
 
-    private static final int       VIEW_MODE_RGBA     = 0;
-    private static final int       VIEW_MODE_GRAY     = 1;
-    private static final int       VIEW_MODE_CANNY    = 2;
-    private static final int       VIEW_MODE_FEATURES = 5;
+    private static final int       	VIEW_MODE_RGBA     			= 0;
+    private static final int       	VIEW_MODE_GRAY     			= 1;
+    private static final int       	VIEW_MODE_CANNY    			= 2;
+    private static final int       	VIEW_MODE_CANNY_BILATERAL	= 3;
+    private static final int		VIEW_MODE_HOUGH	   			= 4;
+    private static final int		VIEW_MODE_MEAN	   			= 5;
+    private static final int       	VIEW_MODE_AVERAGE  			= 6;
+    private static final int       	VIEW_MODE_WATERSHED			= 7;
 
     private int                    mViewMode;
     private Mat                    mRgba;
@@ -41,7 +50,11 @@ public class Tutorial2Activity extends Activity implements CvCameraViewListener2
     private MenuItem               mItemPreviewRGBA;
     private MenuItem               mItemPreviewGray;
     private MenuItem               mItemPreviewCanny;
-    private MenuItem               mItemPreviewFeatures;
+    private MenuItem               mItemPreviewCannyBilateral;
+    private MenuItem               mItemPreviewHough;
+    private MenuItem               mItemPreviewMeanShift;
+    private MenuItem               mItemPreviewAverage;
+    private MenuItem               mItemPreviewWatershed;
 
     private CameraBridgeViewBase   mOpenCvCameraView;
 
@@ -68,6 +81,7 @@ public class Tutorial2Activity extends Activity implements CvCameraViewListener2
 
         mOpenCvCameraView = (CameraBridgeViewBase) findViewById(R.id.tutorial2_activity_surface_view);
         mOpenCvCameraView.setCvCameraViewListener(this);
+        mOpenCvCameraView.enableFpsMeter();
     }
 
     @Override
@@ -76,7 +90,11 @@ public class Tutorial2Activity extends Activity implements CvCameraViewListener2
         mItemPreviewRGBA = menu.add("Preview RGBA");
         mItemPreviewGray = menu.add("Preview GRAY");
         mItemPreviewCanny = menu.add("Canny");
-        mItemPreviewFeatures = menu.add("Find features");
+        mItemPreviewCannyBilateral = menu.add("Canny w/ bilateral");
+        mItemPreviewHough = menu.add("Hough");
+        mItemPreviewMeanShift = menu.add("MeanShift");
+        mItemPreviewAverage = menu.add("Average HSV");
+        mItemPreviewWatershed = menu.add("Watershed");
         return true;
     }
 
@@ -92,31 +110,6 @@ public class Tutorial2Activity extends Activity implements CvCameraViewListener2
     public void onResume()
     {
         super.onResume();
-//        try {
-//            // load cascade file from application resources
-//            InputStream is = getResources().openRawResource(R.raw.lbpcascade_frontalface);
-//            File cascadeDir = getDir("cascade", Context.MODE_PRIVATE);
-//            mCascadeFile = new File(cascadeDir, "lbpcascade_frontalface.xml");
-//            FileOutputStream os = new FileOutputStream(mCascadeFile);
-//
-//            byte[] buffer = new byte[4096];
-//            int bytesRead;
-//            while ((bytesRead = is.read(buffer)) != -1) {
-//                os.write(buffer, 0, bytesRead);
-//            }
-//            is.close();
-//            os.close();
-//
-//            mNativeDetector = new DetectionBasedTracker(mCascadeFile.getAbsolutePath(), 0);
-//
-//            cascadeDir.delete();
-//            
-//            mNativeDetector.start();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            Log.e(TAG, "Failed to load cascade. Exception thrown: " + e);
-//        }
-
         mOpenCvCameraView.enableView();
     }
 
@@ -156,17 +149,50 @@ public class Tutorial2Activity extends Activity implements CvCameraViewListener2
             Imgproc.Canny(inputFrame.gray(), mIntermediateMat, 80, 100);
             Imgproc.cvtColor(mIntermediateMat, mRgba, Imgproc.COLOR_GRAY2RGBA, 4);
             break;
-        case VIEW_MODE_FEATURES:
+        case VIEW_MODE_CANNY_BILATERAL:
+
+            mRgba = inputFrame.rgba();
+            Imgproc.bilateralFilter(inputFrame.gray(), mGray, 5, 150, 150);
+            Imgproc.Canny(mGray, mIntermediateMat, 80, 100);
+            Imgproc.cvtColor(mIntermediateMat, mRgba, Imgproc.COLOR_GRAY2RGBA, 4);
+        	break;
+        case VIEW_MODE_HOUGH:
+        	mRgba = inputFrame.rgba();
+        	mGray = inputFrame.gray();
+        	Mat lines = new Mat(mRgba.cols(), mRgba.rows(), CvType.CV_8UC4);
+        	
+        	Imgproc.Canny(mGray, mIntermediateMat, 50, 200);
+        	Imgproc.HoughLinesP(mIntermediateMat, lines, 1, Math.PI/180, 50, 50, 10);
+        	
+            for (int x = 0; x < lines.cols(); x++) 
+            {
+                  double[] vec = lines.get(0, x);
+                  double x1 = vec[0], 
+                         y1 = vec[1],
+                         x2 = vec[2],
+                         y2 = vec[3];
+                  Point start = new Point(x1, y1);
+                  Point end = new Point(x2, y2);
+
+                  Core.line(mRgba, start, end, new Scalar(255,0,0), 3);
+            }
+        	break;
+        case VIEW_MODE_AVERAGE:
             // input frame has RGBA format
             mRgba = inputFrame.rgba();
             mGray = inputFrame.gray();
-//            FindFeatures(mGray.getNativeObjAddr(), mRgba.getNativeObjAddr());
+
             Imgproc.cvtColor(mRgba, mHSV, Imgproc.COLOR_RGB2HSV);
             CalcExposure(mHSV.getNativeObjAddr(), mRgba.getNativeObjAddr());
-            
-//            if (mNativeDetector != null)
-//                mNativeDetector.detect(mGray);
             break;
+        case VIEW_MODE_MEAN:
+        	mRgba = inputFrame.rgba();
+        	Imgproc.cvtColor(mRgba, mIntermediateMat, Imgproc.COLOR_RGBA2RGB);
+        	Imgproc.pyrMeanShiftFiltering(mIntermediateMat, mRgba, 2, 2, 1, new TermCriteria());
+        	break;
+        case VIEW_MODE_WATERSHED:
+        	mRgba = inputFrame.rgba();
+        	WaterShed(mRgba.getNativeObjAddr());
         }
 
         return mRgba;
@@ -181,14 +207,22 @@ public class Tutorial2Activity extends Activity implements CvCameraViewListener2
             mViewMode = VIEW_MODE_GRAY;
         } else if (item == mItemPreviewCanny) {
             mViewMode = VIEW_MODE_CANNY;
-        } else if (item == mItemPreviewFeatures) {
-            mViewMode = VIEW_MODE_FEATURES;
+        } else if (item == mItemPreviewCannyBilateral) {
+            mViewMode = VIEW_MODE_CANNY_BILATERAL;
+        } else if (item == mItemPreviewHough) {
+            mViewMode = VIEW_MODE_HOUGH;
+        } else if (item == mItemPreviewAverage) {
+            mViewMode = VIEW_MODE_AVERAGE;
+        } else if (item == mItemPreviewMeanShift) {
+        	mViewMode = VIEW_MODE_MEAN;
+        } else if (item == mItemPreviewWatershed) {
+        	mViewMode = VIEW_MODE_WATERSHED;
         }
 
         return true;
     }
 
-    public native void FindFeatures(long matAddrGr, long matAddrRgba);
+    public native void WaterShed(long matAddrRgba);
     public native void CalcExposure(long matAddrGr, long matAddrRgba);
     
 }
