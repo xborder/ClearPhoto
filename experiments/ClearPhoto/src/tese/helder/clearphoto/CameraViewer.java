@@ -2,31 +2,28 @@ package tese.helder.clearphoto;
 
 
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
-import org.opencv.android.CameraBridgeViewBase;
-import org.opencv.android.CameraBridgeViewBase.CvCameraViewFrame;
-import org.opencv.android.CameraBridgeViewBase.CvCameraViewListener2;
-import org.opencv.core.CvType;
-import org.opencv.core.Mat;
-import org.opencv.imgproc.Imgproc;
+import tese.helder.clearphoto.overlays.Overlay;
+import tese.helder.clearphoto.overlays.OverlayType;
+import tese.helder.clearphoto.overlays.grids.GoldenGrid;
+import tese.helder.clearphoto.overlays.grids.Grid;
+import tese.helder.clearphoto.overlays.grids.ThirdsGrid;
+import tese.helder.clearphoto.overlays.grids.TriangleGrid;
+import tese.helder.clearphoto.overlays.imageprocessing.ImageProcessingOv;
 
+import android.app.Activity;
 import android.content.Context;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
+import android.graphics.Canvas;
 import android.hardware.Camera;
 import android.hardware.Camera.PreviewCallback;
-import android.hardware.Camera.Size;
 import android.util.Log;
+import android.util.Pair;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.View;
-import android.widget.ImageView;
+import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 
 /** A basic Camera preview class */
 public class CameraViewer extends SurfaceView implements SurfaceHolder.Callback, PreviewCallback {
@@ -34,31 +31,37 @@ public class CameraViewer extends SurfaceView implements SurfaceHolder.Callback,
 	
 	private SurfaceHolder mHolder;
     private Camera mCamera;
-    private ImageView img;
-    private int width, height;
 
+    private Grid activeGrid;
+	private List<Pair<ImageProcessingOv, LayoutParams>> imageProcessingOv;
+	
+	private Activity act;
+	
+	public CameraViewer(Activity act, Camera camera) {
+		this(act.getBaseContext(), camera);
+		this.act = act;
+	}
+	
     public CameraViewer(Context context, Camera camera) {
         super(context);
+
+		imageProcessingOv = new ArrayList<Pair<ImageProcessingOv, LayoutParams>>();
+		
         mCamera = camera;
         
-        Camera.Parameters mParams = mCamera.getParameters();
-        List<Camera.Size> previewSizes = mParams.getSupportedPreviewSizes();
-        Camera.Size previewSize = previewSizes.get(previewSizes.size()-1);
-        
-        width = previewSize.width;
-        height = previewSize.height;
+//        Camera.Parameters mParams = mCamera.getParameters();
+//        List<Camera.Size> previewSizes = mParams.getSupportedPreviewSizes();
+//        Camera.Size previewSize = previewSizes.get(previewSizes.size()-1);
+//        
+//        width = previewSize.width;
+//        height = previewSize.height;
         // Install a SurfaceHolder.Callback so we get notified when the
         // underlying surface is created and destroyed.
         mHolder = getHolder();
         mHolder.addCallback(this);
-
-    }
-    public CameraViewer(ImageView im, Context c, Camera camera) {
-    	this(c,camera);
-    	img = im;
     }
     
-    public void surfaceCreated(SurfaceHolder holder) {
+	public void surfaceCreated(SurfaceHolder holder) {
         // The Surface has been created, now tell the camera where to draw the preview.
         try {
             mCamera.setPreviewDisplay(holder);
@@ -71,6 +74,8 @@ public class CameraViewer extends SurfaceView implements SurfaceHolder.Callback,
 
     public void surfaceDestroyed(SurfaceHolder holder) {
         // empty. Take care of releasing the Camera preview in your activity.
+    	mCamera.setPreviewCallback(null);
+    	mCamera.stopPreview();
     }
 
     public void surfaceChanged(SurfaceHolder holder, int format, int w, int h) {
@@ -85,6 +90,7 @@ public class CameraViewer extends SurfaceView implements SurfaceHolder.Callback,
         // stop preview before making changes
         try {
             mCamera.stopPreview();
+        	mCamera.setPreviewCallback(null);
         } catch (Exception e){
           // ignore: tried to stop a non-existent preview
         }
@@ -97,29 +103,36 @@ public class CameraViewer extends SurfaceView implements SurfaceHolder.Callback,
             mCamera.setPreviewDisplay(mHolder);
             mCamera.setPreviewCallback(this);
             mCamera.startPreview();
-
         } catch (Exception e){
             Log.d(TAG, "Error starting camera preview: " + e.getMessage());
         }
     }
 
+    @Override
+    protected void onDraw(Canvas canvas) {
+    	super.onDraw(canvas);
+    }
+    
 	@Override
 	public void onPreviewFrame(byte[] data, Camera camera) {
-
-	    Log.w(TAG, "hero");
-		Mat mYuv = new Mat( height + height/2, width, CvType.CV_8UC1 );
-	    mYuv.put( 0, 0, data );
-	    
-	    Mat mRgba = new Mat();
-	    Imgproc.cvtColor( mYuv, mRgba, Imgproc.COLOR_YUV2RGBA_NV21, 4 );
-	    Imgproc.resize(mRgba, mRgba, new org.opencv.core.Size(600, 480));
-
-//	    ImageView view = (ImageView) findViewById(R.id.effects);
-	    
-	    byte[] image = new byte[(int)mRgba.total() * mRgba.channels()];
-	    mRgba.get(0, 0, image);
-
-	    img.setImageDrawable(null);
-	    img.setImageBitmap(BitmapFactory.decodeByteArray(image, 0, image.length));
+		
 	}
+	
+	public void addOverlay(OverlayType ov) {
+		if(activeGrid != null) {
+			ViewGroup vg = (ViewGroup)(activeGrid.getParent());
+			vg.removeView(activeGrid);
+		}
+		
+		if(ov == OverlayType.GRID_THIRDS) {
+			activeGrid = new ThirdsGrid(getContext(), getWidth(), getHeight());
+		} else if (ov == OverlayType.GRID_THIRDS_GOLDEN) {
+			activeGrid = new GoldenGrid(getContext(), getWidth(), getHeight());
+		} else if (ov == OverlayType.GRID_GOLDEN_TRIANGLES) {
+			activeGrid = new TriangleGrid(getContext(), getWidth(), getHeight());
+		}
+		act.addContentView(activeGrid, new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+	}
+	
+
 }
