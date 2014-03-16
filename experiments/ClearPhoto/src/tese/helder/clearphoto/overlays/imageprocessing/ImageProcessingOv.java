@@ -6,10 +6,12 @@ import tese.helder.clearphoto.overlays.Overlay;
 
 public abstract class ImageProcessingOv extends Overlay {
 
-	public ImageProcessingOv(Context context) {
-		super(context);
+	public ImageProcessingOv(Context context, int width, int height) {
+		super(context, width, height);
 	}
 
 	@Override
 	protected abstract void onDraw(Canvas canvas);
+	
+	public abstract void process(byte[] data);
 }

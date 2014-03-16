@@ -11,6 +11,7 @@ import tese.helder.clearphoto.overlays.grids.GoldenGrid;
 import tese.helder.clearphoto.overlays.grids.Grid;
 import tese.helder.clearphoto.overlays.grids.ThirdsGrid;
 import tese.helder.clearphoto.overlays.grids.TriangleGrid;
+import tese.helder.clearphoto.overlays.imageprocessing.FaceDetection;
 import tese.helder.clearphoto.overlays.imageprocessing.ImageProcessingOv;
 
 import android.app.Activity;
@@ -33,6 +34,9 @@ public class CameraViewer extends SurfaceView implements SurfaceHolder.Callback,
     private Camera mCamera;
 
     private Grid activeGrid;
+    private FaceDetection faceDetection;
+    
+    private int width, height;
 	private List<Pair<ImageProcessingOv, LayoutParams>> imageProcessingOv;
 	
 	private Activity act;
@@ -42,14 +46,12 @@ public class CameraViewer extends SurfaceView implements SurfaceHolder.Callback,
 		this.act = act;
 	}
 	
-    public CameraViewer(Context context, Camera camera) {
+    private CameraViewer(Context context, Camera camera) {
         super(context);
-
-		imageProcessingOv = new ArrayList<Pair<ImageProcessingOv, LayoutParams>>();
+        imageProcessingOv = new ArrayList<Pair<ImageProcessingOv, LayoutParams>>();
 		
         mCamera = camera;
         
-//        Camera.Parameters mParams = mCamera.getParameters();
 //        List<Camera.Size> previewSizes = mParams.getSupportedPreviewSizes();
 //        Camera.Size previewSize = previewSizes.get(previewSizes.size()-1);
 //        
@@ -64,7 +66,7 @@ public class CameraViewer extends SurfaceView implements SurfaceHolder.Callback,
 	public void surfaceCreated(SurfaceHolder holder) {
         // The Surface has been created, now tell the camera where to draw the preview.
         try {
-            mCamera.setPreviewDisplay(holder);
+        	mCamera.setPreviewDisplay(holder);
             mCamera.setPreviewCallback(this);
             mCamera.startPreview();
         } catch (IOException e) {
@@ -100,6 +102,12 @@ public class CameraViewer extends SurfaceView implements SurfaceHolder.Callback,
 
         // start preview with new settings
         try {
+            Camera.Parameters parameters = mCamera.getParameters();
+//            parameters.setPreviewSize(320, 240);
+//            parameters.setPreviewFrameRate(15);
+            parameters.setSceneMode(Camera.Parameters.SCENE_MODE_NIGHT);
+            parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_AUTO);
+            mCamera.setParameters(parameters);
             mCamera.setPreviewDisplay(mHolder);
             mCamera.setPreviewCallback(this);
             mCamera.startPreview();
@@ -108,14 +116,13 @@ public class CameraViewer extends SurfaceView implements SurfaceHolder.Callback,
         }
     }
 
-    @Override
-    protected void onDraw(Canvas canvas) {
-    	super.onDraw(canvas);
-    }
-    
 	@Override
 	public void onPreviewFrame(byte[] data, Camera camera) {
-		
+		if(faceDetection != null) {
+			faceDetection.frame = new byte[data.length];
+			System.arraycopy(data, 0, faceDetection.frame, 0, data.length);
+			faceDetection.invalidate();
+		}
 	}
 	
 	public void addOverlay(OverlayType ov) {
@@ -124,14 +131,19 @@ public class CameraViewer extends SurfaceView implements SurfaceHolder.Callback,
 			vg.removeView(activeGrid);
 		}
 		
+		int w = mCamera.getParameters().getPreviewSize().width;
+		int h = mCamera.getParameters().getPreviewSize().height;
 		if(ov == OverlayType.GRID_THIRDS) {
 			activeGrid = new ThirdsGrid(getContext(), getWidth(), getHeight());
+			faceDetection = new FaceDetection(act, activeGrid, w, h);
 		} else if (ov == OverlayType.GRID_THIRDS_GOLDEN) {
 			activeGrid = new GoldenGrid(getContext(), getWidth(), getHeight());
 		} else if (ov == OverlayType.GRID_GOLDEN_TRIANGLES) {
 			activeGrid = new TriangleGrid(getContext(), getWidth(), getHeight());
 		}
+		
 		act.addContentView(activeGrid, new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+		act.addContentView(faceDetection, new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
 	}
 	
 

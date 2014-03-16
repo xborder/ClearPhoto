@@ -5,9 +5,12 @@ import android.graphics.Canvas;
 import android.view.View;
 
 public abstract class Overlay extends View {
-
-	public Overlay(Context context) {
+	protected int width, height;
+	
+	public Overlay(Context context, int width, int height) {
 		super(context);
+		this.width = width;
+		this.height = height;
 	}
 
 	@Override

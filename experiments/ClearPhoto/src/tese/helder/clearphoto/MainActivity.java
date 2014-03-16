@@ -27,7 +27,7 @@ public class MainActivity extends Activity {
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		setContentView(R.layout.activity_main);
 
-		cameraViewer = new CameraViewer(MainActivity.this, getCameraInstance());
+		cameraViewer = new CameraViewer(this, getCameraInstance());
 		FrameLayout preview = (FrameLayout) findViewById(R.id.camera_preview);
 		preview.addView(cameraViewer);
 
