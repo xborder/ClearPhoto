@@ -135,7 +135,7 @@ public class CameraViewer extends SurfaceView implements SurfaceHolder.Callback,
 		int h = mCamera.getParameters().getPreviewSize().height;
 		if(ov == OverlayType.GRID_THIRDS) {
 			activeGrid = new ThirdsGrid(getContext(), getWidth(), getHeight());
-			faceDetection = new FaceDetection(act, activeGrid, w, h);
+			faceDetection = new FaceDetection(act, activeGrid, w, h, getWidth(), getHeight());
 		} else if (ov == OverlayType.GRID_THIRDS_GOLDEN) {
 			activeGrid = new GoldenGrid(getContext(), getWidth(), getHeight());
 		} else if (ov == OverlayType.GRID_GOLDEN_TRIANGLES) {

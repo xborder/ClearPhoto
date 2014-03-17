@@ -27,6 +27,8 @@ import android.util.Log;
 
 public class FaceDetection extends ImageProcessingOv {
 
+	private float X_RATIO, Y_RATIO;
+	
 	private Activity act;
 	private Grid grid;
 	private CascadeClassifier mJavaDetector;
@@ -36,11 +38,19 @@ public class FaceDetection extends ImageProcessingOv {
 
 	public byte[] frame;
 
-	public FaceDetection(Activity act, Grid grid, int width, int height) {
+	public FaceDetection(Activity act, Grid grid, int width, int height, int frameWidth, int frameHeight) {
 		this(act.getBaseContext(), width, height);
 		this.grid = grid;
 		this.act = act;
 
+		this.detectionColor = new Paint();
+		this.detectionColor.setStyle(Paint.Style.STROKE);
+		this.detectionColor.setColor(Color.GREEN);
+		this.detectionColor.setStrokeWidth(5);
+		
+		this.X_RATIO = frameWidth/(float)width;
+		this.Y_RATIO = frameHeight/(float)height;
+		
 		try {
 			// load cascade file from application resources
 			InputStream is = act.getResources().openRawResource(R.raw.lbpcascade_frontalface);
@@ -48,7 +58,7 @@ public class FaceDetection extends ImageProcessingOv {
 			mCascadeFile = new File(cascadeDir, "lbpcascade_frontalface.xml");
 			FileOutputStream os = new FileOutputStream(mCascadeFile);
 
-			byte[] buffer = new byte[4096];
+			byte[] buffer = new byte[is.available()];
 			int bytesRead;
 			while ((bytesRead = is.read(buffer)) != -1) {
 				os.write(buffer, 0, bytesRead);
@@ -70,11 +80,6 @@ public class FaceDetection extends ImageProcessingOv {
 			e.printStackTrace();
 			Log.e(">>>", "Failed to load cascade. Exception thrown: " + e);
 		}
-
-		this.detectionColor = new Paint();
-		this.detectionColor.setStyle(Paint.Style.STROKE);
-		this.detectionColor.setColor(Color.GREEN);
-		this.detectionColor.setStrokeWidth(5);
 	}
 
 	private FaceDetection(Context context, int width, int height) {
@@ -88,42 +93,46 @@ public class FaceDetection extends ImageProcessingOv {
 		if(frame == null)
 			return;
 
-//		Mat mYuv = new Mat( height+height/2, width, CvType.CV_8UC1 );
-//		mYuv.put( 0, 0, frame );
-//
-//		Mat mRgba = new Mat(height, width, CvType.CV_8UC3);
-//		Mat mGray = new Mat(height, width, CvType.CV_8UC1);
-//
-//		Imgproc.cvtColor(mYuv, mRgba, Imgproc.COLOR_YUV420p2RGB);
-//		Imgproc.cvtColor(mYuv, mGray, Imgproc.COLOR_YUV420p2GRAY); //Correct
-//		//		Imgproc.resize(mRgba, mRgba, new Size(600, 480));
-//
-//		int mAbsoluteFaceSize = 0;
-//		float mRelativeFaceSize = 0.2f;
-//
-//		if (mAbsoluteFaceSize == 0) {
-//			int height = mGray.rows();
-//			if (Math.round(height * mRelativeFaceSize) > 0) {
-//				mAbsoluteFaceSize = Math.round(height * mRelativeFaceSize);
-//			}
-//		}
-//		MatOfRect faces = new MatOfRect();
-//		if (mJavaDetector != null) {
-//			mJavaDetector.detectMultiScale(mGray, faces, 1.1, 2, 2, new Size(mAbsoluteFaceSize, mAbsoluteFaceSize), new Size());
-//
-//			facesArray = faces.toArray();
-//			for(int i = 0; facesArray != null && i < facesArray.length; i++) {
-//				Rect r = facesArray[i];
-//				canvas.drawRect((float)r.tl().x, (float)r.tl().y, (float)r.br().x, (float)r.br().y, detectionColor);
-//			}
-//		}
-		int[] rgb = new int[width*height];
-		decodeYUV(rgb, frame, width, height);
-		
-		Bitmap bmp = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
+		Mat mYuv = new Mat( height+height/2, width, CvType.CV_8UC1 );
+		mYuv.put( 0, 0, frame );
+
+		Mat mRgba = new Mat(height, width, CvType.CV_8UC3);
+		Mat mGray = new Mat(height, width, CvType.CV_8UC1);
+
+		Imgproc.cvtColor(mYuv, mRgba, Imgproc.COLOR_YUV420p2RGB);
+		Imgproc.cvtColor(mYuv, mGray, Imgproc.COLOR_YUV420p2GRAY); //Correct
+		//		Imgproc.resize(mRgba, mRgba, new Size(600, 480));
+
+		int mAbsoluteFaceSize = 0;
+		float mRelativeFaceSize = 0.2f;
+
+		if (mAbsoluteFaceSize == 0) {
+			int height = mGray.rows();
+			if (Math.round(height * mRelativeFaceSize) > 0) {
+				mAbsoluteFaceSize = Math.round(height * mRelativeFaceSize);
+			}
+		}
+//		Bitmap bmp = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
 //		Utils.matToBitmap(mGray, bmp);
-		bmp.setPixels(rgb, 0, width, 0, 0, width, height);
-		canvas.drawBitmap(bmp, null, new android.graphics.Rect(0, 0, width, height), null);
+//		canvas.drawBitmap(bmp, null, new android.graphics.Rect(0, 0, width, height), null);
+		
+		MatOfRect faces = new MatOfRect();
+		if (mJavaDetector != null) {
+			mJavaDetector.detectMultiScale(mGray, faces, 1.1, 2, 2, new Size(mAbsoluteFaceSize, mAbsoluteFaceSize), new Size());
+
+			facesArray = faces.toArray();
+			for(int i = 0; facesArray != null && i < facesArray.length; i++) {
+				Rect r = facesArray[i];
+				canvas.drawRect((float)r.tl().x * X_RATIO, (float)r.tl().y * Y_RATIO, (float)r.br().x * X_RATIO, (float)r.br().y * Y_RATIO, detectionColor);
+			}
+		}
+//		int[] rgb = new int[width*height];
+//		decodeYUV(rgb, frame, width, height);
+//		
+//		Bitmap bmp = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
+//		Utils.matToBitmap(mGray, bmp);
+//		bmp.setPixels(rgb, 0, width, 0, 0, width, height);
+//		canvas.drawBitmap(bmp, null, new android.graphics.Rect(0, 0, width, height), null);
 		
 	}
 
