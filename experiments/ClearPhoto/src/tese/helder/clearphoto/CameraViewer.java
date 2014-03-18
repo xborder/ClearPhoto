@@ -119,9 +119,10 @@ public class CameraViewer extends SurfaceView implements SurfaceHolder.Callback,
 	@Override
 	public void onPreviewFrame(byte[] data, Camera camera) {
 		if(faceDetection != null) {
-			faceDetection.frame = new byte[data.length];
-			System.arraycopy(data, 0, faceDetection.frame, 0, data.length);
-			faceDetection.invalidate();
+			faceDetection.process(data);
+//			faceDetection.frame = new byte[data.length];
+//			System.arraycopy(data, 0, faceDetection.frame, 0, data.length);
+//			faceDetection.invalidate();
 		}
 	}
 	
@@ -138,8 +139,10 @@ public class CameraViewer extends SurfaceView implements SurfaceHolder.Callback,
 			faceDetection = new FaceDetection(act, activeGrid, w, h, getWidth(), getHeight());
 		} else if (ov == OverlayType.GRID_THIRDS_GOLDEN) {
 			activeGrid = new GoldenGrid(getContext(), getWidth(), getHeight());
+			faceDetection = new FaceDetection(act, activeGrid, w, h, getWidth(), getHeight());
 		} else if (ov == OverlayType.GRID_GOLDEN_TRIANGLES) {
 			activeGrid = new TriangleGrid(getContext(), getWidth(), getHeight());
+			faceDetection = new FaceDetection(act, activeGrid, w, h, getWidth(), getHeight());
 		}
 		
 		act.addContentView(activeGrid, new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));

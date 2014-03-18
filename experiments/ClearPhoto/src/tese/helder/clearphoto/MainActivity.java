@@ -16,6 +16,7 @@ public class MainActivity extends Activity {
 	static {
 		if (!OpenCVLoader.initDebug()) {
 		} else {
+			System.loadLibrary("image_processing");
 		}
 	}
 

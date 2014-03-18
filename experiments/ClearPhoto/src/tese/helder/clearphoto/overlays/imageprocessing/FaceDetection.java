@@ -4,16 +4,20 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 
 import org.opencv.android.Utils;
+import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfRect;
+import org.opencv.core.Point;
 import org.opencv.core.Rect;
 import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.objdetect.CascadeClassifier;
 
+import tese.helder.clearphoto.ImageProcessing;
 import tese.helder.clearphoto.R;
 import tese.helder.clearphoto.overlays.grids.Grid;
 
@@ -27,8 +31,14 @@ import android.util.Log;
 
 public class FaceDetection extends ImageProcessingOv {
 
+	private static final String TAG = "FaceDetection";
+
 	private float X_RATIO, Y_RATIO;
-	
+	private int mAbsoluteFaceSize = 0;
+	private float mRelativeFaceSize = 0.2f;
+
+	private Mat gray;
+
 	private Activity act;
 	private Grid grid;
 	private CascadeClassifier mJavaDetector;
@@ -47,10 +57,27 @@ public class FaceDetection extends ImageProcessingOv {
 		this.detectionColor.setStyle(Paint.Style.STROKE);
 		this.detectionColor.setColor(Color.GREEN);
 		this.detectionColor.setStrokeWidth(5);
-		
+
 		this.X_RATIO = frameWidth/(float)width;
 		this.Y_RATIO = frameHeight/(float)height;
-		
+
+		this.gray = new Mat(height, width, CvType.CV_8UC1);
+
+		if (mAbsoluteFaceSize == 0) {
+			int h = gray.rows();
+			if (Math.round(h * mRelativeFaceSize) > 0) {
+				mAbsoluteFaceSize = Math.round(h * mRelativeFaceSize);
+			}
+		}
+
+		loadCascadeFile();
+	}
+
+	private FaceDetection(Context context, int width, int height) {
+		super(context, width, height);
+	}
+
+	private void loadCascadeFile() {
 		try {
 			// load cascade file from application resources
 			InputStream is = act.getResources().openRawResource(R.raw.lbpcascade_frontalface);
@@ -68,11 +95,10 @@ public class FaceDetection extends ImageProcessingOv {
 
 			mJavaDetector = new CascadeClassifier(mCascadeFile.getAbsolutePath());
 			if (mJavaDetector.empty()) {
-				Log.e(">>>>", "Failed to load cascade classifier");
+				Log.e(TAG, "Failed to load cascade classifier");
 				mJavaDetector = null;
 			} else
-				Log.i(">>>>", "Loaded cascade classifier from " + mCascadeFile.getAbsolutePath());
-
+				Log.i(TAG, "Loaded cascade classifier from " + mCascadeFile.getAbsolutePath());
 
 			cascadeDir.delete();
 
@@ -82,62 +108,64 @@ public class FaceDetection extends ImageProcessingOv {
 		}
 	}
 
-	private FaceDetection(Context context, int width, int height) {
-		super(context, width, height);
-	}
-
 	//YUV contains grayscale image in the first w*h bytes
 	@Override
 	protected void onDraw(Canvas canvas) {
-		//TODO processar Frame, detectar caras e mandar posições para JNI
 		if(frame == null)
 			return;
 
-		Mat mYuv = new Mat( height+height/2, width, CvType.CV_8UC1 );
-		mYuv.put( 0, 0, frame );
-
-		Mat mRgba = new Mat(height, width, CvType.CV_8UC3);
-		Mat mGray = new Mat(height, width, CvType.CV_8UC1);
-
-		Imgproc.cvtColor(mYuv, mRgba, Imgproc.COLOR_YUV420p2RGB);
-		Imgproc.cvtColor(mYuv, mGray, Imgproc.COLOR_YUV420p2GRAY); //Correct
-		//		Imgproc.resize(mRgba, mRgba, new Size(600, 480));
-
-		int mAbsoluteFaceSize = 0;
-		float mRelativeFaceSize = 0.2f;
-
-		if (mAbsoluteFaceSize == 0) {
-			int height = mGray.rows();
-			if (Math.round(height * mRelativeFaceSize) > 0) {
-				mAbsoluteFaceSize = Math.round(height * mRelativeFaceSize);
+		if(facesArray.length > 0) {
+			boolean drawRect = facesArray.length == 3;
+			Rect first = facesArray[0];
+			Rect prev = facesArray[0];
+			Rect cur = null;
+			for(int i = 0; i < 3 && facesArray != null && i < facesArray.length; i++) {
+				cur = facesArray[i];
+				canvas.drawRect((float)cur.tl().x * X_RATIO, (float)cur.tl().y * Y_RATIO, (float)cur.br().x * X_RATIO, (float)cur.br().y * Y_RATIO, detectionColor);
+				if(drawRect) {
+					float x0 = (float) (cur.tl().x+cur.width/2) * X_RATIO;
+					float y0 = (float) (cur.tl().y+cur.height/2) * Y_RATIO;
+					float x1 = (float) (prev.tl().x+prev.width/2) * X_RATIO;
+					float y1 = (float) (prev.tl().y+prev.height/2) * Y_RATIO;
+					canvas.drawLine(x0,y0,x1,y1,detectionColor);
+				}
+				prev = cur;
+			}
+			if(drawRect) {
+				float x0 = (float) (first.tl().x+first.width/2) * X_RATIO;
+				float y0 = (float) (first.tl().y+first.height/2) * Y_RATIO;
+				float x1 = (float) (prev.tl().x+prev.width/2) * X_RATIO;
+				float y1 = (float) (prev.tl().y+prev.height/2) * Y_RATIO;
+				canvas.drawLine(x0,y0,x1,y1,detectionColor);
 			}
 		}
-//		Bitmap bmp = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
-//		Utils.matToBitmap(mGray, bmp);
-//		canvas.drawBitmap(bmp, null, new android.graphics.Rect(0, 0, width, height), null);
-		
-		MatOfRect faces = new MatOfRect();
-		if (mJavaDetector != null) {
-			mJavaDetector.detectMultiScale(mGray, faces, 1.1, 2, 2, new Size(mAbsoluteFaceSize, mAbsoluteFaceSize), new Size());
-
-			facesArray = faces.toArray();
-			for(int i = 0; facesArray != null && i < facesArray.length; i++) {
-				Rect r = facesArray[i];
-				canvas.drawRect((float)r.tl().x * X_RATIO, (float)r.tl().y * Y_RATIO, (float)r.br().x * X_RATIO, (float)r.br().y * Y_RATIO, detectionColor);
-			}
-		}
-//		int[] rgb = new int[width*height];
-//		decodeYUV(rgb, frame, width, height);
-//		
-//		Bitmap bmp = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
-//		Utils.matToBitmap(mGray, bmp);
-//		bmp.setPixels(rgb, 0, width, 0, 0, width, height);
-//		canvas.drawBitmap(bmp, null, new android.graphics.Rect(0, 0, width, height), null);
-		
 	}
-
+	
 	@Override
 	public void process(byte[] data) {
+		frame = data;
+		gray.put(0, 0, Arrays.copyOfRange(data, 0, width*height));
+
+		MatOfRect faces = new MatOfRect();
+		if (mJavaDetector != null) {
+			mJavaDetector.detectMultiScale(gray, faces, 1.1, 2, 2, new Size(mAbsoluteFaceSize, mAbsoluteFaceSize), new Size());
+			facesArray = faces.toArray();
+			float[] facesCenter = new float[facesArray.length * 2];
+			for(int i = 0, j = 0; i < facesArray.length; i++) {
+				facesCenter[j++] = (float) (facesArray[i].tl().x + facesArray[i].width/2) * X_RATIO;
+				facesCenter[j++] = (float) (facesArray[i].tl().y + facesArray[i].height/2) * Y_RATIO;
+			}
+
+			if(facesArray.length > 0 && facesArray.length < 3) {
+				float[] nearest = ImageProcessing.nearestPoint(grid.getPowerPoints(), facesCenter);
+				if(grid != null) {
+					grid.highligthPowerPoint(nearest);
+				}
+			} else {
+				grid.highligthPowerPoint(null);
+			}
+			this.invalidate();
+		}
 	}
 
 	public static void decodeYUV(int[] out, byte[] fg, int width, int height) throws NullPointerException, IllegalArgumentException { 
@@ -173,43 +201,43 @@ public class FaceDetection extends ImageProcessingOv {
 	}
 
 
-//	static public void decodeYUV420SP(int[] rgb, byte[] yuv420sp, int width, int height) {
-//		final int frameSize = width * height;
-//
-//		for (int j = 0, yp = 0; j < height; j++) {
-//			int uvp = frameSize + (j >> 1) * width, u = 0, v = 0;
-//			for (int i = 0; i < width; i++, yp++) {
-//				int y = (0xff & ((int) yuv420sp[yp])) - 16;
-//				if (y < 0) y = 0;
-//				if ((i & 1) == 0) {
-//					v = (0xff & yuv420sp[uvp++]) - 128;
-//					u = (0xff & yuv420sp[uvp++]) - 128;
-//				}
-//
-//				int y1192 = 1192 * y;
-//				int r = (y1192 + 1634 * v);
-//				int g = (y1192 - 833 * v - 400 * u);
-//				int b = (y1192 + 2066 * u);
-//
-//				if (r < 0) r = 0; else if (r > 262143) r = 262143;
-//				if (g < 0) g = 0; else if (g > 262143) g = 262143;
-//				if (b < 0) b = 0; else if (b > 262143) b = 262143;
-//
-//				rgb[yp] = 0xff000000 | ((r << 6) & 0xff0000) | ((g >> 2) & 0xff00) | ((b >> 10) & 0xff);
-//			}
-//		}
-//	}
-//
-//	static public void decodeYUV420SPGrayscale(int[] rgb, byte[] yuv420sp, int width, int height)
-//	{
-//		final int frameSize = width * height;
-//
-//		for (int pix = 0; pix < frameSize; pix++)
-//		{
-//			int pixVal = (0xff & ((int) yuv420sp[pix])) - 16;
-//			if (pixVal < 0) pixVal = 0;
-//			if (pixVal > 255) pixVal = 255;
-//			rgb[pix] = 0xff000000 | (pixVal << 16) | (pixVal << 8) | pixVal;
-//		} // pix
-//	}
+	//	static public void decodeYUV420SP(int[] rgb, byte[] yuv420sp, int width, int height) {
+	//		final int frameSize = width * height;
+	//
+	//		for (int j = 0, yp = 0; j < height; j++) {
+	//			int uvp = frameSize + (j >> 1) * width, u = 0, v = 0;
+	//			for (int i = 0; i < width; i++, yp++) {
+	//				int y = (0xff & ((int) yuv420sp[yp])) - 16;
+	//				if (y < 0) y = 0;
+	//				if ((i & 1) == 0) {
+	//					v = (0xff & yuv420sp[uvp++]) - 128;
+	//					u = (0xff & yuv420sp[uvp++]) - 128;
+	//				}
+	//
+	//				int y1192 = 1192 * y;
+	//				int r = (y1192 + 1634 * v);
+	//				int g = (y1192 - 833 * v - 400 * u);
+	//				int b = (y1192 + 2066 * u);
+	//
+	//				if (r < 0) r = 0; else if (r > 262143) r = 262143;
+	//				if (g < 0) g = 0; else if (g > 262143) g = 262143;
+	//				if (b < 0) b = 0; else if (b > 262143) b = 262143;
+	//
+	//				rgb[yp] = 0xff000000 | ((r << 6) & 0xff0000) | ((g >> 2) & 0xff00) | ((b >> 10) & 0xff);
+	//			}
+	//		}
+	//	}
+	//
+	//	static public void decodeYUV420SPGrayscale(int[] rgb, byte[] yuv420sp, int width, int height)
+	//	{
+	//		final int frameSize = width * height;
+	//
+	//		for (int pix = 0; pix < frameSize; pix++)
+	//		{
+	//			int pixVal = (0xff & ((int) yuv420sp[pix])) - 16;
+	//			if (pixVal < 0) pixVal = 0;
+	//			if (pixVal > 255) pixVal = 255;
+	//			rgb[pix] = 0xff000000 | (pixVal << 16) | (pixVal << 8) | pixVal;
+	//		} // pix
+	//	}
 }
