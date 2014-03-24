@@ -16,6 +16,19 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:src="@drawable/ic_action_camera" />
-        <!-- android:background="@android:color/transparent"  -->
+
+    <TextView
+        android:id="@+id/image_test"
+        android:layout_width="fill_parent"
+        android:layout_height="100dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/intersection_gradient"
+        android:gravity="center"
+        android:text="Layer List Drawable!"
+        android:textColor="@android:color/white"
+        android:textSize="26sp"
+        android:textStyle="bold" />
+    <!-- android:background="@android:color/transparent" -->
 
 </RelativeLayout>

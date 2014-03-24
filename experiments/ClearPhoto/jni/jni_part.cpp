@@ -26,24 +26,27 @@ JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeNearest
 	jfloat* faces_  = jenv->GetFloatArrayElements(faces,0);
 
 	float x0 = faces_[0], y0 = faces_[1];
-	jsize points_size = jenv->GetArrayLength(points);
-	jfloat nx = FLT_MAX, ny = FLT_MAX;
-	float min_d = FLT_MAX, tmp_d = 0.0f;
-    LOGD(">>>>> ");
-	for(int i = 0; i < points_size; i+=2) {
-		tmp_d = sqrt(pow(points_[i]-x0,2) + pow(points_[i+1]-y0,2));
+	jsize points_size = jenv->GetArrayLength(points), faces_size = jenv->GetArrayLength(faces);
+	jfloat nx, ny;
+	float min_d, tmp_d = 0.0f;
+	for(int j = 0, ret_index = 0; j < faces_size; j++) {
+		min_d = FLT_MAX;
+		nx = FLT_MAX;
+		ny = FLT_MAX;
+		for(int i = 0; i < points_size; i+=2) {
+			tmp_d = sqrt(pow(points_[i]-x0,2) + pow(points_[i+1]-y0,2));
 
-	    LOGD(">>>>> %f %f %f", tmp_d, points_[i], points_[i+1]);
-		if(tmp_d < min_d) {
-			min_d = tmp_d;
-			nx = points_[i];
-			ny = points_[i+1];
+			LOGD(">>>>> %f %f %f", tmp_d, points_[i], points_[i+1]);
+			if(tmp_d < min_d) {
+				min_d = tmp_d;
+				nx = points_[i];
+				ny = points_[i+1];
+			}
 		}
-	}
 
-    LOGD(">>>>> ");
+		jenv->SetFloatArrayRegion(nearest, ret_index++, 1, &nx);
+		jenv->SetFloatArrayRegion(nearest, ret_index++, 1, &ny);
+	}
 	jenv->ReleaseFloatArrayElements(points, points_, 0);
 	jenv->ReleaseFloatArrayElements(faces, faces_, 0);
-	jenv->SetFloatArrayRegion(nearest, 0, 1, &nx);
-	jenv->SetFloatArrayRegion(nearest, 1, 1, &ny);
 }

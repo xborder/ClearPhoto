@@ -19,6 +19,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.hardware.Camera;
 import android.hardware.Camera.PreviewCallback;
+import android.hardware.Camera.Size;
 import android.util.Log;
 import android.util.Pair;
 import android.view.SurfaceHolder;
@@ -103,7 +104,9 @@ public class CameraViewer extends SurfaceView implements SurfaceHolder.Callback,
         // start preview with new settings
         try {
             Camera.Parameters parameters = mCamera.getParameters();
-//            parameters.setPreviewSize(320, 240);
+//            List<Size> sizes = parameters.getSupportedPreviewSizes();
+//            Camera.Size previewSize = sizes.get(sizes.size()-1);
+//            parameters.setPreviewSize(previewSize.width, previewSize.height);
 //            parameters.setPreviewFrameRate(15);
             parameters.setSceneMode(Camera.Parameters.SCENE_MODE_NIGHT);
             parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_AUTO);
@@ -120,9 +123,6 @@ public class CameraViewer extends SurfaceView implements SurfaceHolder.Callback,
 	public void onPreviewFrame(byte[] data, Camera camera) {
 		if(faceDetection != null) {
 			faceDetection.process(data);
-//			faceDetection.frame = new byte[data.length];
-//			System.arraycopy(data, 0, faceDetection.frame, 0, data.length);
-//			faceDetection.invalidate();
 		}
 	}
 	

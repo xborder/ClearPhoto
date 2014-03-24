@@ -1,5 +1,6 @@
 package tese.helder.clearphoto.overlays.grids;
 
+import tese.helder.clearphoto.R;
 import tese.helder.clearphoto.overlays.Overlay;
 import android.content.Context;
 import android.graphics.Canvas;
@@ -8,6 +9,7 @@ import android.graphics.ComposeShader;
 import android.graphics.Paint;
 import android.graphics.RadialGradient;
 import android.graphics.Shader;
+import android.view.View;
 
 public abstract class Grid extends Overlay {
 
@@ -44,5 +46,4 @@ public abstract class Grid extends Overlay {
 		}
 		this.invalidate();
 	}
-
 }
