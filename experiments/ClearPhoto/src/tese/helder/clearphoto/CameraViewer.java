@@ -11,6 +11,7 @@ import tese.helder.clearphoto.overlays.grids.GoldenGrid;
 import tese.helder.clearphoto.overlays.grids.Grid;
 import tese.helder.clearphoto.overlays.grids.ThirdsGrid;
 import tese.helder.clearphoto.overlays.grids.TriangleGrid;
+import tese.helder.clearphoto.overlays.imageprocessing.ColorHistogram;
 import tese.helder.clearphoto.overlays.imageprocessing.FaceDetection;
 import tese.helder.clearphoto.overlays.imageprocessing.ImageProcessingOv;
 
@@ -36,6 +37,7 @@ public class CameraViewer extends SurfaceView implements SurfaceHolder.Callback,
 
     private Grid activeGrid;
     private FaceDetection faceDetection;
+    private ColorHistogram colorHistogram;
     
     private int width, height;
 	private List<Pair<ImageProcessingOv, LayoutParams>> imageProcessingOv;
@@ -124,30 +126,36 @@ public class CameraViewer extends SurfaceView implements SurfaceHolder.Callback,
 		if(faceDetection != null) {
 			faceDetection.process(data);
 		}
+		if(colorHistogram != null) {
+			colorHistogram.process(data);
+		}
 	}
 	
 	public void addOverlay(OverlayType ov) {
-		if(activeGrid != null) {
-			ViewGroup vg = (ViewGroup)(activeGrid.getParent());
-			vg.removeView(activeGrid);
-			vg.removeView(faceDetection);
-		}
+//		if(activeGrid != null) {
+//			ViewGroup vg = (ViewGroup)(activeGrid.getParent());
+//			vg.removeView(activeGrid);
+//			vg.removeView(faceDetection);
+//		}
 		
 		int w = mCamera.getParameters().getPreviewSize().width;
 		int h = mCamera.getParameters().getPreviewSize().height;
 		if(ov == OverlayType.GRID_THIRDS) {
-			activeGrid = new ThirdsGrid(getContext(), getWidth(), getHeight());
-			faceDetection = new FaceDetection(act, activeGrid, w, h, getWidth(), getHeight());
-		} else if (ov == OverlayType.GRID_THIRDS_GOLDEN) {
-			activeGrid = new GoldenGrid(getContext(), getWidth(), getHeight());
-			faceDetection = new FaceDetection(act, activeGrid, w, h, getWidth(), getHeight());
-		} else if (ov == OverlayType.GRID_GOLDEN_TRIANGLES) {
-			activeGrid = new TriangleGrid(getContext(), getWidth(), getHeight());
-			faceDetection = new FaceDetection(act, activeGrid, w, h, getWidth(), getHeight());
+			colorHistogram = new ColorHistogram(getContext(), w, h, getWidth(), getHeight());
+			act.addContentView(colorHistogram, new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
 		}
-		
-		act.addContentView(activeGrid, new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-		act.addContentView(faceDetection, new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+//			activeGrid = new ThirdsGrid(getContext(), getWidth(), getHeight());
+//			faceDetection = new FaceDetection(act, activeGrid, w, h, getWidth(), getHeight());
+//		} else if (ov == OverlayType.GRID_THIRDS_GOLDEN) {
+//			activeGrid = new GoldenGrid(getContext(), getWidth(), getHeight());
+//			faceDetection = new FaceDetection(act, activeGrid, w, h, getWidth(), getHeight());
+//		} else if (ov == OverlayType.GRID_GOLDEN_TRIANGLES) {
+//			activeGrid = new TriangleGrid(getContext(), getWidth(), getHeight());
+//			faceDetection = new FaceDetection(act, activeGrid, w, h, getWidth(), getHeight());
+//		}
+//		
+//		act.addContentView(activeGrid, new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+//		act.addContentView(faceDetection, new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
 	}
 	
 
