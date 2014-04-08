@@ -35,9 +35,10 @@ JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeNearest
 }
 
 JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeGetHistograms
-(JNIEnv * jenv, jclass, jlong data, jlong rHist, jlong ghist, jlong bHist, jlong grayHist, jint previewW, jint previewH)
+(JNIEnv * jenv, jclass class_, jlong data, jlong rHist, jlong ghist, jlong bHist, jlong grayHist, jint previewW, jint previewH)
 {
-
+ Java_tese_helder_clearphoto_ImageProcessing_nativeGetRGBHistogram(jenv, class_, data, rHist, ghist, bHist, previewW, previewH);
+ Java_tese_helder_clearphoto_ImageProcessing_nativeGetGrayHistogram(jenv, class_, data, grayHist, previewW, previewH);
 }
 
 JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeGetRGBHistogram

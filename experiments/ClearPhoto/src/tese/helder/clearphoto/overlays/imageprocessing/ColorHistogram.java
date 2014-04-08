@@ -173,10 +173,8 @@ public class ColorHistogram extends ImageProcessingOv {
 	@Override
 	public void process(byte[] data_) {
 		data.put(0, 0, Arrays.copyOfRange(data_, 0, data_.length));
-		ImageProcessing.getGrayHistogram(data, grayHist, previewWidth, previewHeight);
+		ImageProcessing.getHistograms(data, rHist, gHist, bHist, grayHist, previewWidth, previewHeight);
 		grayProcessed = true;
-
-		ImageProcessing.getRGBHistogram(data, rHist, gHist, bHist, previewWidth, previewHeight);
 		rgbProcessed = true;
 
 		this.invalidate();
