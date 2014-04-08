@@ -107,4 +107,5 @@ void generateHistogram(const Mat* data, Mat* output) {
     int channels[] = {0};
     calcHist(data, 1, channels, Mat(), hist, 1, hsize, ranges, true, false);
     normalize(hist, *output, 0, output->rows, NORM_MINMAX, -1, Mat());
+//    normalize(hist, *output, 0, 1, NORM_MINMAX, -1, Mat());
 }
