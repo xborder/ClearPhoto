@@ -74,6 +74,45 @@ JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeGetGray
 	generateHistogram(&grayData, output);
 }
 
+JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeGetHueConcentration
+(JNIEnv* jenv, jobject, jlong data_, jintArray ret, jintArray ranges, jint width, jint height)
+{
+	jsize ranges_size = jenv->GetArrayLength(ranges);
+	jsize ret_size = jenv->GetArrayLength(ret);
+	jint* ranges_ = jenv->GetIntArrayElements(ranges,0);
+
+	int* tmp_array = (int*)calloc(sizeof(int), ret_size);
+
+	Mat* data = (Mat*) data_;
+	Mat rgba = Mat(height, width, CV_8UC4);
+	Mat	hsv = Mat(height, width, CV_8UC3);
+
+	cvtColor(*data, rgba, CV_YUV420p2BGRA);
+	cvtColor(rgba, hsv, CV_BGR2HSV);
+
+	vector<Mat> hsv_planes;
+	split(hsv, hsv_planes);
+
+	Mat hue = hsv_planes[0];
+	int lower_range = 0, upper_range = 0;
+	for(int i = 0; i < hue.rows; i++) {
+		for(int j = 0; j < hue.cols; j++) {
+			uchar val = hue.at<uchar>(i,j);
+			for(int r = 0; r < ranges_size-1; r++) {
+				lower_range = ranges_[r];
+				upper_range = ranges_[r+1];
+				if(val >= lower_range && val < upper_range) {
+					tmp_array[r] = tmp_array[r] + 1;
+					break;
+				}
+			}
+		}
+	}
+
+	jenv->SetIntArrayRegion(ret, 0, ret_size, tmp_array);
+	jenv->ReleaseIntArrayElements(ranges, ranges_, 0);
+}
+
 JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_YUVtoBRGA
 (JNIEnv* env, jobject, jint width, jint height, jbyteArray yuv, jintArray bgra)
 {

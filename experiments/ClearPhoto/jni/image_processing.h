@@ -21,6 +21,7 @@
 
 #define LOG_TAG "ImageProcessing"
 #define LOGD(...) ((void)__android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__))
+#define LOGE(...) ((void)__android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__))
 
 using namespace std;
 using namespace cv;
@@ -37,6 +38,9 @@ JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeGetRGBH
 
 JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeGetGrayHistogram
 (JNIEnv * jenv, jclass, jlong data_, jlong grayHist, jint previewW, jint previewH);
+
+JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeGetHueConcentration
+(JNIEnv* jenv, jobject, jlong data_, jintArray ret, jintArray ranges, jint width, jint height);
 
 JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_YUVtoBRGA
 (JNIEnv* env, jobject, jint width, jint height, jbyteArray yuv, jintArray bgra);
