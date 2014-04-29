@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
@@ -21,7 +22,7 @@ public class MainActivity extends Activity {
 	}
 
 	private CameraViewer cameraViewer;
-
+	private OptionsView options;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);		
@@ -32,6 +33,7 @@ public class MainActivity extends Activity {
 		FrameLayout preview = (FrameLayout) findViewById(R.id.camera_preview);
 		preview.addView(cameraViewer);
 
+		options = new OptionsView(MainActivity.this, cameraViewer);
 		registerEvents();
 	}
 
@@ -72,9 +74,14 @@ public class MainActivity extends Activity {
 		cameraViewer.setOnLongClickListener(new OnLongClickListener() {
 			@Override
 			public boolean onLongClick(View v) {
-				GridSelectionControl gridControl = new GridSelectionControl(MainActivity.this, cameraViewer);
-				gridControl.showDialog();
+				options.inflate();
 				return true;
+			}
+		});
+		cameraViewer.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				options.deflate();
 			}
 		});
 	}

@@ -2,17 +2,16 @@ package tese.helder.clearphoto.overlays.grids;
 
 import java.util.ArrayList;
 
-import tese.helder.clearphoto.R;
+import tese.helder.clearphoto.CameraViewer;
 import tese.helder.clearphoto.overlays.Overlay;
+import tese.helder.clearphoto.overlays.OverlayType;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.ComposeShader;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RadialGradient;
 import android.graphics.Shader;
-import android.util.Log;
 import android.view.View;
 
 public abstract class Grid extends Overlay {
@@ -23,7 +22,8 @@ public abstract class Grid extends Overlay {
 	protected float[] nearest;
 	protected boolean highlightPoints;
 	protected ArrayList<Path> pathsToDraw;
-
+	protected GridSelectionControl gridSelection;
+	
 	public Grid(Context context, int width, int height) {
 		super(context, width, height);
 		this.gridColor = new Paint();
@@ -101,6 +101,22 @@ public abstract class Grid extends Overlay {
 			}
 			canvas.drawLine(x0, y0, nearest[0], nearest[1], pa);
 		}
+	}
+	
+	public static OnClickListener getOnClickListener(final Context parentContext, final CameraViewer parent) {
+		return new OnClickListener() {
+			private boolean inflated;
+			@Override
+			public void onClick(View v) {
+				if(inflated) {
+					parent.removeOverlay(OverlayType.GRID);
+				} else {
+					GridSelectionControl gridControl = new GridSelectionControl(parentContext, parent);
+					gridControl.inflate();
+				}
+				inflated = !inflated;
+			}
+		};
 	}
 	
 }

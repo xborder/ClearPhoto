@@ -1,12 +1,14 @@
-package tese.helder.clearphoto;
+package tese.helder.clearphoto.overlays.grids;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import tese.helder.clearphoto.CameraViewer;
+import tese.helder.clearphoto.R;
 import tese.helder.clearphoto.overlays.OverlayType;
 
-import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,24 +26,22 @@ public class GridSelectionControl extends BaseAdapter {
 	private ListView list;
 	private List<Pair<OverlayType, String>> data;
 
-	private Activity act;
 	private CameraViewer cameraViewer;
-	
 	private AlertDialog dialog;
+	private Context context;
 	
-	public GridSelectionControl(Activity act, CameraViewer viewer) {
-		this.act = act;
-		this.cameraViewer = viewer;
-		
-		this.inflater = LayoutInflater.from(act);
+	public GridSelectionControl(Context parentContext, CameraViewer parentViewer) {
+		this.cameraViewer = parentViewer;
+		this.context = parentContext;
+		this.inflater = LayoutInflater.from(parentContext);
 		
 		this.data = new ArrayList<Pair<OverlayType,String>>();
-		this.data.add(new Pair<OverlayType, String>(OverlayType.GRID_THIRDS, "Rule of Thirds"));
-		this.data.add(new Pair<OverlayType, String>(OverlayType.GRID_THIRDS_GOLDEN, "Golden Thirds"));
-		this.data.add(new Pair<OverlayType, String>(OverlayType.GRID_GOLDEN_TRIANGLES, "Golden Triangles"));
+		this.data.add(new Pair<OverlayType, String>(OverlayType.THIRDS_GRID, "Rule of Thirds"));
+		this.data.add(new Pair<OverlayType, String>(OverlayType.GOLDEN_THIRDS_GRID, "Golden Thirds"));
+		this.data.add(new Pair<OverlayType, String>(OverlayType.GOLDEN_TRIANGLE_GRID, "Golden Triangles"));
 	}
 
-	public void showDialog() {
+	public void inflate() {
 		final View promptView = inflater.inflate(R.layout.grid_selection_dialog, null);	
 
 		//Creates list to insert in prompt dialog
@@ -58,7 +58,7 @@ public class GridSelectionControl extends BaseAdapter {
 		});
 		
 		//Creates prompt dialog for controls
-		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(act);
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
 		alertDialogBuilder.setView(promptView);
 		dialog = alertDialogBuilder.create();
 		dialog.show();

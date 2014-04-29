@@ -41,7 +41,7 @@ public class CameraViewer extends SurfaceView implements SurfaceHolder.Callback,
     private ColorHistogram colorHistogram;
     private ColorWheel colorWheel;
     
-    private int width, height;
+    private int previewWidth, previewHeight;
 	private List<Pair<ImageProcessingOv, LayoutParams>> imageProcessingOv;
 	
 	private Activity act;
@@ -57,11 +57,6 @@ public class CameraViewer extends SurfaceView implements SurfaceHolder.Callback,
 		
         mCamera = camera;
         
-//        List<Camera.Size> previewSizes = mParams.getSupportedPreviewSizes();
-//        Camera.Size previewSize = previewSizes.get(previewSizes.size()-1);
-//        
-//        width = previewSize.width;
-//        height = previewSize.height;
         // Install a SurfaceHolder.Callback so we get notified when the
         // underlying surface is created and destroyed.
         mHolder = getHolder();
@@ -108,13 +103,13 @@ public class CameraViewer extends SurfaceView implements SurfaceHolder.Callback,
         // start preview with new settings
         try {
             Camera.Parameters parameters = mCamera.getParameters();
-//            List<Size> sizes = parameters.getSupportedPreviewSizes();
-//            Camera.Size previewSize = sizes.get(sizes.size()-1);
-//            parameters.setPreviewSize(previewSize.width, previewSize.height);
-//            parameters.setPreviewFrameRate(15);
             parameters.setSceneMode(Camera.Parameters.SCENE_MODE_NIGHT);
             parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_AUTO);
-            mCamera.setParameters(parameters);
+            
+    		previewWidth = mCamera.getParameters().getPreviewSize().width;
+    		previewHeight = mCamera.getParameters().getPreviewSize().height;
+            
+    		mCamera.setParameters(parameters);
             mCamera.setPreviewDisplay(mHolder);
             mCamera.setPreviewCallback(this);
             mCamera.startPreview();
@@ -136,33 +131,58 @@ public class CameraViewer extends SurfaceView implements SurfaceHolder.Callback,
 		}
 	}
 	
-	public void addOverlay(OverlayType ov) {
-//		if(activeGrid != null) {
-//			ViewGroup vg = (ViewGroup)(activeGrid.getParent());
-//			vg.removeView(activeGrid);
-//			vg.removeView(faceDetection);
-//		}
-		
-		int w = mCamera.getParameters().getPreviewSize().width;
-		int h = mCamera.getParameters().getPreviewSize().height;
-		if(ov == OverlayType.GRID_THIRDS) {
-			colorWheel = new ColorWheel(act, w,h,getWidth(), getHeight());
-			act.addContentView(colorWheel, new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-//			colorHistogram = new ColorHistogram(getContext(), w, h, getWidth(), getHeight());
-//			act.addContentView(colorHistogram, new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+	public void removeOverlay(OverlayType ov) {
+		ViewGroup vg;
+		if (ov == OverlayType.GRID) {
+			vg = (ViewGroup) activeGrid.getParent();
+			vg.removeView(activeGrid);
+			activeGrid = null;
+			if(faceDetection != null){
+				faceDetection.setGrid(null);
+			}
+		} else if (ov == OverlayType.FACE_DETECTION) {
+			vg = (ViewGroup) faceDetection.getParent();
+			vg.removeView(faceDetection);
+			faceDetection = null;
+		} else if (ov == OverlayType.COLOR_HIST) {
+			vg = (ViewGroup) colorHistogram.getParent();
+			vg.removeView(colorHistogram);
+			colorHistogram = null;
+		} else if (ov == OverlayType.COLOR_WHEEL) {
+			vg = (ViewGroup) colorWheel.getParent();
+			vg.removeView(colorWheel);
+			colorWheel = null;
 		}
-//			activeGrid = new ThirdsGrid(getContext(), getWidth(), getHeight());
-//			faceDetection = new FaceDetection(act, activeGrid, w, h, getWidth(), getHeight());
-//		} else if (ov == OverlayType.GRID_THIRDS_GOLDEN) {
-//			activeGrid = new GoldenGrid(getContext(), getWidth(), getHeight());
-//			faceDetection = new FaceDetection(act, activeGrid, w, h, getWidth(), getHeight());
-//		} else if (ov == OverlayType.GRID_GOLDEN_TRIANGLES) {
-//			activeGrid = new TriangleGrid(getContext(), getWidth(), getHeight());
-//			faceDetection = new FaceDetection(act, activeGrid, w, h, getWidth(), getHeight());
-//		}
-//		
-//		act.addContentView(activeGrid, new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-//		act.addContentView(faceDetection, new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+	}
+	
+	public void addOverlay(OverlayType ov) {
+		Overlay ovlay = null;
+		if (ov == OverlayType.THIRDS_GRID) {
+			activeGrid = new ThirdsGrid(getContext(), getWidth(), getHeight());
+			ovlay = activeGrid;
+		} else if (ov == OverlayType.GOLDEN_THIRDS_GRID) {
+			activeGrid = new GoldenGrid(getContext(), getWidth(), getHeight());
+			ovlay = activeGrid;
+		} else if (ov == OverlayType.GOLDEN_TRIANGLE_GRID) {
+			activeGrid = new TriangleGrid(getContext(), getWidth(), getHeight());
+			ovlay = activeGrid;
+		} else if (ov == OverlayType.FACE_DETECTION) {
+			faceDetection = new FaceDetection(act, activeGrid, previewWidth, previewHeight, getWidth(), getHeight());
+			ovlay = faceDetection;
+		} else if (ov == OverlayType.COLOR_HIST) {
+			colorHistogram = new ColorHistogram(getContext(), previewWidth, previewHeight, getWidth(), getHeight());
+			ovlay = colorHistogram;
+		} else if (ov == OverlayType.COLOR_WHEEL) {
+			colorWheel = new ColorWheel(getContext(), previewWidth, previewHeight, getWidth(), getHeight());
+			ovlay = colorWheel;
+		}
+		
+		if (ovlay != null)
+			act.addContentView(ovlay, new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+		
+		if(faceDetection != null) {
+			faceDetection.setGrid(activeGrid);
+		}
 	}
 	
 

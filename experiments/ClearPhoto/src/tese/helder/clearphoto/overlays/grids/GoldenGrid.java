@@ -2,12 +2,6 @@ package tese.helder.clearphoto.overlays.grids;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Path;
-import android.graphics.RadialGradient;
-import android.graphics.Shader;
-import android.util.Log;
 
 public class GoldenGrid extends Grid{
 
