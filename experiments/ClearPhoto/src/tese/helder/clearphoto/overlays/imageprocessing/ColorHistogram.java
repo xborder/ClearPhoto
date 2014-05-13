@@ -12,7 +12,9 @@ import org.opencv.core.Mat;
 import org.opencv.core.Core.MinMaxLocResult;
 import org.opencv.imgproc.Imgproc;
 
+import tese.helder.clearphoto.CameraViewer;
 import tese.helder.clearphoto.ImageProcessing;
+import tese.helder.clearphoto.overlays.OverlayType;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -23,6 +25,7 @@ import android.graphics.Rect;
 import android.nfc.tech.NfcB;
 import android.util.Log;
 import android.util.Pair;
+import android.view.View;
 
 public class ColorHistogram extends ImageProcessingOv {
 
@@ -191,6 +194,22 @@ public class ColorHistogram extends ImageProcessingOv {
 		Collections.sort(nonNegativeValues);
 		int firstLimit = nonNegativeValues.get(0), lastLimit = nonNegativeValues.get(nonNegativeValues.size()-1);
 		return new Pair<Integer, Integer>(firstLimit, lastLimit);
+	}
+	
+	public static OnClickListener getOnClickListener(final CameraViewer parent) {
+		return new OnClickListener() {
+			private boolean inflated;
+			
+			@Override
+			public void onClick(View v) {
+				if(inflated) {
+					parent.removeOverlay(OverlayType.COLOR_HIST);
+				} else {
+					parent.addOverlay(OverlayType.COLOR_HIST);
+				}
+				inflated = !inflated;
+			}
+		};
 	}
 	
 }

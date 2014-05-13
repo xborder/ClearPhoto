@@ -12,15 +12,43 @@
             android:id="@+id/gridButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:background="@android:color/transparent"
-            android:src="@drawable/grid_icon" />
+            android:src="@drawable/ic_grid" />
 
         <ImageButton
             android:id="@+id/faceDetectionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:background="@android:color/transparent"
-            android:src="@drawable/facedetection_icon" />
+            android:src="@drawable/ic_facedetection" />
+
+        <ImageButton
+            android:id="@+id/histogramButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_histogram" />
+
+        <ImageButton
+            android:id="@+id/colorWheelButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_colorwheel" />
+        
+        
+        <ImageButton
+            android:id="@+id/saturationDetectionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_saturation" />
+        
     </LinearLayout>
 
 </RelativeLayout>

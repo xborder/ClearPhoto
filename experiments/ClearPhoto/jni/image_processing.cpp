@@ -37,8 +37,8 @@ JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeNearest
 JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeGetHistograms
 (JNIEnv * jenv, jclass class_, jlong data, jlong rHist, jlong ghist, jlong bHist, jlong grayHist, jint previewW, jint previewH)
 {
- Java_tese_helder_clearphoto_ImageProcessing_nativeGetRGBHistogram(jenv, class_, data, rHist, ghist, bHist, previewW, previewH);
- Java_tese_helder_clearphoto_ImageProcessing_nativeGetGrayHistogram(jenv, class_, data, grayHist, previewW, previewH);
+	Java_tese_helder_clearphoto_ImageProcessing_nativeGetRGBHistogram(jenv, class_, data, rHist, ghist, bHist, previewW, previewH);
+	Java_tese_helder_clearphoto_ImageProcessing_nativeGetGrayHistogram(jenv, class_, data, grayHist, previewW, previewH);
 }
 
 JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeGetRGBHistogram
@@ -75,7 +75,7 @@ JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeGetGray
 }
 
 JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeGetHueConcentration
-(JNIEnv* jenv, jobject, jlong data_, jintArray ret, jintArray ranges, jint width, jint height)
+(JNIEnv* jenv, jclass, jlong data_, jintArray ret, jintArray ranges, jint width, jint height)
 {
 	jsize ranges_size = jenv->GetArrayLength(ranges);
 	jsize ret_size = jenv->GetArrayLength(ret);
@@ -113,8 +113,29 @@ JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeGetHueC
 	jenv->ReleaseIntArrayElements(ranges, ranges_, 0);
 }
 
+JNIEXPORT jint JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeGetAvgSaturation
+(JNIEnv* jenv, jclass cls, jlong data_, jint width, jint height)
+{
+	Mat* data = (Mat*) data_;
+	Mat rgba = Mat(height, width, CV_8UC4);
+	Mat	hsv = Mat(height, width, CV_8UC3);
+
+	cvtColor(*data, rgba, CV_YUV420p2BGRA);
+	cvtColor(rgba, hsv, CV_BGR2HSV);
+	vector<Mat> hsv_planes;
+	split(hsv, hsv_planes);
+
+	Mat sat = hsv_planes[1];
+	int sum = 0;
+	for(int i = 0; i < sat.rows * sat.cols; i++) {
+			sum += (unsigned char)sat.data[i];
+	}
+	LOGE("width: %d, height: %d, sum: %d, avg:%d", width, height, sum, sum/(width*height));
+	return sum/(width*height);
+}
+
 JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_YUVtoBRGA
-(JNIEnv* env, jobject, jint width, jint height, jbyteArray yuv, jintArray bgra)
+(JNIEnv* env, jclass, jint width, jint height, jbyteArray yuv, jintArray bgra)
 {
 	jbyte* _yuv = env->GetByteArrayElements(yuv, 0);
 	jint* _bgra = env->GetIntArrayElements(bgra, 0);
@@ -129,23 +150,23 @@ JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_YUVtoBRGA
 }
 
 void generateHistogram(const Mat* data, Mat* output) {
-    int bins = 256;
-    int hsize[] = {bins};
+	int bins = 256;
+	int hsize[] = {bins};
 
-    //max and min value of the histogram
-    double max_value = 0, min_value = 0;
+	//max and min value of the histogram
+	double max_value = 0, min_value = 0;
 
-    //value and normalized value
-    float value;
-    int normalized;
+	//value and normalized value
+	float value;
+	int normalized;
 
-    //ranges - grayscale 0 to 256
-    float xranges[] = {0, 255};
-    const float* ranges[] = {xranges};
+	//ranges - grayscale 0 to 256
+	float xranges[] = {0, 255};
+	const float* ranges[] = {xranges};
 
-    MatND hist;
-    int channels[] = {0};
-    calcHist(data, 1, channels, Mat(), hist, 1, hsize, ranges, true, false);
-    normalize(hist, *output, 0, output->rows, NORM_MINMAX, -1, Mat());
-//    normalize(hist, *output, 0, 1, NORM_MINMAX, -1, Mat());
+	MatND hist;
+	int channels[] = {0};
+	calcHist(data, 1, channels, Mat(), hist, 1, hsize, ranges, true, false);
+	normalize(hist, *output, 0, output->rows, NORM_MINMAX, -1, Mat());
+	//    normalize(hist, *output, 0, 1, NORM_MINMAX, -1, Mat());
 }

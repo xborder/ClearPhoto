@@ -1,7 +1,10 @@
 package tese.helder.clearphoto;
 
 import tese.helder.clearphoto.overlays.grids.Grid;
+import tese.helder.clearphoto.overlays.imageprocessing.ColorHistogram;
+import tese.helder.clearphoto.overlays.imageprocessing.ColorWheel;
 import tese.helder.clearphoto.overlays.imageprocessing.FaceDetection;
+import tese.helder.clearphoto.overlays.imageprocessing.SaturationDetection;
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,5 +49,14 @@ public class OptionsView {
 		
 		button = (ImageButton)view.findViewById(R.id.faceDetectionButton);
 		button.setOnClickListener(FaceDetection.getOnClickListener(cameraViewer));
+		
+		button = (ImageButton)view.findViewById(R.id.histogramButton);
+		button.setOnClickListener(ColorHistogram.getOnClickListener(cameraViewer));
+		
+		button = (ImageButton)view.findViewById(R.id.colorWheelButton);
+		button.setOnClickListener(ColorWheel.getOnClickListener(cameraViewer));
+		
+		button = (ImageButton)view.findViewById(R.id.saturationDetectionButton);
+		button.setOnClickListener(SaturationDetection.getOnClickListener(cameraViewer));
 	}
 }

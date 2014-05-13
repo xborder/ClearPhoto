@@ -28,10 +28,15 @@ public class ImageProcessing {
 		nativeGetHueConcentration(data.getNativeObjAddr(), ret, ranges, previewW, previewH);
 	}
 	
+	public static int getAvgSaturation(Mat data, int previewW, int previewH) {
+		return nativeGetAvgSaturation(data.getNativeObjAddr(), previewW, previewH);
+	}
+	
 	//Native calls for JNI
 	private static native void nativeNearestPoint(float[] points, float[] faces, float[] ret);
 	private static native void nativeGetHistograms(long data, long rHist, long gHist, long bHist, long grayHist, int previewW, int previewH);
 	private static native void nativeGetRGBHistogram(long data, long rHist, long gHist, long bHist, int previewW, int previewH);
 	private static native void nativeGetGrayHistogram(long data, long grayHist, int previewW, int previewH);
 	private static native void nativeGetHueConcentration(long data, int[] ret, int[] ranges, int previewW, int previewH);
+	private static native int nativeGetAvgSaturation(long data, int previewW, int previewH);
 }

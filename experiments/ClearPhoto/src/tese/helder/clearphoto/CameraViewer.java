@@ -15,6 +15,7 @@ import tese.helder.clearphoto.overlays.imageprocessing.ColorHistogram;
 import tese.helder.clearphoto.overlays.imageprocessing.ColorWheel;
 import tese.helder.clearphoto.overlays.imageprocessing.FaceDetection;
 import tese.helder.clearphoto.overlays.imageprocessing.ImageProcessingOv;
+import tese.helder.clearphoto.overlays.imageprocessing.SaturationDetection;
 
 import android.app.Activity;
 import android.content.Context;
@@ -40,6 +41,7 @@ public class CameraViewer extends SurfaceView implements SurfaceHolder.Callback,
     private FaceDetection faceDetection;
     private ColorHistogram colorHistogram;
     private ColorWheel colorWheel;
+    private SaturationDetection saturation;
     
     private int previewWidth, previewHeight;
 	private List<Pair<ImageProcessingOv, LayoutParams>> imageProcessingOv;
@@ -129,6 +131,9 @@ public class CameraViewer extends SurfaceView implements SurfaceHolder.Callback,
 		if(colorWheel != null) {
 			colorWheel.process(data);
 		}
+		if(saturation != null) {
+			saturation.process(data);
+		}
 	}
 	
 	public void removeOverlay(OverlayType ov) {
@@ -158,23 +163,19 @@ public class CameraViewer extends SurfaceView implements SurfaceHolder.Callback,
 	public void addOverlay(OverlayType ov) {
 		Overlay ovlay = null;
 		if (ov == OverlayType.THIRDS_GRID) {
-			activeGrid = new ThirdsGrid(getContext(), getWidth(), getHeight());
-			ovlay = activeGrid;
+			ovlay = activeGrid = new ThirdsGrid(getContext(), getWidth(), getHeight());
 		} else if (ov == OverlayType.GOLDEN_THIRDS_GRID) {
-			activeGrid = new GoldenGrid(getContext(), getWidth(), getHeight());
-			ovlay = activeGrid;
+			ovlay = activeGrid = new GoldenGrid(getContext(), getWidth(), getHeight());
 		} else if (ov == OverlayType.GOLDEN_TRIANGLE_GRID) {
-			activeGrid = new TriangleGrid(getContext(), getWidth(), getHeight());
-			ovlay = activeGrid;
+			ovlay = activeGrid = new TriangleGrid(getContext(), getWidth(), getHeight());
 		} else if (ov == OverlayType.FACE_DETECTION) {
-			faceDetection = new FaceDetection(act, activeGrid, previewWidth, previewHeight, getWidth(), getHeight());
-			ovlay = faceDetection;
+			ovlay = faceDetection = new FaceDetection(act, activeGrid, previewWidth, previewHeight, getWidth(), getHeight());
 		} else if (ov == OverlayType.COLOR_HIST) {
-			colorHistogram = new ColorHistogram(getContext(), previewWidth, previewHeight, getWidth(), getHeight());
-			ovlay = colorHistogram;
+			ovlay = colorHistogram = new ColorHistogram(getContext(), previewWidth, previewHeight, getWidth(), getHeight());
 		} else if (ov == OverlayType.COLOR_WHEEL) {
-			colorWheel = new ColorWheel(getContext(), previewWidth, previewHeight, getWidth(), getHeight());
-			ovlay = colorWheel;
+			ovlay = colorWheel = new ColorWheel(getContext(), previewWidth, previewHeight, getWidth(), getHeight());
+		} else if (ov == OverlayType.SATURATION_DETECTION) {
+			ovlay = saturation = new SaturationDetection(getContext(), previewWidth, previewHeight, getWidth(), getHeight());
 		}
 		
 		if (ovlay != null)
@@ -184,6 +185,4 @@ public class CameraViewer extends SurfaceView implements SurfaceHolder.Callback,
 			faceDetection.setGrid(activeGrid);
 		}
 	}
-	
-
 }

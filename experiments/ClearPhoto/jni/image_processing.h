@@ -40,10 +40,16 @@ JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeGetGray
 (JNIEnv * jenv, jclass, jlong data_, jlong grayHist, jint previewW, jint previewH);
 
 JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeGetHueConcentration
-(JNIEnv* jenv, jobject, jlong data_, jintArray ret, jintArray ranges, jint width, jint height);
+(JNIEnv* jenv, jclass, jlong data_, jintArray ret, jintArray ranges, jint width, jint height);
+
+JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeGetHueConcentration
+(JNIEnv* jenv, jclass, jlong data_, jintArray ret, jintArray ranges, jint width, jint height);
+
+JNIEXPORT jint JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeGetAvgSaturation
+(JNIEnv* jenv, jclass, jlong data_, jint width, jint height);
 
 JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_YUVtoBRGA
-(JNIEnv* env, jobject, jint width, jint height, jbyteArray yuv, jintArray bgra);
+(JNIEnv* env, jclass, jint width, jint height, jbyteArray yuv, jintArray bgra);
 
 void generateHistogram(const Mat* data, Mat* output);
 }
