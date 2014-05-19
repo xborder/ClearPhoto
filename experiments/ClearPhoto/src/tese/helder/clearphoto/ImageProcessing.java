@@ -32,6 +32,10 @@ public class ImageProcessing {
 		return nativeGetAvgSaturation(data.getNativeObjAddr(), previewW, previewH);
 	}
 	
+	public static void detectHorizon(Mat data, int previewW, int previewH, int[] horizonCoordinates) {
+		nativeDetectHorizon(data.getNativeObjAddr(), previewW, previewH, horizonCoordinates);
+	}
+
 	//Native calls for JNI
 	private static native void nativeNearestPoint(float[] points, float[] faces, float[] ret);
 	private static native void nativeGetHistograms(long data, long rHist, long gHist, long bHist, long grayHist, int previewW, int previewH);
@@ -39,4 +43,5 @@ public class ImageProcessing {
 	private static native void nativeGetGrayHistogram(long data, long grayHist, int previewW, int previewH);
 	private static native void nativeGetHueConcentration(long data, int[] ret, int[] ranges, int previewW, int previewH);
 	private static native int nativeGetAvgSaturation(long data, int previewW, int previewH);
+	private static native void nativeDetectHorizon(long data, int previewW, int previewH, int[] horizonCoordinates);
 }

@@ -39,8 +39,7 @@
             android:layout_margin="5dp"
             android:background="@android:color/transparent"
             android:src="@drawable/ic_colorwheel" />
-        
-        
+
         <ImageButton
             android:id="@+id/saturationDetectionButton"
             android:layout_width="wrap_content"
@@ -48,7 +47,14 @@
             android:layout_margin="5dp"
             android:background="@android:color/transparent"
             android:src="@drawable/ic_saturation" />
-        
+
+        <ImageButton
+            android:id="@+id/horizonDetectionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_launcher" />
     </LinearLayout>
 
 </RelativeLayout>
