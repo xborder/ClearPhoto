@@ -133,7 +133,7 @@ JNIEXPORT jint JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeGetAvgS
 	//LOGE("width: %d, height: %d, sum: %d, avg:%d", width, height, sum, sum/(width*height));
 	return sum/(width*height);
 }
-
+/*
 JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeDetectHorizon
 (JNIEnv* jenv, jclass, jlong data_, jint width, jint height, jintArray coordinates)
 {
@@ -285,7 +285,7 @@ void applyHough(Mat binary_image, int* output, double (*func)(int,int,double,dou
 	output[3] = y2;
 	output[4] = t;
 	output[5] = r;
-}
+}*/
 
 JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_YUVtoBRGA
 (JNIEnv* env, jclass, jint width, jint height, jbyteArray yuv, jintArray bgra)
@@ -322,4 +322,85 @@ void generateHistogram(const Mat* data, Mat* output) {
 	calcHist(data, 1, channels, Mat(), hist, 1, hsize, ranges, true, false);
 	normalize(hist, *output, 0, output->rows, NORM_MINMAX, -1, Mat());
 	//    normalize(hist, *output, 0, 1, NORM_MINMAX, -1, Mat());
+}
+
+
+
+//###########################################################################
+
+JNIEXPORT jlong JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeInitDetectHorizon
+(JNIEnv* jenv, jclass)
+{
+    jlong result = 0;
+
+    try
+    {
+        result = (jlong)new HorizonDetection();
+    }
+    catch(cv::Exception& e)
+    {
+        LOGD("nativeCreateObject caught cv::Exception: %s", e.what());
+        jclass je = jenv->FindClass("org/opencv/core/CvException");
+        if(!je)
+            je = jenv->FindClass("java/lang/Exception");
+        jenv->ThrowNew(je, e.what());
+    }
+    catch (...)
+    {
+        LOGD("nativeCreateObject caught unknown exception");
+        jclass je = jenv->FindClass("java/lang/Exception");
+        jenv->ThrowNew(je, "Unknown exception in JNI code of DetectionBasedTracker.nativeCreateObject()");
+        return 0;
+    }
+	return result;
+}
+
+JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeStopDetectHorizon
+(JNIEnv* jenv, jclass)
+{
+}
+
+JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeDetectColorEdgeHorizon
+(JNIEnv* jenv, jclass, jlong thiz, jlong data_, jlong canny_, jintArray coordinates)
+{
+	if(thiz != 0) {
+		HorizonDetection* horizon = (HorizonDetection*)thiz;
+		Mat* data = (Mat*) data_;
+		Mat* canny = (Mat*) canny_;
+		jsize ret_size = jenv->GetArrayLength(coordinates);
+		int* ret = (int*)calloc(6*N_HORIZON_RESULTS, sizeof(int));
+		horizon->horizonEdgeColorDetection(data, canny, ret);
+		jenv->SetIntArrayRegion(coordinates, 0, ret_size, ret);
+		free(ret);
+	}
+}
+
+JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeDetectColorHorizon
+(JNIEnv* jenv, jclass, jlong thiz, jlong data_, jlong canny_, jintArray coordinates)
+{
+	if(thiz != 0) {
+		HorizonDetection* horizon = (HorizonDetection*)thiz;
+		Mat* data = (Mat*) data_;
+		Mat* canny = (Mat*) canny_;
+		jsize ret_size = jenv->GetArrayLength(coordinates);
+		int* ret = (int*)calloc(6*N_HORIZON_RESULTS, sizeof(int));
+		horizon->horizonColorDetection(data, canny, ret, false);
+		jenv->SetIntArrayRegion(coordinates, 0, ret_size, ret);
+		free(ret);
+	}
+}
+
+JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeDetectEdgeHorizon
+(JNIEnv* jenv, jclass, jlong thiz, jlong data_, jlong canny_, jintArray coordinates)
+{
+	if(thiz != 0) {
+		HorizonDetection* horizon = (HorizonDetection*)thiz;
+		Mat* data = (Mat*) data_;
+		Mat* canny = (Mat*) canny_;
+		jsize ret_size = jenv->GetArrayLength(coordinates);
+		int* ret = (int*)calloc(6*N_HORIZON_RESULTS, sizeof(int));
+		horizon->horizonEdgeDetection(data, canny, ret, false);
+		jenv->SetIntArrayRegion(coordinates, 0, ret_size, ret);
+		free(ret);
+	}
 }

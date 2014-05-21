@@ -9,32 +9,29 @@ public class ImageProcessing {
 		nativeNearestPoint(points, faces, nearest);
 		return nearest;
 	}
-	
+
 	public static void getHistograms(Mat data, Mat rHist, Mat gHist, Mat bHist, Mat grayHist, int previewW, int previewH) {
 		nativeGetHistograms(data.getNativeObjAddr(), rHist.getNativeObjAddr(), gHist.getNativeObjAddr(), 
-							bHist.getNativeObjAddr(), grayHist.getNativeObjAddr(), previewW, previewH);
+				bHist.getNativeObjAddr(), grayHist.getNativeObjAddr(), previewW, previewH);
 	}
-	
+
 	public static void getRGBHistogram(Mat data, Mat rHist, Mat gHist, Mat bHist, int previewW, int previewH) {
 		nativeGetRGBHistogram(data.getNativeObjAddr(), rHist.getNativeObjAddr(), gHist.getNativeObjAddr(), 
-								bHist.getNativeObjAddr(), previewH, previewH);
+				bHist.getNativeObjAddr(), previewH, previewH);
 	}
 
 	public static void getGrayHistogram(Mat data, Mat grayHist, int previewW, int previewH) {
 		nativeGetGrayHistogram(data.getNativeObjAddr(), grayHist.getNativeObjAddr(), previewW, previewH);
 	}
-	
+
 	public static void getHueConcentrarion(Mat data, int[] ret, int[] ranges, int previewW, int previewH) {
 		nativeGetHueConcentration(data.getNativeObjAddr(), ret, ranges, previewW, previewH);
 	}
-	
+
 	public static int getAvgSaturation(Mat data, int previewW, int previewH) {
 		return nativeGetAvgSaturation(data.getNativeObjAddr(), previewW, previewH);
 	}
-	
-	public static void detectHorizon(Mat data, int previewW, int previewH, int[] horizonCoordinates) {
-		nativeDetectHorizon(data.getNativeObjAddr(), previewW, previewH, horizonCoordinates);
-	}
+
 
 	//Native calls for JNI
 	private static native void nativeNearestPoint(float[] points, float[] faces, float[] ret);
@@ -43,5 +40,34 @@ public class ImageProcessing {
 	private static native void nativeGetGrayHistogram(long data, long grayHist, int previewW, int previewH);
 	private static native void nativeGetHueConcentration(long data, int[] ret, int[] ranges, int previewW, int previewH);
 	private static native int nativeGetAvgSaturation(long data, int previewW, int previewH);
-	private static native void nativeDetectHorizon(long data, int previewW, int previewH, int[] horizonCoordinates);
+
+
+	//============================================================================================
+	
+	public static long initDetectHorizon() {
+		return nativeInitDetectHorizon();
+	}
+	
+	public static void stopDetectHorizon() {
+		nativeStopDetectHorizon();
+	}
+	
+	public static void detectColorEdgeHorizon(long nativeAddr, Mat data, Mat canny, int[] ret){
+		nativeDetectColorEdgeHorizon(nativeAddr, data.getNativeObjAddr(), canny.getNativeObjAddr(), ret);
+	}
+	
+	public static void detectColorHorizon(long nativeAddr, Mat data, Mat canny, int[] ret) {
+		nativeDetectColorHorizon(nativeAddr, data.getNativeObjAddr(), canny.getNativeObjAddr(), ret);
+	}
+	
+	public static void detectEdgeHorizon(long nativeAddr, Mat data, Mat canny, int[] ret) {
+		nativeDetectEdgeHorizon(nativeAddr, data.getNativeObjAddr(), canny.getNativeObjAddr(), ret);
+	}
+	
+	private static native long nativeInitDetectHorizon();
+	private static native void nativeStopDetectHorizon();
+	private static native void nativeDetectColorEdgeHorizon(long nativeAddr, long data, long canny, int[] ret);
+	private static native void nativeDetectColorHorizon(long nativeAddr, long data, long canny, int[] ret);
+	private static native void nativeDetectEdgeHorizon(long nativeAddr, long data, long canny, int[] ret);
+
 }

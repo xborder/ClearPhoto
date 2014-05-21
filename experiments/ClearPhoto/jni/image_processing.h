@@ -9,6 +9,7 @@
 #define IMAGE_PROCESSING_H_
 
 #include <jni.h>
+#include <android/log.h>
 #include <opencv2/core/core.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/features2d/features2d.hpp>
@@ -17,14 +18,12 @@
 #include <cfloat>
 #include <cmath>
 
-#include <android/log.h>
+#include "HorizonDetection.h"
+
 
 #define LOG_TAG "ImageProcessing"
 #define LOGD(...) ((void)__android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__))
 #define LOGE(...) ((void)__android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__))
-
-#define DEG2RAD 0.017453293f
-#define SKY_THRESHOLD 60 // sky probability over 60%
 
 using namespace std;
 using namespace cv;
@@ -51,16 +50,34 @@ JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeGetHueC
 JNIEXPORT jint JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeGetAvgSaturation
 (JNIEnv* jenv, jclass, jlong data_, jint width, jint height);
 
-JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeDetectHorizon
-(JNIEnv* jenv, jclass, jlong data_, jint width, jint height, jintArray coordinates);
 
-void horizonEdgeDetection(Mat* data, int* ret,  double (*)(int,int,double,double));
-void horizonColorDetection(Mat* data, int* output, int width, int height, double (*intensifyFunction)(int,int,double,double));
-void applyHough(Mat binary_image, int* output, double (*)(int,int,double,double));
+//void horizonEdgeDetection(Mat* data, int* ret,  double (*)(int,int,double,double));
+//void horizonColorDetection(Mat* data, int* output, int width, int height, double (*intensifyFunction)(int,int,double,double));
+//void applyHough(Mat binary_image, int* output, double (*)(int,int,double,double));
 
 JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_YUVtoBRGA
 (JNIEnv* env, jclass, jint width, jint height, jbyteArray yuv, jintArray bgra);
 
 void generateHistogram(const Mat* data, Mat* output);
+
+//###########################################################################
+
+JNIEXPORT jlong JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeInitDetectHorizon
+(JNIEnv* jenv, jclass);
+
+JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeStopDetectHorizon
+(JNIEnv* jenv, jclass);
+
+JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeDetectColorEdgeHorizon
+(JNIEnv* jenv, jclass, jlong thiz, jlong data_, jlong canny_, jintArray coordinates);
+
+JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeDetectColorHorizon
+(JNIEnv* jenv, jclass, jlong thiz, jlong data_, jlong canny_, jintArray coordinates);
+
+JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeDetectEdgeHorizon
+(JNIEnv* jenv, jclass, jlong thiz, jlong data_, jlong canny_, jintArray coordinates);
 }
+
+
+
 #endif /* IMAGE_PROCESSING_H_ */
