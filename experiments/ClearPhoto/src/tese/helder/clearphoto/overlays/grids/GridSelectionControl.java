@@ -10,6 +10,7 @@ import tese.helder.clearphoto.overlays.OverlayType;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.util.Pair;
+import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

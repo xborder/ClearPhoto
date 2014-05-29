@@ -19,10 +19,12 @@ void HorizonDetection::horizonEdgeColorDetection(Mat* data, Mat* canny, int* ret
 		median_rho = color_output[5];
 
 		horizonEdgeDetection(data, canny, edge_output, true);
-		memmove(ret, edge_output, 18*sizeof(int));
-	} else {
-		memmove(ret, color_output, 18*sizeof(int));
-	}
+		memmove(ret, edge_output, 6*N_HORIZON_RESULTS*sizeof(int));
+	} /*else {
+		memmove(ret, color_output, 6*N_HORIZON_RESULTS*sizeof(int));
+	}*/
+	free(color_output);
+	free(edge_output);
 }
 
 void HorizonDetection::horizonEdgeDetection(Mat* data, Mat* canny, int* ret, bool intensify) {
@@ -126,7 +128,7 @@ void HorizonDetection::getLines(Mat src, int* ret, bool intensify) {
 
 	double rho_deviation = 0.0;
 	double theta_deviation = 0.0;
-
+	if(count == 0) return;
 	if(intensify) {
 		int rhos_avg = rho_sum/count;
 		int thetas_avg = theta_sum/count;

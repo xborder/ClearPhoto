@@ -44,22 +44,24 @@ int main( int, char** argv )
   int* color_output = (int*)calloc(6, sizeof(int));
   int* edge_output = (int*)calloc(6, sizeof(int));
 
-  horizonColorDetection(color_output, NULL);
-  median_theta = color_output[4];
-  median_rho = color_output[5];
+//  horizonColorDetection(color_output, NULL);
+//  median_theta = color_output[4];
+//  median_rho = color_output[5];
 
   //printf("median_theta: %d median_rho: %d\n", median_theta, median_rho);
-  //int* cenas = (int*)calloc(6, sizeof(int));
-  //horizonEdgeDetection(cenas, NULL);
+  int* cenas = (int*)calloc(6*3, sizeof(int));
+  horizonEdgeDetection(cenas, NULL);
 
-  horizonEdgeDetection(edge_output, intensifyFunction);
+  //horizonEdgeDetection(edge_output, intensifyFunction);
 
 
-  line(src, Point(color_output[0], color_output[1]), Point(color_output[2], color_output[3]), Scalar(0,0,155), 1, CV_AA);
-  //line(src, Point(cenas[0], cenas[1]), Point(cenas[2], cenas[3]), Scalar(155,0,0), 1, CV_AA);
-  line(src, Point(edge_output[0], edge_output[1]), Point(edge_output[2], edge_output[3]), Scalar(0,155,0), 1, CV_AA);
+  //line(src, Point(color_output[0], color_output[1]), Point(color_output[2], color_output[3]), Scalar(0,0,155), 1, CV_AA);
+  //line(src, Point(edge_output[0], edge_output[1]), Point(edge_output[2], edge_output[3]), Scalar(0,155,0), 1, CV_AA);
   
-  
+  line(src, Point(cenas[0], cenas[1]), Point(cenas[2], cenas[3]), Scalar(155,0,0), 1, CV_AA);
+  line(src, Point(cenas[6], cenas[7]), Point(cenas[8], cenas[9]), Scalar(155,0,0), 1, CV_AA);
+  line(src, Point(cenas[12], cenas[13]), Point(cenas[14], cenas[15]), Scalar(155,0,0), 1, CV_AA);
+
   const char* source_window = "Source";
   namedWindow( source_window, WINDOW_AUTOSIZE );
   imshow( source_window, src );
@@ -101,13 +103,17 @@ void horizonColorDetection(int* output, double (*intensifyFunction)(int,int,doub
   split( src, yuv_planes );
 
   Mat grass = Mat::zeros(src.rows, src.cols, CV_8UC1);
-
+  printf("Y: %dx%d U:%dx%d V:%dx%d\n", yuv_planes[0].cols, yuv_planes[0].rows,yuv_planes[1].cols, yuv_planes[1].rows,yuv_planes[2].cols, yuv_planes[2].rows);
   int YM = 210, UM = 150, VM = 100;
   int VARY = 130, VARU = 40, VARV = 40; 
+  int total = src.rows*src.cols;
   for(int i = 0;i < src.rows;i++){
     double P = pow((double)i / src.rows, 2);
     double positionP = exp(-P);
     for(int j = 0;j < src.cols;j++){
+//      uchar y = src.data[i * src.cols + j];
+//      uchar u = src.data[(i / 2) * (src.cols / 2) + (j / 2) + total];
+//      uchar v = src.data[(i / 2) * (src.cols / 2) + (j / 2) + total + (total/ 4)];
       uchar y = yuv_planes[0].at<uchar>(i,j);
       uchar u = yuv_planes[1].at<uchar>(i,j);
       uchar v = yuv_planes[2].at<uchar>(i,j);
@@ -202,43 +208,58 @@ void applyHough(Mat binary_image, int* output, double (*func)(int,int,double,dou
     //  }
     //}
   }
-
-  int max_val = 0, max_rho = 0, max_theta = 0;
-  for(int r=0; r < acum_size.height ; r++) {
-    for(int t=0; t < acum_size.width; t++) {
-      double factor = (func != NULL) ? func(r,t,rho_deviation,theta_deviation) : 1;
-      if(acum[(r*acum_size.width) + t] * factor > max_val) {
-        max_rho = r;
-        max_theta = t;
-        max_val = acum[(r*acum_size.width) + t];
+  int i = 0, offset = 0, last_max = INT_MAX, last_rho = INT_MAX, last_theta = INT_MAX;
+  while(i < 3) {
+    int max_val = 0, max_rho = 0, max_theta = 0;
+    for(int r=0; r < acum_size.height ; r++) {
+      for(int t=0; t < acum_size.width; t++) {
+        double factor = (func != NULL) ? func(r,t,rho_deviation,theta_deviation) : 1;
+        if(acum[(r*acum_size.width) + t] * factor > max_val && acum[(r*acum_size.width) + t] * factor < last_max && r != last_rho && t != last_theta) {
+          max_rho = r;
+          max_theta = t;
+          max_val = acum[(r*acum_size.width) + t];
+        }
       }
     }
-  }
-  int t = max_theta, r = max_rho;
 
-  int x1, y1, x2, y2;
-  x1 = y1 = x2 = y2 = 0;
+    if(max_rho == -1 && max_theta == -1) {
+      output[0] = output[1] = output[2] = output[3] = output[4] = output[5] = -1;
+      i++;
+      continue;
+//      free(acum);
+//      return;
+    }
 
-  if(t >= 45 && t <= 135) {
-    //y = (r - x cos(t)) / sin(t)
-    x1 = 0;
-    y1 = ((double)(r-(acum_size.height/2)) - ((x1 - (img_size.width/2) ) * cos(t * DEG2RAD))) / sin(t * DEG2RAD) + (img_size.height / 2);
-    x2 = img_size.width;
-    y2 = ((double)(r-(acum_size.height/2)) - ((x2 - (img_size.width/2) ) * cos(t * DEG2RAD))) / sin(t * DEG2RAD) + (img_size.height / 2);
-  } else {
-    //x = (r - y sin(t)) / cos(t);
-    y1 = 0;
-    x1 = ((double)(r-(acum_size.height/2)) - ((y1 - (img_size.height/2) ) * sin(t * DEG2RAD))) / cos(t * DEG2RAD) + (img_size.width / 2);
-    y2 = img_size.height;
-    x2 = ((double)(r-(acum_size.height/2)) - ((y2 - (img_size.height/2) ) * sin(t * DEG2RAD))) / cos(t * DEG2RAD) + (img_size.width / 2);
-  }
-  output[0] = x1;
-  output[1] = y1;
-  output[2] = x2;
-  output[3] = y2;
-  output[4] = t;
-  output[5] = r;
-  
-  printf("x1: %d y1: %d x2: %d y2: %d max val: %d max rho: %d max theta: %d \n", x1,y1,x2,y2, max_val, max_rho, max_theta);
+    int t = max_theta, r = max_rho;
+
+    int x1, y1, x2, y2;
+    x1 = y1 = x2 = y2 = 0;
+
+    if(t >= 45 && t <= 135) {
+      //y = (r - x cos(t)) / sin(t)
+      x1 = 0;
+      y1 = ((double)(r-(acum_size.height/2)) - ((x1 - (img_size.width/2) ) * cos(t * DEG2RAD))) / sin(t * DEG2RAD) + (img_size.height / 2);
+      x2 = img_size.width;
+      y2 = ((double)(r-(acum_size.height/2)) - ((x2 - (img_size.width/2) ) * cos(t * DEG2RAD))) / sin(t * DEG2RAD) + (img_size.height / 2);
+    } else {
+      //x = (r - y sin(t)) / cos(t);
+      y1 = 0;
+      x1 = ((double)(r-(acum_size.height/2)) - ((y1 - (img_size.height/2) ) * sin(t * DEG2RAD))) / cos(t * DEG2RAD) + (img_size.width / 2);
+      y2 = img_size.height;
+      x2 = ((double)(r-(acum_size.height/2)) - ((y2 - (img_size.height/2) ) * sin(t * DEG2RAD))) / cos(t * DEG2RAD) + (img_size.width / 2);
+    }
+    output[offset++] = x1;
+    output[offset++] = y1;
+    output[offset++] = x2;
+    output[offset++] = y2;
+    output[offset++] = t;
+    output[offset++] = r;
+    
+    last_max = max_val;
+    last_rho = max_rho;
+    last_theta = max_theta;
+    i++;
+    printf("x1: %d y1: %d x2: %d y2: %d max val: %d max rho: %d max theta: %d \n", x1,y1,x2,y2, max_val, max_rho, max_theta);
   //line(src, Point(x1, y1), Point(x2, y2), Scalar(0,0,255), 1, CV_AA);
+  }
 }

@@ -1,5 +1,7 @@
 package tese.helder.clearphoto;
 
+import java.util.ArrayList;
+
 import org.opencv.core.Mat;
 
 public class ImageProcessing {
@@ -48,8 +50,8 @@ public class ImageProcessing {
 		return nativeInitDetectHorizon();
 	}
 	
-	public static void stopDetectHorizon() {
-		nativeStopDetectHorizon();
+	public static void stopDetectHorizon(long nativeAddr) {
+		nativeStopDetectHorizon(nativeAddr);
 	}
 	
 	public static void detectColorEdgeHorizon(long nativeAddr, Mat data, Mat canny, int[] ret){
@@ -65,9 +67,27 @@ public class ImageProcessing {
 	}
 	
 	private static native long nativeInitDetectHorizon();
-	private static native void nativeStopDetectHorizon();
+	private static native void nativeStopDetectHorizon(long nativeAddr);
 	private static native void nativeDetectColorEdgeHorizon(long nativeAddr, long data, long canny, int[] ret);
 	private static native void nativeDetectColorHorizon(long nativeAddr, long data, long canny, int[] ret);
 	private static native void nativeDetectEdgeHorizon(long nativeAddr, long data, long canny, int[] ret);
 
+
+	//============================================================================================
+	
+	public static long initMainLinesDetection() {
+		return nativeInitMainLinesDetection();
+	}
+
+	public static void stopMainLinesDetection(long nativeAddr) {
+		nativeStopDetectHorizon(nativeAddr);
+	}
+	
+	public static void getMainLines(long nativeAddr, Mat data, int threshold, ArrayList<Integer> list) {
+		nativeGetMainLines(nativeAddr, data.getNativeObjAddr(), threshold, list);
+	}
+
+	private static native long nativeInitMainLinesDetection();
+	private static native void nativeStopMainLinesDetection(long nativeAddr);
+	private static native void nativeGetMainLines(long nativeAddr, long data, int threshold, ArrayList<Integer> list);
 }

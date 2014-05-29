@@ -19,6 +19,7 @@
 #include <cmath>
 
 #include "HorizonDetection.h"
+#include "MainLinesDetection.h"
 
 
 #define LOG_TAG "ImageProcessing"
@@ -60,13 +61,13 @@ JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_YUVtoBRGA
 
 void generateHistogram(const Mat* data, Mat* output);
 
-//###########################################################################
+// ############### HORIZON DETECTION CALLS ####################
 
 JNIEXPORT jlong JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeInitDetectHorizon
 (JNIEnv* jenv, jclass);
 
 JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeStopDetectHorizon
-(JNIEnv* jenv, jclass);
+(JNIEnv* jenv, jclass, jlong thiz);
 
 JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeDetectColorEdgeHorizon
 (JNIEnv* jenv, jclass, jlong thiz, jlong data_, jlong canny_, jintArray coordinates);
@@ -76,6 +77,21 @@ JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeDetectC
 
 JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeDetectEdgeHorizon
 (JNIEnv* jenv, jclass, jlong thiz, jlong data_, jlong canny_, jintArray coordinates);
+
+// ############### HORIZON DETECTION CALLS ####################
+
+// ############### MAJOR LINES CALLS ####################
+
+JNIEXPORT jlong JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeInitMainLinesDetection
+(JNIEnv* jenv, jclass);
+
+JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeStopMainLinesDetection
+(JNIEnv* jenv, jclass, jlong thiz);
+
+JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeGetMainLines
+(JNIEnv* jenv, jclass, jlong thiz, jlong data_, jint threshold, jobject list);
+
+// ############### MAJOR LINES CALLS ####################
 }
 
 

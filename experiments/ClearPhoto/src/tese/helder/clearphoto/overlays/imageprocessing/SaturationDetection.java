@@ -13,6 +13,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.view.HapticFeedbackConstants;
 import android.view.View;
 
 public class SaturationDetection extends ImageProcessingOv {
@@ -22,7 +23,7 @@ public class SaturationDetection extends ImageProcessingOv {
 	private boolean refresh;
 	private int previewWidth, previewHeight;
 	private Mat data;
-	private Bitmap b;
+//	private Bitmap b;
 	public SaturationDetection(Context context, int previewWidth, int previewHeight, int width, int height) {
 		super(context, width, height);
 		this.previewHeight = previewHeight;
@@ -30,24 +31,24 @@ public class SaturationDetection extends ImageProcessingOv {
 		this.icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_bw_suggestion);
 		this.data = new Mat(previewHeight + previewHeight/2, previewWidth, CvType.CV_8UC1);
 		
-		b = BitmapFactory.decodeResource(getResources(), R.raw.lolol3);
+//		b = BitmapFactory.decodeResource(getResources(), R.raw.lolol3);
 //		ByteArrayOutputStream stream = new ByteArrayOutputStream();
 //		b.compress(Bitmap.CompressFormat.PNG, 100, stream);
 //		byte[] byteArray = stream.toByteArray();
 		
-		data.put(0, 0, getNV21(previewWidth, previewHeight, b));
+//		data.put(0, 0, getNV21(previewWidth, previewHeight, b));
 	}
 
 	@Override
 	protected void onDraw(Canvas canvas) {
-		canvas.drawBitmap(b, 0, 0, null);
+//		canvas.drawBitmap(b, 0, 0, null);
 		if(refresh)
 			canvas.drawBitmap(icon, 0, 0, null);
 	}
 
 	@Override
 	public void process(byte[] data_) {
-//		data.put(0, 0, Arrays.copyOfRange(data_, 0, data_.length));
+		data.put(0, 0, Arrays.copyOfRange(data_, 0, data_.length));
 		int avgSaturation = ImageProcessing.getAvgSaturation(data, previewWidth, previewHeight);
 		refresh = avgSaturation < THRESHOLD;
 		this.invalidate();
@@ -65,6 +66,7 @@ public class SaturationDetection extends ImageProcessingOv {
 					parent.addOverlay(OverlayType.SATURATION_DETECTION);
 				}
 				inflated = !inflated;
+				v.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
 			}
 		};
 	}

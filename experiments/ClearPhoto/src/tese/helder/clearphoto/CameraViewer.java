@@ -16,6 +16,7 @@ import tese.helder.clearphoto.overlays.imageprocessing.ColorWheel;
 import tese.helder.clearphoto.overlays.imageprocessing.FaceDetection;
 import tese.helder.clearphoto.overlays.imageprocessing.HorizonDetection;
 import tese.helder.clearphoto.overlays.imageprocessing.ImageProcessingOv;
+import tese.helder.clearphoto.overlays.imageprocessing.MainLinesDetection;
 import tese.helder.clearphoto.overlays.imageprocessing.SaturationDetection;
 
 import android.app.Activity;
@@ -44,6 +45,7 @@ public class CameraViewer extends SurfaceView implements SurfaceHolder.Callback,
     private ColorWheel colorWheel;
     private SaturationDetection saturation;
     private HorizonDetection horizonDetection;
+    private MainLinesDetection majorLines;
     
     private int previewWidth, previewHeight;
 	private List<Pair<ImageProcessingOv, LayoutParams>> imageProcessingOv;
@@ -139,6 +141,9 @@ public class CameraViewer extends SurfaceView implements SurfaceHolder.Callback,
 		if(horizonDetection != null){
 			horizonDetection.process(data);
 		}
+		if(majorLines != null) {
+			majorLines.process(data);
+		}
 	}
 	
 	public void removeOverlay(OverlayType ov) {
@@ -170,6 +175,10 @@ public class CameraViewer extends SurfaceView implements SurfaceHolder.Callback,
 			vg = (ViewGroup) horizonDetection.getParent();
 			vg.removeView(horizonDetection);
 			horizonDetection = null;
+		} else if (ov == OverlayType.MAIN_LINES) {
+			vg = (ViewGroup) majorLines.getParent();
+			vg.removeView(majorLines);
+			majorLines = null;
 		}
 	}
 	
@@ -191,6 +200,8 @@ public class CameraViewer extends SurfaceView implements SurfaceHolder.Callback,
 			ovlay = saturation = new SaturationDetection(getContext(), previewWidth, previewHeight, getWidth(), getHeight());
 		} else if (ov == OverlayType.HORIZON_DETECTION) {
 			ovlay = horizonDetection = new HorizonDetection(getContext(), previewWidth, previewHeight, getWidth(), getHeight());
+		} else if (ov == OverlayType.MAIN_LINES) {
+			ovlay = majorLines = new MainLinesDetection(getContext(), previewWidth, previewHeight, getWidth(), getHeight());
 		}
 		
 		if (ovlay != null)

@@ -326,38 +326,40 @@ void generateHistogram(const Mat* data, Mat* output) {
 
 
 
-//###########################################################################
+// ############### HORIZON DETECTION CALLS ####################
 
 JNIEXPORT jlong JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeInitDetectHorizon
 (JNIEnv* jenv, jclass)
 {
-    jlong result = 0;
+	jlong result = 0;
 
-    try
-    {
-        result = (jlong)new HorizonDetection();
-    }
-    catch(cv::Exception& e)
-    {
-        LOGD("nativeCreateObject caught cv::Exception: %s", e.what());
-        jclass je = jenv->FindClass("org/opencv/core/CvException");
-        if(!je)
-            je = jenv->FindClass("java/lang/Exception");
-        jenv->ThrowNew(je, e.what());
-    }
-    catch (...)
-    {
-        LOGD("nativeCreateObject caught unknown exception");
-        jclass je = jenv->FindClass("java/lang/Exception");
-        jenv->ThrowNew(je, "Unknown exception in JNI code of DetectionBasedTracker.nativeCreateObject()");
-        return 0;
-    }
+	try
+	{
+		result = (jlong)new HorizonDetection();
+	}
+	catch(cv::Exception& e)
+	{
+		LOGD("nativeCreateObject caught cv::Exception: %s", e.what());
+		jclass je = jenv->FindClass("org/opencv/core/CvException");
+		if(!je)
+			je = jenv->FindClass("java/lang/Exception");
+		jenv->ThrowNew(je, e.what());
+	}
+	catch (...)
+	{
+		LOGD("nativeCreateObject caught unknown exception");
+		jclass je = jenv->FindClass("java/lang/Exception");
+		jenv->ThrowNew(je, "Unknown exception in JNI code of DetectionBasedTracker.nativeCreateObject()");
+		return 0;
+	}
 	return result;
 }
 
 JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeStopDetectHorizon
-(JNIEnv* jenv, jclass)
+(JNIEnv* jenv, jclass, jlong thiz)
 {
+	HorizonDetection* horizon = (HorizonDetection*)thiz;
+	delete horizon;
 }
 
 JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeDetectColorEdgeHorizon
@@ -404,3 +406,78 @@ JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeDetectE
 		free(ret);
 	}
 }
+
+// ############### HORIZON DETECTION CALLS ####################
+
+
+// ############### MAJOR LINES CALLS ####################
+
+JNIEXPORT jlong JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeInitMainLinesDetection
+(JNIEnv* jenv, jclass) {
+	jlong result = 0;
+
+	try
+	{
+		result = (jlong)new MainLinesDetection();
+	}
+	catch(cv::Exception& e)
+	{
+		LOGD("nativeCreateObject caught cv::Exception: %s", e.what());
+		jclass je = jenv->FindClass("org/opencv/core/CvException");
+		if(!je)
+			je = jenv->FindClass("java/lang/Exception");
+		jenv->ThrowNew(je, e.what());
+	}
+	catch (...)
+	{
+		LOGD("nativeCreateObject caught unknown exception");
+		jclass je = jenv->FindClass("java/lang/Exception");
+		jenv->ThrowNew(je, "Unknown exception in JNI code of DetectionBasedTracker.nativeCreateObject()");
+		return 0;
+	}
+	return result;
+}
+
+JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeStopMainLinesDetection
+(JNIEnv* jenv, jclass, jlong thiz){
+	if(thiz != 0) {
+		MainLinesDetection* ml = (MainLinesDetection*)thiz;
+		delete ml;
+	}
+}
+
+JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeGetMainLines
+(JNIEnv* jenv, jclass, jlong thiz, jlong data_, jint threshold, jobject list)
+{
+		jclass cls_arraylist = jenv->GetObjectClass(list);
+		jclass cls_int = jenv->FindClass("java/lang/Integer");
+
+		jmethodID int_cstr = jenv->GetMethodID(cls_int, "<init>", "(I)V");
+		jmethodID arraylist_add = jenv->GetMethodID(cls_arraylist,"add","(Ljava/lang/Object;)Z");
+
+		//	jint d = 1;
+	//	jobject a = jenv->NewObject(cls_int, int_cstr, d);
+	//	jboolean result = jenv->CallBooleanMethod(list,arraylist_set,a);
+	if(thiz != 0) {
+		MainLinesDetection* ml = (MainLinesDetection*)thiz;
+		Mat* data = (Mat*) data_;
+		vector< pair< pair<int, int>, pair<int, int> > > lines;
+		lines = ml->getLines(*data, threshold);
+
+		for(int i = 0; i < lines.size(); i++) {
+			pair<int, int> p0 = lines[i].first;
+			pair<int, int> p1 = lines[i].second;
+
+			jobject x0 = jenv->NewObject(cls_int, int_cstr, p0.first);
+			jobject y0 = jenv->NewObject(cls_int, int_cstr, p0.second);
+			jobject x1 = jenv->NewObject(cls_int, int_cstr, p1.first);
+			jobject y1 = jenv->NewObject(cls_int, int_cstr, p1.second);
+
+			jenv->CallBooleanMethod(list, arraylist_add, x0);
+			jenv->CallBooleanMethod(list, arraylist_add, y0);
+			jenv->CallBooleanMethod(list, arraylist_add, x1);
+			jenv->CallBooleanMethod(list, arraylist_add, y1);
+		}
+	}
+}
+// ############### MAJOR LINES C ALLS ####################

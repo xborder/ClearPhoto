@@ -12,6 +12,7 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RadialGradient;
 import android.graphics.Shader;
+import android.view.HapticFeedbackConstants;
 import android.view.View;
 
 public abstract class Grid extends Overlay {
@@ -115,6 +116,7 @@ public abstract class Grid extends Overlay {
 					gridControl.inflate();
 				}
 				inflated = !inflated;
+				v.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
 			}
 		};
 	}

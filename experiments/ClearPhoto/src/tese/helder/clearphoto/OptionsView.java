@@ -5,12 +5,16 @@ import tese.helder.clearphoto.overlays.imageprocessing.ColorHistogram;
 import tese.helder.clearphoto.overlays.imageprocessing.ColorWheel;
 import tese.helder.clearphoto.overlays.imageprocessing.FaceDetection;
 import tese.helder.clearphoto.overlays.imageprocessing.HorizonDetection;
+import tese.helder.clearphoto.overlays.imageprocessing.MainLinesDetection;
 import tese.helder.clearphoto.overlays.imageprocessing.SaturationDetection;
 import android.app.Activity;
+import android.graphics.PixelFormat;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 
 public class OptionsView {
@@ -49,7 +53,7 @@ public class OptionsView {
 		ImageButton button = null;
 		button = (ImageButton)view.findViewById(R.id.gridButton);
 		button.setOnClickListener(Grid.getOnClickListener(act, cameraViewer));
-
+ 
 		button = (ImageButton)view.findViewById(R.id.faceDetectionButton);
 		button.setOnClickListener(FaceDetection.getOnClickListener(cameraViewer));
 
@@ -64,5 +68,8 @@ public class OptionsView {
 
 		button = (ImageButton)view.findViewById(R.id.horizonDetectionButton);
 		button.setOnClickListener(HorizonDetection.getOnClickListener(cameraViewer));
+		
+		button = (ImageButton)view.findViewById(R.id.majorLinesButton);
+		button.setOnClickListener(MainLinesDetection.getOnClickListener(cameraViewer));
 	}
 }

@@ -25,6 +25,7 @@ import android.graphics.Rect;
 import android.nfc.tech.NfcB;
 import android.util.Log;
 import android.util.Pair;
+import android.view.HapticFeedbackConstants;
 import android.view.View;
 
 public class ColorHistogram extends ImageProcessingOv {
@@ -208,6 +209,7 @@ public class ColorHistogram extends ImageProcessingOv {
 					parent.addOverlay(OverlayType.COLOR_HIST);
 				}
 				inflated = !inflated;
+				v.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
 			}
 		};
 	}

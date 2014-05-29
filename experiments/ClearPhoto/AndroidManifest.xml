@@ -16,6 +16,7 @@
         android:smallScreens="true" />
 
     <uses-permission android:name="android.permission.CAMERA" />
+	<uses-permission android:name="android.permission.VIBRATE" />
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -29,6 +30,7 @@
     <uses-feature
         android:name="android.hardware.camera.front.autofocus"
         android:required="false" />
+	
 
     <application
         android:allowBackup="true"

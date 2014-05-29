@@ -21,6 +21,7 @@ import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.view.HapticFeedbackConstants;
 import android.view.View;
 
 public class ColorWheel extends ImageProcessingOv
@@ -105,6 +106,7 @@ public class ColorWheel extends ImageProcessingOv
 					parent.addOverlay(OverlayType.COLOR_WHEEL);
 				}
 				inflated = !inflated;
+				v.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
 			}
 		};
 	}
