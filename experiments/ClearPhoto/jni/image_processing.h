@@ -8,8 +8,6 @@
 #ifndef IMAGE_PROCESSING_H_
 #define IMAGE_PROCESSING_H_
 
-#include <jni.h>
-#include <android/log.h>
 #include <opencv2/core/core.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/features2d/features2d.hpp>
@@ -20,7 +18,10 @@
 
 #include "HorizonDetection.h"
 #include "MainLinesDetection.h"
+#include "ObjectSegmentation.h"
 
+#include <jni.h>
+#include <android/log.h>
 
 #define LOG_TAG "ImageProcessing"
 #define LOGD(...) ((void)__android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__))
@@ -50,11 +51,6 @@ JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeGetHueC
 
 JNIEXPORT jint JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeGetAvgSaturation
 (JNIEnv* jenv, jclass, jlong data_, jint width, jint height);
-
-
-//void horizonEdgeDetection(Mat* data, int* ret,  double (*)(int,int,double,double));
-//void horizonColorDetection(Mat* data, int* output, int width, int height, double (*intensifyFunction)(int,int,double,double));
-//void applyHough(Mat binary_image, int* output, double (*)(int,int,double,double));
 
 JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_YUVtoBRGA
 (JNIEnv* env, jclass, jint width, jint height, jbyteArray yuv, jintArray bgra);
@@ -92,8 +88,13 @@ JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeGetMain
 (JNIEnv* jenv, jclass, jlong thiz, jlong data_, jint threshold, jobject list);
 
 // ############### MAJOR LINES CALLS ####################
+
+// ############### OBJECT SEGMENTATION CALLS ####################
+
+JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeGetSegmetationMask
+(JNIEnv* jenv, jclass, jlong data_, jlong ret_);
+
+// ############### OBJECT SEGMENTATION CALLS ####################
 }
-
-
 
 #endif /* IMAGE_PROCESSING_H_ */

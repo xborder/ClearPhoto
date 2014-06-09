@@ -9,7 +9,7 @@ OPENCV_INSTALL_MODULES:=on
 include /home/helder/Documents/tese/adt/opencv-android/sdk/native/jni/OpenCV.mk
 
 LOCAL_MODULE    := image_processing
-LOCAL_SRC_FILES := image_processing.cpp HorizonDetection.cpp MainLinesDetection.cpp
+LOCAL_SRC_FILES := image_processing.cpp HorizonDetection.cpp MainLinesDetection.cpp ObjectSegmentation.cpp Segmentation/segment-image.cpp
 LOCAL_LDLIBS +=  -llog -ldl
 
 include $(BUILD_SHARED_LIBRARY)

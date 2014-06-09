@@ -480,4 +480,22 @@ JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeGetMain
 		}
 	}
 }
-// ############### MAJOR LINES C ALLS ####################
+// ############### MAJOR LINES ALLS ####################
+
+// ############### OBJECT SEGMENTATION CALLS ####################
+
+JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeGetSegmetationMask
+(JNIEnv* jenv, jclass, jlong data_, jlong ret_)
+{
+	Mat* data = (Mat*) data_;
+	Mat* ret = (Mat*) ret_;
+	Mat data_bgr, resized;
+	cvtColor(*data, data_bgr, CV_YUV420sp2BGR, 3);
+	data_bgr.convertTo(data_bgr, CV_32FC3, 1.0/255);
+	Mat hc = ObjectSegmentation::GetHC(data_bgr);
+	Mat binary_mask;
+	ObjectSegmentation::getBinaryImage(hc*255, binary_mask);
+    memcpy(ret->data, binary_mask.data, ret->step * ret->rows);
+}
+
+// ############### OBJECT SEGMENTATION CALLS ####################

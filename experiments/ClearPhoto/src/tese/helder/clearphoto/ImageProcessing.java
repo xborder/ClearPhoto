@@ -90,4 +90,15 @@ public class ImageProcessing {
 	private static native long nativeInitMainLinesDetection();
 	private static native void nativeStopMainLinesDetection(long nativeAddr);
 	private static native void nativeGetMainLines(long nativeAddr, long data, int threshold, ArrayList<Integer> list);
+
+	//============================================================================================
+
+	public static void getSegmetationMask(Mat data, Mat ret) {
+		nativeGetSegmetationMask(data.getNativeObjAddr(), ret.getNativeObjAddr());
+	}
+	
+	private static native void nativeGetSegmetationMask(long data, long ret);
+
+	//============================================================================================
+
 }

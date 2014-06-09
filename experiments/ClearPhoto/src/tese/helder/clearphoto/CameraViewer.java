@@ -17,6 +17,7 @@ import tese.helder.clearphoto.overlays.imageprocessing.FaceDetection;
 import tese.helder.clearphoto.overlays.imageprocessing.HorizonDetection;
 import tese.helder.clearphoto.overlays.imageprocessing.ImageProcessingOv;
 import tese.helder.clearphoto.overlays.imageprocessing.MainLinesDetection;
+import tese.helder.clearphoto.overlays.imageprocessing.ObjectSegmentation;
 import tese.helder.clearphoto.overlays.imageprocessing.SaturationDetection;
 
 import android.app.Activity;
@@ -46,6 +47,7 @@ public class CameraViewer extends SurfaceView implements SurfaceHolder.Callback,
     private SaturationDetection saturation;
     private HorizonDetection horizonDetection;
     private MainLinesDetection majorLines;
+    private ObjectSegmentation objectSegmentation;
     
     private int previewWidth, previewHeight;
 	private List<Pair<ImageProcessingOv, LayoutParams>> imageProcessingOv;
@@ -144,6 +146,9 @@ public class CameraViewer extends SurfaceView implements SurfaceHolder.Callback,
 		if(majorLines != null) {
 			majorLines.process(data);
 		}
+		if(objectSegmentation != null) {
+			objectSegmentation.process(data);
+		}
 	}
 	
 	public void removeOverlay(OverlayType ov) {
@@ -179,6 +184,10 @@ public class CameraViewer extends SurfaceView implements SurfaceHolder.Callback,
 			vg = (ViewGroup) majorLines.getParent();
 			vg.removeView(majorLines);
 			majorLines = null;
+		} else if (ov == OverlayType.OBJECT_SEGMENTATION) {
+			vg = (ViewGroup) objectSegmentation.getParent();
+			vg.removeView(objectSegmentation);
+			objectSegmentation = null;
 		}
 	}
 	
@@ -202,6 +211,8 @@ public class CameraViewer extends SurfaceView implements SurfaceHolder.Callback,
 			ovlay = horizonDetection = new HorizonDetection(getContext(), previewWidth, previewHeight, getWidth(), getHeight());
 		} else if (ov == OverlayType.MAIN_LINES) {
 			ovlay = majorLines = new MainLinesDetection(getContext(), previewWidth, previewHeight, getWidth(), getHeight());
+		} else if (ov == OverlayType.OBJECT_SEGMENTATION) {
+			ovlay = objectSegmentation = new ObjectSegmentation(getContext(), previewWidth, previewHeight, getWidth(), getHeight());
 		}
 		
 		if (ovlay != null)
