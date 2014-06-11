@@ -1,5 +1,5 @@
 #include "histcontrastseg.h"
-
+#include "atsBlobFinder.h"
 /*
   WORKING GRABCUT
  Mat bgdModel, fgdModel, result;
@@ -10,9 +10,10 @@
 */
 
 
-void getBinaryImage(const Mat img, Mat& binary, Point& center, Point& topLeft, Point& bottomRight);
+ void getBinaryImage(const Mat img, Mat& binary, Point& center, Point& topLeft, Point& bottomRight);
+ void createWindow(const char* name, Mat image);
 
-int main( int argc, char** argv ) {
+ int main( int argc, char** argv ) {
   // check for supplied argument
   if( argc < 2 ) {
     cout << "Usage: loadimg <filename>\n" << endl;
@@ -33,23 +34,93 @@ int main( int argc, char** argv ) {
   Mat mask;
   Point center, topLeft, bottomRight;
   getBinaryImage(hc*255, mask, center, topLeft, bottomRight);
-//  mask.setTo(GC_BGD, ~mask);
   Rect rect(topLeft.x, topLeft.y, bottomRight.x - topLeft.x, bottomRight.y - topLeft.y);
-//  (mask(rect)).setTo(Scalar(GC_PR_FGD), mask);
- /* for (int r = 0; r < mask.rows; r++) {
-    uchar* binary_row = mask.ptr<uchar>(r);
-    for (int c = 0; c < mask.cols; c++) {
-      printf("%d ", binary_row[c]);
-    }
-  }*/
+  createWindow("mask", mask);
 
+  Mat mask_opening;
+  Mat kernel = getStructuringElement( MORPH_RECT, Size(3,3));
+  morphologyEx(mask, mask_opening, MORPH_OPEN, kernel);
+  createWindow("mask opening", mask_opening);
+
+  Mat bg;
+  dilate(mask_opening, bg, kernel, Point(-1,-1), 3);
+  createWindow("sure bg", bg);
+
+  Mat distance;
+  distanceTransform(mask_opening, distance, CV_DIST_L2, 5);
+  createWindow("distance", distance);
+
+  Mat fg;
+  double maxVal; 
+  minMaxLoc( img, NULL, &maxVal, NULL, NULL);
+  threshold(distance, fg, 0.7*maxVal, 255, 0);
+  fg.convertTo(fg, CV_8U);
+  createWindow("sure fg", fg);
+
+  Mat unknown = fg-bg;
+  createWindow("unknown ", unknown);
+/*
+  fg.convertTo(fg, CV_8U);
+  Mat unkwon;
+  subtract(fg,bg, unkwon);
+
+  atsBlobFinder blb;
+  vector <vector<cv::Point> > blobs;
+
+  blb.FindBlobs(fg, blobs);*/
+
+  // Find total markers
+  std::vector < std::vector < cv::Point > > contours;
+  cv::findContours(fg, contours, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_SIMPLE);
+
+  // Total objects
+  int ncomp = contours.size();
+  cout << ncomp << endl;
+  cv::Mat markers = cv::Mat::zeros(fg.size(), CV_32SC1);
+  Mat tmp = Mat::zeros(fg.size(), CV_8UC3);
+  for (int i = 0; i < ncomp; i++) {
+    drawContours(markers, contours, i, cv::Scalar::all(i + 1), -1);
+    drawContours(tmp, contours, i, cv::Scalar::all(i + 1), 2);
+  }
+  createWindow("markers", tmp);
+//  cv::circle(markers, cv::Point(5, 5), 3, CV_RGB(255, 255, 255), -1);
+
+  cv::watershed(image, markers);
+
+  vector<Vec3b> colorTab;
+  for(int i = 0; i < ncomp; i++ )
+  {
+    int b = theRNG().uniform(0, 255);
+    int g = theRNG().uniform(0, 255);
+    int r = theRNG().uniform(0, 255);
+
+    colorTab.push_back(Vec3b((uchar)b, (uchar)g, (uchar)r));
+  }
+
+  Mat wshed(markers.size(), CV_8UC3);
+  // paint the watershed image
+  for( int i = 0; i < markers.rows; i++ ) {
+    for( int j = 0; j < markers.cols; j++ ) {
+      int index = markers.at<int>(i,j);
+      if( index == -1 )
+        image.at<Vec3b>(i,j) = Vec3b(0,0,255);
+      else if( index <= 0 || index > ncomp )
+        image.at<Vec3b>(i,j) = Vec3b(0,0,0);
+      else
+        image.at<Vec3b>(i,j) = colorTab[index - 1];
+
+      }
+  }
+  createWindow("image", image);
+
+/*  ################### GRABCUT ###################
  Mat before;
  image.copyTo(before, mask);
  const char* window = "before";
  circle(before, center, 2, Scalar(0,0,255),5);
  rectangle(before, topLeft, bottomRight, Scalar(0,255,0));
  namedWindow( window, WINDOW_AUTOSIZE );
- imshow(window, before);
+ imshow(window, mask);
 
  Mat bgdModel, fgdModel;
  grabCut(image, mask, rect, bgdModel, fgdModel, 1, GC_INIT_WITH_MASK);
@@ -61,19 +132,19 @@ int main( int argc, char** argv ) {
   //RECTANGLE AND CENTER OF MASS
  circle(before, center, 2, Scalar(0,0,255),5);
  rectangle(after, topLeft, bottomRight, Scalar(0,255,0));
-  //Mat hc_binary = getBinaryImage(hc*255);
 
  const char* source_window = "after";
  namedWindow( source_window, WINDOW_AUTOSIZE );
  imshow( source_window, after );
-
- /*const char* hc_window = "hc";
- namedWindow( hc_window, WINDOW_AUTOSIZE );
- imshow( hc_window, hc);
 */
- //imwrite("sadas.png", hc*255);
+
  waitKey(0);
  return 0;
+}
+
+void createWindow(const char* name, Mat image) {
+  namedWindow( name, WINDOW_AUTOSIZE );
+  imshow(name, image);
 }
 
 #define MIN_FGD_THRESHOLD 70
@@ -98,35 +169,36 @@ void getBinaryImage(const Mat img, Mat& binary, Point& center, Point& topLeft, P
         //if(binary_row[c] >= FGD_THRESHOLD)
         //  binary_row[c] = GC_FGD;
         //else
-          binary_row[c] = GC_PR_FGD;
-        center_y += r;
-        center_x += c;
-        count++;
-        rows[r]++;
-        cols[c]++;
-        /*if(first_x == -1 || (first_x != -1 && c < first_x)) {
-          first_x = c;
-        }
-        if(first_y == -1 || (first_y != -1 && r < first_y)) {
-          first_y = r;
-        }
-        if(last_y == -1 || (last_y != -1 && r > last_y)) {
-          last_y = r;
-        }
-        if(last_x == -1 || (last_x != -1 && c > last_x)) {
-          last_x = c;
-        }*/
+  binary_row[c] = 255;
+  center_y += r;
+  center_x += c;
+  count++;
+  rows[r]++;
+  cols[c]++;
+  if(first_x == -1 || (first_x != -1 && c < first_x)) {
+    first_x = c;
+  }
+  if(first_y == -1 || (first_y != -1 && r < first_y)) {
+    first_y = r;
+  }
+  if(last_y == -1 || (last_y != -1 && r > last_y)) {
+    last_y = r;
+  }
+  if(last_x == -1 || (last_x != -1 && c > last_x)) {
+    last_x = c;
+  }
       } /*else if(binary_row[c] >= MIN_PR_FGD_THRESHOLD && binary_row[c] < FGD_THRESHOLD){
         binary_row[c] = GC_PR_FGD;
       } */else if (binary_row[c] < MIN_FGD_THRESHOLD && binary_row[c] >= MIN_PR_BGD_THRESHOLD) { //>= MIN_PR_BGD_THRESHOLD && binary_row[c] < MIN_PR_FGD_THRESHOLD) {
-        binary_row[c] = GC_PR_BGD;
+        binary_row[c] = 0;
       } else {
-        binary_row[c] = GC_BGD;
+        binary_row[c] = 0;
       }
     }
   }
   center.x = center_x/count;
   center.y = center_y/count;
+
   topLeft.x = first_x;
   topLeft.y = first_y;
   bottomRight.x = last_x;
