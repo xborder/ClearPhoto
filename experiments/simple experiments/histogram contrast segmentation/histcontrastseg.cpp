@@ -89,6 +89,8 @@ void getBinaryImage(const Mat img, Mat& binary, Point& center, Point& topLeft, P
   img.convertTo(binary, CV_8U, 255.0/(maxVal-minVal),-255.0*minVal/(maxVal-minVal));
   int center_x = 0, center_y = 0, count = 0;
   int first_x = -1, first_y = -1, last_x = -1, last_y = -1;
+  int* rows = (int*)calloc(binary.rows, sizeof(int));
+  int* cols = (int*)calloc(binary.cols, sizeof(int));
   for (int r = 0; r < binary.rows; r++) {
     uchar* binary_row = binary.ptr<uchar>(r);
     for (int c = 0; c < binary.cols; c++) {
@@ -100,7 +102,9 @@ void getBinaryImage(const Mat img, Mat& binary, Point& center, Point& topLeft, P
         center_y += r;
         center_x += c;
         count++;
-        if(first_x == -1 || (first_x != -1 && c < first_x)) {
+        rows[r]++;
+        cols[c]++;
+        /*if(first_x == -1 || (first_x != -1 && c < first_x)) {
           first_x = c;
         }
         if(first_y == -1 || (first_y != -1 && r < first_y)) {
@@ -111,7 +115,7 @@ void getBinaryImage(const Mat img, Mat& binary, Point& center, Point& topLeft, P
         }
         if(last_x == -1 || (last_x != -1 && c > last_x)) {
           last_x = c;
-        }
+        }*/
       } /*else if(binary_row[c] >= MIN_PR_FGD_THRESHOLD && binary_row[c] < FGD_THRESHOLD){
         binary_row[c] = GC_PR_FGD;
       } */else if (binary_row[c] < MIN_FGD_THRESHOLD && binary_row[c] >= MIN_PR_BGD_THRESHOLD) { //>= MIN_PR_BGD_THRESHOLD && binary_row[c] < MIN_PR_FGD_THRESHOLD) {
