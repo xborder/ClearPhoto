@@ -11,20 +11,23 @@ void ObjectSegmentation::getSegmentationMask(const Mat& image, Mat& mask) {
 	image.convertTo(tmp_image, CV_32FC3, 1.0/255);
 	Mat hc = ObjectSegmentation::GetHC(tmp_image), tmp_mask;
 	Point center, topLeft, bottomRight;
-	ObjectSegmentation::getBinaryImage(hc*255, tmp_mask, center, topLeft, bottomRight);
+	Rect roi;
+	ObjectSegmentation::getBinaryImage(hc*255, tmp_mask, center, roi);
 
 	//APPLY GRABCUT
-	Rect rect(topLeft.x, topLeft.y, bottomRight.x - topLeft.x, bottomRight.y - topLeft.y);
-	Mat bgdModel, fgdModel;
-	grabCut(image, tmp_mask, rect, bgdModel, fgdModel, 1, GC_INIT_WITH_MASK);
-	Mat pr_fgd, fgd;
-	compare(tmp_mask, GC_PR_FGD, pr_fgd, CMP_EQ);
-	compare(tmp_mask, GC_FGD, fgd, CMP_EQ);
+	if(!(0 <= roi.x && 0 <= roi.width && roi.x + roi.width <= mask.cols && 0 <= roi.y && 0 <= roi.height && roi.y + roi.height <= mask.rows))
+		return;
 
-	mask = pr_fgd + fgd;
+	Mat pr_fgd, mask_rect(mask.size(), CV_8U);
+	compare(tmp_mask, GC_PR_FGD, pr_fgd, CMP_EQ);
+	mask_rect(roi).setTo(255);
+	bitwise_and(pr_fgd, mask_rect, mask);
+//	compare(tmp_mask, GC_FGD, fgd, CMP_EQ);
+
+//	mask = pr_fgd;
 }
 
-void ObjectSegmentation::getBinaryImage(const Mat& saliency, Mat& binary, Point& center, Point& topLeft, Point& bottomRight) {
+void ObjectSegmentation::getBinaryImage(const Mat& saliency, Mat& binary, Point& center, Rect& rect) {
 	double minVal;
 	double maxVal;
 	Point minLoc;
@@ -33,7 +36,7 @@ void ObjectSegmentation::getBinaryImage(const Mat& saliency, Mat& binary, Point&
 
 	saliency.convertTo(binary, CV_8U, 255.0/(maxVal-minVal),-255.0*minVal/(maxVal-minVal));
 	int center_x = 0, center_y = 0, count = 0;
-	int first_x = -1, first_y = -1, last_x = -1, last_y = -1;
+	int first_x = 0, first_y = 0, last_x = 0, last_y = 0;
 	int* rows = (int*)calloc(binary.rows, sizeof(int));
 	int* cols = (int*)calloc(binary.cols, sizeof(int));
 
@@ -45,18 +48,8 @@ void ObjectSegmentation::getBinaryImage(const Mat& saliency, Mat& binary, Point&
 				center_y += r;
 				center_x += c;
 				count++;
-				if(first_x == -1 || (first_x != -1 && c < first_x)) {
-					first_x = c;
-				}
-				if(first_y == -1 || (first_y != -1 && r < first_y)) {
-					first_y = r;
-				}
-				if(last_y == -1 || (last_y != -1 && r > last_y)) {
-					last_y = r;
-				}
-				if(last_x == -1 || (last_x != -1 && c > last_x)) {
-					last_x = c;
-				}
+				rows[r]++;
+				cols[c]++;
 			} else if (binary_row[c] < MIN_FGD_THRESHOLD && binary_row[c] >= MIN_PR_BGD_THRESHOLD) {
 				binary_row[c] = GC_PR_BGD;
 			} else {
@@ -66,10 +59,38 @@ void ObjectSegmentation::getBinaryImage(const Mat& saliency, Mat& binary, Point&
 	}
 	center.x = center_x/count;
 	center.y = center_y/count;
-	topLeft.x = first_x;
-	topLeft.y = first_y;
-	bottomRight.x = last_x;
-	bottomRight.y = last_y;
+	int i = 0, blank_lines = 0;
+	while(i < binary.cols && blank_lines < 50) {
+		blank_lines++;
+		if(center.x - i > 0  && cols[center.x - i] >= 25) {
+			first_x = center.x - i;
+			blank_lines = 0;
+		}
+		if(center.x + i < binary.cols && cols[center.x + i] >= 25) {
+			last_x = center.x + i;
+			blank_lines = 0;
+		}
+		i++;
+	}
+	i = 0, blank_lines = 0;
+	while(i < binary.cols && blank_lines < 50) {
+		blank_lines++;
+		if(center.y - i > 0 && rows[center.y - i] >= 25) {
+			first_y = center.y - i;
+			blank_lines = 0;
+		}
+		if(center.y + i < binary.rows && rows[center.y + i] >= 25) {
+			last_y = center.y + i;
+			blank_lines = 0;
+		}
+		i++;
+	}
+	rect.x = first_x;
+	rect.y = first_y;
+	rect.width = last_x - first_x;
+	rect.height = last_y - first_y;
+	free(cols);
+	free(rows);
 }
 
 Mat ObjectSegmentation::GetHC(const Mat &img3f)
@@ -157,7 +178,6 @@ void ObjectSegmentation::SmoothSaliency(const Mat &binColor3f, Mat &sal1d, float
 		float valCrnt = 0;
 		for (int j = 0; j < n; j++)
 			valCrnt += val[j] * (totalDist - dist[j]);
-
 		nSal[i] =  valCrnt / ((n-1) * totalDist);
 	}
 	//*/
@@ -192,18 +212,14 @@ int ObjectSegmentation::Quantize(const Mat& img3f, Mat &idx1i, Mat &_color3f, Ma
 	CV_Assert(img3f.data != NULL);
 	idx1i = Mat::zeros(img3f.size(), CV_32S);
 	int rows = img3f.rows, cols = img3f.cols;
-	//LOGE("%d %d %d", idx1i.rows, idx1i.cols, idx1i.rows*idx1i.cols);
-	//LOGE("%d %d %d", img3f.rows, img3f.cols, img3f.rows*img3f.cols);
 
 	if (img3f.isContinuous() && idx1i.isContinuous())
 	{
 		cols *= rows;
 		rows = 1;
 	}
-
 	// Build color pallet
 	map<int, int> pallet;
-	LOGE("%d %d %d", rows, cols, rows*cols);
 	for (int y = 0; y < rows; y++) {
 		const float* imgData = img3f.ptr<float>(y);
 		int* idx = idx1i.ptr<int>(y);
@@ -214,8 +230,6 @@ int ObjectSegmentation::Quantize(const Mat& img3f, Mat &idx1i, Mat &_color3f, Ma
 			pallet[idx[x]] ++;
 		}
 	}
-
-
 
 	// Fine significant colors
 	int maxNum = 0;
@@ -263,7 +277,6 @@ int ObjectSegmentation::Quantize(const Mat& img3f, Mat &idx1i, Mat &_color3f, Ma
 
 	_color3f = Mat::zeros(1, maxNum, CV_32FC3);
 	_colorNum = Mat::zeros(_color3f.size(), CV_32S);
-
 	Vec3f* color = (Vec3f*)(_color3f.data);
 	int* colorNum = (int*)(_colorNum.data);
 	for (int y = 0; y < rows; y++)

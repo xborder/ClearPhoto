@@ -4,7 +4,7 @@
 #include "stdafx.h"
 
 #define BINARY_THRESHOLD 255 * 0.8
-#define MIN_FGD_THRESHOLD 		70
+#define MIN_FGD_THRESHOLD 		200
 #define MIN_PR_BGD_THRESHOLD 	20
 
 struct ObjectSegmentation {
@@ -17,7 +17,7 @@ struct ObjectSegmentation {
 	static Mat GetRC(const Mat &img3f, double sigmaDist, double segK, int segMinSize, double segSigma);
 
 private:
-	static void getBinaryImage(const Mat& saliency, Mat& binary, Point& center, Point& topLeft, Point& bottomRight);
+	static void getBinaryImage(const Mat& saliency, Mat& binary, Point& center, Rect& rect);
 	static void GetHC(const Mat &binColor3f, const Mat &weights1f, Mat &colorSaliency);
  	static void SmoothSaliency(const Mat &binColor3f, Mat &sal1d, float delta, const vector<vector<CostfIdx> > &similar);
  	static int Quantize(const Mat& img3f, Mat &idx1i, Mat &_color3f, Mat &_colorNum, double ratio = 0.95);

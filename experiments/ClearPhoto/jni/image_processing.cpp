@@ -489,9 +489,27 @@ JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeGetSegm
 {
 	Mat* data = (Mat*) data_;
 	Mat* ret = (Mat*) ret_;
-	Mat data_bgr;
+	Mat data_bgr, tmp;
 	cvtColor(*data, data_bgr, CV_YUV420sp2BGR, 3);
-	ObjectSegmentation::getSegmentationMask(data_bgr, *ret);
+	Mat mask(data_bgr.rows, data_bgr.cols, CV_8UC1);
+	ObjectSegmentation::getSegmentationMask(data_bgr, mask);
+	cvtColor(mask, tmp, CV_GRAY2BGRA);
+
+	uchar* pixels = (uchar*)tmp.data;
+	uchar* mask_pixels = (uchar*)mask.data;
+	for(int i = 0; i < tmp.rows; i++) {
+	    for(int j = 0; j < tmp.cols; j++) {
+	    	if(mask_pixels[(i*mask.cols + j)] == 0) {
+	    		pixels[i*tmp.cols*4 + j*4 + 3] = 0;		//A
+	    	} else {
+	    		pixels[i*tmp.cols*4 + j*4] = 0;			//B
+	    		pixels[i*tmp.cols*4 + j*4 + 1] = 255; 	//G
+	    		pixels[i*tmp.cols*4 + j*4 + 2] = 0;		//R
+	    	}
+	    }
+	}
+	*ret = tmp;
+	//multiply(tmp ,Scalar(0, 0, 255, 0.8), *ret);
 //	data_bgr.convertTo(data_bgr, CV_32FC3, 1.0/255);
 //	Mat hc = ObjectSegmentation::GetHC(data_bgr);
 //	Mat binary_mask;

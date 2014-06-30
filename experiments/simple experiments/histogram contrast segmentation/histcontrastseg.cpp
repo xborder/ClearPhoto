@@ -1,5 +1,5 @@
 #include "histcontrastseg.h"
-#include "atsBlobFinder.h"
+
 /*
   WORKING GRABCUT
  Mat bgdModel, fgdModel, result;
@@ -10,10 +10,9 @@
 */
 
 
- void getBinaryImage(const Mat img, Mat& binary, Point& center, Point& topLeft, Point& bottomRight);
- void createWindow(const char* name, Mat image);
+void getBinaryImage(const Mat img, Mat& binary, Point& center, Point& topLeft, Point& bottomRight);
 
- int main( int argc, char** argv ) {
+int main( int argc, char** argv ) {
   // check for supplied argument
   if( argc < 2 ) {
     cout << "Usage: loadimg <filename>\n" << endl;
@@ -35,121 +34,69 @@
   Point center, topLeft, bottomRight;
   getBinaryImage(hc*255, mask, center, topLeft, bottomRight);
   Rect rect(topLeft.x, topLeft.y, bottomRight.x - topLeft.x, bottomRight.y - topLeft.y);
-  createWindow("mask", mask);
 
-  Mat mask_opening;
-  Mat kernel = getStructuringElement( MORPH_RECT, Size(3,3));
-  morphologyEx(mask, mask_opening, MORPH_OPEN, kernel);
-  createWindow("mask opening", mask_opening);
-
-  Mat bg;
-  dilate(mask_opening, bg, kernel, Point(-1,-1), 3);
-  createWindow("sure bg", bg);
-
-  Mat distance;
-  distanceTransform(mask_opening, distance, CV_DIST_L2, 5);
-  createWindow("distance", distance);
-
-  Mat fg;
-  double maxVal; 
-  minMaxLoc( img, NULL, &maxVal, NULL, NULL);
-  threshold(distance, fg, 0.7*maxVal, 255, 0);
-  fg.convertTo(fg, CV_8U);
-  createWindow("sure fg", fg);
-
-  Mat unknown = fg-bg;
-  createWindow("unknown ", unknown);
-/*
-  fg.convertTo(fg, CV_8U);
-  Mat unkwon;
-  subtract(fg,bg, unkwon);
-
-  atsBlobFinder blb;
-  vector <vector<cv::Point> > blobs;
-
-  blb.FindBlobs(fg, blobs);*/
-
-  // Find total markers
-  std::vector < std::vector < cv::Point > > contours;
-  cv::findContours(fg, contours, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_SIMPLE);
-
-  // Total objects
-  int ncomp = contours.size();
-  cout << ncomp << endl;
-  cv::Mat markers = cv::Mat::zeros(fg.size(), CV_32SC1);
-  Mat tmp = Mat::zeros(fg.size(), CV_8UC3);
-  for (int i = 0; i < ncomp; i++) {
-    drawContours(markers, contours, i, cv::Scalar::all(i + 1), -1);
-    drawContours(tmp, contours, i, cv::Scalar::all(i + 1), 2);
-  }
-  createWindow("markers", tmp);
-//  cv::circle(markers, cv::Point(5, 5), 3, CV_RGB(255, 255, 255), -1);
-
-  cv::watershed(image, markers);
-
-  vector<Vec3b> colorTab;
-  for(int i = 0; i < ncomp; i++ )
-  {
-    int b = theRNG().uniform(0, 255);
-    int g = theRNG().uniform(0, 255);
-    int r = theRNG().uniform(0, 255);
-
-    colorTab.push_back(Vec3b((uchar)b, (uchar)g, (uchar)r));
-  }
-
-  Mat wshed(markers.size(), CV_8UC3);
-  // paint the watershed image
-  for( int i = 0; i < markers.rows; i++ ) {
-    for( int j = 0; j < markers.cols; j++ ) {
-      int index = markers.at<int>(i,j);
-      if( index == -1 )
-        image.at<Vec3b>(i,j) = Vec3b(0,0,255);
-      else if( index <= 0 || index > ncomp )
-        image.at<Vec3b>(i,j) = Vec3b(0,0,0);
-      else
-        image.at<Vec3b>(i,j) = colorTab[index - 1];
-
-      }
-  }
-  createWindow("image", image);
-
-/*  ################### GRABCUT ###################
+/*  Mat rect_mask(mask.size(), CV_8U);
+  rect_mask(rect).setTo(255);
+ 
+  Mat tmp_mask;
+  bitwise_and(rect_mask, mask*255, tmp_mask);
+*/
  Mat before;
  image.copyTo(before, mask);
  const char* window = "before";
  circle(before, center, 2, Scalar(0,0,255),5);
- rectangle(before, topLeft, bottomRight, Scalar(0,255,0));
+ rectangle(before, topLeft, bottomRight, Scalar(0,255,0),4);
  namedWindow( window, WINDOW_AUTOSIZE );
- imshow(window, mask);
+ imshow(window, before);
 
  Mat bgdModel, fgdModel;
  grabCut(image, mask, rect, bgdModel, fgdModel, 1, GC_INIT_WITH_MASK);
- Mat pr_fgd, fgd;
+ Mat pr_fgd, fgd, new_mask;
  compare(mask, GC_PR_FGD, pr_fgd, CMP_EQ);
  compare(mask, GC_FGD, fgd, CMP_EQ);
+ new_mask = pr_fgd + fgd;
  Mat after(image.size(), CV_8UC3, cv::Scalar(0,0,0));
- image.copyTo(after, pr_fgd + fgd);
+ image.copyTo(after, new_mask);
   //RECTANGLE AND CENTER OF MASS
- circle(before, center, 2, Scalar(0,0,255),5);
+ circle(after, center, 2, Scalar(0,0,255),5);
  rectangle(after, topLeft, bottomRight, Scalar(0,255,0));
 
  const char* source_window = "after";
  namedWindow( source_window, WINDOW_AUTOSIZE );
  imshow( source_window, after );
-*/
+
+  RNG rng(12345);
+
+  vector<vector<Point> > contours;
+  vector<Vec4i> hierarchy;
+  /// Find contours
+  findContours(new_mask, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, Point(0, 0) );
+
+  /// Find the convex hull object for each contour
+  vector<vector<Point> >hull( contours.size() );
+  for( int i = 0; i < contours.size(); i++ )
+    {  convexHull( Mat(contours[i]), hull[i], false ); }
+
+  /// Draw contours + hull results
+  Mat drawing = Mat::zeros( new_mask.size(), CV_8UC3 );
+  for( int i = 0; i< contours.size(); i++ )
+  {
+    Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
+  //  drawContours( drawing, contours, i, color, 1, 8, vector<Vec4i>(), 0, Point() );
+    drawContours( drawing, hull, i, color, 1, 8, vector<Vec4i>(), 0, Point() );
+  }
+
+   /// Show in a window
+  namedWindow( "Hull demo", CV_WINDOW_AUTOSIZE );
+  imshow( "Hull demo", drawing );
+
+
 
  waitKey(0);
  return 0;
 }
-
-void createWindow(const char* name, Mat image) {
-  namedWindow( name, WINDOW_AUTOSIZE );
-  imshow(name, image);
-}
-
-#define MIN_FGD_THRESHOLD 70
-//#define MIN_PR_FGD_THRESHOLD 255 * 0.5
-#define MIN_PR_BGD_THRESHOLD 20
+#define MIN_FGD_THRESHOLD     200
+#define MIN_PR_BGD_THRESHOLD  20
 void getBinaryImage(const Mat img, Mat& binary, Point& center, Point& topLeft, Point& bottomRight) {
   double minVal; 
   double maxVal; 
@@ -165,40 +112,49 @@ void getBinaryImage(const Mat img, Mat& binary, Point& center, Point& topLeft, P
   for (int r = 0; r < binary.rows; r++) {
     uchar* binary_row = binary.ptr<uchar>(r);
     for (int c = 0; c < binary.cols; c++) {
-      if(binary_row[c] >= MIN_FGD_THRESHOLD) {//FGD_THRESHOLD || (binary_row[c] >= MIN_PR_FGD_THRESHOLD && binary_row[c] < FGD_THRESHOLD)) {
-        //if(binary_row[c] >= FGD_THRESHOLD)
-        //  binary_row[c] = GC_FGD;
-        //else
-  binary_row[c] = 255;
-  center_y += r;
-  center_x += c;
-  count++;
-  rows[r]++;
-  cols[c]++;
-  if(first_x == -1 || (first_x != -1 && c < first_x)) {
-    first_x = c;
-  }
-  if(first_y == -1 || (first_y != -1 && r < first_y)) {
-    first_y = r;
-  }
-  if(last_y == -1 || (last_y != -1 && r > last_y)) {
-    last_y = r;
-  }
-  if(last_x == -1 || (last_x != -1 && c > last_x)) {
-    last_x = c;
-  }
-      } /*else if(binary_row[c] >= MIN_PR_FGD_THRESHOLD && binary_row[c] < FGD_THRESHOLD){
+      if(binary_row[c] >= MIN_FGD_THRESHOLD) {
         binary_row[c] = GC_PR_FGD;
-      } */else if (binary_row[c] < MIN_FGD_THRESHOLD && binary_row[c] >= MIN_PR_BGD_THRESHOLD) { //>= MIN_PR_BGD_THRESHOLD && binary_row[c] < MIN_PR_FGD_THRESHOLD) {
-        binary_row[c] = 0;
+        center_y += r;
+        center_x += c;
+        count++;
+        rows[r]++;
+        cols[c]++;
+      } else if (binary_row[c] < MIN_FGD_THRESHOLD && binary_row[c] >= MIN_PR_BGD_THRESHOLD) { //>= MIN_PR_BGD_THRESHOLD && binary_row[c] < MIN_PR_FGD_THRESHOLD) {
+        binary_row[c] = GC_PR_BGD;
       } else {
-        binary_row[c] = 0;
+        binary_row[c] = GC_BGD;
       }
     }
   }
   center.x = center_x/count;
   center.y = center_y/count;
-
+  int i = 0, blank_lines = 0;
+  while(i < binary.cols && blank_lines < 50) {//for (int c = center.x; c < binary.cols/2; c++) {
+    blank_lines++;
+    if(center.x - i > 0  && cols[center.x - i] >= 25) {
+      first_x = center.x - i;
+      blank_lines = 0;
+    }
+    if(center.x + i < binary.cols && cols[center.x + i] >= 25) {
+      last_x = center.x + i;
+      blank_lines = 0;
+    }
+    i++;
+  }
+  i = 0, blank_lines = 0;
+  while(i < binary.cols && blank_lines < 50) {//for (int r = center.y; r < binary.rows/2; r++) {
+    blank_lines++;
+    if(center.y - i > 0 && rows[center.y - i] >= 25) {
+      first_y = center.y - i;
+      blank_lines = 0;
+    }
+    if(center.y + i < binary.rows && rows[center.y + i] >= 25) {
+      last_y = center.y + i;
+      blank_lines = 0;
+    }
+    i++;
+  }
+  printf("%d %d %d %d\n", first_x, first_y, last_x, last_y);
   topLeft.x = first_x;
   topLeft.y = first_y;
   bottomRight.x = last_x;
@@ -354,6 +310,7 @@ int HistContrastSeg::Quantize(const Mat& img3f, Mat &idx1i, Mat &_color3f, Mat &
     }
   }
 
+  printf(">> %d\n", pallet.size());
 
   // Fine significant colors
   int maxNum = 0;

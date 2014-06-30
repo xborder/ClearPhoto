@@ -26,16 +26,15 @@ public class ObjectSegmentation extends ImageProcessingOv {
 	private Mat data, output;
 	private Bitmap bitmap;
 	private Paint overlay;
-	
+
 	public ObjectSegmentation(Context context, int previewWidth, int previewHeight, int width, int height) {
 		super(context, width, height);
 		this.previewHeight = previewHeight;
 		this.previewWidth = previewWidth;
 		this.data = new Mat(previewHeight + previewHeight/2, previewWidth, CvType.CV_8UC1);
-		this.output = new Mat(previewHeight, previewWidth, CvType.CV_8UC1);
+		this.output = new Mat(previewHeight, previewWidth, CvType.CV_8UC4);
 		overlay = new Paint();
-		overlay.setStyle(Paint.Style.FILL_AND_STROKE);
-		overlay.setColor(Color.RED);
+		overlay.setAlpha(100);
 	}
 
 	@Override
@@ -43,7 +42,7 @@ public class ObjectSegmentation extends ImageProcessingOv {
 		if(bitmap != null)
 			canvas.drawBitmap(bitmap, 0, 0, overlay);
 	}
-	
+
 	int frame_count = 0;
 	int FRAMES_INTERVAL = 10;
 	@Override
@@ -54,8 +53,9 @@ public class ObjectSegmentation extends ImageProcessingOv {
 			return;
 		data.put(0, 0, Arrays.copyOfRange(data_, 0, data_.length));
 		ImageProcessing.getSegmetationMask(data,output);
-		bitmap = Bitmap.createBitmap(previewWidth, previewHeight, Bitmap.Config.ARGB_8888);
-		Utils.matToBitmap(output, bitmap);
+		Bitmap tmp = Bitmap.createBitmap(previewWidth, previewHeight, Bitmap.Config.ARGB_8888);
+		Utils.matToBitmap(output, tmp);
+		bitmap = Bitmap.createScaledBitmap(tmp, width, height, false);
 		this.invalidate();
 	}
 
