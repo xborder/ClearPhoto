@@ -65,9 +65,25 @@
             android:layout_margin="5dp"
             android:background="@android:color/transparent"
             android:src="@drawable/ic_launcher" />
-        
+
         <ImageButton
             android:id="@+id/objectSegmentationButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_launcher" />
+
+        <ImageButton
+            android:id="@+id/backgroundSimplicityButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_launcher" />
+
+        <ImageButton
+            android:id="@+id/hueCountButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"

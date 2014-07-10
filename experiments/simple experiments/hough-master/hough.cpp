@@ -35,13 +35,32 @@
 #include "hough.h"
 #include <cmath>
 #include <iostream>
+#include <queue>
 #include <string.h>
 #include <stdlib.h>
 
 
 #define DEG2RAD 0.017453293f
 
+
+using namespace std;
+
 namespace keymolen {
+	class Point {
+	public:
+		int theta;
+		int rho;
+		int val;
+		Point(int theta, int rho, int val)
+			: theta(theta), rho(rho), val(val)
+		{}
+	};
+
+	struct PointCompare {
+		bool operator()(const Point &p1, const Point &p2) const {
+		return p1.val < p2.val;
+		}
+	};
 
 	Hough::Hough():_accu(0), _accu_w(0), _accu_h(0), _img_w(0), _img_h(0)
 	{
@@ -62,7 +81,7 @@ namespace keymolen {
 		double hough_h = ((sqrt(2.0) * (double)(h>w?h:w)) / 2.0);
 		_accu_h = hough_h * 2.0; // -r -> +r
 		_accu_w = 180;
-		std::cout << "width: " << _accu_w <<" height: " << _accu_h << std::endl;
+		//std::cout << "width: " << _accu_w <<" height: " << _accu_h << std::endl;
 
 		_accu = (unsigned int*)calloc(_accu_h * _accu_w, sizeof(unsigned int));
 
@@ -90,8 +109,8 @@ namespace keymolen {
 
 	std::vector< std::pair< std::pair<int, int>, std::pair<int, int> > > Hough::GetLines(int threshold)
 	{
-		std::vector< std::pair< std::pair<int, int>, std::pair<int, int> > > lines;
 
+		std::vector< std::pair< std::pair<int, int>, std::pair<int, int> > > lines;
 		if(_accu == 0)
 			return lines;
 
@@ -152,32 +171,27 @@ namespace keymolen {
 				}
 			}
 		}
-/*		lines.clear();
 
-		int x1, y1, x2, y2;
-		x1 = y1 = x2 = y2 = 0;
+		priority_queue<Point, vector<Point>, PointCompare> queue;
 
-		if(max_t >= 45 && max_t <= 135)
+		for(int r=0;r<_accu_h;r++)
 		{
-			//y = (r - x cos(t)) / sin(t)
-			x1 = 0;
-			y1 = ((double)(max_r-(_accu_h/2)) - ((x1 - (_img_w/2) ) * cos(max_t * DEG2RAD))) / sin(max_t * DEG2RAD) + (_img_h / 2);
-			x2 = _img_w - 0;
-			y2 = ((double)(max_r-(_accu_h/2)) - ((x2 - (_img_w/2) ) * cos(max_t * DEG2RAD))) / sin(max_t * DEG2RAD) + (_img_h / 2);
+			for(int t=0;t<_accu_w;t++)
+			{
+				if((int)_accu[(r*_accu_w) + t] > max_v * 0.6 )
+					queue.push(Point(t,r,(int)_accu[(r*_accu_w) + t]));
+			}
 		}
-		else
+		cerr << "size: " << queue.size() << " " << max_v << endl;
+		while (!queue.empty())
 		{
-			//x = (r - y sin(t)) / cos(t);
-			y1 = 0;
-			x1 = ((double)(max_r-(_accu_h/2)) - ((y1 - (_img_h/2) ) * sin(max_t * DEG2RAD))) / cos(max_t * DEG2RAD) + (_img_w / 2);
-			y2 = _img_h - 0;
-			x2 = ((double)(max_r-(_accu_h/2)) - ((y2 - (_img_h/2) ) * sin(max_t * DEG2RAD))) / cos(max_t * DEG2RAD) + (_img_w / 2);
+			Point t = queue.top();
+			std::cout << "rho: " << t.rho << " theta " << t.theta << std::endl;
+			queue.pop();
 		}
 
-		lines.push_back(std::pair< std::pair<int, int>, std::pair<int, int> >(std::pair<int, int>(x1,y1), std::pair<int, int>(x2,y2)));
-		*/
-		std::cout << "v: "<< max_v <<" r: " << max_r << " t: " << max_t<< std::endl;
-		std::cout << "lines: " << lines.size() << " " << threshold << std::endl;
+		//std::cout << "v: "<< max_v <<" r: " << max_r << " t: " << max_t<< std::endl;
+		//std::cout << "lines: " << lines.size() << " " << threshold << std::endl;
 		return lines;
 	}
 

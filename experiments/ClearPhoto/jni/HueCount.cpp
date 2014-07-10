@@ -1,23 +1,4 @@
-#include "huecount.h"
-
-int main( int argc, char** argv ) {
-  // check for supplied argument
-  if( argc < 2 ) {
-    cout << "Usage: loadimg <filename>\n" << endl;
-    return 1;
-  }
-  // load the image, load the image in grayscale
-  Mat img = imread( argv[1], CV_LOAD_IMAGE_COLOR );
-  // always check
-  if( img.data == NULL ) {
-    cout << "Cannot load file " << argv[1] << endl;
-    return 1;
-  }
-
-  int res = HueCounter::getHueCount(img);
-  cout << res << endl;
-  return 0;
-}
+#include "HueCount.h"
 
 int HueCounter::getHueCount(Mat& data) {
 

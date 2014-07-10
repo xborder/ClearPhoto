@@ -1,10 +1,12 @@
 package tese.helder.clearphoto;
 
 import tese.helder.clearphoto.overlays.grids.Grid;
+import tese.helder.clearphoto.overlays.imageprocessing.BackgroundSimplicity;
 import tese.helder.clearphoto.overlays.imageprocessing.ColorHistogram;
 import tese.helder.clearphoto.overlays.imageprocessing.ColorWheel;
 import tese.helder.clearphoto.overlays.imageprocessing.FaceDetection;
 import tese.helder.clearphoto.overlays.imageprocessing.HorizonDetection;
+import tese.helder.clearphoto.overlays.imageprocessing.HueCount;
 import tese.helder.clearphoto.overlays.imageprocessing.MainLinesDetection;
 import tese.helder.clearphoto.overlays.imageprocessing.ObjectSegmentation;
 import tese.helder.clearphoto.overlays.imageprocessing.SaturationDetection;
@@ -75,6 +77,11 @@ public class OptionsView {
 		
 		button = (ImageButton)view.findViewById(R.id.objectSegmentationButton);
 		button.setOnClickListener(ObjectSegmentation.getOnClickListener(cameraViewer));
+
+		button = (ImageButton)view.findViewById(R.id.backgroundSimplicityButton);
+		button.setOnClickListener(BackgroundSimplicity.getOnClickListener(cameraViewer));
 		
+		button = (ImageButton)view.findViewById(R.id.hueCountButton);
+		button.setOnClickListener(HueCount.getOnClickListener(cameraViewer));
 	}
 }

@@ -100,5 +100,22 @@ public class ImageProcessing {
 	private static native void nativeGetSegmetationMask(long data, long ret);
 
 	//============================================================================================
+	
+	public static float[] getBgSimplicity(Mat data) {
+		float[] results = new float[3];
+		nativeTestBgSimplicity(data.getNativeObjAddr(), results);
+		return results;
+	}
+	
+	private static native void nativeTestBgSimplicity(long data, float[] results);
+	
+	//============================================================================================
 
+	public static int getHueCount(Mat data) {
+		return nativeGetHueCount(data.getNativeObjAddr());
+	}
+	
+	private static native int nativeGetHueCount(long data);
+	
+	//============================================================================================
 }

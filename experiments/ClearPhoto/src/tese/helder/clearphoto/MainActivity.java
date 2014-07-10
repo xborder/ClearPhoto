@@ -29,46 +29,32 @@ public class MainActivity extends Activity {
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		setContentView(R.layout.activity_main);
 
-		cameraViewer = new CameraViewer(this, getCameraInstance());
+		cameraViewer = new CameraViewer(this);
 		FrameLayout preview = (FrameLayout) findViewById(R.id.camera_preview);
 		preview.addView(cameraViewer);
 
-		options = new OptionsView(MainActivity.this, cameraViewer);
+		options = new OptionsView(this, cameraViewer);
 		registerEvents();
 	}
 
+	@Override
+	protected void onPause() {
+		cameraViewer.releaseCamera();
+		super.onPause();
+	}
+	
+	@Override
+	protected void onResume() {
+		cameraViewer.openCamera();
+		super.onResume();
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
 
-	@Override
-	protected void onResume() {
-		super.onResume();
-	}
-
-	@Override
-	protected void onPause() {
-		super.onPause();
-	}
-
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-	}
-
-	/** A safe way to get an instance of the Camera object. */
-	public static Camera getCameraInstance(){
-		Camera c = null;
-		try {
-			c = Camera.open(); // attempt to get a Camera instance
-		}
-		catch (Exception e){
-			// Camera is not available (in use or does not exist)
-		}
-		return c; // returns null if camera is unavailable
-	}
 
 	private void registerEvents() {
 		cameraViewer.setOnLongClickListener(new OnLongClickListener() {

@@ -11,10 +11,12 @@ import tese.helder.clearphoto.overlays.grids.GoldenGrid;
 import tese.helder.clearphoto.overlays.grids.Grid;
 import tese.helder.clearphoto.overlays.grids.ThirdsGrid;
 import tese.helder.clearphoto.overlays.grids.TriangleGrid;
+import tese.helder.clearphoto.overlays.imageprocessing.BackgroundSimplicity;
 import tese.helder.clearphoto.overlays.imageprocessing.ColorHistogram;
 import tese.helder.clearphoto.overlays.imageprocessing.ColorWheel;
 import tese.helder.clearphoto.overlays.imageprocessing.FaceDetection;
 import tese.helder.clearphoto.overlays.imageprocessing.HorizonDetection;
+import tese.helder.clearphoto.overlays.imageprocessing.HueCount;
 import tese.helder.clearphoto.overlays.imageprocessing.ImageProcessingOv;
 import tese.helder.clearphoto.overlays.imageprocessing.MainLinesDetection;
 import tese.helder.clearphoto.overlays.imageprocessing.ObjectSegmentation;
@@ -35,96 +37,116 @@ import android.view.ViewGroup.LayoutParams;
 
 /** A basic Camera preview class */
 public class CameraViewer extends SurfaceView implements SurfaceHolder.Callback, PreviewCallback {
-    private final static String TAG = "CameraViewer";
-	
+	private final static String TAG = "CameraViewer";
+
 	private SurfaceHolder mHolder;
-    private Camera mCamera;
+	private Camera mCamera;
 
-    private Grid activeGrid;
-    private FaceDetection faceDetection;
-    private ColorHistogram colorHistogram;
-    private ColorWheel colorWheel;
-    private SaturationDetection saturation;
-    private HorizonDetection horizonDetection;
-    private MainLinesDetection majorLines;
-    private ObjectSegmentation objectSegmentation;
-    
-    private int previewWidth, previewHeight;
+	private Grid activeGrid;
+	private FaceDetection faceDetection;
+	private ColorHistogram colorHistogram;
+	private ColorWheel colorWheel;
+	private SaturationDetection saturation;
+	private HorizonDetection horizonDetection;
+	private MainLinesDetection majorLines;
+	private ObjectSegmentation objectSegmentation;
+	private BackgroundSimplicity bgSimplicity;
+	private HueCount hueCount;
+
+	private int previewWidth, previewHeight;
 	private List<Pair<ImageProcessingOv, LayoutParams>> imageProcessingOv;
-	
+
 	private Activity act;
-	
-	public CameraViewer(Activity act, Camera camera) {
-		this(act.getBaseContext(), camera);
+
+	public CameraViewer(Activity act) {
+		super(act);
 		this.act = act;
+		imageProcessingOv = new ArrayList<Pair<ImageProcessingOv, LayoutParams>>();
+
+		// Install a SurfaceHolder.Callback so we get notified when the
+		// underlying surface is created and destroyed.
+		mHolder = getHolder();
+		mHolder.addCallback(this);
 	}
-	
-    private CameraViewer(Context context, Camera camera) {
-        super(context);
-        imageProcessingOv = new ArrayList<Pair<ImageProcessingOv, LayoutParams>>();
-		
-        mCamera = camera;
-        
-        // Install a SurfaceHolder.Callback so we get notified when the
-        // underlying surface is created and destroyed.
-        mHolder = getHolder();
-        mHolder.addCallback(this);
-    }
-    
+
+	public void openCamera() {
+		if(mCamera != null)
+			return;
+		try {
+			mCamera = Camera.open(); // attempt to get a Camera instance
+		}
+		catch (Exception e){
+			Log.e(TAG, "Failed to open camera: " + e.getMessage());
+		}
+
+		if(mCamera == null)
+			return;
+		setupCamera();
+	}
+
+	public void setupCamera() {
+		if(mCamera == null)
+			return;
+		try {
+			mCamera.setPreviewDisplay(mHolder);
+		} catch (IOException e) {
+			Log.d(TAG, "Error setting camera preview: " + e.getMessage());
+		}
+		// set preview size and make any resize, rotate or
+		// reformatting changes here
+
+		// start preview with new settings
+		try {
+			Camera.Parameters params = mCamera.getParameters();
+
+			if(params.getSupportedFocusModes().contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO)){
+				// video mode focus is less aggressive than picture mode
+				params.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO);
+				Log.d(TAG, "Camera focus mode: " + Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO);
+			}
+			//params.setSceneMode(Camera.Parameters.SCENE_MODE_NIGHT);
+			//params.setFocusMode(Camera.Parameters.FOCUS_MODE_AUTO);
+
+			previewWidth = mCamera.getParameters().getPreviewSize().width;
+			previewHeight = mCamera.getParameters().getPreviewSize().height;
+
+			mCamera.setParameters(params);
+			mCamera.setPreviewDisplay(mHolder);
+			mCamera.setPreviewCallback(this);
+			mCamera.startPreview();
+		} catch (Exception e){
+			Log.d(TAG, "Error starting camera preview: " + e.getMessage());
+		}
+	}
+
+	public void releaseCamera() {
+		if (mHolder.getSurface() == null){
+			// preview surface does not exist
+			return;
+		}
+
+		// stop preview before making changes
+		try {
+			mCamera.stopPreview();
+			mCamera.setPreviewCallback(null);
+			mCamera.release();
+			mCamera = null;
+		} catch (Exception e){
+			// ignore: tried to stop a non-existent preview
+		}
+	}
+
 	public void surfaceCreated(SurfaceHolder holder) {
-        // The Surface has been created, now tell the camera where to draw the preview.
-        try {
-        	mCamera.setPreviewDisplay(holder);
-            mCamera.setPreviewCallback(this);
-            mCamera.startPreview();
-        } catch (IOException e) {
-            Log.d(TAG, "Error setting camera preview: " + e.getMessage());
-        }
-    }
+		openCamera();
+	}
 
-    public void surfaceDestroyed(SurfaceHolder holder) {
-        // empty. Take care of releasing the Camera preview in your activity.
-    	mCamera.setPreviewCallback(null);
-    	mCamera.stopPreview();
-    }
+	public void surfaceDestroyed(SurfaceHolder holder) {
+		releaseCamera();
+	}
 
-    public void surfaceChanged(SurfaceHolder holder, int format, int w, int h) {
-        // If your preview can change or rotate, take care of those events here.
-        // Make sure to stop the preview before resizing or reformatting it.
-
-        if (mHolder.getSurface() == null){
-          // preview surface does not exist
-          return;
-        }
-
-        // stop preview before making changes
-        try {
-            mCamera.stopPreview();
-        	mCamera.setPreviewCallback(null);
-        } catch (Exception e){
-          // ignore: tried to stop a non-existent preview
-        }
-
-        // set preview size and make any resize, rotate or
-        // reformatting changes here
-
-        // start preview with new settings
-        try {
-            Camera.Parameters parameters = mCamera.getParameters();
-            parameters.setSceneMode(Camera.Parameters.SCENE_MODE_NIGHT);
-            parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_AUTO);
-            
-    		previewWidth = mCamera.getParameters().getPreviewSize().width;
-    		previewHeight = mCamera.getParameters().getPreviewSize().height;
-            
-    		mCamera.setParameters(parameters);
-            mCamera.setPreviewDisplay(mHolder);
-            mCamera.setPreviewCallback(this);
-            mCamera.startPreview();
-        } catch (Exception e){
-            Log.d(TAG, "Error starting camera preview: " + e.getMessage());
-        }
-    }
+	public void surfaceChanged(SurfaceHolder holder, int format, int w, int h) {
+		setupCamera();
+	}
 
 	@Override
 	public void onPreviewFrame(byte[] data, Camera camera) {
@@ -149,8 +171,14 @@ public class CameraViewer extends SurfaceView implements SurfaceHolder.Callback,
 		if(objectSegmentation != null) {
 			objectSegmentation.process(data);
 		}
+		if(bgSimplicity != null) {
+			bgSimplicity.process(data);
+		}
+		if(hueCount != null) {
+			hueCount.process(data);
+		}
 	}
-	
+
 	public void removeOverlay(OverlayType ov) {
 		ViewGroup vg;
 		if (ov == OverlayType.GRID) {
@@ -188,9 +216,17 @@ public class CameraViewer extends SurfaceView implements SurfaceHolder.Callback,
 			vg = (ViewGroup) objectSegmentation.getParent();
 			vg.removeView(objectSegmentation);
 			objectSegmentation = null;
+		} else if (ov == OverlayType.BACKGROUND_SIMPLICITY) {
+			vg = (ViewGroup) bgSimplicity.getParent();
+			vg.removeView(bgSimplicity);
+			bgSimplicity = null;
+		} else if (ov == OverlayType.HUE_COUNT) {
+			vg = (ViewGroup) hueCount.getParent();
+			vg.removeView(hueCount);
+			hueCount = null;
 		}
 	}
-	
+
 	public void addOverlay(OverlayType ov) {
 		Overlay ovlay = null;
 		if (ov == OverlayType.THIRDS_GRID) {
@@ -213,11 +249,15 @@ public class CameraViewer extends SurfaceView implements SurfaceHolder.Callback,
 			ovlay = majorLines = new MainLinesDetection(getContext(), previewWidth, previewHeight, getWidth(), getHeight());
 		} else if (ov == OverlayType.OBJECT_SEGMENTATION) {
 			ovlay = objectSegmentation = new ObjectSegmentation(getContext(), previewWidth, previewHeight, getWidth(), getHeight());
+		} else if (ov == OverlayType.BACKGROUND_SIMPLICITY) {
+			ovlay = bgSimplicity = new BackgroundSimplicity(getContext(), previewWidth, previewHeight, getWidth(), getHeight());
+		} else if (ov == OverlayType.HUE_COUNT) {
+			ovlay = hueCount = new HueCount(getContext(), previewWidth, previewHeight, getWidth(), getHeight());
 		}
-		
+
 		if (ovlay != null)
 			act.addContentView(ovlay, new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-		
+
 		if(faceDetection != null) {
 			faceDetection.setGrid(activeGrid);
 		}

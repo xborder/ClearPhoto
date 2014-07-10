@@ -1,16 +1,16 @@
-#include "histcontrastseg.h"
-
+#include "balance.h"
 /*
-  WORKING GRABCUT
- Mat bgdModel, fgdModel, result;
- grabCut(image, result, rect, bgdModel, fgdModel, 5, GC_INIT_WITH_RECT);
- compare(result,cv::GC_PR_FGD,result,cv::CMP_EQ);
- Mat after(image.size(), CV_8UC3, cv::Scalar(255,255,255));
- image.copyTo(after, result);
+void getSegmentationMask(const Mat& image, Mat& mask);
+void getBinaryImage(const Mat& saliency, Mat& binary, Point& center, Rect& rect);
+int getMass(const Mat& img);
+
+#define BINARY_THRESHOLD 255 * 0.8
+#define MIN_FGD_THRESHOLD     200
+#define MIN_PR_BGD_THRESHOLD  20
 */
+#define DEG2RAD 0.017453293f
 
-
-void getBinaryImage(const Mat img, Mat& binary, Point& center, Point& topLeft, Point& bottomRight);
+priority_queue<HoughPoint, vector<HoughPoint>, HoughPointCompare> getHoughPoints(Mat& img);
 
 int main( int argc, char** argv ) {
   // check for supplied argument
@@ -19,96 +19,201 @@ int main( int argc, char** argv ) {
     return 1;
   }
   // load the image, load the image in grayscale
-  Mat img = imread( argv[1], CV_LOAD_IMAGE_COLOR );
-  Mat image = img.clone();
-  img.convertTo(img, CV_32FC3, 1.0/255);
-
+  Mat img = imread( argv[1], 1 );
   // always check
   if( img.data == NULL ) {
     cout << "Cannot load file " << argv[1] << endl;
     return 1;
   }
 
-  Mat hc = HistContrastSeg::GetHC(img);
-  Mat mask;
-  Point center, topLeft, bottomRight;
-  getBinaryImage(hc*255, mask, center, topLeft, bottomRight);
-  Rect rect(topLeft.x, topLeft.y, bottomRight.x - topLeft.x, bottomRight.y - topLeft.y);
+  ImageBalance::getBalance(img);
+  return 0;
+}
 
-/*  Mat rect_mask(mask.size(), CV_8U);
-  rect_mask(rect).setTo(255);
- 
-  Mat tmp_mask;
-  bitwise_and(rect_mask, mask*255, tmp_mask);
-*/
- Mat before;
- image.copyTo(before, mask);
- const char* window = "before";
- circle(before, center, 2, Scalar(0,0,255),5);
- rectangle(before, topLeft, bottomRight, Scalar(0,255,0),4);
- namedWindow( window, WINDOW_AUTOSIZE );
- imshow(window, before);
+/*int getMass(const Mat& img) {
+  int mass = 0;
+  for (int r = 0; r < img.rows; r++) {
+    const uchar* binary_row = img.ptr<uchar>(r);
+    for (int c = 0; c < img.cols; c++) {
+      if(binary_row[c] == 255) {
+        mass++;
+      }
+    }
+  }
+  return mass;
+}*/
+int max1 = -1 , max2 = -1;
+void ImageBalance::getBalance(const Mat& image) {
+  Mat canny, blur;
+  //cv::blur( img_ori, img_blur, cv::Size(5,5) );
+  //cv::Canny(img_blur, img_edge, 100, 150, 3);
 
- Mat bgdModel, fgdModel;
- grabCut(image, mask, rect, bgdModel, fgdModel, 1, GC_INIT_WITH_MASK);
- Mat pr_fgd, fgd, new_mask;
- compare(mask, GC_PR_FGD, pr_fgd, CMP_EQ);
- compare(mask, GC_FGD, fgd, CMP_EQ);
- new_mask = pr_fgd + fgd;
- Mat after(image.size(), CV_8UC3, cv::Scalar(0,0,0));
- image.copyTo(after, new_mask);
-  //RECTANGLE AND CENTER OF MASS
- circle(after, center, 2, Scalar(0,0,255),5);
- rectangle(after, topLeft, bottomRight, Scalar(0,255,0));
+  Rect leftRegion(Point(0,0), Point(image.cols/2, image.rows));
+  Rect rightRegion(Point(image.cols/2,0), Point(image.cols, image.rows));
 
- const char* source_window = "after";
- namedWindow( source_window, WINDOW_AUTOSIZE );
- imshow( source_window, after );
+  Mat right;
+  Mat left = image(leftRegion);
+  Mat flipped = image(rightRegion);
+  flip(flipped, right, 1);
 
-  RNG rng(12345);
+  imwrite("left.jpg",left);
+  imwrite("right.jpg",right);
 
-  vector<vector<Point> > contours;
-  vector<Vec4i> hierarchy;
-  /// Find contours
-  findContours(new_mask, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, Point(0, 0) );
+  cv::blur( left, blur, cv::Size(5,5) );
+  Canny( blur, left, 100, 150, 3 );
 
-  /// Find the convex hull object for each contour
-  vector<vector<Point> >hull( contours.size() );
-  for( int i = 0; i < contours.size(); i++ )
-    {  convexHull( Mat(contours[i]), hull[i], false ); }
+  cv::blur( right, blur, cv::Size(5,5) );
+  Canny( blur, right, 100, 150, 3 );
 
-  /// Draw contours + hull results
-  Mat drawing = Mat::zeros( new_mask.size(), CV_8UC3 );
-  for( int i = 0; i< contours.size(); i++ )
-  {
-    Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
-    drawContours( drawing, contours, i, color, 1, 8, vector<Vec4i>(), 0, Point() );
-    drawContours( drawing, hull, i, color, 1, 8, vector<Vec4i>(), 0, Point() );
+  imwrite("canny_left.jpg", left);
+  imwrite("canny_right.jpg", right);
+//  Mat right = canny(rightRegion);
+
+  //imshow("left", left);
+  //imshow("right", right);
+  //waitKey(0);
+
+  priority_queue<HoughPoint, vector<HoughPoint>, HoughPointCompare> leftPoints, rightPoints;
+  leftPoints = getHoughPoints(left);
+  rightPoints = getHoughPoints(right);
+/*
+  cout << "left " << leftPoints.size() << "\n";
+  while (!leftPoints.empty()) {
+      HoughPoint t = leftPoints.top();
+      std::cout << "rho: " << t.rho << " theta: " << t.theta << " val: " << t.val << std::endl;
+      leftPoints.pop();
+  }
+  cout << "right " << rightPoints.size() << "\n";
+  while (!rightPoints.empty()) {
+      HoughPoint t = rightPoints.top();
+      std::cout << "rho: " << t.rho << " theta: " << t.theta << " val: " << t.val << std::endl;
+      rightPoints.pop();
+  }*/
+
+  int sumleft = 0, sumright = 0;
+  float sum = 0.0;
+  int i = 0;
+  while (i < 5 && !leftPoints.empty() && !rightPoints.empty()) {
+    HoughPoint p1 = leftPoints.top();
+    HoughPoint p2 = rightPoints.top();
+    sum += sqrt(pow(p1.theta - p2.theta,2) + pow(p1.rho - p2.rho,2));
+    sumleft += p1.val;
+    sumright += p2.val;
+    leftPoints.pop();
+    rightPoints.pop();
+    i++;
+    //cerr << pow(p1.theta - p2.theta,2) << " "<< pow(p1.rho - p2.rho,2) << " "<<sum << endl;
+  }
+  //double hough_h = ((sqrt(2.0) * (double)(left.rows > left.cols ? left.rows:left.cols)) / 2.0);
+  //int _accu_h = hough_h * 2.0; // -r -> +r
+  //int _accu_w = 180;
+
+  float diff = sum/(float)(image.rows*image.cols)*100;
+  printf("%f\n", diff);
+  //printf("m1: %d m2: %d = %d | %d - %d = %d\n", max1, max2, abs(max1-max2), sumleft, sumright, abs(sumleft-sumright));
+  //cerr << sum << endl;
+/*  imshow("left.jpg", left);
+  imshow("right.jpg", right);
+  waitKey(0);*/
+}
+
+priority_queue<HoughPoint, vector<HoughPoint>, HoughPointCompare> getHoughPoints(Mat& img) {
+  unsigned char* img_data = (unsigned char*)img.data;
+  int _img_w = img.cols;
+  int _img_h = img.rows;
+    //Create the accu
+  double hough_h = ((sqrt(2.0) * (double)(_img_h > _img_w ? _img_h:_img_w)) / 2.0);
+  int _accu_h = hough_h * 2.0; // -r -> +r
+  int _accu_w = 180;
+
+  unsigned int* _accu = (unsigned int*)calloc(_accu_h * _accu_w, sizeof(unsigned int));
+
+  double center_x = _img_w/2;
+  double center_y = _img_h/2;
+
+  for(int y=0 ; y < _img_h ; y++) {
+    for(int x=0 ; x < _img_w ; x++) {
+      if( img_data[ (y * _img_w) + x] == 255 ) {
+        double avg_x = x, avg_y = y;
+        int count = 1; 
+
+        for(int ly = -4; ly <= 4; ly++) {
+          for(int lx = -4; lx <= 4; lx++) {
+            if( (ly+y>=0 && ly+y<_accu_h) && (lx+x>=0 && lx+x<_accu_w) 
+                  && img_data[( (y+ly)*_img_w) + (x+lx)] == 255) {
+              avg_x += (x + lx);
+              avg_y += (y + ly);
+              count++;
+            }
+          }
+        }
+        
+        avg_x /= count; avg_y /= count;
+
+        for(int t=0;t<180;t++) {
+          double r = ( ((double)avg_x - center_x) * cos((double)t * DEG2RAD)) + (((double)avg_y - center_y) * sin((double)t * DEG2RAD));
+          _accu[ (int)((round(r + hough_h) * 180.0)) + t]++;
+        }
+      }
+    }
+  }
+  
+  int max_value = 0;
+  for(int r=0;r<_accu_h;r++) {
+    for(int t=0;t<_accu_w;t++) {
+      if((int)_accu[(r*_accu_w) + t] > max_value) {
+        max_value = (int)_accu[(r*_accu_w) + t];
+      }
+    }
+  }
+  if(max1 == -1)
+    max1 = max_value;
+  else
+    max2 = max_value;
+  //cerr << " acum_h: " << _accu_h << " acum_w: " << _accu_w << endl;
+  //cerr << " max : " << max_value << endl;
+  
+  priority_queue<HoughPoint, vector<HoughPoint>, HoughPointCompare> queue;
+  for(int r = 0 ; r < _accu_h ; r++) {
+    for(int t = 0; t < _accu_w ; t++) {
+      //if((int)_accu[(r * _accu_w) + t] > mean_value )
+        if((int)_accu[(r * _accu_w) + t] > 0)
+          queue.push(HoughPoint(t,r,(int)_accu[(r * _accu_w) + t]));
+    }
   }
 
-   /// Show in a window
-  namedWindow( "Hull demo", CV_WINDOW_AUTOSIZE );
-  imshow( "Hull demo", drawing );
-
-
-
- waitKey(0);
- return 0;
+  return queue;
 }
-#define MIN_FGD_THRESHOLD     200
-#define MIN_PR_BGD_THRESHOLD  20
-void getBinaryImage(const Mat img, Mat& binary, Point& center, Point& topLeft, Point& bottomRight) {
-  double minVal; 
-  double maxVal; 
-  Point minLoc; 
-  Point maxLoc;
-  minMaxLoc( img, &minVal, &maxVal, &minLoc, &maxLoc );
 
-  img.convertTo(binary, CV_8U, 255.0/(maxVal-minVal),-255.0*minVal/(maxVal-minVal));
+/*
+void getSegmentationMask(const Mat& image, Mat& mask) {
+  Mat tmp_image;
+  image.convertTo(tmp_image, CV_32FC3, 1.0/255);
+  Mat hc = ObjectSegmentation::GetHC(tmp_image), tmp_mask;
+  Point center, topLeft, bottomRight;
+  Rect roi;
+  getBinaryImage(hc*255, tmp_mask, center, roi);
+  //printf("%d %d %d %d %d %d\n", 0 <= roi.x, 0 <= roi.width, roi.x + roi.width <= mask.cols, 0 <= roi.y, 0 <= roi.height, roi.y + roi.height <= mask.rows);
+
+  Mat pr_fgd, mask_rect(mask.size(), CV_8U);
+  compare(tmp_mask, GC_PR_FGD, pr_fgd, CMP_EQ);
+  mask_rect(roi).setTo(255);
+  bitwise_and(pr_fgd, mask_rect, mask);
+}
+
+void getBinaryImage(const Mat& saliency, Mat& binary, Point& center, Rect& rect) {
+  double minVal;
+  double maxVal;
+  Point minLoc;
+  Point maxLoc;
+  minMaxLoc(saliency, &minVal, &maxVal, &minLoc, &maxLoc );
+
+  saliency.convertTo(binary, CV_8U, 255.0/(maxVal-minVal),-255.0*minVal/(maxVal-minVal));
   int center_x = 0, center_y = 0, count = 0;
-  int first_x = -1, first_y = -1, last_x = -1, last_y = -1;
+  int first_x = 0, first_y = 0, last_x = 0, last_y = 0;
   int* rows = (int*)calloc(binary.rows, sizeof(int));
   int* cols = (int*)calloc(binary.cols, sizeof(int));
+
   for (int r = 0; r < binary.rows; r++) {
     uchar* binary_row = binary.ptr<uchar>(r);
     for (int c = 0; c < binary.cols; c++) {
@@ -119,7 +224,7 @@ void getBinaryImage(const Mat img, Mat& binary, Point& center, Point& topLeft, P
         count++;
         rows[r]++;
         cols[c]++;
-      } else if (binary_row[c] < MIN_FGD_THRESHOLD && binary_row[c] >= MIN_PR_BGD_THRESHOLD) { //>= MIN_PR_BGD_THRESHOLD && binary_row[c] < MIN_PR_FGD_THRESHOLD) {
+      } else if (binary_row[c] < MIN_FGD_THRESHOLD && binary_row[c] >= MIN_PR_BGD_THRESHOLD) {
         binary_row[c] = GC_PR_BGD;
       } else {
         binary_row[c] = GC_BGD;
@@ -129,7 +234,7 @@ void getBinaryImage(const Mat img, Mat& binary, Point& center, Point& topLeft, P
   center.x = center_x/count;
   center.y = center_y/count;
   int i = 0, blank_lines = 0;
-  while(i < binary.cols && blank_lines < 50) {//for (int c = center.x; c < binary.cols/2; c++) {
+  while(i < binary.cols && blank_lines < 50) {
     blank_lines++;
     if(center.x - i > 0  && cols[center.x - i] >= 25) {
       first_x = center.x - i;
@@ -142,7 +247,7 @@ void getBinaryImage(const Mat img, Mat& binary, Point& center, Point& topLeft, P
     i++;
   }
   i = 0, blank_lines = 0;
-  while(i < binary.cols && blank_lines < 50) {//for (int r = center.y; r < binary.rows/2; r++) {
+  while(i < binary.rows && blank_lines < 50) {
     blank_lines++;
     if(center.y - i > 0 && rows[center.y - i] >= 25) {
       first_y = center.y - i;
@@ -154,24 +259,25 @@ void getBinaryImage(const Mat img, Mat& binary, Point& center, Point& topLeft, P
     }
     i++;
   }
-  printf("%d %d %d %d\n", first_x, first_y, last_x, last_y);
-  topLeft.x = first_x;
-  topLeft.y = first_y;
-  bottomRight.x = last_x;
-  bottomRight.y = last_y;
+  rect.x = first_x;
+  rect.y = first_y;
+  rect.width = last_x - first_x;
+  rect.height = last_y - first_y;
+  free(cols);
+  free(rows);
 }
 
-Mat HistContrastSeg::GetHC(const Mat &img3f)
+Mat ObjectSegmentation::GetHC(const Mat &img3f)
 {
   // Quantize colors and
   Mat idx1i, binColor3f, colorNums1i, weight1f, _colorSal;
   Quantize(img3f, idx1i, binColor3f, colorNums1i);
-  cvtColor(binColor3f, binColor3f, CV_BGR2Lab);
-  
 
+
+  cvtColor(binColor3f, binColor3f, CV_BGR2Lab);
   normalize(colorNums1i, weight1f, 1, 0, NORM_L1, CV_32F);
   GetHC(binColor3f, weight1f, _colorSal);
-  
+
 
   float* colorSal = (float*)(_colorSal.data);
   Mat salHC1f(img3f.size(), CV_32F);
@@ -180,30 +286,20 @@ Mat HistContrastSeg::GetHC(const Mat &img3f)
     float* salV = salHC1f.ptr<float>(r);
     int* _idx = idx1i.ptr<int>(r);
     for (int c = 0; c < img3f.cols; c++){
-      salV[c] = colorSal[_idx[c]]; 
+      salV[c] = colorSal[_idx[c]];
     }
   }
-  /*const char* source_window = "sad";
-  namedWindow( source_window, WINDOW_AUTOSIZE );
-  imshow( source_window, salHC1f);*/
 
   GaussianBlur(salHC1f, salHC1f, Size(3, 3), 0);
   normalize(salHC1f, salHC1f, 0, 1, NORM_MINMAX);
-  /*for (int r = 0; r < salHC1f.rows; r++)
-  {
-    float* salV = salHC1f.ptr<float>(r);
-    for (int c = 0; c < salHC1f.cols; c++){
-        printf("%f\n", salV[c]);
-      }
-  }*/
-      return salHC1f;
-    }
+  return salHC1f;
+}
 
-    void HistContrastSeg::GetHC(const Mat &binColor3f, const Mat &weight1f, Mat &_colorSal)
-    {
-      int binN = binColor3f.cols; 
-      _colorSal = Mat::zeros(1, binN, CV_32F);
-      float* colorSal = (float*)(_colorSal.data);
+void ObjectSegmentation::GetHC(const Mat &binColor3f, const Mat &weight1f, Mat &_colorSal)
+{
+  int binN = binColor3f.cols;
+  _colorSal = Mat::zeros(1, binN, CV_32F);
+  float* colorSal = (float*)(_colorSal.data);
   vector<vector<CostfIdx> > similar(binN); // Similar color: how similar and their index
   Vec3f* color = (Vec3f*)(binColor3f.data);
   float *w = (float*)(weight1f.data);
@@ -225,7 +321,7 @@ Mat HistContrastSeg::GetHC(const Mat &img3f)
   SmoothSaliency(binColor3f, _colorSal, 4.0f, similar);
 }
 
-void HistContrastSeg::SmoothSaliency(const Mat &binColor3f, Mat &sal1d, float delta, const vector<vector<CostfIdx> > &similar)
+void ObjectSegmentation::SmoothSaliency(const Mat &binColor3f, Mat &sal1d, float delta, const vector<vector<CostfIdx> > &similar)
 {
   if (sal1d.cols < 2)
     return;
@@ -256,9 +352,8 @@ void HistContrastSeg::SmoothSaliency(const Mat &binColor3f, Mat &sal1d, float de
     float valCrnt = 0;
     for (int j = 0; j < n; j++)
       valCrnt += val[j] * (totalDist - dist[j]);
-
     nSal[i] =  valCrnt / ((n-1) * totalDist);
-  } 
+  }
   //*/
 
   /* Gaussian smooth
@@ -279,10 +374,10 @@ void HistContrastSeg::SmoothSaliency(const Mat &binColor3f, Mat &sal1d, float de
     nSal[i] = saliencyI / totalW;
   }
   //*/
+/*
 }
 
-
-int HistContrastSeg::Quantize(const Mat& img3f, Mat &idx1i, Mat &_color3f, Mat &_colorNum, double ratio)
+int ObjectSegmentation::Quantize(const Mat& img3f, Mat &idx1i, Mat &_color3f, Mat &_colorNum, double ratio)
 {
   static const int clrNums[3] = {12, 12, 12};
   static const float clrTmp[3] = {clrNums[0] - 0.0001f, clrNums[1] - 0.0001f, clrNums[2] - 0.0001f};
@@ -291,26 +386,24 @@ int HistContrastSeg::Quantize(const Mat& img3f, Mat &idx1i, Mat &_color3f, Mat &
   CV_Assert(img3f.data != NULL);
   idx1i = Mat::zeros(img3f.size(), CV_32S);
   int rows = img3f.rows, cols = img3f.cols;
+
   if (img3f.isContinuous() && idx1i.isContinuous())
   {
     cols *= rows;
     rows = 1;
   }
-
   // Build color pallet
   map<int, int> pallet;
-  for (int y = 0; y < rows; y++)
-  {
+  for (int y = 0; y < rows; y++) {
     const float* imgData = img3f.ptr<float>(y);
     int* idx = idx1i.ptr<int>(y);
     for (int x = 0; x < cols; x++, imgData += 3)
-    { //0.862745 0.698039 0.490196
+    {
+      //  LOGE("%d %d | %f %f %f ", x, y, imgData[0], imgData[1], imgData[2]); //307881
       idx[x] = (int)(imgData[0]*clrTmp[0])*w[0] + (int)(imgData[1]*clrTmp[1])*w[1] + (int)(imgData[2]*clrTmp[2]);
       pallet[idx[x]] ++;
     }
   }
-
-  printf(">> %d\n", pallet.size());
 
   // Fine significant colors
   int maxNum = 0;
@@ -332,7 +425,7 @@ int HistContrastSeg::Quantize(const Mat& img3f, Mat &idx1i, Mat &_color3f, Mat &
       maxNum = min((int)pallet.size(), 100);
     pallet.clear();
     for (int i = 0; i < maxNum; i++) {
-      pallet[num[i].second] = i; 
+      pallet[num[i].second] = i;
     }
 
     vector<Vec3i> color3i(num.size());
@@ -358,10 +451,9 @@ int HistContrastSeg::Quantize(const Mat& img3f, Mat &idx1i, Mat &_color3f, Mat &
 
   _color3f = Mat::zeros(1, maxNum, CV_32FC3);
   _colorNum = Mat::zeros(_color3f.size(), CV_32S);
-
   Vec3f* color = (Vec3f*)(_color3f.data);
   int* colorNum = (int*)(_colorNum.data);
-  for (int y = 0; y < rows; y++) 
+  for (int y = 0; y < rows; y++)
   {
     const Vec3f* imgData = img3f.ptr<Vec3f>(y);
     int* idx = idx1i.ptr<int>(y);
@@ -381,19 +473,19 @@ int HistContrastSeg::Quantize(const Mat& img3f, Mat &idx1i, Mat &_color3f, Mat &
 
 //==================================================
 
-Mat HistContrastSeg::GetRC(const Mat &img3f)
+Mat ObjectSegmentation::GetRC(const Mat &img3f)
 {
   return GetRC(img3f, 0.4, 50, 50, 0.5);
 }
 
-Mat HistContrastSeg::GetRC(const Mat &img3f, double sigmaDist, double segK, int segMinSize, double segSigma)
+Mat ObjectSegmentation::GetRC(const Mat &img3f, double sigmaDist, double segK, int segMinSize, double segSigma)
 {
   Mat regIdx1i, colorIdx1i, regSal1v, tmp, _img3f, color3fv;
   if (Quantize(img3f, colorIdx1i, color3fv, tmp) <= 2) // Color quantization
     return Mat::zeros(img3f.size(), CV_32F);
   cvtColor(img3f, _img3f, CV_BGR2Lab);
   cvtColor(color3fv, color3fv, CV_BGR2Lab);
-  int regNum = SegmentImage(_img3f, regIdx1i, segSigma, segK, segMinSize);  
+  int regNum = SegmentImage(_img3f, regIdx1i, segSigma, segK, segMinSize);
   vector<Region> regs(regNum);
   BuildRegions(regIdx1i, regs, colorIdx1i, color3fv.cols);
   RegionContrast(regs, color3fv, regSal1v, sigmaDist);
@@ -411,7 +503,7 @@ Mat HistContrastSeg::GetRC(const Mat &img3f, double sigmaDist, double segK, int 
   return sal1f;
 }
 
-void HistContrastSeg::BuildRegions(const Mat& regIdx1i, vector<Region> &regs, const Mat &colorIdx1i, int colorNum)
+void ObjectSegmentation::BuildRegions(const Mat& regIdx1i, vector<Region> &regs, const Mat &colorIdx1i, int colorNum)
 {
   int rows = regIdx1i.rows, cols = regIdx1i.cols, regNum = (int)regs.size();
   Mat_<int> regColorFre1i = Mat_<int>::zeros(regNum, colorNum); // region color frequency
@@ -440,8 +532,8 @@ void HistContrastSeg::BuildRegions(const Mat& regIdx1i, vector<Region> &regs, co
   }
 }
 
-void HistContrastSeg::RegionContrast(const vector<Region> &regs, const Mat &color3fv, Mat& regSal1d, double sigmaDist)
-{ 
+void ObjectSegmentation::RegionContrast(const vector<Region> &regs, const Mat &color3fv, Mat& regSal1d, double sigmaDist)
+{
   Mat_<float> cDistCache1f = Mat::zeros(color3fv.cols, color3fv.cols, CV_32F);{
     Vec3f* pColor = (Vec3f*)color3fv.data;
     for(int i = 0; i < cDistCache1f.rows; i++)
@@ -461,9 +553,10 @@ void HistContrastSeg::RegionContrast(const vector<Region> &regs, const Mat &colo
           for (size_t m = 0; m < c1.size(); m++)
             for (size_t n = 0; n < c2.size(); n++)
               dd += cDistCache1f[c1[m].second][c2[n].second] * c1[m].first * c2[n].first;
-            rDistCache1d[j][i] = rDistCache1d[i][j] = dd * exp(-pntSqrDist(regs[i].centroid, regs[j].centroid)/sigmaDist); 
+            rDistCache1d[j][i] = rDistCache1d[i][j] = dd * exp(-pntSqrDist(regs[i].centroid, regs[j].centroid)/sigmaDist);
           }
           regSal[i] += regs[j].pixNum * rDistCache1d[i][j];
         }
       }
     }
+*/

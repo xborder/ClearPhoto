@@ -22,9 +22,6 @@ void ObjectSegmentation::getSegmentationMask(const Mat& image, Mat& mask) {
 	compare(tmp_mask, GC_PR_FGD, pr_fgd, CMP_EQ);
 	mask_rect(roi).setTo(255);
 	bitwise_and(pr_fgd, mask_rect, mask);
-//	compare(tmp_mask, GC_FGD, fgd, CMP_EQ);
-
-//	mask = pr_fgd;
 }
 
 void ObjectSegmentation::getBinaryImage(const Mat& saliency, Mat& binary, Point& center, Rect& rect) {
@@ -73,7 +70,7 @@ void ObjectSegmentation::getBinaryImage(const Mat& saliency, Mat& binary, Point&
 		i++;
 	}
 	i = 0, blank_lines = 0;
-	while(i < binary.cols && blank_lines < 50) {
+	while(i < binary.rows && blank_lines < 50) {
 		blank_lines++;
 		if(center.y - i > 0 && rows[center.y - i] >= 25) {
 			first_y = center.y - i;

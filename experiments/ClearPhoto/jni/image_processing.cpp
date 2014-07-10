@@ -449,13 +449,13 @@ JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeStopMai
 JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeGetMainLines
 (JNIEnv* jenv, jclass, jlong thiz, jlong data_, jint threshold, jobject list)
 {
-		jclass cls_arraylist = jenv->GetObjectClass(list);
-		jclass cls_int = jenv->FindClass("java/lang/Integer");
+	jclass cls_arraylist = jenv->GetObjectClass(list);
+	jclass cls_int = jenv->FindClass("java/lang/Integer");
 
-		jmethodID int_cstr = jenv->GetMethodID(cls_int, "<init>", "(I)V");
-		jmethodID arraylist_add = jenv->GetMethodID(cls_arraylist,"add","(Ljava/lang/Object;)Z");
+	jmethodID int_cstr = jenv->GetMethodID(cls_int, "<init>", "(I)V");
+	jmethodID arraylist_add = jenv->GetMethodID(cls_arraylist,"add","(Ljava/lang/Object;)Z");
 
-		//	jint d = 1;
+	//	jint d = 1;
 	//	jobject a = jenv->NewObject(cls_int, int_cstr, d);
 	//	jboolean result = jenv->CallBooleanMethod(list,arraylist_set,a);
 	if(thiz != 0) {
@@ -498,23 +498,47 @@ JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeGetSegm
 	uchar* pixels = (uchar*)tmp.data;
 	uchar* mask_pixels = (uchar*)mask.data;
 	for(int i = 0; i < tmp.rows; i++) {
-	    for(int j = 0; j < tmp.cols; j++) {
-	    	if(mask_pixels[(i*mask.cols + j)] == 0) {
-	    		pixels[i*tmp.cols*4 + j*4 + 3] = 0;		//A
-	    	} else {
-	    		pixels[i*tmp.cols*4 + j*4] = 0;			//B
-	    		pixels[i*tmp.cols*4 + j*4 + 1] = 255; 	//G
-	    		pixels[i*tmp.cols*4 + j*4 + 2] = 0;		//R
-	    	}
-	    }
+		for(int j = 0; j < tmp.cols; j++) {
+			if(mask_pixels[(i*mask.cols + j)] == 0) {
+				pixels[i*tmp.cols*4 + j*4 + 3] = 0;		//A
+			} else {
+				pixels[i*tmp.cols*4 + j*4] = 0;			//B
+				pixels[i*tmp.cols*4 + j*4 + 1] = 255; 	//G
+				pixels[i*tmp.cols*4 + j*4 + 2] = 0;		//R
+			}
+		}
 	}
 	*ret = tmp;
-	//multiply(tmp ,Scalar(0, 0, 255, 0.8), *ret);
-//	data_bgr.convertTo(data_bgr, CV_32FC3, 1.0/255);
-//	Mat hc = ObjectSegmentation::GetHC(data_bgr);
-//	Mat binary_mask;
-//	ObjectSegmentation::getBinaryImage(hc*255, binary_mask);
-//  memcpy(ret->data, binary_mask.data, ret->step * ret->rows);
 }
 
 // ############### OBJECT SEGMENTATION CALLS ####################
+
+// ############### BACKGROUND SIMPLICITY CALLS ####################
+
+JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeTestBgSimplicity
+(JNIEnv* jenv, jclass, jlong data_, jfloatArray ret) {
+	Mat* data = (Mat*) data_;
+	Mat data_rgb;
+	cvtColor(*data, data_rgb, CV_YUV420sp2RGB, 3);
+	float method1 = BackgroundSimplicity::method1(data_rgb);
+	float method2 = BackgroundSimplicity::method2(data_rgb);
+	float method3 = BackgroundSimplicity::method3(data_rgb);
+
+	float results[3] = {method1, method2, method3};
+	jenv->SetFloatArrayRegion(ret, 0, 3, results);
+}
+
+// ############### BACKGROUND SIMPLICITY CALLS ####################
+
+// ############### HUE COUNT CALLS ####################
+
+JNIEXPORT jint JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeGetHueCount
+(JNIEnv* jenv, jclass, jlong data_) {
+	Mat* data = (Mat*) data_;
+	Mat data_rgb;
+	cvtColor(*data, data_rgb, CV_YUV420sp2RGB, 3);
+	int ret = HueCounter::getHueCount(data_rgb);
+	return ret;
+}
+
+// ############### HUE COUNT CALLS ####################

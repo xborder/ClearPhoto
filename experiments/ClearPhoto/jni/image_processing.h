@@ -19,6 +19,8 @@
 #include "HorizonDetection.h"
 #include "MainLinesDetection.h"
 #include "ObjectSegmentation.h"
+#include "BackgroundSimplicity.h"
+#include "HueCount.h"
 
 #include <jni.h>
 #include <android/log.h>
@@ -95,6 +97,20 @@ JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeGetSegm
 (JNIEnv* jenv, jclass, jlong data_, jlong ret_);
 
 // ############### OBJECT SEGMENTATION CALLS ####################
+
+// ############### BACKGROUND SIMPLICITY CALLS ####################
+
+JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeTestBgSimplicity
+(JNIEnv* jenv, jclass, jlong data_, jfloatArray ret);
+
+// ############### BACKGROUND SIMPLICITY CALLS ####################
+
+// ############### HUE COUNT CALLS ####################
+
+JNIEXPORT jint JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeGetHueCount
+(JNIEnv* jenv, jclass, jlong data_);
+
+// ############### HUE COUNT CALLS ####################
 }
 
 #endif /* IMAGE_PROCESSING_H_ */

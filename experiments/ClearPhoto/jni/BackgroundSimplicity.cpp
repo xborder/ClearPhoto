@@ -1,58 +1,6 @@
-#include "simplicity.h"
+#include "BackgroundSimplicity.h"
 
-
-int getWidthOfMass(vector<float> vec, float total, int maxIdx);
-
-int main( int argc, char** argv ) {
-  // check for supplied argument
-  if( argc < 2 ) {
-    cout << "Usage: loadimg <filename>\n" << endl;
-    return 1;
-  }
-  // load the image, load the image in grayscale
-  Mat img = imread( argv[1], CV_LOAD_IMAGE_COLOR );
-  // always check
-  if( img.data == NULL ) {
-    cout << "Cannot load file " << argv[1] << endl;
-    return 1;
-  }
-
-  float a = BackgroundSimplicity::method1(img);
-  float b = BackgroundSimplicity::method2(img);
-  float c = BackgroundSimplicity::method3(img);
-
-  printf("%f %f %f \n", a,b,c);
-
-  string filename(argv[1]);
-  int dot = filename.find('.');
-  string extension = filename.substr(dot+1, filename.size());
-  filename = filename.substr(0,dot);
-  filename = filename + "_processed." + extension;
-
-  rectangle(img, Point(5,20), Point(200,110), Scalar::all(255), -1);
-
-  ostringstream ss;
-  ss << a;
-  string s(ss.str());
-  s = "Method 1: " + s;
-  putText(img, s.c_str(), Point(10,50), FONT_HERSHEY_DUPLEX, 0.5, Scalar(0,255,0));
-
-
-  ostringstream sb;
-  sb << b;
-  s = "Method 2: " + sb.str();
-  putText(img, s.c_str(), Point(10,75), FONT_HERSHEY_DUPLEX, 0.5, Scalar(0,255,0));
-
-
-  ostringstream sc;
-  sc << c;
-  s = "Method 3: " + sc.str();
-  putText(img, s.c_str(), Point(10,100), FONT_HERSHEY_DUPLEX, 0.5, Scalar(0,255,0));
-
-  imwrite( filename, img);
-  return 0;
-}
-
+//Photo and Video Quality Evaluation: Focusing on the Subject
 
 float BackgroundSimplicity::method1(Mat& image){
   Mat tmp;
@@ -90,7 +38,7 @@ float BackgroundSimplicity::method1(Mat& image){
 
   float simplicity_factor = (nelems/4096.0) * 100;
 
-  printf("method 1: %d \n", nelems);
+//  LOGE("method 1: %f ", simplicity_factor);
   return simplicity_factor;
 }
 
@@ -128,7 +76,7 @@ float BackgroundSimplicity::method2(Mat& image) {
     }
   }
 
-  float simplicity_factor = edge_count/(float)(image.rows*image.cols);
+  float simplicity_factor = (1-edge_count/(float)(image.rows*image.cols));
 //  LOGE("method 2: %f ", simplicity_factor);
   return simplicity_factor;
 }
@@ -239,7 +187,7 @@ int BackgroundSimplicity::getWidthOfMass(vector<float> vec, float total, int max
         acum = tmp;
         initIdx = maxIdx - offset;
       }
-    } 
+    }
     if(maxIdx + offset < vec.size()) {
       tmp += vec[maxIdx + offset];
       if(tmp > total * 0.98) break;
