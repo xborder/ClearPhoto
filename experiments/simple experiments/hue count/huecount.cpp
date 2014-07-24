@@ -47,7 +47,7 @@ int HueCounter::getHueCount(Mat& data) {
 
   // Initialize parameters
   int bins = 20;    // n bins
-  float range[] = { 0, 255 };
+  float range[] = { 0, 179 };
   const float *ranges[] = { range };
  
   // Calculate histogram

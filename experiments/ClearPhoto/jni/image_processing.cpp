@@ -491,7 +491,7 @@ JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeGetSegm
 	Mat* ret = (Mat*) ret_;
 	Mat data_bgr, tmp;
 	cvtColor(*data, data_bgr, CV_YUV420sp2BGR, 3);
-	Mat mask(data_bgr.rows, data_bgr.cols, CV_8UC1);
+	Mat mask;
 	ObjectSegmentation::getSegmentationMask(data_bgr, mask);
 	cvtColor(mask, tmp, CV_GRAY2BGRA);
 

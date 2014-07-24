@@ -7,7 +7,24 @@
 
 
 void ObjectSegmentation::getSegmentationMask(const Mat& image, Mat& mask) {
+	mask = Mat::zeros(image.size(), CV_8UC1);
 	Mat tmp_image;
+	image.convertTo(tmp_image, CV_32FC3, 1.0/255);
+	Mat hc = ObjectSegmentation::GetHC(tmp_image);
+	Point center;
+	Rect roi;
+	Mat tmp_mask;
+	getBinaryImage(hc*255, tmp_mask, center, roi);
+
+	Mat mask_rect = Mat::zeros(mask.size(), CV_8U);
+	mask_rect(roi).setTo(255);
+
+	Mat pr_fgd;
+	compare(tmp_mask, GC_PR_FGD, pr_fgd, CMP_EQ);
+
+	bitwise_and(pr_fgd, mask_rect, mask);
+
+	/*Mat tmp_image;
 	image.convertTo(tmp_image, CV_32FC3, 1.0/255);
 	Mat hc = ObjectSegmentation::GetHC(tmp_image), tmp_mask;
 	Point center, topLeft, bottomRight;
@@ -21,7 +38,7 @@ void ObjectSegmentation::getSegmentationMask(const Mat& image, Mat& mask) {
 	Mat pr_fgd, mask_rect(mask.size(), CV_8U);
 	compare(tmp_mask, GC_PR_FGD, pr_fgd, CMP_EQ);
 	mask_rect(roi).setTo(255);
-	bitwise_and(pr_fgd, mask_rect, mask);
+	bitwise_and(pr_fgd, mask_rect, mask);*/
 }
 
 void ObjectSegmentation::getBinaryImage(const Mat& saliency, Mat& binary, Point& center, Rect& rect) {
