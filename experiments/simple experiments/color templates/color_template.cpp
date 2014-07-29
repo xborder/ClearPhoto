@@ -156,7 +156,7 @@ void test90DegreesCluster(map<int,int> pallet, vector<pair<int,int> > sumBin, in
   vector<int> avg_1_bins;
   for(int i = first; count < 3; i = mod(i + 1, 12)) {
     float bin_occupation = pallet[i]/(float)sum*100;
-    if(bin_occupation < largest_occupation * 0.5)
+    if(bin_occupation < largest_occupation * 0.40)
       break;
     avg_1 += bin_occupation;
     avg_1_bins.push_back(i);
@@ -177,7 +177,7 @@ void test90DegreesCluster(map<int,int> pallet, vector<pair<int,int> > sumBin, in
   count = 0;
   for(int i = first; count < 3; i = mod(i - 1, 12)) {
     float bin_occupation = pallet[i]/(float)sum*100;
-    if(bin_occupation < largest_occupation * 0.5)
+    if(bin_occupation < largest_occupation * 0.4)
       break;
     avg_2 += bin_occupation;
     count++;
@@ -186,7 +186,7 @@ void test90DegreesCluster(map<int,int> pallet, vector<pair<int,int> > sumBin, in
   }
   if(count != 0) {
     avg_2 = avg_2/count;
-    if(avg_2 > occupationPerc) {
+    if(avg_2_bins.size() > binsToOccupy.size()) {
       occupationPerc = avg_2;
       binsToOccupy = avg_2_bins;
     }
@@ -200,7 +200,7 @@ void test90DegreesCluster(map<int,int> pallet, vector<pair<int,int> > sumBin, in
   count = 0;
   for(int i = mod(first - 1, 12); count < 3; i = mod(i + 1, 12)) {
     float bin_occupation = pallet[i]/(float)sum*100;
-    if(bin_occupation < largest_occupation * 0.5)
+    if(bin_occupation < largest_occupation * 0.4)
       break;
     avg_3 += bin_occupation;
     count++;
@@ -209,7 +209,7 @@ void test90DegreesCluster(map<int,int> pallet, vector<pair<int,int> > sumBin, in
   }
   if(count != 0) {
     avg_3 = avg_3/count;
-    if(avg_3 > occupationPerc) {
+    if(avg_3_bins.size() > binsToOccupy.size()) {
       occupationPerc = avg_3;
       binsToOccupy = avg_3_bins;
     }
