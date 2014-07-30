@@ -126,12 +126,26 @@ Mat FastSymmetryDetector::getAccumulationMatrix( float thresh ) {
 }
 
 
+double FastSymmetryDetector::getMaxVal(float min_threshold, float max_threshold) {
+    Mat mask( accum.size(), CV_8UC1, Scalar(255) );
+    mask.row(0)             = Scalar(0);
+    mask.row(mask.rows - 1) = Scalar(0);
+    mask = mask & (accum > min_threshold);
+    if(max_threshold != -1.0)
+        mask = mask & (accum <= max_threshold);
+    
+    double max_val;
+    Point max_loc;
+    minMaxLoc( accum, NULL, &max_val, NULL, &max_loc, mask );
+    return max_val;
+}
 
 /**
  * Find the lines that fit the symmetrical object from the calculated Hough accumulation matrix
  **/
-vector<pair<Point, Point> > FastSymmetryDetector::getResult(int no_of_peaks, float threshold ) {
+vector<pair<Point, Point> > FastSymmetryDetector::getResult(int no_of_peaks, float min_threshold, float max_threshold) {
     vector<pair<Point, Point> > result;
+    
     
     /* Make sure that we have appropriate peaks */
     no_of_peaks = MAX( 0, no_of_peaks );
@@ -145,8 +159,13 @@ vector<pair<Point, Point> > FastSymmetryDetector::getResult(int no_of_peaks, flo
     Mat mask( accum.size(), CV_8UC1, Scalar(255) );
     mask.row(0)             = Scalar(0);
     mask.row(mask.rows - 1) = Scalar(0);
-    mask = mask & (accum >= threshold);
+    mask = mask & (accum > min_threshold);
+    if(max_threshold != -1.0)
+        mask = mask & (accum <= max_threshold);
     
+    if(countNonZero(mask) == 0)
+        return result;
+
     Mat temp = accum.clone();
     
     

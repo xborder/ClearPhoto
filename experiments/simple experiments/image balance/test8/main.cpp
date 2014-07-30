@@ -152,8 +152,8 @@ void testImage() {
     Mat temp, edge;
     
     /* Adjustable parameters, depending on the scene condition */
-    int canny_thresh_1 = 30;
-    int canny_thresh_2 = 90;
+    int canny_thresh_1 = 182;//225;
+    int canny_thresh_2 = 350;
     int min_pair_dist  = 25;
     int max_pair_dist  = 500;
     int no_of_peaks    = 3;
@@ -175,25 +175,48 @@ void testImage() {
         detector.vote( edge, min_pair_dist, max_pair_dist );
         
         /* Draw the symmetrical line */
-        vector<pair<Point, Point> > result = detector.getResult( no_of_peaks );
+        
+        double maxVal = detector.getMaxVal();
+
+        int iteration = 0;
+        vector<pair<Point, Point> > result;
+        float min_threshold = maxVal*(0.05*(iteration+1));
+        float max_threshold = maxVal - (maxVal*(0.25*iteration));
+        //cout << maxVal << " min: " << min_threshold << " max: " << max_threshold << endl;
+        while( iteration < no_of_peaks)  {
+            min_threshold = max_threshold*(0.05*(iteration+1));
+            max_threshold = max_threshold - (max_threshold*(0.25*iteration));
+            if(max_threshold < maxVal*0.5) {
+                break;
+            }
+
+            vector<pair<Point, Point> > res = detector.getResult(1, min_threshold, max_threshold);
+            iteration ++;
+            if(res.size() > 0) {
+                pair<Point, Point> p = res.front();
+                result.push_back(p);
+            }
+        }
         Point mean1, mean2;
         int i = 0;
         for( auto point_pair: result ) {
+            Point p1 = point_pair.first;
+            Point p2 = point_pair.second;
             if (i == 0) {
-                line(temp, point_pair.first, point_pair.second, Scalar(255, 0, 0), 3);
+                line(temp, p1, p2, Scalar(255, 0, 0), 3);
                 i++;
             } else {
-                line(temp, point_pair.first, point_pair.second, Scalar(0, 0, 255), 3);
+                line(temp, p1, p2, Scalar(0, 0, 255), 3);
             }
-            mean1.x += point_pair.first.x;
-            mean1.y += point_pair.first.y;
-            mean2.x += point_pair.second.x;
-            mean2.y += point_pair.second.y;
+            mean1.x += p1.x;
+            mean1.y += p1.y;
+            mean2.x += p2.x;
+            mean2.y += p2.y;
         }
-        mean1.x /= no_of_peaks;
-        mean1.y /= no_of_peaks;
-        mean2.x /= no_of_peaks;
-        mean2.y /= no_of_peaks;
+        mean1.x /= result.size();
+        mean1.y /= result.size();
+        mean2.x /= result.size();
+        mean2.y /= result.size();
         line(temp, mean1, mean2, Scalar(0, 255, 255), 3);
         /* Visualize the Hough accum matrix */
         Mat accum = detector.getAccumulationMatrix();
@@ -216,18 +239,22 @@ void testImage() {
         imshow( "", appended );
         if(waitKey(10) == 'q')
             break;
-//        if(waitKey(33) == 'a') {
+        if(waitKey(0) == ' ') {
             sideWeight(frame, edge, pair<Point,Point>(mean1, mean2));
-//        }
+        }
     }
 }
 
+bool isLeft;
+Mat leftPorra, rightPorra;
 
 void sideWeight(Mat& image, Mat& canny, pair<Point, Point> symmetryLine) {
   Mat leftMask, rightMask;
   int leftCount = 0, rightCount = 0;
   getDivisoryMask(image, symmetryLine, leftMask, rightMask, leftCount, rightCount);
-  
+  leftPorra = leftMask;
+  rightPorra = rightMask;
+
   Mat l, r;
   Mat left = Mat::zeros(image.size(), CV_8UC3);
   Mat right = Mat::zeros(image.size(), CV_8UC3);
@@ -235,10 +262,25 @@ void sideWeight(Mat& image, Mat& canny, pair<Point, Point> symmetryLine) {
   image.copyTo(right, rightMask);
   imshow("left", left);
   imshow("right", right);
+
+  isLeft = true;
   getSegmentationMask(left, l);
+  isLeft = false;
   getSegmentationMask(right, r);
   imshow("left mask",l);
   imshow("right mask", r);
+  int leftN = countNonZero(l);
+  int rightN = countNonZero(r);
+  float leftPerc = (leftN/(float)(leftN+rightN) * 100);
+  float rightPerc = (rightN/(float)(leftN+rightN) * 100);
+  printf("Left Occupation: %f%% Right Occupation: %f%% diff: %f%% \n", leftPerc, rightPerc, abs(leftPerc-rightPerc));
+  if(abs(leftPerc-rightPerc) >= 70) {
+    printf("unbalanced\n");
+  } else if (abs(leftPerc-rightPerc) <= 30) {
+    printf("balanced\n");
+  } else {
+    printf("test color\n");
+  }
 }
 
 map<int,int> countClusters(Mat& image, Mat& mask) {
@@ -540,9 +582,9 @@ void getSegmentationMask(const Mat& image, Mat& mask) {
   } else {
     bitwise_or(pr_fgd, pr_bgd, mask);
 //    bitwise_or(tmp, mask_rect, mask);
-  }*/
+  }
   imshow("sda", pr_fgd);
-  waitKey(0);
+  waitKey(0);*/
 }
 
 void getBinaryImage(const Mat& saliency, Mat& binary, Point& center, Rect& rect) {
@@ -617,11 +659,9 @@ Mat ObjectSegmentation::GetHC(const Mat &img3f)
   Mat idx1i, binColor3f, colorNums1i, weight1f, _colorSal;
   Quantize(img3f, idx1i, binColor3f, colorNums1i);
 
-
   cvtColor(binColor3f, binColor3f, CV_BGR2Lab);
   normalize(colorNums1i, weight1f, 1, 0, NORM_L1, CV_32F);
   GetHC(binColor3f, weight1f, _colorSal);
-
 
   float* colorSal = (float*)(_colorSal.data);
   Mat salHC1f(img3f.size(), CV_32F);
@@ -629,7 +669,11 @@ Mat ObjectSegmentation::GetHC(const Mat &img3f)
   {
     float* salV = salHC1f.ptr<float>(r);
     int* _idx = idx1i.ptr<int>(r);
-    for (int c = 0; c < img3f.cols; c++){
+    for (int c = 0; c < img3f.cols; c++) {
+      if(isLeft && leftPorra.at<uchar>(r,c) == 0)
+        continue;
+      if(!isLeft && rightPorra.at<uchar>(r,c) == 0)
+        continue;
       salV[c] = colorSal[_idx[c]];
     }
   }
@@ -730,12 +774,12 @@ int ObjectSegmentation::Quantize(const Mat& img3f, Mat &idx1i, Mat &_color3f, Ma
   CV_Assert(img3f.data != NULL);
   idx1i = Mat::zeros(img3f.size(), CV_32S);
   int rows = img3f.rows, cols = img3f.cols;
-
+/*
   if (img3f.isContinuous() && idx1i.isContinuous())
   {
     cols *= rows;
     rows = 1;
-  }
+  }*/
   // Build color pallet
   map<int, int> pallet;
   for (int y = 0; y < rows; y++) {
@@ -743,7 +787,11 @@ int ObjectSegmentation::Quantize(const Mat& img3f, Mat &idx1i, Mat &_color3f, Ma
     int* idx = idx1i.ptr<int>(y);
     for (int x = 0; x < cols; x++, imgData += 3)
     {
-      //  LOGE("%d %d | %f %f %f ", x, y, imgData[0], imgData[1], imgData[2]); //307881
+    //  printf("%d %d %d %d\n", x, y, leftPorra.cols, leftPorra.rows);
+      if(isLeft && leftPorra.at<uchar>(y,x) == 0)
+        continue;
+      if(!isLeft && rightPorra.at<uchar>(y,x) == 0)
+        continue;
       idx[x] = (int)(imgData[0]*clrTmp[0])*w[0] + (int)(imgData[1]*clrTmp[1])*w[1] + (int)(imgData[2]*clrTmp[2]);
       pallet[idx[x]] ++;
     }
@@ -803,6 +851,10 @@ int ObjectSegmentation::Quantize(const Mat& img3f, Mat &idx1i, Mat &_color3f, Ma
     int* idx = idx1i.ptr<int>(y);
     for (int x = 0; x < cols; x++)
     {
+      if(isLeft && leftPorra.at<uchar>(y,x) == 0)
+        continue;
+      if(!isLeft && rightPorra.at<uchar>(y,x) == 0)
+        continue;
       idx[x] = pallet[idx[x]];
       color[idx[x]] += imgData[x];
       colorNum[idx[x]] ++;

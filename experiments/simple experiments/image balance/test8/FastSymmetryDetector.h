@@ -44,8 +44,9 @@ public:
     
     Mat getAccumulationMatrix( float thresh = 0.0 );
     
-    vector<pair<Point, Point> > getResult( int no_of_peaks, float threshold = -1.0f );
+    vector<pair<Point, Point> > getResult( int no_of_peaks,float min_threshold = -1.0f, float max_threshold = -1.0f );
     pair<Point, Point> getLine( float rho, float theta );
+    double getMaxVal(float min_threshold = -1.0f, float max_threshold = -1.0f); 
     
 private:
     vector<Mat> rotMatrices;
