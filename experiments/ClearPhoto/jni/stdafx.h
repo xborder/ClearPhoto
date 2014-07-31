@@ -2,6 +2,9 @@
 // or project specific include files that are used frequently, but
 // are changed infrequently
 //
+#ifndef STDAFX_H_
+#define STDAFX_H_
+
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
@@ -39,3 +42,5 @@ template<class T> inline T pntSqrDist(const Point_<T> &p1, const Point_<T> &p2) 
 	CmLog::LogError("%s in %s:%d\n", msg.c_str(), __FILE__, __LINE__); \
 	cv::error(cv::Exception(CV_StsAssert, msg, __FUNCTION__, __FILE__, __LINE__) ); }\
 }
+
+#endif

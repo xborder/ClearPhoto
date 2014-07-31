@@ -7,17 +7,15 @@ import tese.helder.clearphoto.overlays.imageprocessing.ColorWheel;
 import tese.helder.clearphoto.overlays.imageprocessing.FaceDetection;
 import tese.helder.clearphoto.overlays.imageprocessing.HorizonDetection;
 import tese.helder.clearphoto.overlays.imageprocessing.HueCount;
+import tese.helder.clearphoto.overlays.imageprocessing.ImageBalance;
 import tese.helder.clearphoto.overlays.imageprocessing.MainLinesDetection;
 import tese.helder.clearphoto.overlays.imageprocessing.ObjectSegmentation;
 import tese.helder.clearphoto.overlays.imageprocessing.SaturationDetection;
 import android.app.Activity;
-import android.graphics.PixelFormat;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
-import android.view.WindowManager;
 import android.widget.ImageButton;
 
 public class OptionsView {
@@ -83,5 +81,8 @@ public class OptionsView {
 		
 		button = (ImageButton)view.findViewById(R.id.hueCountButton);
 		button.setOnClickListener(HueCount.getOnClickListener(cameraViewer));
+		
+		button = (ImageButton)view.findViewById(R.id.imageBalanceButton);
+		button.setOnClickListener(ImageBalance.getOnClickListener(cameraViewer));
 	}
 }

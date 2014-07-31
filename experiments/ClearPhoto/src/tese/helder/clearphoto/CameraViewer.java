@@ -17,6 +17,7 @@ import tese.helder.clearphoto.overlays.imageprocessing.ColorWheel;
 import tese.helder.clearphoto.overlays.imageprocessing.FaceDetection;
 import tese.helder.clearphoto.overlays.imageprocessing.HorizonDetection;
 import tese.helder.clearphoto.overlays.imageprocessing.HueCount;
+import tese.helder.clearphoto.overlays.imageprocessing.ImageBalance;
 import tese.helder.clearphoto.overlays.imageprocessing.ImageProcessingOv;
 import tese.helder.clearphoto.overlays.imageprocessing.MainLinesDetection;
 import tese.helder.clearphoto.overlays.imageprocessing.ObjectSegmentation;
@@ -52,6 +53,7 @@ public class CameraViewer extends SurfaceView implements SurfaceHolder.Callback,
 	private ObjectSegmentation objectSegmentation;
 	private BackgroundSimplicity bgSimplicity;
 	private HueCount hueCount;
+	private ImageBalance imageBalance;
 
 	private int previewWidth, previewHeight;
 	private List<Pair<ImageProcessingOv, LayoutParams>> imageProcessingOv;
@@ -177,6 +179,9 @@ public class CameraViewer extends SurfaceView implements SurfaceHolder.Callback,
 		if(hueCount != null) {
 			hueCount.process(data);
 		}
+		if(imageBalance != null) {
+			imageBalance.process(data);
+		}
 	}
 
 	public void removeOverlay(OverlayType ov) {
@@ -224,6 +229,10 @@ public class CameraViewer extends SurfaceView implements SurfaceHolder.Callback,
 			vg = (ViewGroup) hueCount.getParent();
 			vg.removeView(hueCount);
 			hueCount = null;
+		} else if (ov == OverlayType.IMAGE_BALANCE) {
+			vg = (ViewGroup) imageBalance.getParent();
+			vg.removeView(imageBalance);
+			imageBalance = null;
 		}
 	}
 
@@ -253,6 +262,8 @@ public class CameraViewer extends SurfaceView implements SurfaceHolder.Callback,
 			ovlay = bgSimplicity = new BackgroundSimplicity(getContext(), previewWidth, previewHeight, getWidth(), getHeight());
 		} else if (ov == OverlayType.HUE_COUNT) {
 			ovlay = hueCount = new HueCount(getContext(), previewWidth, previewHeight, getWidth(), getHeight());
+		} else if (ov == OverlayType.IMAGE_BALANCE) {
+			ovlay = imageBalance = new ImageBalance(getContext(), previewWidth, previewHeight, getWidth(), getHeight());
 		}
 
 		if (ovlay != null)

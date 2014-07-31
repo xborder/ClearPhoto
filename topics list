@@ -1,0 +1,51 @@
+Introdução
+	Contexto
+	Descrição do problema e objectivos
+	Solução apresentada
+	Contribuições
+	Organização da dissertação
+
+Related Work 
+	Fundamental Concepts
+		Light
+		Exposure
+		Shutter
+		Aperture
+		Depth of Field
+		ISO
+		White Balance
+	Processing Techniques for Photography
+		Long-Exposure Photography
+		High Dynamic Range Imaging
+		Panoramic Photography
+	Image Capture and Processing Applications
+		Image Capture Applications
+		Image Processing Applications
+	Image Evaluation
+		Composition Rules
+		Evaluation of Aesthetic Features (NOVO TEMA PARA DESENVOLVER)
+		Practical Application of Aesthetic Evaluation Systems
+	Computer Vision Algorithms
+		Keypoint Detection
+		Colour Features
+		Texture Features
+		Discussion
+
+System Description and Funcionalities (descrever o sistema e como é apresentado na interface para cada funcionalidade)
+	Description
+	Funcionalities
+		Face Detection and Composition Guidelines
+		Color Templates and Hue Counting
+		Color Histograms and Average Saturation
+		Background Simplicity
+		Object Segmentation
+		Main Line Detection
+		Horizon Detection
+		Image Balance
+	Discussion
+
+Results Evaluation
+
+Conclusion and Future Work
+	Conclusion
+	Future Work

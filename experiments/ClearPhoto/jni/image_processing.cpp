@@ -542,3 +542,18 @@ JNIEXPORT jint JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeGetHueC
 }
 
 // ############### HUE COUNT CALLS ####################
+
+// ############### IMAGE BALANCE CALLS ####################
+
+JNIEXPORT jint JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeGetImageBalance
+(JNIEnv* jenv, jclass, jlong data_, jlong output_) {
+	Mat* data = (Mat*) data_;
+	Mat* output = (Mat*) output_;
+
+	Mat data_rgb;
+	cvtColor(*data, data_rgb, CV_YUV420sp2BGR, 3);
+	int balance = ImageBalance::getImageBalance(data_rgb, *output);
+	return balance;
+}
+
+// ############### IMAGE BALANCE CALLS ####################

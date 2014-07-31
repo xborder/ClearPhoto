@@ -16,6 +16,8 @@
 #include <cfloat>
 #include <cmath>
 
+#include "stdafx.h"
+#include "ImageBalance/ImageBalance.h"
 #include "HorizonDetection.h"
 #include "MainLinesDetection.h"
 #include "ObjectSegmentation.h"
@@ -111,6 +113,13 @@ JNIEXPORT jint JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeGetHueC
 (JNIEnv* jenv, jclass, jlong data_);
 
 // ############### HUE COUNT CALLS ####################
+
+// ############### IMAGE BALANCE CALLS ####################
+
+JNIEXPORT jint JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeGetImageBalance
+(JNIEnv* jenv, jclass, jlong data_, jlong output_);
+
+// ############### IMAGE BALANCE CALLS ####################
 }
 
 #endif /* IMAGE_PROCESSING_H_ */

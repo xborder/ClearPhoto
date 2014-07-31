@@ -118,4 +118,13 @@ public class ImageProcessing {
 	private static native int nativeGetHueCount(long data);
 	
 	//============================================================================================
+	
+	public static int getImageBalance(Mat data, Mat output) {
+		return nativeGetImageBalance(data.getNativeObjAddr(), output.getNativeObjAddr());
+	}
+	
+	private static native int nativeGetImageBalance(long data, long output);
+	
+	//============================================================================================
+	
 }
