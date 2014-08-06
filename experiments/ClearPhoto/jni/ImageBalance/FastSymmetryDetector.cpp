@@ -275,3 +275,7 @@ pair<Point, Point> FastSymmetryDetector::getLine( float rho_index, float theta_i
     
     return pair<Point, Point> { p0, p1, };
 }
+
+Size FastSymmetryDetector::getImageSize() {
+	return imageSize;
+}

@@ -555,5 +555,28 @@ JNIEXPORT jint JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeGetImag
 	int balance = ImageBalance::getImageBalance(data_rgb, *output);
 	return balance;
 }
-
 // ############### IMAGE BALANCE CALLS ####################
+
+// ############### COLOR TEMPLATE CALLS ####################
+JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeGetColorTemplate
+(JNIEnv* jenv, jclass, jlong data_, jobject list)
+{
+	jclass cls_arraylist = jenv->GetObjectClass(list);
+	jclass cls_int = jenv->FindClass("java/lang/Integer");
+
+	jmethodID int_cstr = jenv->GetMethodID(cls_int, "<init>", "(I)V");
+	jmethodID arraylist_add = jenv->GetMethodID(cls_arraylist,"add","(Ljava/lang/Object;)Z");
+
+	Mat* data = (Mat*) data_;
+	Mat data_rgb;
+	cvtColor(*data, data_rgb, CV_YUV420sp2BGR, 3);
+
+	vector<int> bins = ColorTemplate::getTemplate(data_rgb);
+
+	for(int i = 0; i < bins.size(); i++) {
+		jobject bin = jenv->NewObject(cls_int, int_cstr, bins[i]);
+		jenv->CallBooleanMethod(list, arraylist_add, bin);
+	}
+}
+// ############### COLOR TEMPLATE CALLS ####################
+

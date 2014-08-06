@@ -8,6 +8,10 @@
 //
 
 #include "ImageBalance.h"
+#include <android/log.h>
+#define LOG_TAG "ObjectSegmentation"
+#define LOGE(...) ((void)__android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__))
+
 
 int ImageBalance::getImageBalance(const Mat& image, Mat& output) {
 	/* Determine the shape of Hough accumulationmatrix */
@@ -17,17 +21,26 @@ int ImageBalance::getImageBalance(const Mat& image, Mat& output) {
 	FastSymmetryDetector detector( image.size(), Size(rho_divs, theta_divs), 1 );
 
 	Rect region( 0, image.rows, theta_divs * 2.0, rho_divs * 0.5 );
-	Mat edge;
+	Mat edge = Mat::zeros(image.size(), CV_8UC1);
 
 	/* Find the edges */
 	cvtColor( image, edge, CV_BGR2GRAY );
 	Canny( edge, edge, canny_thresh_1, canny_thresh_2 );
 
+	int zeros = countNonZero(edge);
+	if(zeros == 0)
+		return NONE;
 	/* Vote for the accumulation matrix */
 	detector.vote( edge, min_pair_dist, max_pair_dist );
 
 	//get point that form symmetry line
 	pair<Point,Point> symmetryLine = getSymmetryLine(detector);
+	int x0 = symmetryLine.first.x;
+	int y0 = symmetryLine.first.y;
+	int x1 = symmetryLine.second.x;
+	int y1 = symmetryLine.second.y;
+	if(x0 == y0 == y1 == x1 == -1)
+		return NONE;
 	line(output, symmetryLine.first, symmetryLine.second, Scalar(0, 0, 255, 255));
 	return calculateSideWeight(image, symmetryLine);
 }
@@ -55,28 +68,59 @@ pair<Point,Point> ImageBalance::getSymmetryLine(FastSymmetryDetector detector) {
 			result.push_back(p);
 		}
 	}
-	Point mean1, mean2;
-	int i = 0;
-	for( auto point_pair: result ) {
-		Point p1 = point_pair.first;
-		Point p2 = point_pair.second;
-		if (i == 0) {
-//			line(temp, p1, p2, Scalar(255, 0, 0), 3);
-			i++;
-		} else {
-//			line(temp, p1, p2, Scalar(0, 0, 255), 3);
-		}
-		mean1.x += p1.x;
-		mean1.y += p1.y;
-		mean2.x += p2.x;
-		mean2.y += p2.y;
-	}
-	mean1.x /= result.size();
-	mean1.y /= result.size();
-	mean2.x /= result.size();
-	mean2.y /= result.size();
-//	line(temp, mean1, mean2, Scalar(0, 255, 255), 3);
-	return pair<Point,Point>(mean1, mean2);
+    Point meanPoint;
+    float m = 0.0f;
+    Size sz = detector.getImageSize();
+    for( auto point_pair: result ) {
+        Point p1 = point_pair.first;
+        Point p2 = point_pair.second;
+        m += (p2.y - p1.y)/(p2.x - p1.x);
+        meanPoint.x += (p1.x + p2.x)/2;
+        meanPoint.y += (p1.y + p2.y)/2;
+    }
+
+    if(result.size() == 0)
+    	return pair<Point, Point>(Point(-1,-1), Point(-1,-1));
+
+    meanPoint.x /= result.size();
+    meanPoint.y /= result.size();
+	LOGE("%f/%d = %f",m,result.size(),m/result.size());
+    m /= result.size();
+
+    if(m == 0.0f)
+    	return pair<Point,Point>(Point(0,meanPoint.y), Point(sz.width, meanPoint.y));
+
+    Point p1(-1,-1), p2(-1,-1);
+    //test top
+    int calc = (0 - meanPoint.y + m * meanPoint.x)/m;
+    if( calc >= 0 && calc <= sz.width ) {
+        p1 = Point(calc, 0);
+    }
+    //test bottom
+    calc = (sz.height - meanPoint.y + m * meanPoint.x)/m;
+    if( calc >= 0 && calc <= sz.width ) {
+        if(p1.x == -1 && p1.y == -1)
+            p1 = Point(calc, sz.height);
+        else
+            p2 = Point(calc, sz.height);
+    }
+    //test left
+    calc = m * 0 - m * meanPoint.x + meanPoint.y;
+    if( calc >= 0 && calc <= sz.height ) {
+        if(p1.x == -1 && p1.y == -1)
+            p1 = Point(0, calc);
+        else
+            p2 = Point(0, calc);
+    }
+    //test right
+    calc = m * sz.width - m * meanPoint.x + meanPoint.y;
+    if( calc >= 0 && calc <= sz.height ) {
+        if(p1.x == -1 && p1.y == -1)
+            p1 = Point(sz.width, calc);
+        else
+            p2 = Point(sz.width, calc);
+    }
+	return pair<Point,Point>(p1,p2);
 }
 
 int ImageBalance::calculateSideWeight(const Mat& image, pair<Point, Point> symmetryLine) {

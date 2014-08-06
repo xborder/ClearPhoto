@@ -204,7 +204,7 @@ keepaspectratio]{#1}%
 	style=alphabetic,%
 % labelyear=false,%
 	defernumbers=true,%
-	maxnames=20,%
+	maxnames=3,%
 	firstinits=true,%
 	uniquename=init,%
 % dashed=false,%

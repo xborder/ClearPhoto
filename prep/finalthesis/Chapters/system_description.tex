@@ -1,0 +1,68 @@
+% ===============================================================
+% =						System Description						=
+% ===============================================================
+\chapter{System Description and Functionalities}
+\label{cha:system}
+This chapter describes the architecture and general structure of the system, as well as a detailed explanation about the functionalities implemented with the proposed technologies and interface displayed.
+
+\section{System Description}
+\label{sec:system_description}
+
+
+\section{Functionalities}
+\label{sec:functionalities}
+
+This section describes in detail the functionalities and experiments implemented in our system. The set of functionalities implemented were considered to be more interesting to explore in a real-time environment than the usual set of features already presented in regular camera applications or digital cameras.
+
+\subsection{Face Detection and Composition Guidelines}
+\label{sub:face_guidelines}
+
+
+
+\subsection{Colour Templates and Hue Counting}
+\label{sub:color}
+
+
+\subsection{Colour Histograms and Average Saturation}
+\label{sub:histograms}
+
+\subsection{Object Segmentation}
+\label{sub:segmentation}
+
+Unless it is a photography of a seascape or a landscape, it is normal for a photo to have a relevant subject. With this in mind, segmentation of a subject in multiple scenarios might be useful to attain a better composition.
+
+Segmentation of an object in a photo, is a topic that as already been widely researched. One of the simplest ways of extracting information about the object in a real-time scenario is to have information about its background beforehand and subtract. 
+
+In \cite{yang2004real}, \citeauthor{yang2004real} describe a system for security cameras, able to recognize and tracking a moving object. This is possible once the system is collecting information about the background as time passes. Using the information about the background, the system can subtract any object that considers strange to the background, and start the tracking. This method as the advantage of being fast and discard the possibility of training a classifier for object identification. 
+\citeauthor{butler2003real} describe a similar approach in \cite{butler2003real}, where the key is to learn the background and generate a model of it by representing each pixel in the frame by a group of clusters, where these clusters are ordered by the likelihood of modelling the background. Incoming pixels are matched against the corresponding cluster group and classified as part of the background.
+In our case, these methods have an obvious problem. Normally, the subject its already placed when the user wants to take a photo, therefore, the subject would be confused as a background or, the user would have to point the camera before placing the subject to initiate a process of extracting information and learn what's the background. When talking about a  camera in a mobile device or any digital camera, this method is nearly impractical, as the regular user tends to move the arms quite easily ruining the learning process started before. Thus, being an unreliable method for object segmentation.
+
+For our use case, we envision a method for generic object segmentation that could be used in real-time. Since it is for generic objects, we couldn't train a classifier to recognize multiple objects, or use edges information for comparison, as it would need multiple photos for data collection, and the segmentation would be limited to a few objects. 
+
+As mentioned in \cite{Santos} and \cite{kamps2012rules}, colour is a very important feature in a photo. With this in mind, when photographing, the main subject should cause visual impact due to its contrast relative to the background or other elements in the scenery. For this, we used a slightly simplified version of the \emph{Histogram Based Contrast} (HC) method described by \citeauthor{cheng2011global} in \cite{cheng2011global} for extraction of salient regions in a photo that evaluates global contrast differences, calculating saliency values for image pixels using color statistics. The saliency of a pixel is defined using its color contrast to all other pixels in the image. This can be described as,
+
+\begin{equation}
+S(I_{k}) = \sum_{\forall I_{i} \in I} D(I_{k}, I_{i}),
+\end{equation}
+
+where $D(I_{k}, I_{i})$ is the color distance between saliency value $I_{k}$ and pixel $I_{i}$ in the input image in the \emph{L*a*b*} color space. Since this computationally expensive, \citeauthor{cheng2011global}, reduces the number of colors needed to consider, by quantizing each color channel to have 12 different values, reducing the number of colors to $12^{3} = 1728$. Since a natural image covers only a small portion of the full color space, the less occurring colors are ignored, ensuring that the most occurring ones, cover at least 95\% of the image pixels. The remaining 5\% are replaced by the closest colors in the histogram. Since this quantization might introduce artifacts, the author preforms a smoothing procedure over each saliency value. Each saliency value is replaced by the weighted average of the $n/4$ neighbours where $n$ is the number of colors that fill 95\% of the image pixels.
+
+After obtaining a saliency map, the map is turned into a binary segmentation mask using a fixed threshold. Finally GrabCut\cite{rother2004grabcut} will be used to refine the segmentation result initially obtained by the binary segmentation mask.
+
+To use this algorithm in a real-time scenario in a mobile device, our implementation doesn't include the refinement obtained using GrabCut, as this algorithm is too costly. After obtaining the saliency map, we generate our binary segmentation mask with a threshold $T_{S} = 200$. To remove artifacts that might exist from using an incorrect threshold, we calculate the center of mass on the resulting mask and generate a bounding rectangle. The rectangle starts from the center of mass expanding in every direction. Each edge will continue expanding while each row or column has at least a count of 25 pixels belonging to the segmentation mask, and stops when 50 rows or columns have been covered with a count of pixels bellow the previously stated.
+
+\subsection{Background Simplicity}
+\label{sub:background}
+
+
+\subsection{Main Line Detection}
+\label{sub:line_detection}
+
+\subsection{Horizon Detection}
+\label{sub:horizon_detection}
+
+\subsection{Image Balance}
+\label{sub:balance}
+
+\section{Discussion}
+\label{sec:system_discussion}

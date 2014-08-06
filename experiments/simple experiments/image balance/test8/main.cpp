@@ -19,24 +19,15 @@
 using namespace std;
 using namespace cv;
 
-string filename = "/home/helder/flickr/symmetry/14392340540.jpg";
-
 static Point accumIndex(-1, -1);
 static void onMouse( int event, int x, int y, int, void * data );
 
-int clusterCount = 2;
+string filename = "";
 
-vector<Point> centers;
-map<int,int> countClusters(Mat& image, Mat& mask);
 void getBinaryImage(const Mat& saliency, Mat& binary, Point& center, Rect& rect);
 void getSegmentationMask(const Mat& image, Mat& mask);
-int getCenterMass(const Mat& img);
-vector<int> divideRegions(Mat& image);
-void putTextCount(int x, int y, Mat& img, int val);
 void sideWeight(Mat& image, Mat& canny, pair<Point, Point> symmetryLine);
 void getDivisoryMask(const Mat& image, pair<Point,Point> symmetryLine, Mat& leftMask, Mat& rightMask, int& leftCount, int& rightCount);
-void countNonZeros(const Mat& canny, const Mat& mask);
-vector<Point> generateClusters(Mat& image, Mat& clustered);
 
 void testImage();
 void testVideo();
@@ -198,6 +189,7 @@ void testImage() {
             }
         }
         Point mean1, mean2;
+        float m = 0.0f;
         int i = 0;
         for( auto point_pair: result ) {
             Point p1 = point_pair.first;
@@ -208,16 +200,52 @@ void testImage() {
             } else {
                 line(temp, p1, p2, Scalar(0, 0, 255), 3);
             }
-            mean1.x += p1.x;
-            mean1.y += p1.y;
-            mean2.x += p2.x;
-            mean2.y += p2.y;
+            m += (p2.y - p1.y)/(p2.x - p1.x);
+            mean1.x += (p1.x + p2.x)/2;
+            mean1.y += (p1.y + p2.y)/2;
         }
         mean1.x /= result.size();
         mean1.y /= result.size();
-        mean2.x /= result.size();
-        mean2.y /= result.size();
-        line(temp, mean1, mean2, Scalar(0, 255, 255), 3);
+        m /= result.size();
+        cout << mean1 <<  " " << m <<endl;
+
+        Point p1(-1,-1), p2(-1,-1);
+        //test top
+        int calc = (0 - mean1.y + m * mean1.x)/m; 
+        if( calc >= 0 && calc <= temp.cols ) {
+            p1 = Point(calc, 0);
+        }
+        printf("%d ", calc);
+        //test bottom
+        calc = (temp.rows - mean1.y + m * mean1.x)/m;
+        if( calc >= 0 && calc <= temp.cols ) {
+            if(p1.x == -1 && p1.y == -1)
+                p1 = Point(calc, temp.rows);
+            else
+                p2 = Point(calc, temp.rows);
+        }
+        printf("%d ", calc);
+        //test left
+        calc = m * 0 - m * mean1.x + mean1.y;
+        if( calc >= 0 && calc <= temp.rows ) {
+            if(p1.x == -1 && p1.y == -1)
+                p1 = Point(0, calc);
+            else
+                p2 = Point(0, calc);
+        }
+        printf("%d ", calc);
+        //test right
+        calc = m * temp.cols - m * mean1.x + mean1.y;
+        if( calc >= 0 && calc <= temp.rows ) {
+            if(p1.x == -1 && p1.y == -1)
+                p1 = Point(temp.cols, calc);
+            else
+                p2 = Point(temp.cols, calc);
+        }
+        printf("%d\n", calc);
+        cout << p1 << " " << p2 << endl;
+        line(temp, p1, p2, Scalar(0, 255, 255), 3);
+//        line(temp, Point(552,0), Point(666,1024), Scalar(255, 255, 255), 3);
         /* Visualize the Hough accum matrix */
         Mat accum = detector.getAccumulationMatrix();
         accum.convertTo( accum, CV_8UC3 );
@@ -283,97 +311,6 @@ void sideWeight(Mat& image, Mat& canny, pair<Point, Point> symmetryLine) {
   }
 }
 
-map<int,int> countClusters(Mat& image, Mat& mask) {
-  map<int,int> counter;
-  for(int i = 0 ; i < clusterCount; i++) {
-    counter.insert ( pair<int,int>(i,0) );
-  }
-  //Cluster 1;
-  for(int x = 0; x < image.cols; x++){
-    for(int y = 0; y < image.rows; y++){
-      for(int j=0; j < clusterCount; j++) {
-        if(image.at<uchar>(y,x) == 255/(j+1) && mask.at<uchar>(y,x) == 255) {
-          counter.at(j)++;
-          break;
-        }
-      }
-    }
-  }
-  return counter;
-}
-
-vector<Point> generateClusters(Mat& image, Mat& clustered) {
-  RNG rng(12345);
-  //Collecting samples for kmeans;
-  int subRegionWidth = image.cols;
-  int subRegionHeight = image.rows;
-
-  Mat samples(subRegionHeight * subRegionWidth, 1,  CV_32F);
-
-  for(int i=0; i < subRegionHeight*subRegionWidth; i++) {
-    samples.at<float>(i,0) = image.data[i];
-  }
-
-  Mat labels;
-  int attempts = 5;
-  Mat cent;
-  kmeans(samples, clusterCount, labels, TermCriteria(CV_TERMCRIT_ITER|CV_TERMCRIT_EPS, 10000, 0.0001), attempts, KMEANS_PP_CENTERS, cent );
-
-  cout << cent << endl;
-  int colors[clusterCount];
-  for(int i=0; i<clusterCount; i++) {
-    colors[i] = 255/(i+1);
-  }
-    // i think there is a better way to do this mayebe some Mat::reshape?
-  vector<Point> toReturn;
-  map<int,Point> cluster_centers;
-  map<int,int> average_count;
-  for(int i = 0 ; i < clusterCount; i++) {
-    cluster_centers.insert ( pair<int,Point>(i,Point(0,0)) );
-    average_count.insert ( pair<int,int>(i,0) );
-  }
-
-  for(int i = 0; i < subRegionWidth * subRegionHeight; i++) {
-    int y = i / subRegionWidth;
-    int x = i % subRegionWidth; 
-    cluster_centers.at(labels.at<int>(0,i)).x += x;
-    cluster_centers.at(labels.at<int>(0,i)).y += y;
-    average_count.at(labels.at<int>(0,i))++;
-    clustered.at<float>(y,x) = (float)(colors[labels.at<int>(0,i)]);
-  }
-
-
-  for(int i = 0 ; i < cluster_centers.size(); i++) {
-    Point point = cluster_centers.at(i);
-    int count = average_count.at(i);
-    point.x /= count;
-    point.y /= count;
-    cluster_centers.at(i) = point;
-    toReturn.push_back(point);
-    cout << average_count.at(i) << endl;
-    circle(image, Point(point.x,point.y), 2, Scalar(0,0,0),5);
-  }
-
-  int sum = 0;
-  sum += sqrt(pow(cluster_centers[0].x - cluster_centers[1].x, 2) + pow(cluster_centers[0].y - cluster_centers[1].y, 2));
-  sum += sqrt(pow(cluster_centers[1].x - cluster_centers[2].x, 2) + pow(cluster_centers[1].y - cluster_centers[2].y, 2));
-  sum += sqrt(pow(cluster_centers[2].x - cluster_centers[0].x, 2) + pow(cluster_centers[2].y - cluster_centers[0].y, 2));
-
-  ostringstream sb;
-  sb << sum;
-  string s =  sb.str();
-  putText(image, s.c_str(), Point(20,20), FONT_HERSHEY_DUPLEX, 0.5, Scalar::all(0));
-  return toReturn;
-}
-
-void countNonZeros(const Mat& canny, const Mat& mask) {
-    Mat tmp = Mat::zeros(canny.size(), CV_8UC1);
-    bitwise_and(canny, mask, tmp);
-    int nonZeros = countNonZero(tmp);
-    float perc = nonZeros/(float)countNonZero(canny)*100;
-    cout << nonZeros << "(" << perc << "%)" << endl;
-}
-
 void getDivisoryMask(const Mat& image, pair<Point,Point> symmetryLine, Mat& leftMask, Mat& rightMask, int& leftCount, int& rightCount) {
     leftMask = Mat::zeros(image.rows, image.cols, CV_8UC1);
     rightMask = Mat::zeros(image.rows, image.cols, CV_8UC1);
@@ -394,12 +331,6 @@ void getDivisoryMask(const Mat& image, pair<Point,Point> symmetryLine, Mat& left
             }
           }
         }
-        /*
-        cout << "left: " << leftCount.at(0) << endl;
-        cout << "right: " << rightCount.at(0) << endl;
-        imshow("left division", leftMask);
-        imshow("right division", rightMask);
-        waitKey(0);*/
         return ;
     } 
 
@@ -439,12 +370,6 @@ void getDivisoryMask(const Mat& image, pair<Point,Point> symmetryLine, Mat& left
         }
     }
   }
-  /*
-  cout << "left: " << leftCount.at(0) << endl;
-  cout << "right: " << rightCount.at(0) << endl;
-  imshow("left division", leftMask);
-  imshow("right division", rightMask);
-  waitKey(0);*/
 }
 
 /**
@@ -464,99 +389,6 @@ static void onMouse( int event, int x, int y, int, void * data ) {
     }
 }
 
-int getCenterMass(const Mat& img) {
-  int x = 0, y = 0, count = 0;
-  for (int r = 0; r < img.rows; r++) {
-    const uchar* binary_row = img.ptr<uchar>(r);
-    for (int c = 0; c < img.cols; c++) {
-      if(binary_row[c] > 20) {
-        x += c;
-        y += r;
-        count++;
-      }
-    }
-  }
-  Point center;
-  if(count > 0) 
-    center = Point(x/count, y/count);
-  else
-    center = Point(0,0);
-  return count;
-}
-
-vector<int> divideRegions(Mat& image) {
-  int subRegionWidth = image.cols/3, subRegionHeight = image.rows/3;
-  printf("%d %d\n", image.cols/3, image.rows/3);
-  vector<int> centers;
-
-  Rect topLeftRegion(Point(0,0), Point(subRegionWidth, subRegionHeight));
-  Rect topMiddleRegion(Point(subRegionWidth, 0), Point(2*subRegionWidth, subRegionHeight));
-  Rect topRightRegion(Point(2*subRegionWidth, 0), Point(3*subRegionWidth, subRegionHeight));
-
-  Rect midLeftRegion(Point(0, subRegionHeight), Point(subRegionWidth, 2*subRegionHeight));
-  Rect midMiddleRegion(Point(subRegionWidth, subRegionHeight), Point(2*subRegionWidth, 2*subRegionHeight));
-  Rect midRightRegion(Point(2*subRegionWidth, subRegionHeight), Point(3*subRegionWidth, 2*subRegionHeight));
-
-  Rect bottomLeftRegion(Point(0, 2*subRegionHeight), Point(subRegionWidth, 3*subRegionHeight));
-  Rect bottomMiddleRegion(Point(subRegionWidth, 2*subRegionHeight), Point(2*subRegionWidth, 3*subRegionHeight));
-  Rect bottomRightRegion(Point(2*subRegionWidth, 2*subRegionHeight), Point(3*subRegionWidth, 3*subRegionHeight));
-
-  int center1 = getCenterMass(image(topLeftRegion));
-  int center2 = getCenterMass(image(topMiddleRegion));
-  int center3 = getCenterMass(image(topRightRegion));
-  
-  int center4 = getCenterMass(image(midLeftRegion));
-  int center5 = getCenterMass(image(midMiddleRegion));
-  int center6 = getCenterMass(image(midRightRegion));
-
-  int center7 = getCenterMass(image(bottomLeftRegion));
-  int center8 = getCenterMass(image(bottomMiddleRegion));
-  int center9 = getCenterMass(image(bottomRightRegion));
-
-  centers.push_back(center1);
-  centers.push_back(center2);
-  centers.push_back(center3);
-  centers.push_back(center4);
-  centers.push_back(center5);
-  centers.push_back(center6);
-  centers.push_back(center7);
-  centers.push_back(center8);
-  centers.push_back(center9);
-
-  rectangle(image, topLeftRegion, Scalar::all(255), 2);
-  rectangle(image, topMiddleRegion, Scalar::all(255), 2);
-  rectangle(image, topRightRegion, Scalar::all(255), 2);
-  rectangle(image, midLeftRegion, Scalar::all(255), 2);
-  rectangle(image, midMiddleRegion, Scalar::all(255), 2);
-  rectangle(image, midRightRegion, Scalar::all(255), 2);
-  rectangle(image, bottomLeftRegion, Scalar::all(255), 2);
-  rectangle(image, bottomMiddleRegion, Scalar::all(255), 2);
-  rectangle(image, bottomRightRegion, Scalar::all(255), 2);
-
-  putTextCount(topLeftRegion.x, 50+topLeftRegion.y, image, center1);
-  putTextCount(topMiddleRegion.x, 50+topMiddleRegion.y, image, center2);
-  putTextCount(topRightRegion.x, 50+topRightRegion.y, image, center3);
-  
-  putTextCount(midLeftRegion.x, 50+midLeftRegion.y, image, center4);
-  putTextCount(midMiddleRegion.x, 50+midMiddleRegion.y, image, center5);
-  putTextCount(midRightRegion.x, 50+midRightRegion.y, image, center6);
-  
-  putTextCount(bottomLeftRegion.x, 50+bottomLeftRegion.y, image, center7);
-  putTextCount(bottomMiddleRegion.x, 50+bottomMiddleRegion.y, image, center8);
-  putTextCount(bottomRightRegion.x, 50+bottomRightRegion.y, image, center9);
-
-  return centers;
-}
-
-void putTextCount(int x, int y, Mat& img, int val) {
-  ostringstream sb;
-  sb << val;
-  string s =  sb.str();
-  rectangle(img, Point(x,y), Point(x+50, y-20), Scalar::all(0), -1, 8);
-  putText(img, s.c_str(), Point(x,y), FONT_HERSHEY_DUPLEX, 0.5, Scalar::all(255));
-}
-
-
 void getSegmentationMask(const Mat& image, Mat& mask) {
   mask = Mat::zeros(image.size(), CV_8UC1);
   Mat tmp_image;
@@ -569,22 +401,8 @@ void getSegmentationMask(const Mat& image, Mat& mask) {
   
   Mat pr_fgd, pr_bgd; 
   compare(tmp_mask, GC_PR_FGD, pr_fgd, CMP_EQ);
-  compare(tmp_mask, GC_PR_BGD, pr_bgd, CMP_EQ);
 
   mask = pr_fgd;
-/*
-  Mat mask_rect = Mat::zeros(mask.size(), CV_8U);
-  mask_rect(roi).setTo(255);
-  Mat tmp;
-  if(countNonZero(mask_rect) != 0) {
-//    bitwise_or(pr_fgd, pr_bgd, mask);
-    bitwise_and(pr_fgd, mask_rect, mask);
-  } else {
-    bitwise_or(pr_fgd, pr_bgd, mask);
-//    bitwise_or(tmp, mask_rect, mask);
-  }
-  imshow("sda", pr_fgd);
-  waitKey(0);*/
 }
 
 void getBinaryImage(const Mat& saliency, Mat& binary, Point& center, Rect& rect) {

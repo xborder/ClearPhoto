@@ -39,7 +39,7 @@ public:
     inline void rotateEdges( vector<Point2f>& edges, int theta );
     
     Mat getAccumulationMatrix( float thresh = 0.0 );
-    
+    Size getImageSize();
     vector<pair<Point, Point> > getResult( int no_of_peaks,float min_threshold = -1.0f, float max_threshold = -1.0f );
     pair<Point, Point> getLine( float rho, float theta );
     double getMaxVal(float min_threshold = -1.0f, float max_threshold = -1.0f); 

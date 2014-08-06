@@ -11,7 +11,7 @@ using namespace cv;
 
 
 struct ImageBalance {
-	static const int UNBALANCED = -1, VISUAL_TENSION = 0, BALANCED = 1;
+	static const int UNBALANCED = 0, VISUAL_TENSION = 1, BALANCED = 2, NONE = -1;
 	static int getImageBalance(const Mat& image, Mat& output);
 private:
 	static const int canny_thresh_1 = 182;

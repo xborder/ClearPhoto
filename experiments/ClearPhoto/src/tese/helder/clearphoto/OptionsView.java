@@ -3,6 +3,7 @@ package tese.helder.clearphoto;
 import tese.helder.clearphoto.overlays.grids.Grid;
 import tese.helder.clearphoto.overlays.imageprocessing.BackgroundSimplicity;
 import tese.helder.clearphoto.overlays.imageprocessing.ColorHistogram;
+import tese.helder.clearphoto.overlays.imageprocessing.ColorTemplates;
 import tese.helder.clearphoto.overlays.imageprocessing.ColorWheel;
 import tese.helder.clearphoto.overlays.imageprocessing.FaceDetection;
 import tese.helder.clearphoto.overlays.imageprocessing.HorizonDetection;
@@ -84,5 +85,8 @@ public class OptionsView {
 		
 		button = (ImageButton)view.findViewById(R.id.imageBalanceButton);
 		button.setOnClickListener(ImageBalance.getOnClickListener(cameraViewer));
+		
+		button = (ImageButton)view.findViewById(R.id.colorTemplateButton);
+		button.setOnClickListener(ColorTemplates.getOnClickListener(cameraViewer));
 	}
 }

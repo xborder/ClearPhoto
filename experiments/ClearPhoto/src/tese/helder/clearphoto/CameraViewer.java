@@ -13,6 +13,7 @@ import tese.helder.clearphoto.overlays.grids.ThirdsGrid;
 import tese.helder.clearphoto.overlays.grids.TriangleGrid;
 import tese.helder.clearphoto.overlays.imageprocessing.BackgroundSimplicity;
 import tese.helder.clearphoto.overlays.imageprocessing.ColorHistogram;
+import tese.helder.clearphoto.overlays.imageprocessing.ColorTemplates;
 import tese.helder.clearphoto.overlays.imageprocessing.ColorWheel;
 import tese.helder.clearphoto.overlays.imageprocessing.FaceDetection;
 import tese.helder.clearphoto.overlays.imageprocessing.HorizonDetection;
@@ -54,6 +55,7 @@ public class CameraViewer extends SurfaceView implements SurfaceHolder.Callback,
 	private BackgroundSimplicity bgSimplicity;
 	private HueCount hueCount;
 	private ImageBalance imageBalance;
+	private ColorTemplates colorTemplate;
 
 	private int previewWidth, previewHeight;
 	private List<Pair<ImageProcessingOv, LayoutParams>> imageProcessingOv;
@@ -182,6 +184,9 @@ public class CameraViewer extends SurfaceView implements SurfaceHolder.Callback,
 		if(imageBalance != null) {
 			imageBalance.process(data);
 		}
+		if(colorTemplate != null) {
+			colorTemplate.process(data);
+		}
 	}
 
 	public void removeOverlay(OverlayType ov) {
@@ -233,6 +238,10 @@ public class CameraViewer extends SurfaceView implements SurfaceHolder.Callback,
 			vg = (ViewGroup) imageBalance.getParent();
 			vg.removeView(imageBalance);
 			imageBalance = null;
+		} else if (ov == OverlayType.COLOR_TEMPLATE) {
+			vg = (ViewGroup) colorTemplate.getParent();
+			vg.removeView(colorTemplate);
+			colorTemplate = null;
 		}
 	}
 
@@ -264,6 +273,8 @@ public class CameraViewer extends SurfaceView implements SurfaceHolder.Callback,
 			ovlay = hueCount = new HueCount(getContext(), previewWidth, previewHeight, getWidth(), getHeight());
 		} else if (ov == OverlayType.IMAGE_BALANCE) {
 			ovlay = imageBalance = new ImageBalance(getContext(), previewWidth, previewHeight, getWidth(), getHeight());
+		} else if (ov == OverlayType.COLOR_TEMPLATE) {
+			ovlay = colorTemplate = new ColorTemplates(getContext(), previewWidth, previewHeight, getWidth(), getHeight());
 		}
 
 		if (ovlay != null)

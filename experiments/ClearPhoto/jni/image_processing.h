@@ -23,6 +23,7 @@
 #include "ObjectSegmentation.h"
 #include "BackgroundSimplicity.h"
 #include "HueCount.h"
+#include "ColorTemplate/ColorTemplate.h"
 
 #include <jni.h>
 #include <android/log.h>
@@ -120,6 +121,14 @@ JNIEXPORT jint JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeGetImag
 (JNIEnv* jenv, jclass, jlong data_, jlong output_);
 
 // ############### IMAGE BALANCE CALLS ####################
+
+// ############### COLOR TEMPLATE CALLS ####################
+
+JNIEXPORT void JNICALL Java_tese_helder_clearphoto_ImageProcessing_nativeGetColorTemplate
+(JNIEnv* jenv, jclass, jlong data_, jobject list);
+
+// ############### COLOR TEMPLATE CALLS ####################
+
 }
 
 #endif /* IMAGE_PROCESSING_H_ */

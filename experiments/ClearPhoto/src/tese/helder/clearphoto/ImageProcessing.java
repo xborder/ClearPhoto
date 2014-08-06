@@ -126,5 +126,14 @@ public class ImageProcessing {
 	private static native int nativeGetImageBalance(long data, long output);
 	
 	//============================================================================================
+	public static ArrayList<Integer> getColorTemplate(Mat data) {
 	
+		ArrayList<Integer> bins = new ArrayList<Integer>();
+		nativeGetColorTemplate(data.getNativeObjAddr(), bins);
+		return bins;
+	}
+	
+	private static native void nativeGetColorTemplate(long data, ArrayList<Integer> bins);
+	
+	//============================================================================================
 }
