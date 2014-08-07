@@ -48,9 +48,9 @@ public class ImageBalance extends ImageProcessingOv {
 		overlay.setAlpha(100);
 		
 		Resources res = getResources();
-		balanced = BitmapFactory.decodeResource(res, R.drawable.balanced);
-		unbalanced = BitmapFactory.decodeResource(res, R.drawable.unbalanced);
-		visual_tension = BitmapFactory.decodeResource(res, R.drawable.visual_tension);
+		balanced = BitmapFactory.decodeResource(res, R.drawable.ic_balanced);
+		unbalanced = BitmapFactory.decodeResource(res, R.drawable.ic_unbalanced);
+		visual_tension = BitmapFactory.decodeResource(res, R.drawable.ic_visual_tension);
 	}
 
 	@Override
