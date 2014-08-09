@@ -1,20 +1,84 @@
 #include "ObjectSegmentation.h"
 #include <opencv2/opencv.hpp>
-#include <android/log.h>
 
 #define LOG_TAG "ObjectSegmentation"
 #define LOGE(...) ((void)__android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__))
+std::string removeExtension( std::string const& filename );	
+int bgd = 0;
+string option("-b");
+string filename;
 
+int main(int argc, const char * argv[]) {
+	Mat frame;
+	if(option.compare(string(argv[1])) == 0) {
+		bgd = 1;
+		filename = string(argv[2]);
+		frame = imread( argv[2], 1);
+	} else {
+		filename = string(argv[1]);
+		frame = imread( argv[1], 1);
+	}
+	
 
-void ObjectSegmentation::getSegmentationMask(const Mat& image, Mat& mask) {
+	Mat mask, tmp = frame.clone();
+	ObjectSegmentation::getSegmentationMask(frame, mask);
+	
+
+	vector<int> compression_params;
+  compression_params.push_back(CV_IMWRITE_PNG_COMPRESSION);
+	string sal = removeExtension(filename) +"_mask.png";
+	imwrite(sal.c_str(), mask, compression_params);
+	
+	sal = removeExtension(filename) +"_rect.png";
+	imwrite(sal.c_str(), frame,compression_params);
+	
+	Mat final = Mat::zeros(frame.size(), CV_8UC3);
+	tmp.copyTo(final, mask);
+	sal = removeExtension(filename) +"_seg.png";
+	imwrite(sal.c_str(), final ,compression_params);
+
+	imshow("final mask", mask);
+	imshow("teste", frame);
+	return 0;
+}
+
+std::string
+removeExtension( std::string const& filename )
+{
+    std::string::const_reverse_iterator
+                        pivot
+            = std::find( filename.rbegin(), filename.rend(), '.' );
+    return pivot == filename.rend()
+        ? filename
+        : std::string( filename.begin(), pivot.base() - 1 );
+}
+
+void ObjectSegmentation::getSegmentationMask(Mat& image, Mat& mask) {
 	mask = Mat::zeros(image.size(), CV_8UC1);
 	Mat tmp_image;
 	image.convertTo(tmp_image, CV_32FC3, 1.0/255);
 	Mat hc = ObjectSegmentation::GetHC(tmp_image);
-	Point center;
+	imshow("HC", hc);
+	
+	vector<int> compression_params;
+  compression_params.push_back(CV_IMWRITE_PNG_COMPRESSION);
+
+	string sal = removeExtension(filename) +"_sal.png";
+	imwrite(sal.c_str(), hc*255,compression_params);
+
+	Point center, center2;
 	Rect roi;
 	Mat tmp_mask;
-	getBinaryImage(hc*255, tmp_mask, center, roi);
+	getBinaryImage(hc*255, tmp_mask, center, center2, roi);
+	imshow("binary mask", tmp_mask*255);
+
+	sal = removeExtension(filename) +"_bmask.png";
+	imwrite(sal.c_str(), tmp_mask*255, compression_params);
+
+
+	circle(image, center, 2, Scalar(0,0,255),5);
+	circle(image, center2, 2, Scalar(0,0,255),2);
+  rectangle(image, roi, Scalar(0,255,0),4);
 
 	Mat mask_rect = Mat::zeros(mask.size(), CV_8U);
 	mask_rect(roi).setTo(255);
@@ -28,6 +92,16 @@ void ObjectSegmentation::getSegmentationMask(const Mat& image, Mat& mask) {
 	bitwise_and(pr_bgd, mask_rect, mask_bgd);
 	bitwise_or(mask_bgd, mask_fgd, mask);
 
+	Mat bgd_fgd;
+	bitwise_or(pr_bgd*255, pr_fgd*255, bgd_fgd);
+	imshow("pr fgd", pr_fgd);
+	imshow("pr bgd", pr_bgd);
+
+	sal = removeExtension(filename) +"_pr_fgd.png";
+	imwrite(sal.c_str(), pr_fgd,compression_params);
+
+	sal = removeExtension(filename) +"_pr_bgd.png";
+	imwrite(sal.c_str(), pr_bgd, compression_params);
 	/*Mat tmp_image;
 	image.convertTo(tmp_image, CV_32FC3, 1.0/255);
 	Mat hc = ObjectSegmentation::GetHC(tmp_image), tmp_mask;
@@ -45,7 +119,7 @@ void ObjectSegmentation::getSegmentationMask(const Mat& image, Mat& mask) {
 	bitwise_and(pr_fgd, mask_rect, mask);*/
 }
 
-void ObjectSegmentation::getBinaryImage(const Mat& saliency, Mat& binary, Point& center, Rect& rect) {
+void ObjectSegmentation::getBinaryImage(const Mat& saliency, Mat& binary, Point& center, Point& center2, Rect& rect) {
 	double minVal;
 	double maxVal;
 	Point minLoc;
@@ -57,7 +131,8 @@ void ObjectSegmentation::getBinaryImage(const Mat& saliency, Mat& binary, Point&
 	int first_x = 0, first_y = 0, last_x = 0, last_y = 0;
 	int* rows = (int*)calloc(binary.rows, sizeof(int));
 	int* cols = (int*)calloc(binary.cols, sizeof(int));
-
+	int count_bg = 0;
+	int center_x_bg = 0, center_y_bg = 0;
 	for (int r = 0; r < binary.rows; r++) {
 		uchar* binary_row = binary.ptr<uchar>(r);
 		for (int c = 0; c < binary.cols; c++) {
@@ -70,6 +145,13 @@ void ObjectSegmentation::getBinaryImage(const Mat& saliency, Mat& binary, Point&
 				cols[c]++;
 			} else if (binary_row[c] < MIN_FGD_THRESHOLD && binary_row[c] >= MIN_PR_BGD_THRESHOLD) {
 				binary_row[c] = GC_PR_BGD;
+				if(bgd) {
+					center_y_bg += r;
+					center_x_bg += c;
+					count_bg++;
+//					rows[r]++;
+//					cols[c]++;
+				}
 			} else {
 				binary_row[c] = GC_BGD;
 			}
@@ -77,6 +159,15 @@ void ObjectSegmentation::getBinaryImage(const Mat& saliency, Mat& binary, Point&
 	}
 	center.x = center_x/count;
 	center.y = center_y/count;
+	cout << center << endl;
+	if(bgd) {
+		center2.x = center_x_bg/count_bg;
+		center2.y = center_y_bg/count_bg;
+
+		center.x = (center.x+center2.x)/2;
+		center.y = (center.y+center2.y)/2;
+	}
+	cout << center << endl;
 	int i = 0, blank_lines = 0;
 	while(i < binary.cols && blank_lines < 50) {
 		blank_lines++;

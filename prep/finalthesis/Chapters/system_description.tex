@@ -39,6 +39,8 @@ In our case, these methods have an obvious problem. Normally, the subject its al
 
 For our use case, we envision a method for generic object segmentation that could be used in real-time. Since it is for generic objects, we couldn't train a classifier to recognize multiple objects, or use edges information for comparison, as it would need multiple photos for data collection, and the segmentation would be limited to a few objects. 
 
+\subsubsection{Algorithm description}
+
 As mentioned in \cite{Santos} and \cite{kamps2012rules}, colour is a very important feature in a photo. With this in mind, when photographing, the main subject should cause visual impact due to its contrast relative to the background or other elements in the scenery. For this, we used a slightly simplified version of the \emph{Histogram Based Contrast} (HC) method described by \citeauthor{cheng2011global} in \cite{cheng2011global} for extraction of salient regions in a photo that evaluates global contrast differences, calculating saliency values for image pixels using color statistics. The saliency of a pixel is defined using its color contrast to all other pixels in the image. This can be described as,
 
 \begin{equation}
@@ -47,11 +49,90 @@ S(I_{k}) = \sum_{\forall I_{i} \in I} D(I_{k}, I_{i}),
 
 where $D(I_{k}, I_{i})$ is the color distance between saliency value $I_{k}$ and pixel $I_{i}$ in the input image in the \emph{L*a*b*} color space. Since this computationally expensive, \citeauthor{cheng2011global}, reduces the number of colors needed to consider, by quantizing each color channel to have 12 different values, reducing the number of colors to $12^{3} = 1728$. Since a natural image covers only a small portion of the full color space, the less occurring colors are ignored, ensuring that the most occurring ones, cover at least 95\% of the image pixels. The remaining 5\% are replaced by the closest colors in the histogram. Since this quantization might introduce artifacts, the author preforms a smoothing procedure over each saliency value. Each saliency value is replaced by the weighted average of the $n/4$ neighbours where $n$ is the number of colors that fill 95\% of the image pixels.
 
-After obtaining a saliency map, the map is turned into a binary segmentation mask using a fixed threshold. Finally GrabCut\cite{rother2004grabcut} will be used to refine the segmentation result initially obtained by the binary segmentation mask.
+After obtaining a saliency map, the map is turned into a binary segmentation mask using a fixed threshold. Finally GrabCut\cite{rother2004grabcut} will be used repeatedly to refine the segmentation result initially obtained by the binary segmentation mask.
 
-To use this algorithm in a real-time scenario in a mobile device, our implementation doesn't include the refinement obtained using GrabCut, as this algorithm is too costly. After obtaining the saliency map, we generate our binary segmentation mask with a threshold $T_{S} = 200$. To remove artifacts that might exist from using an incorrect threshold, we calculate the center of mass on the resulting mask and generate a bounding rectangle. The rectangle starts from the center of mass expanding in every direction. Each edge will continue expanding while each row or column has at least a count of 25 pixels belonging to the segmentation mask, and stops when 50 rows or columns have been covered with a count of pixels bellow the previously stated. These thresholds were found experimentally and seem reasonable for the test images.
+\subsubsection{Implementation details}
 
-Being an incomplete algorithm, it does not work perfectly. Since it depends on the global contrast of a subjects colours, this segmentation might not work if the background is not plain or simple. Figure X illustrates some examples of this type of object segmentation.
+To use this algorithm in a real-time scenario in a mobile device, our implementation had to be more simplified with little changes. GrabCut is too heavy to run smoothly on a mobile device, and for that reason, we had to discard its usage sacrificing the refinement of the segmentation for speed. After obtaining the saliency map described in \cite{cheng2011global}, we give a label to each pixel depending on its value. These labels would be used in GrabCut to define which pixels are considered foreground, probable foreground, background, or probable background. In our case, we used the labels to create masks with the areas defined as probable foreground and probable background.
+We defined experimentally the thresholds, classifying a pixel as probable foreground if its value was bigger or equal to 200 and probable background if it was between 20 and 200.
+
+After obtaining a mask with each pixel labelled, we created a mask with all pixels that were considered as probable foreground and calculated the center of mass for the resulting mask. To remove artifacts that might exist from using an incorrect threshold value, generate a bounding rectangle that starts at the center of mass calculated and expands in every direction. Each edge will continue expanding while each row or column that passes, has at least a count of 25 pixels belonging to the segmentation mask, and stops when 50 rows or columns have been covered with a count of pixels bellow the previously stated. These thresholds were found experimentally and seem reasonable for the test images.
+
+Obtained the bounding rectangle and mask with areas considered probable foreground, we had a good estimate of what was the main object in the scenario. The result of the segmentation was a section of the mask containing the probable foreground pixels, cropped in the area defined by the bounding rectangle. Since this algorithm is not sensitive to slight variations in lightning, we merged the probable foreground pixels with the probable background ones and cropped with the bounding rectangle. This would later be helpful filling the gaps in the mask, as this algorithm was not sensitive to slight light changes.
+
+\subsubsection{Interface display}
+
+Generated the mask we chose to simply show a semi-transparent mask over the live feed obtained from the camera, as shown in Figure \ref{fig:interface_segmentation}. This would be a good indicator of what as the subject in the scenario and if it had any color striking features relatively to the rest of the elements.
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[scale=0.2]{interface/interface_segmentation.png}
+    \caption{Example of object segmentation interface. The resulting mask of the algorithm is then displayed as a green overlay in the camera live feed.}
+  	\label{fig:interface_segmentation}
+\end{figure}
+
+This could also be used together with guideline such as Rule of Thirds, described in \ref{sub:face_guidelines}, to reposition the object and change the composition.
+
+\subsubsection{Discussion}
+
+Being an incomplete algorithm, it does not work perfectly. Since it depends on the global contrast of a subjects colours, this segmentation might not work if the background is not plain or simple. Even with slight camera shake, this algorithm can extract the subject quite effectively. 
+
+\begin{figure}[htbp]
+		\hspace*{-20pt}
+    \begin{tabular}{cccccccc}
+    	\includegraphics[width=0.14\textwidth]{interface/segmentation/7/re_7.jpg}        &
+		\hspace*{-13pt}    	
+    	\includegraphics[width=0.14\textwidth]{interface/segmentation/3/re_3_sal.png}    & 						\hspace*{-13pt}
+    	\includegraphics[width=0.14\textwidth]{interface/segmentation/3/re_3_bmask.png}    & 					\hspace*{-13pt}
+    	\includegraphics[width=0.14\textwidth]{interface/segmentation/3/re_3_pr_bgd.png}    & 					\hspace*{-13pt}
+		\includegraphics[width=0.14\textwidth]{interface/segmentation/3/re_3_pr_fgd.png}    & 					\hspace*{-13pt}
+		\includegraphics[width=0.14\textwidth]{interface/segmentation/3/re_3_mask.png}    & 					\hspace*{-13pt}
+		\includegraphics[width=0.14\textwidth]{interface/segmentation/3/re_3_rect.png}    & 					\hspace*{-13pt}
+		\includegraphics[width=0.14\textwidth]{interface/segmentation/3/re_3_seg.png} \\
+    
+    	\includegraphics[width=0.14\textwidth]{interface/segmentation/2/re_2.jpg}    & 							\hspace*{-13pt}
+		\includegraphics[width=0.14\textwidth]{interface/segmentation/2/re_2_sal.png}    & 						\hspace*{-13pt}
+		\includegraphics[width=0.14\textwidth]{interface/segmentation/2/re_2_bmask.png}    & 					\hspace*{-13pt}
+		\includegraphics[width=0.14\textwidth]{interface/segmentation/2/re_2_pr_bgd.png}    & 					\hspace*{-13pt}
+		\includegraphics[width=0.14\textwidth]{interface/segmentation/2/re_2_pr_fgd.png}    & 					\hspace*{-13pt}
+		\includegraphics[width=0.14\textwidth]{interface/segmentation/2/re_2_mask.png}    & 					\hspace*{-13pt}
+		\includegraphics[width=0.14\textwidth]{interface/segmentation/2/re_2_rect.png}    & 					\hspace*{-13pt}
+		\includegraphics[width=0.14\textwidth]{interface/segmentation/2/re_2_seg.png} \\
+                
+    	\includegraphics[width=0.14\textwidth]{interface/segmentation/4/re_4.jpg}    & 							\hspace*{-13pt}
+		\includegraphics[width=0.14\textwidth]{interface/segmentation/4/re_4_sal.png}    & 						\hspace*{-13pt}
+		\includegraphics[width=0.14\textwidth]{interface/segmentation/4/re_4_bmask.png}    & 					\hspace*{-13pt}
+		\includegraphics[width=0.14\textwidth]{interface/segmentation/4/re_4_pr_bgd.png}    & 					\hspace*{-13pt}
+		\includegraphics[width=0.14\textwidth]{interface/segmentation/4/re_4_pr_fgd.png}    & 					\hspace*{-13pt}
+		\includegraphics[width=0.14\textwidth]{interface/segmentation/4/re_4_mask.png}    & 					\hspace*{-13pt}
+		\includegraphics[width=0.14\textwidth]{interface/segmentation/4/re_4_rect.png}    & 					\hspace*{-13pt}
+		\includegraphics[width=0.14\textwidth]{interface/segmentation/4/re_4_seg.png} \\
+		
+		\includegraphics[width=0.14\textwidth]{interface/segmentation/7/re_7.jpg}        &
+        \hspace*{-13pt}
+		\includegraphics[width=0.14\textwidth]{interface/segmentation/7/re_7_sal.png}    & 						\hspace*{-13pt}		
+		\includegraphics[width=0.14\textwidth]{interface/segmentation/7/re_7_bmask.png}    & 					\hspace*{-13pt}		
+		\includegraphics[width=0.14\textwidth]{interface/segmentation/7/re_7_pr_bgd.png}    & 					\hspace*{-13pt}		
+		\includegraphics[width=0.14\textwidth]{interface/segmentation/7/re_7_pr_fgd.png}    & 					\hspace*{-13pt}		
+		\includegraphics[width=0.14\textwidth]{interface/segmentation/7/re_7_mask.png}    & 					\hspace*{-13pt}		
+		\includegraphics[width=0.14\textwidth]{interface/segmentation/7/re_7_rect.png}    &
+		\hspace*{-13pt}		
+		\includegraphics[width=0.14\textwidth]{interface/segmentation/7/re_7_seg.png} \\
+		
+		\includegraphics[width=0.14\textwidth]{interface/segmentation/10/10.jpg}        &
+        \hspace*{-13pt}
+		\includegraphics[width=0.14\textwidth]{interface/segmentation/10/10_sal.png}    & 						\hspace*{-13pt}		
+		\includegraphics[width=0.14\textwidth]{interface/segmentation/10/10_bmask.png}    & 					\hspace*{-13pt}		
+		\includegraphics[width=0.14\textwidth]{interface/segmentation/10/10_pr_bgd.png}    & 					\hspace*{-13pt}		
+		\includegraphics[width=0.14\textwidth]{interface/segmentation/10/10_pr_fgd.png}    & 					\hspace*{-13pt}		
+		\includegraphics[width=0.14\textwidth]{interface/segmentation/10/10_mask.png}    & 						\hspace*{-13pt}		
+		\includegraphics[width=0.14\textwidth]{interface/segmentation/10/10_rect.png}    &
+		\hspace*{-13pt}		
+		\includegraphics[width=0.14\textwidth]{interface/segmentation/10/10_seg.png} \\
+		a) & \hspace*{-13pt} b) & \hspace*{-13pt} c) & \hspace*{-13pt} d) & \hspace*{-13pt} e) & \hspace*{-13pt} f) & \hspace*{-13pt} g) & \hspace*{-13pt} h)
+    \end{tabular}
+      \caption{}
+\end{figure}
 
 \subsection{Background Simplicity}
 \label{sub:background}
