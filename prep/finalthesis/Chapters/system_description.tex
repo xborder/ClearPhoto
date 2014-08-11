@@ -75,19 +75,20 @@ This could also be used together with guideline such as Rule of Thirds, describe
 
 \subsubsection{Discussion}
 
-Being an incomplete algorithm, it does not work perfectly. Since it depends on the global contrast of a subjects colours, this segmentation might not work if the background is not plain or simple. Even with slight camera shake, this algorithm can extract the subject quite effectively. 
+Being an incomplete algorithm, it does not work perfectly. Since it depends on the global contrast of a subjects colours, this segmentation might not work if the background is not plain or simple. Even with slight camera shake, this algorithm can extract the subject quite effectively. Figure \ref{fig:seg_example} show the multiple stages taken to segment an object in an image and its final result.
 
 \begin{figure}[htbp]
-		\hspace*{-20pt}
+	\label{fig:seg_example}	
+	\hspace*{-20pt}
     \begin{tabular}{cccccccc}
-    	\includegraphics[width=0.14\textwidth]{interface/segmentation/7/re_7.jpg}        &
+    	\includegraphics[width=0.14\textwidth]{interface/segmentation/3/re_3.jpg}        &
 		\hspace*{-13pt}    	
     	\includegraphics[width=0.14\textwidth]{interface/segmentation/3/re_3_sal.png}    & 						\hspace*{-13pt}
     	\includegraphics[width=0.14\textwidth]{interface/segmentation/3/re_3_bmask.png}    & 					\hspace*{-13pt}
     	\includegraphics[width=0.14\textwidth]{interface/segmentation/3/re_3_pr_bgd.png}    & 					\hspace*{-13pt}
 		\includegraphics[width=0.14\textwidth]{interface/segmentation/3/re_3_pr_fgd.png}    & 					\hspace*{-13pt}
-		\includegraphics[width=0.14\textwidth]{interface/segmentation/3/re_3_mask.png}    & 					\hspace*{-13pt}
 		\includegraphics[width=0.14\textwidth]{interface/segmentation/3/re_3_rect.png}    & 					\hspace*{-13pt}
+		\includegraphics[width=0.14\textwidth]{interface/segmentation/3/re_3_mask.png}    & 					\hspace*{-13pt}
 		\includegraphics[width=0.14\textwidth]{interface/segmentation/3/re_3_seg.png} \\
     
     	\includegraphics[width=0.14\textwidth]{interface/segmentation/2/re_2.jpg}    & 							\hspace*{-13pt}
@@ -95,8 +96,8 @@ Being an incomplete algorithm, it does not work perfectly. Since it depends on t
 		\includegraphics[width=0.14\textwidth]{interface/segmentation/2/re_2_bmask.png}    & 					\hspace*{-13pt}
 		\includegraphics[width=0.14\textwidth]{interface/segmentation/2/re_2_pr_bgd.png}    & 					\hspace*{-13pt}
 		\includegraphics[width=0.14\textwidth]{interface/segmentation/2/re_2_pr_fgd.png}    & 					\hspace*{-13pt}
-		\includegraphics[width=0.14\textwidth]{interface/segmentation/2/re_2_mask.png}    & 					\hspace*{-13pt}
 		\includegraphics[width=0.14\textwidth]{interface/segmentation/2/re_2_rect.png}    & 					\hspace*{-13pt}
+		\includegraphics[width=0.14\textwidth]{interface/segmentation/2/re_2_mask.png}    & 					\hspace*{-13pt}
 		\includegraphics[width=0.14\textwidth]{interface/segmentation/2/re_2_seg.png} \\
                 
     	\includegraphics[width=0.14\textwidth]{interface/segmentation/4/re_4.jpg}    & 							\hspace*{-13pt}
@@ -104,9 +105,20 @@ Being an incomplete algorithm, it does not work perfectly. Since it depends on t
 		\includegraphics[width=0.14\textwidth]{interface/segmentation/4/re_4_bmask.png}    & 					\hspace*{-13pt}
 		\includegraphics[width=0.14\textwidth]{interface/segmentation/4/re_4_pr_bgd.png}    & 					\hspace*{-13pt}
 		\includegraphics[width=0.14\textwidth]{interface/segmentation/4/re_4_pr_fgd.png}    & 					\hspace*{-13pt}
-		\includegraphics[width=0.14\textwidth]{interface/segmentation/4/re_4_mask.png}    & 					\hspace*{-13pt}
 		\includegraphics[width=0.14\textwidth]{interface/segmentation/4/re_4_rect.png}    & 					\hspace*{-13pt}
+		\includegraphics[width=0.14\textwidth]{interface/segmentation/4/re_4_mask.png}    & 					\hspace*{-13pt}
 		\includegraphics[width=0.14\textwidth]{interface/segmentation/4/re_4_seg.png} \\
+		
+		\includegraphics[width=0.14\textwidth]{interface/segmentation/10/10.jpg}        &
+        \hspace*{-13pt}
+		\includegraphics[width=0.14\textwidth]{interface/segmentation/10/10_sal.png}    & 						\hspace*{-13pt}		
+		\includegraphics[width=0.14\textwidth]{interface/segmentation/10/10_bmask.png}    & 					\hspace*{-13pt}		
+		\includegraphics[width=0.14\textwidth]{interface/segmentation/10/10_pr_bgd.png}    & 					\hspace*{-13pt}		
+		\includegraphics[width=0.14\textwidth]{interface/segmentation/10/10_pr_fgd.png}    & 					\hspace*{-13pt}		
+		\includegraphics[width=0.14\textwidth]{interface/segmentation/10/10_rect.png}    & 						\hspace*{-13pt}		
+		\includegraphics[width=0.14\textwidth]{interface/segmentation/10/10_mask.png}    &
+		\hspace*{-13pt}		
+		\includegraphics[width=0.14\textwidth]{interface/segmentation/10/10_seg.png} \\
 		
 		\includegraphics[width=0.14\textwidth]{interface/segmentation/7/re_7.jpg}        &
         \hspace*{-13pt}
@@ -118,22 +130,17 @@ Being an incomplete algorithm, it does not work perfectly. Since it depends on t
 		\includegraphics[width=0.14\textwidth]{interface/segmentation/7/re_7_rect.png}    &
 		\hspace*{-13pt}		
 		\includegraphics[width=0.14\textwidth]{interface/segmentation/7/re_7_seg.png} \\
-		
-		\includegraphics[width=0.14\textwidth]{interface/segmentation/10/10.jpg}        &
-        \hspace*{-13pt}
-		\includegraphics[width=0.14\textwidth]{interface/segmentation/10/10_sal.png}    & 						\hspace*{-13pt}		
-		\includegraphics[width=0.14\textwidth]{interface/segmentation/10/10_bmask.png}    & 					\hspace*{-13pt}		
-		\includegraphics[width=0.14\textwidth]{interface/segmentation/10/10_pr_bgd.png}    & 					\hspace*{-13pt}		
-		\includegraphics[width=0.14\textwidth]{interface/segmentation/10/10_pr_fgd.png}    & 					\hspace*{-13pt}		
-		\includegraphics[width=0.14\textwidth]{interface/segmentation/10/10_mask.png}    & 						\hspace*{-13pt}		
-		\includegraphics[width=0.14\textwidth]{interface/segmentation/10/10_rect.png}    &
-		\hspace*{-13pt}		
-		\includegraphics[width=0.14\textwidth]{interface/segmentation/10/10_seg.png} \\
 		a) & \hspace*{-13pt} b) & \hspace*{-13pt} c) & \hspace*{-13pt} d) & \hspace*{-13pt} e) & \hspace*{-13pt} f) & \hspace*{-13pt} g) & \hspace*{-13pt} h)
     \end{tabular}
-      \caption{}
+      \caption{Steps taken when segmenting an object. a) Input image. b) Saliency map generated by the algorithm in \cite{cheng2011global}. c) Binary mask. d) Probable background pixels. e) Probable foreground pixels. f) Bounding rectangle and center of mass point. g) Cropped mask containing the probable foreground area filled in with probable background pixels. h) Segmentation applied to the input image.}      
+      
 \end{figure}
 
+Has it is possible to observe in Figure \ref{fig:seg_example}, the input image shows a singular object in a plain background with a successful segmentation. The second image it is possible to confirm that, although the object is detected, the foreground threshold is not sensitive to lightning changes, as the darkest side in the can is considered as being a probable background.
+
+This algorithm also might not work when trying to segment two objects. Example of this is the third input image, where we can verify by the saliency map, that the can is obviously more salient than the other object, therefore, the second object is classified as probable background. Another example of this, is the fourth image. With a plain background and two objects, the object with more vivid colours is the one considered as foreground, leaving the remaining object as part of the foreground.
+
+The fifth image shows an example were lightning changes affect the outcome of the algorithm. In this case, the can and a part of the wall are considered as foreground. The solution to this would be a higher threshold when defining the foreground pixels, as the wall is visibly less salient than the can in the saliency map. Since it is detecting the wall as a part of the foreground, this causes the center of mass to be slightly dislocated and generates a bigger bounding rectangle. When merging the probable foreground pixels with the probable background ones and cropping with the bounding rectangle, it segments a big portion of the image that its not relevant.
 \subsection{Background Simplicity}
 \label{sub:background}
 
