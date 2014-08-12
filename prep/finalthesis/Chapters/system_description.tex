@@ -1,3 +1,4 @@
+
 % ===============================================================
 % =						System Description						=
 % ===============================================================
@@ -39,7 +40,7 @@ In our case, these methods have an obvious problem. Normally, the subject its al
 
 For our use case, we envision a method for generic object segmentation that could be used in real-time. Since it is for generic objects, we couldn't train a classifier to recognize multiple objects, or use edges information for comparison, as it would need multiple photos for data collection, and the segmentation would be limited to a few objects. 
 
-\subsubsection{Algorithm description}
+\subsubsection{Algorithm Description}
 
 As mentioned in \cite{Santos} and \cite{kamps2012rules}, colour is a very important feature in a photo. With this in mind, when photographing, the main subject should cause visual impact due to its contrast relative to the background or other elements in the scenery. For this, we used a slightly simplified version of the \emph{Histogram Based Contrast} (HC) method described by \citeauthor{cheng2011global} in \cite{cheng2011global} for extraction of salient regions in a photo that evaluates global contrast differences, calculating saliency values for image pixels using color statistics. The saliency of a pixel is defined using its color contrast to all other pixels in the image. This can be described as,
 
@@ -51,7 +52,7 @@ where $D(I_{k}, I_{i})$ is the color distance between saliency value $I_{k}$ and
 
 After obtaining a saliency map, the map is turned into a binary segmentation mask using a fixed threshold. Finally GrabCut\cite{rother2004grabcut} will be used repeatedly to refine the segmentation result initially obtained by the binary segmentation mask.
 
-\subsubsection{Implementation details}
+\subsubsection{Implementation Details}
 
 To use this algorithm in a real-time scenario in a mobile device, our implementation had to be more simplified with little changes. GrabCut is too heavy to run smoothly on a mobile device, and for that reason, we had to discard its usage sacrificing the refinement of the segmentation for speed. After obtaining the saliency map described in \cite{cheng2011global}, we give a label to each pixel depending on its value. These labels would be used in GrabCut to define which pixels are considered foreground, probable foreground, background, or probable background. In our case, we used the labels to create masks with the areas defined as probable foreground and probable background.
 We defined experimentally the thresholds, classifying a pixel as probable foreground if its value was bigger or equal to 200 and probable background if it was between 20 and 200.
@@ -60,7 +61,7 @@ After obtaining a mask with each pixel labelled, we created a mask with all pixe
 
 Obtained the bounding rectangle and mask with areas considered probable foreground, we had a good estimate of what was the main object in the scenario. The result of the segmentation was a section of the mask containing the probable foreground pixels, cropped in the area defined by the bounding rectangle. Since this algorithm is not sensitive to slight variations in lightning, we merged the probable foreground pixels with the probable background ones and cropped with the bounding rectangle. This would later be helpful filling the gaps in the mask, as this algorithm was not sensitive to slight light changes.
 
-\subsubsection{Interface display}
+\subsubsection{Interface Display}
 
 Generated the mask we chose to simply show a semi-transparent mask over the live feed obtained from the camera, as shown in Figure \ref{fig:interface_segmentation}. This would be a good indicator of what as the subject in the scenario and if it had any color striking features relatively to the rest of the elements.
 
@@ -141,12 +142,123 @@ Has it is possible to observe in Figure \ref{fig:seg_example}, the input image s
 This algorithm also might not work when trying to segment two objects. Example of this is the third input image, where we can verify by the saliency map, that the can is obviously more salient than the other object, therefore, the second object is classified as probable background. Another example of this, is the fourth image. With a plain background and two objects, the object with more vivid colours is the one considered as foreground, leaving the remaining object as part of the foreground.
 
 The fifth image shows an example were lightning changes affect the outcome of the algorithm. In this case, the can and a part of the wall are considered as foreground. The solution to this would be a higher threshold when defining the foreground pixels, as the wall is visibly less salient than the can in the saliency map. Since it is detecting the wall as a part of the foreground, this causes the center of mass to be slightly dislocated and generates a bigger bounding rectangle. When merging the probable foreground pixels with the probable background ones and cropping with the bounding rectangle, it segments a big portion of the image that its not relevant.
-\subsection{Background Simplicity}
+
+This object segmentation was also used in other functionalities implemented for this thesis.
+
+\todo[inline]{fazer comparação com dataset utilizado no paper}
+\subsection{Image Simplicity}
 \label{sub:background}
+
+To reduce the attention distraction by the objects in the background, professional photographers make the background simple. With that perspective in mind, the simplicity of a photo was considered a good feature to analyse.
+The most easiest form to obtain simplicity is to place the subject against a neutral background like a backdrop or the sky. Backgrounds can be entirely neutral, like a solid backdrop or a cloudless sky; or they can complement the image, like a starfish on the sand.
+
+Since snapshots often have cluttered backgrounds, professional photos are expected to have edges uniformly distributed in the image, as well, as a subject well defined and in focus. 
+
+
+\subsubsection{Algorithm Description}
+
+We experimented three algorithms that approach this problem. For our first experiment, we implemented an algorithm described in \cite{kaoautomatic}. Although very simple, the intuition behind this algorithm is that a very complex image, is likely to contain a large amount of edges. In \cite{kaoautomatic} only describes the feature as:
+
+\begin{equation}
+	B_{complexity} = \frac{n_{e}}{n_{T}},
+\end{equation}
+where $n_{e}$ is the number of pixels that are edge and $n_{T}$ is the total number of pixels.
+ 
+ 
+The second algorithm that we tested was presented by \citeauthor{luo2008photo} in \cite{luo2008photo}, were the author explored the simplicity of a photo through its colour distribution.
+
+As described in \cite{luo2008photo}, for a photo, we quantize each color of the RGB channels into 16 values, creating a histogram with 4096 bins, which gives the counts of quantized colors present in the image. After creating the histogram, we calculate the maximum count ($h_{max}$) in the histogram. The simplicity of a photograph is then defined as:
+\begin{equation}
+	Simplicity = (\|S\|/4096) * 100%,
+\end{equation}
+where $S$ is the number of bins in the histogram that equal or bigger than $\gamma h_{max}$. $\gamma$ is 0.01 as chosen by the author in the original article. As described in \cite{luo2008photo}, the simplicity factor for high quality photos fall in $[0\%,1.5\%]$, and low quality photos in $[0.5\%,5\%]$.
+
+In our third experiment we implemented an algorithm described in \cite{ke2006design} by \citeauthor{ke2006design}, were the idea was to compute the spatial distribution of the high frequency edges. Since the snapshots often haven cluttered backgrounds, edges are expected to be uniformly distributed in the image. In professional photographs, the subject is normally well defined and in focus, meaning that high frequency edges will be placed in a smaller area.
+We started by implementing a $3\times3$ Laplacian matrix with $\alpha = 0.2$ as follows:
+\begin{equation}
+\begin{bmatrix}
+  0.2 & 0.8 & 0.2 \\
+  0.8 & -4 & 0.8 \\
+  0.2 & 0.8 & 0.8
+\end{bmatrix}
+\end{equation}
+
+This is matrix is then applied to the image and take its absolute value to ignore the direction of the gradients. Since this algorithm is to be applied on coloured images in real-time, we split the channels of each frame and perform this computation on each channel, taking the mean across the channels in the end. This will create a Laplacian image that will be resized to $100\times100$ and normalized to values between 0 and 1. This will help when calculating the amount of area the edges occupy. It is expected for well defined objects as the ones used in high quality photos to produce a smaller bounding box, on the other hand cluttered images, are expected to have the oppose effect.
+The area of the bounding box is calculated by projecting the Laplacian image $L$ onto de $x$ and $y$ axis independently so that:
+\begin{equation}
+P_{x}(i) = \sum_{y} L(i,y),
+\end{equation}
+\begin{equation}
+P_{y}(j) = \sum_{x} L(x,j).
+\end{equation}
+
+This result in two vectors, one for $x$ axis and another one for $y$, that will have a length correspondent to the image width and height, were each position in the vector will have the amount of pixels considered as an edge in that column or row.
+
+After the projection of the Laplacian image onto the $x$ and $y$ axis, we find the position with the largest count of edges for each vector. The position with the maximum count will be considered the peak and we calculate the width $w_{x}$ and $w_{y}$ for each vector, that contains 98\% of the mass of the projections $P_{x}$ and $P_{y}$. The area of the bounding box containing a high density of pixels is then defined by $w_{x}w_{y}$ and the quality measure for the image is then $1-w_{x}w_{y}$.
+
+\subsubsection{Interface Display}
+
+In our application we tried to understand how these three algorithms would perform under a scenario were this feature would be used in real-time. For that we displayed on the screen the scores obtained from each method were, for the first algorithm\cite{kaoautomatic} and third algorithm\cite{ke2006design}, the score is between 0 and 1, and greater values indicate a simplicity in the scenario. 
+For the algorithm presented in \cite{luo2008photo}, can obtain any value between 0\% and 100\% but the author considers a photo simple if the score is between 0.5\% and 5\%. An example of the visualization of these scores can be seen in Figure X.
+
+\todo[inline]{Screenshot a mostrar os scores de simplicidade}
+
+Alternatively, these scores could be replaced a bar that represents the full scale of each algorithm with a marker indicating the current score of the frame.
+
+\todo[inline]{Screenshot a mostrar os scores de simplicidade em barras}
+
+\subsubsection{Discussion}
+
 
 
 \subsection{Main Line Detection}
 \label{sub:line_detection}
+
+Lines can have an important role in a photograph, as referred in \ref{subsub:leading_lines}. These lines can have multiple interpretations, depending if they are horizontal, vertical, diagonal or curved. They can give a sensation of stability and safety, movement or delimit the begin and the end of a scene.
+
+A popular method for edge detection is the use of Canny Edge Detector\cite{canny1986computational} which can detect the main edges of an image. This method is applies several convolution filters to each pixel with the goal of finding the pixels where the intensity variation is high\cite{nobrega2013interactive}.
+The algorithm starts by applying a Gaussian filter which will blur the image reducing the noise and extra edges that might be detected. After the Gaussian filter, it applies two Sobel kernels to find gradients in the horizontal and vertical direction such as:
+\begin{equation}
+S_{x} =
+\begin{bmatrix}
+	-1 & 0 & 1\\
+	-2 & 0 & 2\\
+	-1 & 0 & 1
+\end{bmatrix}
+,
+S_{y} = 
+\begin{bmatrix}
+	-1 & -2 & -1\\
+	0 & 0 & 0\\
+	1 & 2 & 1
+\end{bmatrix}
+\end{equation}
+Finally the gradient of a pixel is calculated by
+\begin{equation}
+	S_{p} = \sqrt{S_{x}^{2} + S_{y}^{2}},
+\end{equation}
+and the pixel will be accepted as an edge if it is above an upper threshold, below the lower threshold or connected to a pixel that is above the upper threshold.
+
+Another method of line detection used is the through the Hough Transformation\cite{illingworth1988survey}. Lines can be represented in the Cartesian space by the equation
+\begin{equation}
+	y=mx+b.
+	\label{eq:recta}
+\end{equation}
+
+Any line can be represented by the equation \ref{eq:recta} and therefore, it can be manipulated to other coordinates such as Polar Coordinates, where its general equation would be
+\begin{equation}
+	y=\left( -\frac{cos \theta}{sin \theta} \right) x + \left(\frac{r}{sin \theta}\right),
+\end{equation}
+and peach point on a plane is determined by a distance $r$ from a fixed point and an angle $\theta$ from a fixed direction.
+The Hough Transform consists in a two-dimensional space where each line is represented by a tuple $(r,\theta)$ and therefore all lines can be represented in the Hough Space by the equation
+\begin{equation}
+r = x_{0}cos\theta + y_{0}sin\theta.
+\end{equation}
+The combination of the Canny Edge detector and the representation of a line in the Hough Space will be useful in the implementation of this functionality.
+
+\subsubsection{Algorithm Description}
+\subsubsection{Interface Display}
+\subsubsection{Discussion}
 
 \subsection{Horizon Detection}
 \label{sub:horizon_detection}
