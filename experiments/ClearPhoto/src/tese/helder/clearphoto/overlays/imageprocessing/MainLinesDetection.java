@@ -29,7 +29,7 @@ public class MainLinesDetection extends ImageProcessingOv {
 	private ArrayList<Integer> linesToDraw;
 	private long nativeAddr; 
 	private int threshold;
-	private Paint linesPaint;
+	private Paint linesPaint, textPaint;
 	private GestureDetector gDetector;
 
 	public MainLinesDetection(Context context, int previewWidth, int previewHeight, int width, int height) {
@@ -45,9 +45,14 @@ public class MainLinesDetection extends ImageProcessingOv {
 
 		this.linesPaint = new Paint();
 		this.linesPaint.setStyle(Paint.Style.STROKE);
-		this.linesPaint.setColor(Color.BLUE);
+		this.linesPaint.setColor(Color.GREEN);
 		this.linesPaint.setStrokeWidth(2);
 
+		this.textPaint = new Paint();
+		this.textPaint.setStyle(Paint.Style.FILL);
+		this.textPaint.setColor(Color.WHITE);
+		this.textPaint.setTextSize(50.0f);
+		
 		this.setOnTouchListener(new OnSwipeTouchListener(context));
 	}
 
@@ -69,6 +74,7 @@ public class MainLinesDetection extends ImageProcessingOv {
 			canvas.drawLine(linesToDraw.get(offset+0)*X_RATIO, linesToDraw.get(offset+1)*Y_RATIO, 
 					linesToDraw.get(offset+2)*X_RATIO, linesToDraw.get(offset+3)*Y_RATIO, linesPaint);
 		}
+		canvas.drawText("Threshold: " + threshold, 20, height - 20, textPaint);
 	}
 
 	@Override

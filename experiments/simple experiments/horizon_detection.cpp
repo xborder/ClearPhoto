@@ -1,36 +1,145 @@
-#include "HorizonDetection.h"
-#include <cassert>
-HorizonDetection::HorizonDetection() {
-	canny_min_threshold = 100;
-	canny_max_threshold = canny_min_threshold*2;
 
-	median_rho = median_theta = 0;
+#include "opencv2/highgui/highgui.hpp"
+#include "opencv2/imgproc/imgproc.hpp"
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+#include <climits>
+#include <cfloat>
+#include <cmath>
+#include <cassert>
+#define N_HORIZON_RESULTS 1
+#define DEG2RAD 0.017453293f
+#define SKY_THRESHOLD 60 // sky probability over 60%
+
+using namespace cv;
+using namespace std;
+
+void horizonEdgeColorDetection(Mat& data, Mat& canny, int* ret);
+void horizonEdgeDetection(Mat& data, Mat& canny, int* ret, bool intensify);
+void horizonColorDetection(Mat& data, Mat&	 canny, int* ret, bool intensify);
+void getLines(Mat src, int* ret, bool intensify);
+double houghSpaceDeviation(vector<int> v, double ave);
+double gaussian2D(int rho, int theta, double rho_deviation, double theta_deviation);
+
+int canny_min_threshold = 100;
+int canny_max_threshold = canny_min_threshold*2;
+
+int median_rho = 0;
+int median_theta = 0;
+
+Mat src;
+int main( int, char** argv ) {
+	Mat file = imread( argv[1], 1 );
+  /// Load source image and convert it to gray
+  resize(file, src, Size(), 0.5,0.5, INTER_NEAREST);
+
+	int* ret = (int*)calloc(6*N_HORIZON_RESULTS, sizeof(int));
+	Mat canny = Mat::zeros(src.size(), CV_8UC1);
+	horizonEdgeColorDetection(src, canny, ret);
+	
+  imshow("src", src);
+  imshow("canny", canny);
+  waitKey(0);
+	free(ret);
 }
 
-HorizonDetection::~HorizonDetection() { }
-//TODO Simplificar para uma linha só
-void HorizonDetection::horizonEdgeColorDetection(Mat* data, Mat* canny, int* ret) {
+void horizonEdgeColorDetection(Mat& data, Mat& canny, int* ret) {
 	int* color_output = (int*)calloc(6*N_HORIZON_RESULTS, sizeof(int)); //x0,y0,x1,y1,theta,rho
 	int* edge_output = (int*)calloc(6*N_HORIZON_RESULTS, sizeof(int)); //x0,y0,x1,y1,theta,rho
 
 	horizonColorDetection(data, canny, color_output, false);
+	Point p1,p2;
+	for(int i = 0; i < 6*N_HORIZON_RESULTS; i+=6) {
+		p1.x += color_output[i];
+		p1.y += color_output[i+1];
+		p2.x += color_output[i+2];
+		p2.y += color_output[i+3];
+	}
+	p1.x /= N_HORIZON_RESULTS;
+	p1.y /= N_HORIZON_RESULTS;
+	p2.x /= N_HORIZON_RESULTS;
+	p2.y /= N_HORIZON_RESULTS;
+
+	cout << p1 << " " << p2 << endl;
+	line(src, p1, p2, Scalar(0,255,0), 3, CV_AA);
+
 	if(color_output[0] != -1) {
 		median_theta = color_output[4];
 		median_rho = color_output[5];
 
+		printf("median theta: %d | median rho: %d\n", median_theta, median_rho);
+	
 		horizonEdgeDetection(data, canny, edge_output, true);
+		Point pe1,pe2;
+		for(int i = 0; i < 6*N_HORIZON_RESULTS; i+=6) {
+			pe1.x += edge_output[i];
+			pe1.y += edge_output[i+1];
+			pe2.x += edge_output[i+2];
+			pe2.y += edge_output[i+3];
+		}
+		pe1.x /= N_HORIZON_RESULTS;
+		pe1.y /= N_HORIZON_RESULTS;
+		pe2.x /= N_HORIZON_RESULTS;
+		pe2.y /= N_HORIZON_RESULTS;
+	
+		cout << pe1 << " " << pe2 << endl;
+		line(src, pe1, pe2, Scalar(0,0,255), 3, CV_AA);
+
+		Point firstMedianP;
+		double firstMedianM = (p1.x == p2.x) ? 0.0 : (p1.y - p2.y)/(p1.x - p2.x);
+		firstMedianP.x = (p1.x + p2.x)/2;
+		firstMedianP.y = (p1.y + p2.y)/2;
+
+		Point secMedianP;
+		double secMedianM = (pe1.x == pe2.x) ? 0.0 : (pe1.y - pe2.y)/(pe1.x - pe2.x);
+		secMedianP.x = (pe1.x + pe2.x)/2;
+		secMedianP.y = (pe1.y + pe2.y)/2;
+
+		Point avgPoint;
+		double avgM = (firstMedianM + secMedianM)/2;
+		avgPoint.x = (firstMedianP.x + secMedianP.x)/2;
+		avgPoint.y = (firstMedianP.y + secMedianP.y)/2;
+
+		Point ext1(-1,-1), ext2(-1,-1);
+		int calc = (0 - avgPoint.y + avgM * avgPoint.x)/avgM; 
+    if( calc >= 0 && calc <= src.cols ) {
+    	ext1 = Point(calc, 0);
+    }
+    calc = (src.rows - avgPoint.y + avgM * avgPoint.x)/avgM;
+		if( calc >= 0 && calc <= src.cols ) {
+    	if(avgPoint.x == -1 && avgPoint.y == -1)
+      	ext1 = Point(calc, src.rows);
+      else
+      	ext2 = Point(calc, src.rows);
+    }
+    calc = avgM * 0 - avgM * avgPoint.x + avgPoint.y;
+    if( calc >= 0 && calc <= src.rows ) {
+	    if(ext1.x == -1 && ext1.y == -1)
+	    	ext1 = Point(0, calc);
+	    else
+	   		ext2 = Point(0, calc);
+    }
+    calc = avgM * src.cols - avgM * avgPoint.x + avgPoint.y;
+    if( calc >= 0 && calc <= src.rows ) {
+    	if(ext1.x == -1 && ext1.y == -1)
+      	ext1 = Point(src.cols, calc);
+      else
+      	ext2 = Point(src.cols, calc);
+		}
+
+		line(src, ext1, ext2, Scalar(255,0,0), 3, CV_AA);
+
 		memmove(ret, edge_output, 6*N_HORIZON_RESULTS*sizeof(int));
-	} /*else {
-		memmove(ret, color_output, 6*N_HORIZON_RESULTS*sizeof(int));
-	}*/
+	} 
+
 	free(color_output);
 	free(edge_output);
 }
 
-void HorizonDetection::horizonEdgeDetection(Mat* data, Mat* canny, int* ret, bool intensify) {
+void horizonEdgeDetection(Mat& data, Mat& canny, int* ret, bool intensify) {
 	Mat rgb, yuv;
-	cvtColor(*data, rgb, CV_YUV420sp2BGR);
-	cvtColor(rgb, yuv, CV_BGR2YUV);
+	cvtColor(data, yuv, CV_BGR2YUV);
 	vector<Mat> yuv_planes;
 	split(yuv, yuv_planes );
 
@@ -48,15 +157,14 @@ void HorizonDetection::horizonEdgeDetection(Mat* data, Mat* canny, int* ret, boo
 	Mat kernel = getStructuringElement(MORPH_RECT, Size(3,3));
 	morphologyEx(canny_output, closing_output, MORPH_CLOSE, kernel);
 
-	memcpy(canny->data, closing_output.data, sizeof(uchar)*canny->cols*canny->rows);
+	memcpy(canny.data, closing_output.data, sizeof(uchar)*canny.cols*canny.rows);
 	//Hough transformation
 	getLines(closing_output, ret, intensify);
 }
 
-void HorizonDetection::horizonColorDetection(Mat* data, Mat* canny, int* ret, bool intensify) {
+void horizonColorDetection(Mat& data, Mat& canny, int* ret, bool intensify) {
 	Mat rgb, yuv;
-	cvtColor(*data, rgb, CV_YUV420sp2BGR);
-	cvtColor(rgb, yuv, CV_BGR2YUV);
+	cvtColor(data, yuv, CV_BGR2YUV);
 	vector<Mat> yuv_planes;
 	split(yuv, yuv_planes );
 
@@ -77,6 +185,7 @@ void HorizonDetection::horizonColorDetection(Mat* data, Mat* canny, int* ret, bo
 			double Z = (pow(A,2)+ pow(B,2) + pow(C,2));
 			double colorP = exp(-Z);
 
+			/*
 			int t = 0;
 			for(int k = -2; k < 2; k++) {
 				if(j-k < 0 || j+k >= yuv.cols)
@@ -86,20 +195,27 @@ void HorizonDetection::horizonColorDetection(Mat* data, Mat* canny, int* ret, bo
 
 			int t0 = 10;
 			double textureP = (t > t0) ? exp(-0.2 * pow((double)(t - t0), 2)) : 1;
+			*/
 
+
+			int t = 0;
+			if(j+1 < yuv.cols)
+				t = abs(y - yuv_planes[0].at<uchar>(i,j + 1));
+			double textureP = exp(-0.2 * pow((double)(t), 2));
 			double Psky = (positionP*colorP*textureP) ;
+
 			sky_filter.at<uchar>(i,j) = (Psky * 100 > SKY_THRESHOLD) ? 255 : 0;
 		}
 	}
-
+	imshow("color", sky_filter);
 	Mat canny_output;
 	Canny(sky_filter, canny_output, canny_min_threshold, canny_max_threshold, 3 );
 
-	memcpy(canny->data, canny_output.data, sizeof(uchar)*canny_output.cols*canny_output.rows);
+	memcpy(canny.data, canny_output.data, sizeof(uchar)*canny_output.cols*canny_output.rows);
 	getLines(canny_output, ret, intensify);
 }
 
-void HorizonDetection::getLines(Mat src, int* ret, bool intensify) {
+void getLines(Mat src, int* ret, bool intensify) {
 	Size img_size(src.cols, src.rows);
 
 	double hough_h = ((sqrt(2.0) * (double)(img_size.height > img_size.width ? img_size.height : img_size.width)) / 2.0); // finding out max rho
@@ -137,18 +253,18 @@ void HorizonDetection::getLines(Mat src, int* ret, bool intensify) {
 		theta_deviation = houghSpaceDeviation(thetas, thetas_avg);
 		for(int r = median_rho - 10; r < median_rho + 10 ; r++) {
 			if(r < 0 || r > acum_size.height)
-				continue;
+					continue;
 			for(int t = median_theta - 10; t < median_theta + 10; t++) {
 				if(t < 0 || t > acum_size.width)
 					continue;
 				double factor = gaussian2D(r,t,rho_deviation,theta_deviation);
 				//printf("before: %d factor: %f after: %f\n", acum[(r*acum_size.width) + t], factor, (acum[(r*acum_size.width) + t] + acum[(r*acum_size.width) + t]*factor));
-				acum[(r*acum_size.width) + t] += acum[(r*acum_size.width) + t]*factor;
 			}
 		}
 	}
 
 	int i = 0, offset = 0, last_max = INT_MAX, last_rho = INT_MAX, last_theta = INT_MAX;
+	int maxmax = 0;
 	while(i < N_HORIZON_RESULTS) {
 		int max_val = 0, max_rho = -1, max_theta = -1;
 		for(int r=0; r < acum_size.height ; r++) {
@@ -157,9 +273,12 @@ void HorizonDetection::getLines(Mat src, int* ret, bool intensify) {
 					max_rho = r;
 					max_theta = t;
 					max_val = acum[(r*acum_size.width) + t];
+					if(max_val > maxmax)
+						maxmax = max_val;
 				}
 			}
 		}
+
 		if(max_rho == -1 && max_theta == -1) {
 			ret[0] = ret[1] = ret[2] = ret[3] = ret[4] = ret[5] = -1;
 			i++;
@@ -196,10 +315,11 @@ void HorizonDetection::getLines(Mat src, int* ret, bool intensify) {
 		last_theta = max_theta;
 		i++;
 	}
+
 	free(acum);
 }
 
-double HorizonDetection::houghSpaceDeviation(vector<int> v, double ave) {
+double houghSpaceDeviation(vector<int> v, double ave) {
 	double E=0;
 	int size = v.size();
 	for(int i=0;i<size;i++)
@@ -207,6 +327,6 @@ double HorizonDetection::houghSpaceDeviation(vector<int> v, double ave) {
 	return sqrt(1/(double)size*E);
 }
 
-double HorizonDetection::gaussian2D(int rho, int theta, double rho_deviation, double theta_deviation) {
+double gaussian2D(int rho, int theta, double rho_deviation, double theta_deviation) {
 	return exp(-(pow((double)rho - median_rho,2)/(2*pow(theta_deviation,2)) + pow((double)theta - median_theta,2)/(2*pow(theta_deviation,2))));
 }
