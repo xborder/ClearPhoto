@@ -32,7 +32,7 @@ public class ColorWheel extends ImageProcessingOv
 	private static int ROTATION_INCREMENT = 60;
 	private static int WHEEL_MAX_H = 100, WHEEL_MAX_W = 100;
 	private static int[] COLORS = {Color.RED, Color.YELLOW, Color.GREEN, Color.CYAN, Color.BLUE, Color.MAGENTA};
-	private static int[] HUE_RANGES = {0,30,60,90,120,150,180};
+	private static int[] HUE_RANGES = {15, 45, 75, 105, 135, 165};//{0,30,60,90,120,150,180};
 
 	private Mat data;
 	private int[] colorClusters;
@@ -80,7 +80,7 @@ public class ColorWheel extends ImageProcessingOv
 		ImageProcessing.getHueConcentrarion(data, colorClusters, HUE_RANGES, previewWidth, previewHeight);
 		toShow.clear();
 		for(int i = 0; i < WHEEL_COLORS; i++) {
-			WheelTriangle t = triangles.get(i);
+			WheelTriangle t = triangles.get((i+1)%WHEEL_COLORS);
 			t.setAmount(colorClusters[i]/(float)maxColorAmount);
 			toShow.add(t);
 		}

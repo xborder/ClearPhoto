@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.LinkedList;
+import java.util.ListIterator;
 import java.util.PriorityQueue;
 
 import org.opencv.core.Core;
@@ -41,7 +43,7 @@ public class ColorHistogram extends ImageProcessingOv {
 	private Mat grayHist;
 	private Mat data;
 	private double graySpreadRatio, rgbSpreadRatio; 
-	private double exposureSpreadRatio;
+	private double exposureFirstSpreadRatio, exposureSecondSpreadRatio;
 	private int previewHeight, previewWidth;
 	private boolean grayProcessed, rgbProcessed;
 
@@ -63,7 +65,8 @@ public class ColorHistogram extends ImageProcessingOv {
 		this.grayProcessed = false;
 		this.rgbProcessed = false;
 		
-		this.exposureSpreadRatio = MAX_EXPOSURE_LINE_HEIGHT/(double)932025;//(BINS_MAX_VALUE*NUMBINS/2);
+		this.exposureFirstSpreadRatio = MAX_EXPOSURE_LINE_HEIGHT/(double)12979.907051;
+		this.exposureSecondSpreadRatio = MAX_EXPOSURE_LINE_HEIGHT/(double)12979.907051;
 		
 		this.grayHistLT = new Point(0, height/3);
 		this.grayHistRB = new Point(BAR_THICKNESS, height/3 * 2);
@@ -115,9 +118,9 @@ public class ColorHistogram extends ImageProcessingOv {
 		}
 		if(rgbProcessed) {
 			rgbProcessed = false;
-			drawHistogram(canvas, rHist, rHistLT, rHistRB, rBarColor, rgbSpreadRatio, false);
+			/*drawHistogram(canvas, rHist, rHistLT, rHistRB, rBarColor, rgbSpreadRatio, false);
 			drawHistogram(canvas, gHist, gHistLT, gHistRB, gBarColor, rgbSpreadRatio, false);
-			drawHistogram(canvas, bHist, bHistLT, bHistRB, bBarColor, rgbSpreadRatio, false);
+			drawHistogram(canvas, bHist, bHistLT, bHistRB, bBarColor, rgbSpreadRatio, false);*/
 		}
 		drawLimitsText(canvas);
 	}
@@ -127,7 +130,7 @@ public class ColorHistogram extends ImageProcessingOv {
 		
 		int left = grayHistLT.x, top = grayHistLT.y, right = grayHistRB.x, bottom = grayHistRB.y;
 		canvas.drawText(lowerText, right, top - LABELS_GAP,infoColor);		
-		canvas.drawText(upperText, right, bottom + LABELS_GAP, infoColor);
+		canvas.drawText(upperText, right, bottom + LABELS_GAP + 10, infoColor);
 		
 		left = rHistLT.x; top = rHistLT.y; right = rHistRB.x; bottom = rHistRB.y;
 		canvas.drawText(lowerText, left - LABELS_GAP, top,infoColor);		
@@ -159,18 +162,17 @@ public class ColorHistogram extends ImageProcessingOv {
 	    canvas.drawRect(bar, outlineColor);
 	    
 		float lowerWeight = 0.0f, upperWeight = 0.0f;
-		for(int i = 0; i < hist.rows()/3; i ++) {
-			lowerWeight += hist.get(i, 0)[0] * (NUMBINS/3-i);
-			upperWeight += hist.get(hist.rows() - 1 - i, 0)[0] * (NUMBINS/3-i);
+		for(int i = 0; i < 50; i ++) {
+			lowerWeight += hist.get(i, 0)[0] + hist.get(i, 0)[0] * (1/(0.7*Math.sqrt(2*Math.PI))* Math.exp(-i));// += hist.get(i, 0)[0] * (NUMBINS/3-i);
+			upperWeight += hist.get(hist.rows() - 1 - i, 0)[0]+ hist.get(hist.rows() - 1 - i, 0)[0] * (1/(0.7*Math.sqrt(2*Math.PI))* Math.exp(-i));// += hist.get(hist.rows() - 1 - i, 0)[0] * (NUMBINS/3-i);
 		}
-
 		//draw limits
 		if(vertical) {
-			canvas.drawLine(left, top,		(int)(right + lowerWeight * exposureSpreadRatio), top, infoColor);
-			canvas.drawLine(left, bottom, 	(int)(right + upperWeight * exposureSpreadRatio), bottom, infoColor);	
+			canvas.drawLine(left, top,		(int)(right + lowerWeight * exposureFirstSpreadRatio), top, infoColor);
+			canvas.drawLine(left, bottom, 	(int)(right + upperWeight * exposureSecondSpreadRatio), bottom, infoColor);	
 		} else {
-			canvas.drawLine(left, bottom, left, (int)(top - lowerWeight * exposureSpreadRatio), infoColor);
-			canvas.drawLine(right, bottom, right, (int)(top - upperWeight * exposureSpreadRatio), infoColor);
+			canvas.drawLine(left, bottom, left, (int)(top - lowerWeight * exposureFirstSpreadRatio), infoColor);
+			canvas.drawLine(right, bottom, right, (int)(top - upperWeight * exposureSecondSpreadRatio), infoColor);
 		}
 	}
 
@@ -186,9 +188,18 @@ public class ColorHistogram extends ImageProcessingOv {
 	
 	private Pair<Integer,Integer> getHistogramLimits(Mat hist) {
 		ArrayList<Integer> nonNegativeValues = new ArrayList<Integer>();
-		for(int i = 0; i < grayHist.rows(); i++) {
-			double val = grayHist.get(i,0)[0];
-			if(val > 0) {
+		
+		double max = 0.0;
+		for(int i = 0; i < hist.rows(); i++) {
+			double val = hist.get(i,0)[0];
+			if(val > max) {
+				max = val;
+			}
+		}
+		
+		for(int i = 0; i < hist.rows(); i++) {
+			double val = hist.get(i,0)[0];
+			if(val > max*0.05) {
 				nonNegativeValues.add(i);
 			}
 		}
@@ -213,5 +224,4 @@ public class ColorHistogram extends ImageProcessingOv {
 			}
 		};
 	}
-	
 }

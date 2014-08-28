@@ -21,7 +21,7 @@
 #define DEG2RAD 0.017453293f
 #define SKY_THRESHOLD 60 // sky probability over 60%
 
-#define N_HORIZON_RESULTS 3
+#define N_HORIZON_RESULTS 1
 
 using namespace std;
 using namespace cv;
