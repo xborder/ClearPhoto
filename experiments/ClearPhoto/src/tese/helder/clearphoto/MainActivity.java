@@ -10,7 +10,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 
 public class MainActivity extends Activity {
 
@@ -23,6 +25,7 @@ public class MainActivity extends Activity {
 
 	private CameraViewer cameraViewer;
 	private OptionsView options;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);		
@@ -34,7 +37,13 @@ public class MainActivity extends Activity {
 		preview.addView(cameraViewer);
 
 		options = new OptionsView(this, cameraViewer);
-		registerEvents();
+		ImageButton settings = (ImageButton) findViewById(R.id.button_settings);
+		settings.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				options.inflate();
+			}
+		});
 	}
 
 	@Override
@@ -42,33 +51,16 @@ public class MainActivity extends Activity {
 		cameraViewer.releaseCamera();
 		super.onPause();
 	}
-	
+
 	@Override
 	protected void onResume() {
 		cameraViewer.openCamera();
 		super.onResume();
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
-	}
-
-
-	private void registerEvents() {
-		cameraViewer.setOnLongClickListener(new OnLongClickListener() {
-			@Override
-			public boolean onLongClick(View v) {
-				options.inflate();
-				return true;
-			}
-		});
-		cameraViewer.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				options.deflate();
-			}
-		});
 	}
 }

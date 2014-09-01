@@ -18,9 +18,9 @@ This section describes in detail the functionalities and experiments implemented
 \subsection{Colour Histograms and Average Saturation}
 \label{sub:histograms}
 
-Colour histograms have been used for a long time in image processing and photography to measure the distribution of colours. A colour histogram represents the number of pixels in each of a fixed list of colour ranges, that span the image's color space, the set of all possible colors.
+Colour histograms have been used for a long time in image processing and photography to measure the distribution of colours. A colour histogram represents the number of pixels in each of a fixed list of colour ranges, that span the image's colour space, the set of all possible colours.
 
-These can be built in any kind of color space and have multiple dimensions depending on the number of measurements taken, although it is normally used to count the number of pixels for three-dimensional colour spaces.
+These can be built in any kind of colour space and have multiple dimensions depending on the number of measurements taken, although it is normally used to count the number of pixels for three-dimensional colour spaces.
 
 The visualization of such information becomes really important when colour is one of the elements in which photography is most focused on. \citeauthor{bertin1983semiology} stated that in the field of information visualization, colour has historically been used as one of the primary visual variables through which difference in data can be distinguished and is considered as one of the fundamental building blocks of visualizations today.
 
@@ -30,11 +30,9 @@ Exploring the importance of colour, in \cite{haber2011colourvis} colour informat
 	\centering
     \subfigure[] {
                 \includegraphics[width=0.3\textwidth]{interface/colour_histogram/colourvis1_o.jpg}
-                \label{fig:hough_sinusoidal}
     }
     \subfigure[] {
                 \includegraphics[width=0.3\textwidth]{interface/colour_histogram/colourvis1.jpg}
-                \label{fig:multiple_sinusoidal}
     }
   \caption{"Fishing in Spring, the Pont de Clichy" by Vincent van Gogh (a) and the corresponding labelled linear histogram representation.}
   \label{fig:colourvis1}
@@ -45,17 +43,15 @@ Exploring the importance of colour, in \cite{haber2011colourvis} colour informat
 	\centering
     \subfigure[] {
                 \includegraphics[width=0.3\textwidth]{interface/colour_histogram/colourvis2_o.jpg}
-                \label{fig:hough_sinusoidal}
     }
     \subfigure[] {
                 \includegraphics[width=0.4\textwidth]{interface/colour_histogram/colourvis2.jpg}
-                \label{fig:multiple_sinusoidal}
     }
   \caption{Linear histograms representations of “The Funeral of the Anarchist Galli” by Carlo Carrà (top) and “Speed+Sound” by Giacomo Balla (bottom) (a) with a labelled stacked line graph representation comparing the amount of each colour in both paintings (b).}
   \label{fig:colourvis2}
 \end{figure}
 
-Another important property is a colour saturation which is the colourfulness of a colour relative to its own brightness. The saturation of a color is determined by a combination of light intensity and how much it is distributed across the spectrum of different wavelengths. The purest (most saturated) color is achieved by using just one wavelength at a high intensity, such as in laser light. If the intensity drops, then as a result the saturation drops.
+Another important property is a colour saturation which is the colourfulness of a colour relative to its own brightness. The saturation of a colour is determined by a combination of light intensity and how much it is distributed across the spectrum of different wavelengths. The purest (most saturated) colour is achieved by using just one wavelength at a high intensity, such as in laser light. If the intensity drops, then as a result the saturation drops.
 
 Colour saturation can the influence the vividness of an image as a desaturated image is said to be dull, less colourful or washed out but can also make the impression of being softer. 
 
@@ -122,10 +118,71 @@ The main problem in this representation is the amount percentages displayed. As 
 As for our saturation detection method it is not very complex, however the threshold chosen to classify an input frame as highly saturated or not, was selected by averaging the saturation of a set of images labelled as \emph{low saturation} by the Flickr.com's community. This being said the threshold was calculated over a set of static images which may have been digitally manipulated, which means that in a real-time scenario this threshold might not be the most indicated as it is difficult to find scenarios to test and calculate a more adequate threshold.
 
 \subsection{Colour Templates and Hue Counting}
-\label{sub:color}
+\label{sub:colour}
+
+As said before, much of what viewers perceive and feel about a photo is through colours (Section \ref{subsub:colour_balance}. Although their colour perception depends on the context and is culture-related, colour science studies show that the influence on human emotions or feelings from a certain color or a certain color combination is usually stable under different culture backgrounds \cite{manav2007color}.
+Professionals follow certain rules of color composition and scene composition to produce aesthetically pleasing photographs. For example, photographers focus on artistic color combination and properly put colour accents to create unique composition solutions and to invoke certain feelings among the viewers of their artworks. Therefore, exploring the relation between colours is a way to provoke those feelings.
+
+\citeauthor{luo2008photo} explores the harmony of colours in \cite{luo2008photo}, where they developed a feature to measure the color harmony of a photo in terms of learning the color combinations (coexistence of two color in the photo) from the training dataset, to determine if a photo has a high or low quality.
+For each photo in the dataset, a 50-bin histogram is generated for each channel in the \emph{HSV} colour space. The value of the color combination between hue $i$ and hue $j$ is defined as $H_{hue}(i) + H_{hue}(j)$, with a similar definition for the saturation and value channel. A histogram of high (low) quality training photos is generated by the formulas
+\begin{equation}
+H_{high,hue}(i,j) = Avg(H_{high,hue}(i)+H_{high,hue}(j)),
+\end{equation}
+\begin{equation}
+H_{low,hue}(i,j) = Avg(H_{low,hue}(i)+H_{low,hue}(j)),
+\end{equation}
+with a similar process for combinations of $H_{high,sat}(i,j)$, $H_{low,sat}(i,j)$, $H_{high,sat}(i,j)$ and $H_{low,sat}(i,j)$.
+To measure whether a photo is high or low quality based on the its colour combinations, the classifier is trained with the formula
+\begin{equation}
+f_{h} = Hue_{s}*Sat_{s}*Bri_{s},
+\end{equation}
+where $Hue_{s} = \frac{Hue_{high}}{Hue_{low}}$, $Sat_{s} = \frac{Sat_{high}}{Sat_{low}}$ and $Val_{s} = \frac{Val_{high}}{Val_{low}}$.
+Although in \cite{luo2008photo}, the purpose of this feature is to train a classifier to identify the quality of a photo, it can also be used to query a database and obtain a set of images similar to the one being evaluated. Since our purpose with this thesis is to give useful information in real-time to the photographer, we explored the colour harmonization using the \emph{Hue} channel. Although we opted to not use any classifiers, we also implemented a score to each frame based on its hue count.
+
+\subsubsection{Algorithm Description}
+As mentioned before, we implemented a simple scoring system for each input frame and an algorithm that detects the harmonic colour template being used on a real-time input frame.
+
+As for our scoring method, we implemented a feature described by \citeauthor{ke2006design} in \cite{ke2006design}, where the purpose is to measure its colour simplicity. One the main differences between professional photos and snapshots is that photos taken professionally are more colourful and vibrant depending on its brightness and saturation levels, while using a less number of unique hues. The first step in hue count is the conversion of the input frame to the \emph{HSV} colour space. After the colour space conversion, the \emph{Hue} channel is filtered by selecting pixels that have a brightness value in the range $[0.15,0.85]$ and saturation bigger than 0.2 because the hue calculation would be inaccurate if otherwise. The next step is to calculate a 20-bin histogram $H$ with the hue values that passed the filter. After compute the histogram we select the number of bins $N$ that satisfy the equation
+\begin{equation}
+N = {i | H(i) > \alpha m},
+\end{equation}
+where $m$ is the maximum value of the histogram and $\alpha$ controls the noise sensitivity of the hue count. The author used $\alpha = 0.05$ as it produced good results for their training set. The final score is calculated by the equation
+\begin{equation}
+score = 20 - N.
+\end{equation}
+
+Our harmonic colour template detector is based in a method described in \cite{cohen2006color}. In the original article, the author uses a set of templates predetermined such as the ones in Figure \ref{fig:templates}, which can also be perceived as the colour distribution of the input image. The harmonic templates may consist of shades of the same colour (type $i, V, T$), complementary colours (type $I, Y, X$) or more complex combinations (type $L$). Although not used, the $N$-type template is applied to grayscale images. In our implementation we focused on templates that for slight variations of the same colour and for complementary colours.
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[width=0.5\textwidth]{interface/colour_template/templates.png}
+  	\caption{Harmonic templates on the hue wheel. Colours that fall into gray areas are considered to be harmonic. Size and rotation of the gray areas may vary.}
+	\label{fig:templates}
+\end{figure}
+
+The original article uses a hue histogram and tries to match the histogram with each of the templates in its various rotations. This method would prove to be computationally heavy on a mobile device in a real-time scenario, therefore, we opted to simplify the histogram and the template calculation. 
+
+We started by converting the input image into the \emph{HSV} colour space and manipulate the \emph{Hue} channel. For our implementation, we used a wheel divided into twelve regions instead of using a full-colour wheel with enabled us to create a 12-bin histogram of quantized hues ordered by amount. The purpose of having an ordered histogram, is to obtain the first two main hues present in the image. Knowing the two main colours and its bins, we can map each bin into one region of a 360\º wheel. This mapping is what will allow us to determine if a image fits into a monochromatic template or a complementary template, by calculating the difference between the bins of the two main colours.
+
+After classifying an image as having a monochromatic or complementary template, starting in the most relevant bins, we verify if the adjacent bins have an occupation percentage in the image of at least 40\% of the starting bin. this will allow us to know the size of template. Starting in a bin which are mapped into one region in the twelve-region colour wheel, we defined that the maximum size for a monochromatic template or one of the colours in a complementary template, is of three regions.
+
+Since the scoring described before is based on a 20-bin histogram, we decided to modify it and perform the scoring based on a 12-bin histogram. This way, both the scoring and the template detection, are in accordance with one another.
+
+\subsubsection{Interface Display}
+
+For this feature, we chose to show colour wheel divided into twelve regions. This would prove to simplify both the implementation of the algorithm and display of the templates. Similarly to the original templates (Figure \ref{fig:templates}) the gray areas indicate the main colours present in the image and its neighbours that were considered relevant.
+As for the scoring method, we took the most simple approach and decided to show the scoring result since both these methods are in accordance with one another.
+
+\subsubsection{Discussion}
+
+There are no major issues with each of these methods. However the most relevant issue, might be the size of templates. As mentioned before starting in a bin, we verify if the adjacent bins occupy a region that is at least greater than 40\% of the starting point, where the threshold was chosen experimentally with a dataset of static photographic images. the problem with choosing a threshold with a given dataset, is that the threshold might not work perfectly under real-time scenario since the chance of getting snapshots while receiving real-time information is way higher then getting a frame that considered to have aesthetic value.
 
 \subsection{Face Detection and Composition Guidelines}
 \label{sub:face_guidelines}
+
+\subsubsection{Algorithm Description}
+\subsubsection{Interface Display}
+\subsubsection{Discussion}
 
 \subsection{Object Segmentation}
 \label{sub:segmentation}
@@ -143,13 +200,13 @@ For our use case, we envision a method for generic object segmentation that coul
 \subsubsection{Algorithm Description}
 \label{subsub:seg_algorithm}
 
-As mentioned in \cite{Santos} and \cite{kamps2012rules}, colour is a very important feature in a photo. With this in mind, when photographing, the main subject should cause visual impact due to its contrast relative to the background or other elements in the scenery. For this, we used a slightly simplified version of the \emph{Histogram Based Contrast} (HC) method described by \citeauthor{cheng2011global} in \cite{cheng2011global} for extraction of salient regions in a photo that evaluates global contrast differences, calculating saliency values for image pixels using color statistics. The saliency of a pixel is defined using its color contrast to all other pixels in the image. This can be described as,
+As mentioned in \cite{Santos} and \cite{kamps2012rules}, colour is a very important feature in a photo. With this in mind, when photographing, the main subject should cause visual impact due to its contrast relative to the background or other elements in the scenery. For this, we used a slightly simplified version of the \emph{Histogram Based Contrast} (HC) method described by \citeauthor{cheng2011global} in \cite{cheng2011global} for extraction of salient regions in a photo that evaluates global contrast differences, calculating saliency values for image pixels using colour statistics. The saliency of a pixel is defined using its colour contrast to all other pixels in the image. This can be described as,
 
 \begin{equation}
 S(I_{k}) = \sum_{\forall I_{i} \in I} D(I_{k}, I_{i}),
 \end{equation}
 
-where $D(I_{k}, I_{i})$ is the color distance between saliency value $I_{k}$ and pixel $I_{i}$ in the input image in the \emph{L*a*b*} color space. Since this computationally expensive, \citeauthor{cheng2011global}, reduces the number of colors needed to consider, by quantizing each color channel to have 12 different values, reducing the number of colors to $12^{3} = 1728$. Since a natural image covers only a small portion of the full color space, the less occurring colors are ignored, ensuring that the most occurring ones, cover at least 95\% of the image pixels. The remaining 5\% are replaced by the closest colors in the histogram. Since this quantization might introduce artifacts, the author preforms a smoothing procedure over each saliency value. Each saliency value is replaced by the weighted average of the $n/4$ neighbours where $n$ is the number of colors that fill 95\% of the image pixels.
+where $D(I_{k}, I_{i})$ is the colour distance between saliency value $I_{k}$ and pixel $I_{i}$ in the input image in the \emph{L*a*b*} colour space. Since this computationally expensive, \citeauthor{cheng2011global}, reduces the number of colours needed to consider, by quantizing each colour channel to have 12 different values, reducing the number of colours to $12^{3} = 1728$. Since a natural image covers only a small portion of the full colour space, the less occurring colours are ignored, ensuring that the most occurring ones, cover at least 95\% of the image pixels. The remaining 5\% are replaced by the closest colours in the histogram. Since this quantization might introduce artifacts, the author preforms a smoothing procedure over each saliency value. Each saliency value is replaced by the weighted average of the $n/4$ neighbours where $n$ is the number of colours that fill 95\% of the image pixels.
 
 After obtaining a saliency map, the map is turned into a binary segmentation mask using a fixed threshold. Finally GrabCut\cite{rother2004grabcut} will be used repeatedly to refine the segmentation result initially obtained by the binary segmentation mask.
 
@@ -164,7 +221,7 @@ Obtained the bounding rectangle and mask with areas considered probable foregrou
 
 \subsubsection{Interface Display}
 
-Generated the mask we chose to simply show a semi-transparent mask over the live feed obtained from the camera, as shown in Figure \ref{fig:interface_segmentation}. This would be a good indicator of what as the subject in the scenario and if it had any color striking features relatively to the rest of the elements.
+Generated the mask we chose to simply show a semi-transparent mask over the live feed obtained from the camera, as shown in Figure \ref{fig:interface_segmentation}. This would be a good indicator of what as the subject in the scenario and if it had any colour striking features relatively to the rest of the elements.
 
 \begin{figure}[htbp]
 	\centering
@@ -267,7 +324,7 @@ where $n_{e}$ is the number of pixels that are edge and $n_{T}$ is the total num
  
 The second algorithm that we tested was presented by \citeauthor{luo2008photo} in \cite{luo2008photo}, were the author explored the simplicity of a photo through its colour distribution.
 
-As described in \cite{luo2008photo}, for a photo, we quantize each color of the RGB channels into 16 values, creating a histogram with 4096 bins, which gives the counts of quantized colors present in the image. After creating the histogram, we calculate the maximum count ($h_{max}$) in the histogram. The simplicity of a photograph is then defined as:
+As described in \cite{luo2008photo}, for a photo, we quantize each colour of the RGB channels into 16 values, creating a histogram with 4096 bins, which gives the counts of quantized colours present in the image. After creating the histogram, we calculate the maximum count ($h_{max}$) in the histogram. The simplicity of a photograph is then defined as:
 \begin{equation}
 	Simplicity = \left(\frac{\|S\|}{4096}\right) * 100%,
 \end{equation}
@@ -298,10 +355,8 @@ After the projection of the Laplacian image onto the $x$ and $y$ axis, we find t
 
 \subsubsection{Interface Display}
 
-In our application we tried to understand how these three algorithms would perform under a scenario were this feature would be used in real-time. For that we displayed on the screen the scores obtained from each method were, for the first algorithm\cite{kaoautomatic} and third algorithm\cite{ke2006design}, the score is between 0 and 1, and greater values indicate a simplicity in the scenario. 
-For the algorithm presented in \cite{luo2008photo}, can obtain any value between 0\% and 100\% but the author considers a photo simple if the score is between 0.5\% and 5\%. An example of the visualization of these scores can be seen in Figure X.
-
-\todo[inline]{Screenshot a mostrar os scores de simplicidade}
+In our application we tried to understand how these three algorithms would perform under a scenario were this feature would be used in real-time. For that we displayed on the screen the scores obtained from each method were, for the first algorithm\cite{kaoautomatic} and third algorithm \cite{ke2006design}, the score is between 0 and 1, and greater values indicate a simplicity in the scenario. 
+For the algorithm presented in \cite{luo2008photo}, can obtain any value between 0\% and 100\% but the author considers a photo simple if the score is between 0.5\% and 5\%. An example of the visualization of these scores can be seen in Figure \ref{fig:simp_ex1}.
 
 Alternatively, these scores could be replaced a bar that represents the full scale of each algorithm with a marker indicating the current score of the frame.
 
@@ -309,7 +364,23 @@ Alternatively, these scores could be replaced a bar that represents the full sca
 
 \subsubsection{Discussion}
 
+Between the three methods implemented to detect the simplicity of an image, the method described in \cite{ke2006design} has proven to be the most effective as shown in Figure \ref{fig:simp_ex}. Comparing the first two methods, since they're based on the number of edges in the image, there is no notable difference between the scores obtained in both images. The method described in \cite{ke2006design} however, has into account the spatial distribution of the edges, which make it more sensible when new elements are added to the image. 
 
+\begin{figure}[htb]
+	\centering
+    \subfigure[] {
+                \includegraphics[width=0.45\textwidth]{interface/image_simplicity/ex1.png}
+                \label{fig:simp_ex1}
+    }
+    \subfigure[] {
+                \includegraphics[width=0.45\textwidth]{interface/image_simplicity/ex2.png}
+                \label{fig:simp_ex2}
+    }
+  	\caption{simp_ex}
+	\label{fig:simp_ex}
+\end{figure}
+
+Although not implemented, a slight variation of this algorithm would the  to segment the subjects in the scenario and perform the simplicity calculation on the background, since professional photographers also suggest to use plain backgrounds \cite{Santos}. Since snapshots are considered to have a more cluttered background comparing to professional photos, performing this computation only on segmented backgrounds would result in more accurate scores since the edges of the main subjects would be ignored, and therefore, it would be easier to detects edges on the background.
 
 \subsection{Main Line Detection}
 \label{sub:line_detection}
@@ -458,7 +529,7 @@ In Figure \ref{fig:hough_methods} we can verify the difference between both meth
 \subsection{Horizon Detection}
 \label{sub:horizon_detection}
 
-Horizon detection in still images or video sequences contributes to applications like image understanding, automatic correction of image tilt and image quality enhancement. Seascapes and landscapes being an usual genre of photography, a feature that detects the horizon line in real-time is useful for a correct placement of the line and indicate a tilt correction on the mobile device. At the pixel level, sky detection can be used for content-based image manipulation, like picture quality improvement using color enhancement and noise reduction, or as background detection for 3D depth-map generation \cite{zafarifar2006blue}.
+Horizon detection in still images or video sequences contributes to applications like image understanding, automatic correction of image tilt and image quality enhancement. Seascapes and landscapes being an usual genre of photography, a feature that detects the horizon line in real-time is useful for a correct placement of the line and indicate a tilt correction on the mobile device. At the pixel level, sky detection can be used for content-based image manipulation, like picture quality improvement using colour enhancement and noise reduction, or as background detection for 3D depth-map generation \cite{zafarifar2006blue}.
 
 Sky detection research as also proven useful for object detection for small unmanned vehicles \cite{mcgee2005obstacle}. \citeauthor{mcgee2005obstacle} in \cite{mcgee2005obstacle} presented a system for sky segmentation and horizon detection based on an image colour and texture properties.
 For sky segmentation the author used a support vector machine (SVM) for classification of sky and non-sky pixels in the colour space YCrCb, after smoothing the image with a Gaussian filter to reduce the effects of noise. After the SVM divides the sky from non-sky pixels (Figure \ref{fig:h_binary}), a binary image will be generated that will then suffer an erosion and dilation to fill unwanted pixels that were considered sky pixels, as shown in Figure \ref{fig:h_ed}. After removing small sections of misclassified pixels, to find the borders between sky and non-sky regions, it smooths the binary image and classifies all pixels with value near 0.5 as boundary pixels. Performed the edge detection, the horizon detection if then applied using the Hough Transformation method as explained in Section \ref{sub:line_detection}. Found the horizon line, any areas considered as non-sky regions are then considered as an obstacle. Figure \ref{fig:horizon} shows all the steps taken in this algorithm.
@@ -494,12 +565,12 @@ For sky segmentation the author used a support vector machine (SVM) for classifi
 
 %Natsuyasumi
 \subsubsection{Algorithm Description}
-For our application, adapted part of an algorithm described in \cite{zafarifar2008horizon} that uses both colour and edge features to detect the horizon lines. This algorithm explores the physical phenomenon of color de-saturation and brightness increase along zenith-to-horizon direction to calculate the position and angle of the horizon, that are then refined using edge detection techniques.
+For our application, adapted part of an algorithm described in \cite{zafarifar2008horizon} that uses both colour and edge features to detect the horizon lines. This algorithm explores the physical phenomenon of colour de-saturation and brightness increase along zenith-to-horizon direction to calculate the position and angle of the horizon, that are then refined using edge detection techniques.
 
 We started by implementing part of the algorithm described by \citeauthor{zafarifar2008horizon} in \cite{zafarifar2008horizon} for horizon detection in clear sky. This implementation start by calculating a sky probability map that represents the probability of each pixel belonging to the sky. This probability assumes that clear sky as some properties:
 \begin{enumerate}
 	\item Pixels in the top area of the image, have a higher probability of being sky-pixels,
-	\item They have a certain range of color, when limited to day-light condition,
+	\item They have a certain range of colour, when limited to day-light condition,
 	\item Pixels that represent sky, contains low texture,
 	\item The speed of change in colour values in horizontal and vertical directions is limited,
 	\item There is a luminance increase and chrominance decrease along the zenith-to-horizon direction.
@@ -542,11 +613,11 @@ Calculated the probability of each pixel with the equation \ref{eq:colour_sky}, 
 
 After segmenting the sky, we apply the Hough Transform to the resulting mask and store the values of $(\rho,\theta)$. These values will be used on the second part of the algorithm that uses edge detection methods.
 
-The second part of the algorithm is were we mix both color and edge detection methods to find the horizon line. From the first part we stored the $(\rho_{CD},\theta_{CD})$ values obtained by applying the Hough Transformation to the binary image containing the areas that were considered sky. The purpose of this is that these parameters indicate the position and angle of the horizon line.
+The second part of the algorithm is were we mix both colour and edge detection methods to find the horizon line. From the first part we stored the $(\rho_{CD},\theta_{CD})$ values obtained by applying the Hough Transformation to the binary image containing the areas that were considered sky. The purpose of this is that these parameters indicate the position and angle of the horizon line.
 
 Starting by applying the Canny edge detection method to the luminance component of the image, and since we are only interested in the most prominent straight edges, we choose a large value for the low pass filter. This will smooth the detailed edges yielding in a binary image that contains the significant edges. We then apply the Hough Transformation to the edge map which will result in a matrix representing all the lines in the Hough Space similar to Figure \ref{fig:hough_space}.
 
-Since we previously stored the position and angle of the horizon line calculated by the color edge detection method, we proceed to multiply a weighting factor in the form of a 2D Gaussian function to the result of the Hough Transform in the edge detector with the parameters $(\rho_{CD},\theta_{CD})$ obtained previously, as its center and find the pair $(\rho_{ED}, \theta_{ED})$ with the highest value in the post-processed Hough map.
+Since we previously stored the position and angle of the horizon line calculated by the colour edge detection method, we proceed to multiply a weighting factor in the form of a 2D Gaussian function to the result of the Hough Transform in the edge detector with the parameters $(\rho_{CD},\theta_{CD})$ obtained previously, as its center and find the pair $(\rho_{ED}, \theta_{ED})$ with the highest value in the post-processed Hough map.
 
 Now with the pairs $(\rho_{CD}, \theta_{CD})$ and $(\rho_{ED}, \theta_{ED})$ that represent a probable horizon line in each of the methods, we define the horizon line as an average of the ones obtained from the previous methods.
 
@@ -640,7 +711,7 @@ Figure \ref{fig:image_balance_example} what was stated. In Figure \ref{fig:balan
     \label{fig:image_balance_example}
 \end{figure}
 
-Besides the problem in the discovery of the symmetry axis, the object segmentation also has the problems that were discussed in Section \ref{subsub:seg_discussion} where what we consider an object in the scenario, might not have enough color contrast relatively to the background.
+Besides the problem in the discovery of the symmetry axis, the object segmentation also has the problems that were discussed in Section \ref{subsub:seg_discussion} where what we consider an object in the scenario, might not have enough colour contrast relatively to the background.
 
 The thresholds used in this algorithm were chosen experimentally with sample of images considered symmetric or unbalanced, which means that the values might not perform well on various compositions in a real-time case scenario.
 
