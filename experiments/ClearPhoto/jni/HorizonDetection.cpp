@@ -14,81 +14,15 @@ void HorizonDetection::horizonEdgeColorDetection(Mat* data, Mat* canny, int* ret
 	int* edge_output = (int*)calloc(6*N_HORIZON_RESULTS, sizeof(int)); //x0,y0,x1,y1,theta,rho
 
 	horizonColorDetection(data, canny, color_output, false);
-	Point p1,p2;
-	for(int i = 0; i < 6*N_HORIZON_RESULTS; i+=6) {
-		p1.x += color_output[i];
-		p1.y += color_output[i+1];
-		p2.x += color_output[i+2];
-		p2.y += color_output[i+3];
-	}
-	p1.x /= N_HORIZON_RESULTS;
-	p1.y /= N_HORIZON_RESULTS;
-	p2.x /= N_HORIZON_RESULTS;
-	p2.y /= N_HORIZON_RESULTS;
 	if(color_output[0] != -1) {
 		median_theta = color_output[4];
 		median_rho = color_output[5];
 
 		horizonEdgeDetection(data, canny, edge_output, true);
-
-		Point pe1,pe2;
-		for(int i = 0; i < 6*N_HORIZON_RESULTS; i+=6) {
-			pe1.x += edge_output[i];
-			pe1.y += edge_output[i+1];
-			pe2.x += edge_output[i+2];
-			pe2.y += edge_output[i+3];
-		}
-		pe1.x /= N_HORIZON_RESULTS;
-		pe1.y /= N_HORIZON_RESULTS;
-		pe2.x /= N_HORIZON_RESULTS;
-		pe2.y /= N_HORIZON_RESULTS;
-
-		cout << pe1 << " " << pe2 << endl;
-
-		Point firstMedianP;
-		double firstMedianM = (p1.x == p2.x) ? 0.0 : (p1.y - p2.y)/(p1.x - p2.x);
-		firstMedianP.x = (p1.x + p2.x)/2;
-		firstMedianP.y = (p1.y + p2.y)/2;
-
-		Point secMedianP;
-		double secMedianM = (pe1.x == pe2.x) ? 0.0 : (pe1.y - pe2.y)/(pe1.x - pe2.x);
-		secMedianP.x = (pe1.x + pe2.x)/2;
-		secMedianP.y = (pe1.y + pe2.y)/2;
-
-		Point avgPoint;
-		double avgM = (firstMedianM + secMedianM)/2;
-		avgPoint.x = (firstMedianP.x + secMedianP.x)/2;
-		avgPoint.y = (firstMedianP.y + secMedianP.y)/2;
-
-		Point ext1(-1,-1), ext2(-1,-1);
-		int calc = (0 - avgPoint.y + avgM * avgPoint.x)/avgM;
-		if( calc >= 0 && calc <= data->cols ) {
-			ext1 = Point(calc, 0);
-		}
-		calc = (data->rows - avgPoint.y + avgM * avgPoint.x)/avgM;
-		if( calc >= 0 && calc <= data->cols ) {
-			if(avgPoint.x == -1 && avgPoint.y == -1)
-				ext1 = Point(calc, data->rows);
-			else
-				ext2 = Point(calc, data->rows);
-		}
-		calc = avgM * 0 - avgM * avgPoint.x + avgPoint.y;
-		if( calc >= 0 && calc <= data->rows ) {
-			if(ext1.x == -1 && ext1.y == -1)
-				ext1 = Point(0, calc);
-			else
-				ext2 = Point(0, calc);
-		}
-		calc = avgM * data->cols - avgM * avgPoint.x + avgPoint.y;
-		if( calc >= 0 && calc <= data->rows ) {
-			if(ext1.x == -1 && ext1.y == -1)
-				ext1 = Point(data->cols, calc);
-			else
-				ext2 = Point(data->cols, calc);
-		}
-		int result[12]= {p1.x, p1.y, p2.x, p2.y, pe1.x, pe1.y, pe2.x, pe2.y, ext1.x, ext1.y, ext2.x, ext2.y};
-		memmove(ret, result, 12*sizeof(int));
-	}
+		memmove(ret, edge_output, 6*N_HORIZON_RESULTS*sizeof(int));
+	} /*else {
+		memmove(ret, color_output, 6*N_HORIZON_RESULTS*sizeof(int));
+	}*/
 	free(color_output);
 	free(edge_output);
 }
@@ -143,7 +77,6 @@ void HorizonDetection::horizonColorDetection(Mat* data, Mat* canny, int* ret, bo
 			double Z = (pow(A,2)+ pow(B,2) + pow(C,2));
 			double colorP = exp(-Z);
 
-			/*
 			int t = 0;
 			for(int k = -2; k < 2; k++) {
 				if(j-k < 0 || j+k >= yuv.cols)
@@ -153,18 +86,12 @@ void HorizonDetection::horizonColorDetection(Mat* data, Mat* canny, int* ret, bo
 
 			int t0 = 10;
 			double textureP = (t > t0) ? exp(-0.2 * pow((double)(t - t0), 2)) : 1;
-			 */
 
-
-			int t = 0;
-			if(j+1 < yuv.cols)
-				t = abs(y - yuv_planes[0].at<uchar>(i,j + 1));
-			double textureP = exp(-0.2 * pow((double)(t), 2));
 			double Psky = (positionP*colorP*textureP) ;
-
 			sky_filter.at<uchar>(i,j) = (Psky * 100 > SKY_THRESHOLD) ? 255 : 0;
 		}
 	}
+
 	Mat canny_output;
 	Canny(sky_filter, canny_output, canny_min_threshold, canny_max_threshold, 3 );
 
@@ -216,12 +143,12 @@ void HorizonDetection::getLines(Mat src, int* ret, bool intensify) {
 					continue;
 				double factor = gaussian2D(r,t,rho_deviation,theta_deviation);
 				//printf("before: %d factor: %f after: %f\n", acum[(r*acum_size.width) + t], factor, (acum[(r*acum_size.width) + t] + acum[(r*acum_size.width) + t]*factor));
+				acum[(r*acum_size.width) + t] += acum[(r*acum_size.width) + t]*factor;
 			}
 		}
 	}
 
 	int i = 0, offset = 0, last_max = INT_MAX, last_rho = INT_MAX, last_theta = INT_MAX;
-	int maxmax = 0;
 	while(i < N_HORIZON_RESULTS) {
 		int max_val = 0, max_rho = -1, max_theta = -1;
 		for(int r=0; r < acum_size.height ; r++) {
@@ -230,12 +157,9 @@ void HorizonDetection::getLines(Mat src, int* ret, bool intensify) {
 					max_rho = r;
 					max_theta = t;
 					max_val = acum[(r*acum_size.width) + t];
-					if(max_val > maxmax)
-						maxmax = max_val;
 				}
 			}
 		}
-
 		if(max_rho == -1 && max_theta == -1) {
 			ret[0] = ret[1] = ret[2] = ret[3] = ret[4] = ret[5] = -1;
 			i++;
@@ -272,7 +196,6 @@ void HorizonDetection::getLines(Mat src, int* ret, bool intensify) {
 		last_theta = max_theta;
 		i++;
 	}
-
 	free(acum);
 }
 

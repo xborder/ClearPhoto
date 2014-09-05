@@ -26,7 +26,7 @@ public class HueCount  extends ImageProcessingOv {
 
 	private Mat data;
 	private int count;
-	private Paint paint;
+	private Paint paint, secondaryPaint;
 
 	public HueCount(Context context, int previewWidth, int previewHeight, int width, int height) {
 		super(context, width, height);
@@ -35,12 +35,24 @@ public class HueCount  extends ImageProcessingOv {
 		this.paint = new Paint();
 		this.paint.setStyle(Paint.Style.FILL);
 		this.paint.setColor(Color.WHITE);
-		this.paint.setTextSize(25.0f);
+		this.paint.setTextSize(100.0f);
+		
+		this.secondaryPaint = new Paint();
+		this.secondaryPaint.setStyle(Paint.Style.FILL);
+		this.secondaryPaint.setColor(Color.WHITE);
+		this.secondaryPaint.setTextSize(40.0f);
 	}
 
 	@Override
 	protected void onDraw(Canvas canvas) {
-		canvas.drawText("Hue Count: " + count + " (max: 20)", 15, 150, paint);
+//		canvas.drawText("Hue Count: " + count + " (max: 20)", 15, 150, paint);
+		if(count/10 == 0) {
+			canvas.drawText(""+count, 50, 150, paint);
+		} else {
+			canvas.drawText(""+count, 15, 150, paint);	
+		}
+		canvas.drawText("/", 130, 150, secondaryPaint);
+		canvas.drawText("12", 150, 150, secondaryPaint);
 	}
 
 	@Override

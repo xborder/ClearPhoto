@@ -118,9 +118,9 @@ public class ColorHistogram extends ImageProcessingOv {
 		}
 		if(rgbProcessed) {
 			rgbProcessed = false;
-			/*drawHistogram(canvas, rHist, rHistLT, rHistRB, rBarColor, rgbSpreadRatio, false);
+			drawHistogram(canvas, rHist, rHistLT, rHistRB, rBarColor, rgbSpreadRatio, false);
 			drawHistogram(canvas, gHist, gHistLT, gHistRB, gBarColor, rgbSpreadRatio, false);
-			drawHistogram(canvas, bHist, bHistLT, bHistRB, bBarColor, rgbSpreadRatio, false);*/
+			drawHistogram(canvas, bHist, bHistLT, bHistRB, bBarColor, rgbSpreadRatio, false);
 		}
 		drawLimitsText(canvas);
 	}

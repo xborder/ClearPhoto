@@ -22,21 +22,27 @@ import android.view.HapticFeedbackConstants;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-public class BackgroundSimplicity  extends ImageProcessingOv {
-
+public class ImageSimplicity  extends ImageProcessingOv {
+	private Bitmap icon;
 	private Mat data;
 	private Bitmap bitmap;
 	private float[] results;
 	private Paint paint;
-	
-	public BackgroundSimplicity(Context context, int previewWidth, int previewHeight, int width, int height) {
+	private Paint barsPaint;
+	public ImageSimplicity(Context context, int previewWidth, int previewHeight, int width, int height) {
 		super(context, width, height);
 
 		this.data = new Mat(previewHeight + previewHeight/2, previewWidth, CvType.CV_8UC1);
 		this.paint = new Paint();
 		this.paint.setStyle(Paint.Style.FILL);
 		this.paint.setColor(Color.WHITE);
-		this.paint.setTextSize(25.0f);
+		this.paint.setTextSize(40.0f);
+
+		this.barsPaint = new Paint();
+		this.barsPaint.setStyle(Paint.Style.FILL);
+		this.barsPaint.setColor(Color.WHITE);
+		this.barsPaint.setTextSize(2.0f);
+		this.icon = BitmapFactory.decodeResource(getResources(), R.drawable.arrow_icon);
 //		bitmap = BitmapFactory.decodeResource(getResources(), R.raw.teste);
 //		ByteArrayOutputStream stream = new ByteArrayOutputStream();
 //		bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
@@ -48,9 +54,24 @@ public class BackgroundSimplicity  extends ImageProcessingOv {
 	@Override
 	protected void onDraw(Canvas canvas) {
 		if(results != null) {
-			canvas.drawText("Method 1: " + results[0] + " (max: 100)", 15, 150, paint);
-			canvas.drawText("Method 2: " + results[1] + " (max: 1)", 15, 200, paint);
-			canvas.drawText("Method 3: " + results[2] + " (max: 1)", 15, 250, paint);
+//			canvas.drawText("Method 1: " + results[0] + " (max: 100)", 15, 150, paint);
+//			canvas.drawText("Method 2: " + results[1] + " (max: 1)", 15, 200, paint);
+//			canvas.drawText("Method 3: " + results[2] + " (max: 1)", 15, 250, paint);
+
+			canvas.drawText("Method 1:", 15, height - 220, paint);
+			canvas.drawText("Method 2:", 15, height - 120, paint);
+			canvas.drawText("Method 3:", 15, height - 20, paint);
+			
+			canvas.drawLine(250, height - 220 , 550, height - 220, barsPaint);
+			canvas.drawLine(250, height - 120 , 550, height - 120, barsPaint);
+			canvas.drawLine(250, height - 20 , 550, height - 20, barsPaint);
+			
+			Log.w(">>", "results 0 "+ results[0]*300/100);
+			Log.w(">>", "results 1 "+ results[1]*300);
+			Log.w(">>", "results 2 "+ results[2]*300);
+			canvas.drawBitmap(icon, 250 + results[0]*300/100 - 15, height - 220 - 30, null);
+			canvas.drawBitmap(icon, 250 + results[1]*300 - 15, height - 120 - 30, null);
+			canvas.drawBitmap(icon, 250 + results[2]*300 - 15, height - 20 - 30, null);
 		}
 	}
 
@@ -58,7 +79,7 @@ public class BackgroundSimplicity  extends ImageProcessingOv {
 	public void process(byte[] data_) {
 		data.put(0, 0, Arrays.copyOfRange(data_, 0, data_.length));
 		results = ImageProcessing.getBgSimplicity(data);
-		Log.e("adasd", Arrays.toString(results));
+//		Log.e("adasd", Arrays.toString(results));
 		this.invalidate();
 	}
 

@@ -1,8 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?><RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="6dip" >
+    android:padding="6dip" 
+    android:background="#CCE6E6E6">
  
     <CheckBox
         android:id="@+id/checkBox1"
@@ -11,6 +13,9 @@
         android:layout_alignParentLeft="true"
         android:focusable="false"
         android:focusableInTouchMode="false"
+        android:textSize="20sp"
+        android:textStyle="normal"
+        android:textColor="@android:color/black"
         android:text="CheckBox" />
  
  

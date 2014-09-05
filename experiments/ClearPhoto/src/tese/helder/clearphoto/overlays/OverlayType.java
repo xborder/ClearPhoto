@@ -4,11 +4,15 @@ public enum OverlayType {
 	GRID, THIRDS_GRID, GOLDEN_THIRDS_GRID, GOLDEN_TRIANGLE_GRID,
 	FACE_DETECTION, COLOR_HIST, COLOR_WHEEL, SATURATION_DETECTION,
 	HORIZON_DETECTION, MAIN_LINES, OBJECT_SEGMENTATION, BACKGROUND_SIMPLICITY,
-	HUE_COUNT, IMAGE_BALANCE, COLOR_TEMPLATE;
+	HUE_COUNT, IMAGE_BALANCE, COLOR_TEMPLATE,
+	DIV1, DIV2, DIV3;
 
 	@Override
 	public String toString() {
 		switch(this) {
+		case DIV1:					return "Grids";
+		case DIV2:					return "Colour Info";
+		case DIV3:					return "Detectors";
 		case GRID: 					return "";
 		case THIRDS_GRID: 			return "Rule of Thirds Grid";
 		case GOLDEN_THIRDS_GRID: 	return "Golden Rule of Thirds Grid";

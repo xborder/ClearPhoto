@@ -4,16 +4,61 @@
 % ===============================================================
 \chapter{System Description and Functionalities}
 \label{cha:system}
-This chapter describes the architecture and general structure of the system, as well as a detailed explanation about the functionalities implemented with the proposed technologies and interface displayed.
+\todo[inline]{Secção incompleta}
+
+
+This chapter describes the most relevant aspects related to the realization of this thesis such as the concept behind the application, the architecture and general structure of the system, as well as a detailed explanation about the functionalities implemented with the proposed technologies and interface displayed.
 
 \section{System Description}
 \label{sec:system_description}
 
+Photo aesthetic quality assessment aims to classify the photographs into high or low quality automatically. \citeauthor{tong2005classification} \cite{tong2005classification} attempted to classify photographs into those taken by professionals or casual users using low-level features derived from computer vision techniques. As already mentioned in Section \ref{subsub:eval_features}, techniques for training classifiers to automatically assess the quality of an image, have already been devised. Since mobile devices are constantly used in photography nowadays, it is only logical that improving photography in such devices is the next step to take.
+
+\subsection{Concept}
+\todo[inline]{Modified}
+The development of this application started by thinking of useful information that could be extracted from a real-time camera feed. The purpose of extracting this information, is to give a user a different insight of the photo that is being taken and help to attain better results without resort to any photo manipulation techniques or tools. It results in an application that processes real-time images and responds with visual cues on top of the processed data.
+
+These visual cues have as an objective to identify key elements in an image, such as colour information. Colour as already been stated as an important factor in a photograph (Section \ref{subsub:colour_balance}). Therefore, understanding the colour composition and pureness of the colours is useful for a user to study the composition and rearrange the colours before even taking the photo. The same applies when talking about the composition of the elements. As an example, identifying the main object or detect faces may be useful for testing various compositions in an attempt to find the best one.
+
+With this idea in mind, we gathered a number of features that we though to be give useful information when taking a photograph. Some of these features are related to the colours being displayed. We devised a couple of histograms to visualize the distribution amount of each colour, as well as a saturation detector for detecting when the scenario has a colours with a low level of pureness. Other features more related to the composition of the photo were implemented, such as, face detection and object detection through segmentation, detection of the horizon line when photographing a seascape or landscape, detection of main lines which have an important role when guiding the viewer in a photo, detection the line of symmetry and test the balance between the elements in an image. With the main purpose of obtained the best aesthetic results without any image editing, we also implemented a couple of metrics regarding to the simplicity of an image and number of colours used. Later in these sections, these features will be described in detail as well as discussion regarding the way the result is displayed and the general behaviour of the algorithms.
+
+\subsection{Architecture}
+
+\todo[inline]{Modified}
+Figure \ref{fig:sys_diagram} illustrates the architecture chosen for this thesis which are based on mechanisms offered by the Android operating system. The system starts by receiving data bytes from the device's camera, and pass it to the \emph{CameraViewer}. This object, besides controlling which feature is enabled, it also controls the camera and serves as a gate since it receives all input data and reliably redistributes to the objects controlling each enabled feature. 
+At this stage, it passes through various \emph{wrapper} objects. Each object is responsible for wrap the data bytes and send them to the Java Native Interface (\emph{JNI}) where all algorithms are run with the help of \emph{OpenCV}. All the results are then sent back to the object responsible for each feature. The last stage is the Presentation stage where all results of the algorithms are post-processed and the visual information is updated and shown to the user through the viewfinder.
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[width=\textwidth]{interface/sys_diagrama.pdf}
+	\caption{Architecture of the system.}
+	\label{fig:sys_diagram}
+\end{figure}
+
+Each feature has its wrapper as well as presentation stage. The Presentation stage was implemented only in Android and all the visual cues work as an overlay over the current camera's live-feed, so that the user can have an immediate response to what she is seeing. Figure \ref{fig:class_diagram} illustrates a class diagram with the dependencies of each feature, were all that is drawn is an overlay and has its own implementation. Each feature must extend the \emph{Overlay} class, therefore it can be drawn in the viewfinder since the \emph{Overlay} itself extends the default Android class \emph{View}.
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[width=\textwidth]{interface/diagrama.png}
+	\caption{Class diagram of the Presentation stage in Figure \ref{fig:sys_diagram}.}
+	\label{fig:class_diagram}
+\end{figure}
+
+Still in the presentation stage, to alternate between features we devised a simple interface dividing coupling the similar ones. Figure \ref{fig:app_menu} shows the interface, which consists of a list of the implemented features. To use a feature, the user simply has to tap on a checkbox to start the algorithm which also allows to use multiple features at the same time. Such a simple interface was chosen to keep the viewfinder cleaner and due to the lack of icons that accurately represent what each feature is supposed to do.
+\begin{figure}[htb]
+	\centering
+	\includegraphics[width=0.5\textwidth]{interface/menu.png}
+	\caption{Menu to select each feature.}
+	\label{fig:app_menu}
+\end{figure}
+
+
+The JNI stage is composed by all the algorithms implemented. This stage is where the Android's Java Virtual Machine calls native applications which can be programmed specific to the hardware, or libraries that were written in other languages such as \emph{C} or \emph{C++}. In the context of this thesis, we created our own native library in \emph{C++} complemented by the library \emph{OpenCV} which, by itself, already includes several hundreds of computer vision algorithms. Although we used static classes instead of objects, our native library as a class for each feature, in resemblance to the class diagram in Figure \ref{fig:class_diagram}.
 
 \section{Functionalities}
 \label{sec:functionalities}
 
-This section describes in detail the functionalities and experiments implemented in our system. The set of functionalities implemented were considered to be more interesting to explore in a real-time environment than the usual set of features already presented in regular camera applications or digital cameras.
+This section describes in detail the functionalities and experiments implemented in the proposed system. The set of functionalities implemented were considered to be more interesting to explore in a real-time environment than the usual set of features already presented in regular camera applications or digital cameras.
 
 \subsection{Colour Histograms and Average Saturation}
 \label{sub:histograms}
@@ -53,16 +98,16 @@ Exploring the importance of colour, in \cite{haber2011colourvis} colour informat
 
 Another important property is a colour saturation which is the colourfulness of a colour relative to its own brightness. The saturation of a colour is determined by a combination of light intensity and how much it is distributed across the spectrum of different wavelengths. The purest (most saturated) colour is achieved by using just one wavelength at a high intensity, such as in laser light. If the intensity drops, then as a result the saturation drops.
 
-Colour saturation can the influence the vividness of an image as a desaturated image is said to be dull, less colourful or washed out but can also make the impression of being softer. 
+Colour saturation the influence the vividness of an image as a desaturated image is said to be dull, less colourful or washed out but can also make the impression of being softer. 
 
 
 \subsubsection{Algorithm Description}
 
-As described in previously, colour is obviously a very important part in an image. With that being said, we implemented some simple algorithms that compute the amount of colour and saturation that exists in an image.
+As described previously, colour is obviously a very important part in an image. With that being said, we implemented some simple algorithms that compute the amount of colour and saturation that exists in an image.
 
-It was already said that an histogram is important way to visualize the amount of each colour represented on the scenario. We also computed a couple of histograms to give this information. For our first implementation, we generated four histograms for each channel of the input image. Each frame to be processed comes in a packed format and is then converted both to a gray image and to a \emph{RGB} image. We then create a full-range histogram for each of the channels.
+It was already said that an histogram is an important way to visualize the amount of each colour represented on the scenario. We also computed histograms to give this information. For our first implementation, we generated four histograms for each channel of the \emph{RGB} colour space and a grayscale version of the input image. Each frame to be processed comes in a packed format and is then converted both to a gray image and to a \emph{RGB} image. We then create a full-range histogram for each of the channels.
 
-Knowing the amount of each colour in each one of the channels we can then obtain an interval that contains all the relevant colours. We considered as relevant colours, colours that have an amount higher than 5\% of the maximum value. Since all histograms are normalized to a range of $[0,255]$, colours with a count higher than 12, are considered relevant. Given the colour range for each channel, we also calculate the amount of pixels that are near the limits. This amount is calculated by applying a Gaussian function where the peak is each one of the limits in the colour range. This can be translated by the equation
+Knowing the amount of each colour in each one of the channels we can then obtain an interval that contains all the relevant colours. We considered as relevant colours, colours that have an amount of 5\% more than the maximum value. Since all histograms are normalized to a range of $[0,255]$, colours with a count higher than 12, are considered relevant. Given the colour range for each channel, we also calculate the amount of pixels that are near the limits. This amount is calculated by applying a Gaussian function where the peak is each one of the limits in the colour range. This can be translated by the equation
 \begin{equation}
 	\sum_{i \exists [0,50]}^{i}hist(i) + hist(i)*\frac{1}{0.7\sqrt{2\pi}}e^{-i},
 	\label{eq:hist1}
@@ -73,10 +118,10 @@ Knowing the amount of each colour in each one of the channels we can then obtain
 \end{equation}
 where the Gaussian function has the parameters $\sigma = 0.7, \sigma^{2} = 0.5$ and $\mu = 0$. $i$ and $j$ are the colour value in the histogram and $hist(i)$ is the amount of colour on the frame. The result from equations \ref{eq:hist1} and \ref{eq:hist2} are then used to represent visually the amount of pixels near each limit. 
 
-In our second implementation we did another histogram but in this case we converted the input image to the \emph{HSV} colour space and performed an histogram over the \emph{Hue} channel. Due to the chosen method to visualize the \emph{Hue} spectrum was quantized into six bins, which correspond to the primary colours red, green and blue, and its consequent secondary colours.
+In our second implementation we created another histogram but in this case we converted the input image to the \emph{HSV} colour space and performed an histogram over the \emph{Hue} channel. Due to the chosen method to visualize, the \emph{Hue} spectrum was quantized into six bins, which correspond to the primary colours red, green and blue, and its consequent secondary colours.
 When processing the input image, a vector with a total length equal to the number of bins, would be accumulated depending on the colour of the pixel, since each bin covered a total of thirty colours with the \emph{Hue} spectrum. The amount percentage for each bin is then calculated and displayed to the user.
 
-As referred in the previous section, the colourfulness of a scenario is always important considering that its what makes an image more vivid. Due to that fact, we also implemented a low saturation detector. This detector works by averaging the \emph{Saturation} channel in the \emph{HSV} colour space and compare its value to a threshold. If the value of saturation of an image is below a threshold of 90, then a suggestion is shown meaning that the use of a monochromatic filter might be useful in that situation. This threshold was defined by comparing the average saturation of images labelled as low-saturation images in the Flickr.com community.
+As referred in the previous section, the colourfulness of a scenario is always important considering that its what makes an image more vivid. Due to that fact, we also implemented a low saturation detector. This detector works by averaging the \emph{Saturation} channel in the \emph{HSV} colour space and compare its value to a threshold. If the value of saturation of an image is below a threshold of 90, then a suggestion is shown meaning that the use of a monochromatic filter might be useful in that situation. This threshold was defined by comparing the average saturation of images labelled as low-saturation images in the Flickr community.
 
 \subsubsection{Interface Display}
 In the previous section we described the algorithms for a saturation detector and two similar ways to calculate the colours presented in an image. For the later, it becomes even more important to correctly visualize that information.
@@ -143,6 +188,7 @@ Although in \cite{luo2008photo}, the purpose of this feature is to train a class
 As mentioned before, we implemented a simple scoring system for each input frame and an algorithm that detects the harmonic colour template being used on a real-time input frame.
 
 As for our scoring method, we implemented a feature described by \citeauthor{ke2006design} in \cite{ke2006design}, where the purpose is to measure its colour simplicity. One the main differences between professional photos and snapshots is that photos taken professionally are more colourful and vibrant depending on its brightness and saturation levels, while using a less number of unique hues. The first step in hue count is the conversion of the input frame to the \emph{HSV} colour space. After the colour space conversion, the \emph{Hue} channel is filtered by selecting pixels that have a brightness value in the range $[0.15,0.85]$ and saturation bigger than 0.2 because the hue calculation would be inaccurate if otherwise. The next step is to calculate a 20-bin histogram $H$ with the hue values that passed the filter. After compute the histogram we select the number of bins $N$ that satisfy the equation
+
 \begin{equation}
 N = {i | H(i) > \alpha m},
 \end{equation}
@@ -162,7 +208,7 @@ Our harmonic colour template detector is based in a method described in \cite{co
 
 The original article uses a hue histogram and tries to match the histogram with each of the templates in its various rotations. This method would prove to be computationally heavy on a mobile device in a real-time scenario, therefore, we opted to simplify the histogram and the template calculation. 
 
-We started by converting the input image into the \emph{HSV} colour space and manipulate the \emph{Hue} channel. For our implementation, we used a wheel divided into twelve regions instead of using a full-colour wheel with enabled us to create a 12-bin histogram of quantized hues ordered by amount. The purpose of having an ordered histogram, is to obtain the first two main hues present in the image. Knowing the two main colours and its bins, we can map each bin into one region of a 360\º wheel. This mapping is what will allow us to determine if a image fits into a monochromatic template or a complementary template, by calculating the difference between the bins of the two main colours.
+We started by converting the input image into the \emph{HSV} colour space and manipulate the \emph{Hue} channel. For our implementation, we used a wheel divided into twelve regions instead of using a full-colour wheel with enabled us to create a 12-bin histogram of quantized hues ordered by amount. The purpose of having an ordered histogram, is to obtain the first two main hues present in the image. Knowing the two main colours and its bins, we can map each bin into one region of a 360 degree wheel. This mapping is what will allow us to determine if a image fits into a monochromatic template or a complementary template, by calculating the difference between the bins of the two main colours.
 
 After classifying an image as having a monochromatic or complementary template, starting in the most relevant bins, we verify if the adjacent bins have an occupation percentage in the image of at least 40\% of the starting bin. this will allow us to know the size of template. Starting in a bin which are mapped into one region in the twelve-region colour wheel, we defined that the maximum size for a monochromatic template or one of the colours in a complementary template, is of three regions.
 
@@ -179,10 +225,51 @@ There are no major issues with each of these methods. However the most relevant 
 
 \subsection{Face Detection and Composition Guidelines}
 \label{sub:face_guidelines}
+\todo[inline]{Modified}
+
+Since long, the detection and recognition of faces are areas of interest in the domain of computer vision. Such technology has been used in biometric identification, video-conferences and query systems.
+Mobile devices are also able to find and recognize a face. Android provides a simple way for you to identify the faces of people in a bitmap image, with each face containing all the basic location information. Not just faces, but nowadays, Android's cameras already offer an API for detection of eyes and mouth and most recent versions are able to recognize faces to unlock such devices.
+
+The fact that we can easily detect faces, enable us to explore some rules used in photography. One of these rules is the Rule of Thirds explained in Section \ref{subsub:rule_thirds} which states that for an image to be visually interesting, the main focus of the image needs to lie along one of the lines marked in thirds, or the intersection points between those lines\cite{kamps2012rules}.
+
+Other rule is the Rule of Odds which states that images are more visually appealing when there is an odd number of subjects. For example, if you are going to place more than one person in a photograph, don’t use two, use 3 or 5 or 7, etc \cite{kamps2012rules}. Studies have shown that people are actually more at ease and comfort when viewing imagery with an odd number of subjects. This rule can also be boosted by using triangles, since a triangle is one of the strongest compositional shapes, as it can add a sense of visual unity. In essence, a triangle is a closed curve incorporating at least one diagonal. Since the curve is closed, it won't lead the eye outside of the frame. A single triangle in in the middle of the frame can lead to a somewhat static composition, but triangular composition can be found in many famous works of art.
+
+By combining these rules with a facial detection system, we devised a feature that could be helpful in respecting these essential guideline in photography composition.
 
 \subsubsection{Algorithm Description}
+
+For this feature we tried to mix the rules previously stated with face detection in a real-time environment. Although it can be used separately, we implemented the two simple grids that follow the Rule of Thirds (Section \ref{subsub:rule_thirds}) and the Rule of the Golden Section (Section \ref{subsub:golden_section}) that uses the golden ratio.
+
+As far as implementing these grids, there was no difficulty since it was only needed to obtain the device screen size and generate four lines for each rule, where these lines would divide the screen in 9 equal parts for the Rule of Thirds or in in sections with a proportion of 1.6:1 as shown in Figure \ref{fig:golden_section2}.
+
+These guideline would then be useful to test different compositions with faces detected. As for detection of faces, we opted by using the mechanisms available in \emph{OpenCV} instead of using the ones available by Androids API. These is due to the fact that our objective was of creating a library to run only in JNI. If we opted by using the Androids API, then it would become specific of the application instead of being portable code for other application.
+With the \emph{OpenCV} library we used Haar feature-based classifier to detect faces \cite{viola2001rapid}. This method needs a big set of positive and negative images to train the classifier. These train is based on the extraction of haar features, as the ones shown in Figure \ref{fig:haar_features}. After training a classifier, the implemented algorithm uses the concept of Cascade of Classifiers where a total of 6000 features are divided by groups of features, and for a small window in an image the first group of features is tested. If that region is a non-face region, it is forever discarded and passes to the next group of features that can then concentrate on testing the remaining regions where there's a probability of finding a face. The regions where the faces are found, are then returned and used by us.
+
+Having detected the faces position and the lines for the grids, we can the calculate the distance between the center of a face region and the nearest intersection line. The intersection with the smallest distance, is the most viable placement for the subject in accordance to the Rule of Thirds.
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[width=0.5\textwidth]{interface/face/haar_features.jpg}
+  	\caption{Type of convolution kernels used to extract features  }
+	\label{fig:haar_features}
+\end{figure}
+
 \subsubsection{Interface Display}
+
+We started by displaying the Rule of Thirds and Rule of Golden Section that are viewed as a simple grid over the viewfinder that respects the proportions established by both rules, as illustrated by Figure x.
+Has for the detection of faces, we took the most common approach. Since we know the position of the regions that contain faces, we opted to draw a bounding rectangle around that regions (Figure x).
+
+After detecting faces we test to see if there is three faces detected. This is so that we can apply the concept of the Rule of Odds with the detected faces. If there are three faces then we can also try and boost the composition by linking their positions and form a triangle. We display the connection between the faces by drawing lines connecting them.
+
+Figure x illustrates this triangle formed by the detected faces as well as the suggestions. Each of the intersection points on both grid highlights when it is a suggested point for a face. To complement the triangle composition when three faces are detected, we also suggests a triangular composition with the nearest intersection points of the grid.
+
 \subsubsection{Discussion}
+
+Due to its simplistic implementation, there aren't any particular problems. The face detection might be the most defective part. As referred before, the face detection uses a trained classifier and we used a default classifier for frontal face recognition provided by the \emph{OpenCV} library. Therefore, this classifier will not detect faces in profile.
+
+Although the user can choose which feature to display at a time, when they're all activated, this many visual cues are quite distracting and occupy a lot of space in the interface.
+
+However, as a proof of concept this visual cues do work but its important to keep in mind that the positions suggested, are simple suggestions, as it is not a certain recipe for obtaining aesthetic results. The user must always have the final word for the placement of the detected faces, on the importance of having odd number of elements and exploration of triangular compositions.
 
 \subsection{Object Segmentation}
 \label{sub:segmentation}
@@ -235,7 +322,6 @@ This could also be used together with guideline such as Rule of Thirds, describe
 \subsubsection{Discussion}
 \label{subsub:seg_discussion}
 Being an incomplete algorithm, it does not work perfectly. Since it depends on the global contrast of a subjects colours, this segmentation might not work if the background is not plain or simple. Even with slight camera shake, this algorithm can extract the subject quite effectively. Figure \ref{fig:seg_example} show the multiple stages taken to segment an object in an image and its final result.
-
 \begin{figure}[htb]
 	\hspace*{-45pt}
     \begin{tabular}{cccccccc}
@@ -291,8 +377,10 @@ Being an incomplete algorithm, it does not work perfectly. Since it depends on t
 		a) & \hspace*{-13pt} b) & \hspace*{-13pt} c) & \hspace*{-13pt} d) & \hspace*{-13pt} e) & \hspace*{-13pt} f) & \hspace*{-13pt} g) & \hspace*{-13pt} h)
     \end{tabular}
     \caption{Steps taken when segmenting an object. a) Input image. b) Saliency map generated by the algorithm in \cite{cheng2011global}. c) Binary mask. d) Probable background pixels. e) Probable foreground pixels. f) Bounding rectangle and center of mass point. g) Cropped mask containing the probable foreground area filled in with probable background pixels. h) Segmentation applied to the input image.}
+    
 	\label{fig:seg_example}	      
 \end{figure}
+\todo{alterar hspace consoante a página em que ficar}
 
 Has it is possible to observe in Figure \ref{fig:seg_example}, the input image shows a singular object in a plain background with a successful segmentation. The second image it is possible to confirm that, although the object is detected, the foreground threshold is not sensitive to lightning changes, as the darkest side in the can is considered as being a probable background.
 
@@ -376,7 +464,7 @@ Between the three methods implemented to detect the simplicity of an image, the 
                 \includegraphics[width=0.45\textwidth]{interface/image_simplicity/ex2.png}
                 \label{fig:simp_ex2}
     }
-  	\caption{simp_ex}
+  	\caption{Illustrative examples of a simple image (a) versus an image with more elements (b). Each method refers to the algorithms described before in the same order.}
 	\label{fig:simp_ex}
 \end{figure}
 
@@ -579,6 +667,7 @@ Taking into account these properties, the probability of a pixel being a sky-pix
 
 \begin{equation}
 	P_{sky} = P_{colour} * P_{texture} * P_{position} * P_{gradient}.
+	\label{eq:cd_eq}
 \end{equation}
 In our implementation we simplified the algorithm by ignoring the gradient information and consequently the sky luminance and chrominance variations, which resulted in the expression
 \begin{equation}
@@ -623,8 +712,22 @@ Now with the pairs $(\rho_{CD}, \theta_{CD})$ and $(\rho_{ED}, \theta_{ED})$ tha
 
 \subsubsection{Interface Display}
 
+For this feature we chose the simplest way to draw a horizon line which was to draw line in the viewfinder. To eliminate the chance of displaying erroneous results, we took advantage of the Android's sensors. Using information given by the mobile device relative to its accelerometer and magnetic field we area able to filter the results. With this information we can detect the orientation of the mobile device and compare it with the line slope. If the slope of the line is vertical(horizontal) and the orientation of the mobile device is horizontal(vertical), the line is then excluded and not drawn. Figure X has an illustrative example of the horizon line base on the edge detector and color detector previously described, as well as the result obtain by merging the two.
+\begin{figure}[htbp]
+	\centering
+    \includegraphics[width=0.7\textwidth]{interface/horizon_detection/ex1.png}
+    \caption{Exemple of horizon detection where the green and blue line are the result of the edge and color detector respectively. The red line represents the result of merging both methods.}
+    \label{fig:hori_ex}
+\end{figure}
 
 \subsubsection{Discussion}
+
+Although this method can perform under the right conditions, it has a high fail rate in detecting the correct horizon line. Previously we stated that the colour detector was not fully implemented. Originally the algorithm has intro account the physical phenomenon of colour de-saturation and brightness increase along zenith-to-horizon direction, which involved extracting the gradient features as expressed in equation \ref{eq:cd_eq}. This was ignored in an attempt to minimize the computational load on the mobile device. 
+The extraction of gradient features would also give useful information about the angle and position of the horizon along with a confidence metric on these parameters. We obtained an angle and position for the horizon line on the colour detector, however we can't obtain the confidence metric. Since the confidence metric would be essential later in the edge detector, we couldn't make our implementation ignore salient that were not related to the horizon line.
+
+The algorithm as an overall poor performance which is aggravated by the fact that is used in real-time. Being used in real-time the mobile device is susceptible to minor shakes by the users movement. Since it is slow, while the algorithm is being processed, the image has already changed and displays the results of something that was viewed in the past.
+
+Another problem in this algorithm is the fact that it was made to work with images that have a clear blue sky with a certain tone to fit in the thresholds defined.
 
 \subsection{Image Balance}
 \label{sub:balance}
@@ -714,7 +817,6 @@ Figure \ref{fig:image_balance_example} what was stated. In Figure \ref{fig:balan
 Besides the problem in the discovery of the symmetry axis, the object segmentation also has the problems that were discussed in Section \ref{subsub:seg_discussion} where what we consider an object in the scenario, might not have enough colour contrast relatively to the background.
 
 The thresholds used in this algorithm were chosen experimentally with sample of images considered symmetric or unbalanced, which means that the values might not perform well on various compositions in a real-time case scenario.
-
 
 \section{Discussion}
 \label{sec:system_discussion}

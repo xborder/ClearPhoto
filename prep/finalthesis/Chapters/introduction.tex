@@ -24,14 +24,13 @@ This is the perfect scenario for developing applications that explore the world 
 Digital photography is tightly related to computational photography. Although the concept is increasingly being adopted, it refers broadly to sensing strategies and algorithmic techniques that enhance or extend the capabilities of digital photography \cite{szeliski2012technical} , creating new kind of images that cannot be captured with a traditional camera \cite{pulli2009mobile}. 
 
 Taking full advantage of multi purpose handheld devices in order to obtain the best aesthetic results, is a process that is not yet well explored. 
-Of the many devices that make part of our daily life, the smartphone might be the most widely disseminated one. Although, for many professionals it might not replace the most recent DSLR, we can't deny the fact that many smartphone owners use the embedded camera and have taken photography in a different perspective since the device popularization. A major problem is that the manufacturers do not take advantage of the embedded camera capabilities on their default mobile operating systems, due to the lack of control offered through their APIs.
+Of the many devices that make part of our daily life, the smartphone might be the most widely disseminated one. Although, for many professionals it might not replace high-end cameras, we can't deny the fact that many smartphone owners use the embedded camera and have taken photography in a different perspective since the device popularization. A major problem is that the manufacturers do not take advantage of the embedded camera capabilities on their default mobile operating systems, due to the lack of control offered through their APIs.
 
 There is a lot of work done in terms of improving a photo by using editing software (e.g, Adobe Photoshop), but the main purpose of these tools is to edit the result after a photo session. For instance, imagine that a photographer is trying to take a photo of a mountain scenery. Unless the individual is experienced and took many photographs of the same scenery in different angles and different focal lengths, for an amateur, the more common option will be to photograph with the mountain centred in the viewfinder, since this is the subject. Completely unaware of the aesthetic difference between a mountain centred and a dislocated one, this kind of photograph would be impossible to edit without reducing its size, or relocate the subject without including some degree of distortion.
 
 Even though the APIs lack  support, using this type of systems to reduce the gap between professional and amateur photographers, and enriching the users experience by offering options beyond the standard ones, is the approach considered in this dissertation.
 
-\todo[inline]{modificado, rever}
-Therefore, the objective of this thesis is to present a utility where the user can get a better understanding of the scenery and ways to obtain a photograph with a better aesthetic result.
+Therefore, the objective of this thesis is to present a set of tools and techniques where the user can get a better understanding of the scenery and ways to obtain a photograph with a better aesthetic result.
 
 \section{Presented Solution}
 \label{sec:solution}
@@ -40,12 +39,12 @@ The aim is to provide a more enriching experience for the smartphone owner that 
 
 Before capturing an image, the user will be able to access a set of tools that show information about the scenery through a simple interface.
 
-These interface will include a set of grids and suggestions that will aid when taking a photo. While the grids will help in the correct placement of the subject that is being photographed, the suggestions will consist in a visual cue or a rating calculated from the scene that is being captured at the moment.
+This application includes a set of tools to draw grids and suggestions that will aid when taking a photo. While the grids will help in the correct placement of the subject that is being photographed, the suggestions will consist in a visual cue or a rating calculated from the scene that is being captured at the moment.
 Being colour an important part of an image, some of these suggestions are related to the colourfulness of the scenery, where the user can get a better understanding of the colours being used and which colours are complementary with simplified histograms or color wheels.
 
-Another type of suggestions are related to composition of the image. To help a user understand what is the subject in the scenery through object segmentation. Other useful features include the detection of prominent lines and detection of the horizon line for sceneries of landscape or seascape.
+Another type of suggestions are related to composition of the image, to help a user understand what is the subject in the scenery through object segmentation. Other useful features include the detection of prominent lines and detection of the horizon line for sceneries of landscape or seascape.
 
-The technology used to develop this solution is a smartphone with an Android operating system. Currently we are using the Samsung Galaxy Note with Android 4.1 as it has support for both camera and specialized pen for ink based writing. The system will be developed in Java and C++ using both Software Development Kit (SDK) \cite{SDK} and Native Development Kit (NDK) \cite{NDK} available for Android.  Along with the NDK, the OpenCV (Open Source Computer Vision) \cite{OCV} library will be used for image processing.
+The technology used to develop this solution is a smartphone with an Android operating system. Currently we are using the Samsung Galaxy Note with Android 4.1 as it has support for both camera. The system will be developed in Java and C++ using both Software Development Kit (SDK) \cite{SDK} and Native Development Kit (NDK) \cite{NDK} available for Android.  Along with the NDK, the OpenCV (Open Source Computer Vision) \cite{OCV} library will be used for image processing.
 
 \section{Contributions}
 \label{sec:contributions}
@@ -62,3 +61,5 @@ The main contributions of this thesis are:
 
 \section{Document Organization}
 \label{sec:aperture}
+
+\todo[inline]{Escrever}

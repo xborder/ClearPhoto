@@ -3,15 +3,17 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="5dip" >
+    android:padding="5dip" 
+    android:background="#CCD1D1D1">
 
     <TextView
-        android:id="@+id/grid_selection_title"
+        android:id="@+id/options_selection_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#FFFFFF"
         android:typeface="sans"
-        android:textStyle="normal"
-        android:textSize="20sp"/>
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:text="teste"
+        android:textColor="@android:color/black"/>
 
 </RelativeLayout>

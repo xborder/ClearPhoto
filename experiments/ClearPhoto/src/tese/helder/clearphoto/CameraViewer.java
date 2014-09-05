@@ -11,7 +11,7 @@ import tese.helder.clearphoto.overlays.grids.GoldenGrid;
 import tese.helder.clearphoto.overlays.grids.Grid;
 import tese.helder.clearphoto.overlays.grids.ThirdsGrid;
 import tese.helder.clearphoto.overlays.grids.TriangleGrid;
-import tese.helder.clearphoto.overlays.imageprocessing.BackgroundSimplicity;
+import tese.helder.clearphoto.overlays.imageprocessing.ImageSimplicity;
 import tese.helder.clearphoto.overlays.imageprocessing.ColorHistogram;
 import tese.helder.clearphoto.overlays.imageprocessing.ColorTemplates;
 import tese.helder.clearphoto.overlays.imageprocessing.ColorWheel;
@@ -52,7 +52,7 @@ public class CameraViewer extends SurfaceView implements SurfaceHolder.Callback,
 	private HorizonDetection horizonDetection;
 	private MainLinesDetection majorLines;
 	private ObjectSegmentation objectSegmentation;
-	private BackgroundSimplicity bgSimplicity;
+	private ImageSimplicity bgSimplicity;
 	private HueCount hueCount;
 	private ImageBalance imageBalance;
 	private ColorTemplates colorTemplate;
@@ -268,7 +268,7 @@ public class CameraViewer extends SurfaceView implements SurfaceHolder.Callback,
 		} else if (ov == OverlayType.OBJECT_SEGMENTATION) {
 			ovlay = objectSegmentation = new ObjectSegmentation(getContext(), previewWidth, previewHeight, getWidth(), getHeight());
 		} else if (ov == OverlayType.BACKGROUND_SIMPLICITY) {
-			ovlay = bgSimplicity = new BackgroundSimplicity(getContext(), previewWidth, previewHeight, getWidth(), getHeight());
+			ovlay = bgSimplicity = new ImageSimplicity(getContext(), previewWidth, previewHeight, getWidth(), getHeight());
 		} else if (ov == OverlayType.HUE_COUNT) {
 			ovlay = hueCount = new HueCount(getContext(), previewWidth, previewHeight, getWidth(), getHeight());
 		} else if (ov == OverlayType.IMAGE_BALANCE) {

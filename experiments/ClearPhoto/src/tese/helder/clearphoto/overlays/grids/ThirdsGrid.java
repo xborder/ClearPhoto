@@ -7,6 +7,7 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RadialGradient;
 import android.graphics.Shader;
+import android.graphics.PorterDuff.Mode;
 
 public class ThirdsGrid extends Grid {
 	
@@ -50,9 +51,25 @@ public class ThirdsGrid extends Grid {
 
 	@Override
 	protected void onDraw(Canvas canvas) {
+		if(!toDraw) {
+			canvas.drawColor(Color.TRANSPARENT, Mode.CLEAR);
+			return;
+		}
 		canvas.drawLines(points, gridColor);
 
 		drawSuggestivePowerPoints(canvas);
 		drawSuggestiveComposition(canvas);
+	}
+	@Override
+	protected void onAttachedToWindow() {
+		toDraw = true;
+		super.onAttachedToWindow();
+	}
+	
+	@Override
+	protected void onDetachedFromWindow() {
+		toDraw = false;
+		invalidate();
+		super.onDetachedFromWindow();
 	}
 }

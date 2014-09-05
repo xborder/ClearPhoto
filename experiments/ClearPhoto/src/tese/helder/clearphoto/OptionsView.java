@@ -5,7 +5,7 @@ import java.util.List;
 
 import tese.helder.clearphoto.overlays.OverlayType;
 import tese.helder.clearphoto.overlays.grids.Grid;
-import tese.helder.clearphoto.overlays.imageprocessing.BackgroundSimplicity;
+import tese.helder.clearphoto.overlays.imageprocessing.ImageSimplicity;
 import tese.helder.clearphoto.overlays.imageprocessing.ColorHistogram;
 import tese.helder.clearphoto.overlays.imageprocessing.ColorTemplates;
 import tese.helder.clearphoto.overlays.imageprocessing.ColorWheel;
@@ -38,9 +38,13 @@ import android.widget.AdapterView.OnItemClickListener;
 
 public class OptionsView extends BaseAdapter{
 	private static OverlayType[] ovs = {
+		OverlayType.DIV1,
 		OverlayType.THIRDS_GRID, OverlayType.GOLDEN_THIRDS_GRID,
-		OverlayType.FACE_DETECTION, OverlayType.COLOR_HIST, OverlayType.COLOR_WHEEL, OverlayType.COLOR_TEMPLATE,
-		OverlayType.HUE_COUNT, OverlayType.SATURATION_DETECTION,
+		OverlayType.DIV2,
+		OverlayType.COLOR_HIST, OverlayType.COLOR_WHEEL, OverlayType.SATURATION_DETECTION,
+		OverlayType.COLOR_TEMPLATE, OverlayType.HUE_COUNT, 
+		OverlayType.DIV3,
+		OverlayType.FACE_DETECTION,
 		OverlayType.HORIZON_DETECTION, OverlayType.MAIN_LINES, OverlayType.OBJECT_SEGMENTATION, OverlayType.BACKGROUND_SIMPLICITY,
 		OverlayType.IMAGE_BALANCE};
 	private class ViewHolder {
@@ -83,6 +87,8 @@ public class OptionsView extends BaseAdapter{
 			public void onItemClick(AdapterView<?> parent, View view, int position,
 					long id) {
 				ViewHolder vh = viewHolders.get(position);
+				if(vh.ov.equals(OverlayType.DIV1) || vh.ov.equals(OverlayType.DIV2)|| vh.ov.equals(OverlayType.DIV3)) 
+					return;
 				vh.isSelected = !vh.isSelected;
 				vh.cb.setChecked(vh.isSelected);
 				if(vh.isSelected)
@@ -115,28 +121,32 @@ public class OptionsView extends BaseAdapter{
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
 
-		ViewHolder holder = null;
+		ViewHolder holder = viewHolders.get(position);
 
 		LayoutInflater vi = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		convertView = vi.inflate(R.layout.options_selection_row, null);
+		if(holder.ov.equals(OverlayType.DIV1) || holder.ov.equals(OverlayType.DIV2)|| holder.ov.equals(OverlayType.DIV3)) {
+			convertView = vi.inflate(R.layout.options_selection_title, null);
+			TextView t = (TextView) convertView.findViewById(R.id.options_selection_title);
+			t.setText(holder.ov.toString());
+		} else {
+			convertView = vi.inflate(R.layout.options_selection_row, null);
 
-		holder = viewHolders.get(position);
-		holder.cb = (CheckBox) convertView.findViewById(R.id.checkBox1);
-		convertView.setTag(holder);
-		holder.cb.setOnClickListener(new View.OnClickListener() {  
-			public void onClick(View v) {  
-				ViewHolder vh = viewHolders.get(position);
-				vh.isSelected = !vh.isSelected;
-				vh.cb.setChecked(vh.isSelected);
-				if(vh.isSelected)
-					cameraViewer.addOverlay(vh.ov);
-				else
-					cameraViewer.removeOverlay(vh.ov);
-			}  
-		});  
+			holder.cb = (CheckBox) convertView.findViewById(R.id.checkBox1);
+			holder.cb.setOnClickListener(new View.OnClickListener() {  
+				public void onClick(View v) {  
+					ViewHolder vh = viewHolders.get(position);
+					vh.isSelected = !vh.isSelected;
+					vh.cb.setChecked(vh.isSelected);
+					if(vh.isSelected)
+						cameraViewer.addOverlay(vh.ov);
+					else
+						cameraViewer.removeOverlay(vh.ov);
+				}  
+			});  
 
-		holder.cb.setText(holder.ov.toString());
-		holder.cb.setChecked(holder.isSelected);
+			holder.cb.setText(holder.ov.toString());
+			holder.cb.setChecked(holder.isSelected);
+		}
 		return convertView;
 	}
 }

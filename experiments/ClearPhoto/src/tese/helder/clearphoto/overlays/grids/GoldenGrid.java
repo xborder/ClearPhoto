@@ -2,6 +2,8 @@ package tese.helder.clearphoto.overlays.grids;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.PorterDuff.Mode;
 
 public class GoldenGrid extends Grid{
 
@@ -47,10 +49,26 @@ public class GoldenGrid extends Grid{
 
 	@Override
 	protected void onDraw(Canvas canvas) {
+		if(!toDraw) {
+			canvas.drawColor(Color.TRANSPARENT, Mode.CLEAR);
+			return;
+		}
 		canvas.drawLines(points, gridColor);
 
 		drawSuggestiveComposition(canvas);
 		drawSuggestivePowerPoints(canvas);
 	}
 
+	@Override
+	protected void onAttachedToWindow() {
+		toDraw = true;
+		super.onAttachedToWindow();
+	}
+	
+	@Override
+	protected void onDetachedFromWindow() {
+		toDraw = false;
+		invalidate();
+		super.onDetachedFromWindow();
+	}
 }

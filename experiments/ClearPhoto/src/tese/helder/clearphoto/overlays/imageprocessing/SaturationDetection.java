@@ -1,5 +1,6 @@
 package tese.helder.clearphoto.overlays.imageprocessing;
 
+import java.io.ByteArrayOutputStream;
 import java.util.Arrays;
 
 import org.opencv.core.CvType;
@@ -13,24 +14,36 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
+import android.graphics.ImageFormat;
+import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.YuvImage;
 import android.view.HapticFeedbackConstants;
 import android.view.View;
 
 public class SaturationDetection extends ImageProcessingOv {
 	private static final int THRESHOLD = 90;
 
-	private Bitmap icon;
+	private Bitmap grayscale;
 	private boolean refresh;
 	private int previewWidth, previewHeight;
 	private Mat data;
+	private Paint paint;
 //	private Bitmap b;
 	public SaturationDetection(Context context, int previewWidth, int previewHeight, int width, int height) {
 		super(context, width, height);
 		this.previewHeight = previewHeight;
 		this.previewWidth = previewWidth;
-		this.icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_bw_suggestion);
+//		this.icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_bw_suggestion);
 		this.data = new Mat(previewHeight + previewHeight/2, previewWidth, CvType.CV_8UC1);
 		
+		this.paint = new Paint();
+		this.paint.setStyle(Paint.Style.FILL);
+		this.paint.setColor(Color.WHITE);
+		this.paint.setTextSize(100.0f);
 //		b = BitmapFactory.decodeResource(getResources(), R.raw.lolol3);
 //		ByteArrayOutputStream stream = new ByteArrayOutputStream();
 //		b.compress(Bitmap.CompressFormat.PNG, 100, stream);
@@ -42,8 +55,10 @@ public class SaturationDetection extends ImageProcessingOv {
 	@Override
 	protected void onDraw(Canvas canvas) {
 //		canvas.drawBitmap(b, 0, 0, null);
-		if(refresh)
-			canvas.drawBitmap(icon, 0, 0, null);
+		if(refresh) {
+			canvas.drawBitmap(grayscale, width - 200 - 20, height - 150 - 20, null);
+			canvas.drawText("?", width - 20 - 125, height - 20 - 40, paint);
+		}
 	}
 
 	@Override
@@ -51,6 +66,15 @@ public class SaturationDetection extends ImageProcessingOv {
 		data.put(0, 0, Arrays.copyOfRange(data_, 0, data_.length));
 		int avgSaturation = ImageProcessing.getAvgSaturation(data, previewWidth, previewHeight);
 		refresh = avgSaturation < THRESHOLD;
+		if(refresh) {
+			ByteArrayOutputStream outstr = new ByteArrayOutputStream();
+            Rect rect = new Rect(0, 0, previewWidth, previewHeight); 
+            YuvImage yuvimage = new YuvImage(data_, ImageFormat.NV21, previewWidth, previewHeight, null);
+            yuvimage.compressToJpeg(rect, 100, outstr);
+            Bitmap bmpOriginal = BitmapFactory.decodeByteArray(outstr.toByteArray(), 0, outstr.size());
+            bmpOriginal = Bitmap.createScaledBitmap(bmpOriginal, 200, 150, true);
+			grayscale = toGrayscale(bmpOriginal);
+		}
 		this.invalidate();
 	}
 
@@ -71,6 +95,22 @@ public class SaturationDetection extends ImageProcessingOv {
 		};
 	}
 	
+	public Bitmap toGrayscale(Bitmap bmpOriginal)
+	{        
+	    int width, height;
+	    height = bmpOriginal.getHeight();
+	    width = bmpOriginal.getWidth();    
+
+	    Bitmap bmpGrayscale = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
+	    Canvas c = new Canvas(bmpGrayscale);
+	    Paint paint = new Paint();
+	    ColorMatrix cm = new ColorMatrix();
+	    cm.setSaturation(0);
+	    ColorMatrixColorFilter f = new ColorMatrixColorFilter(cm);
+	    paint.setColorFilter(f);
+	    c.drawBitmap(bmpOriginal, 0, 0, paint);
+	    return bmpGrayscale;
+	}
 	 // untested function
     byte [] getNV21(int inputWidth, int inputHeight, Bitmap scaled) {
 

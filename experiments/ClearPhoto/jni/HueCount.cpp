@@ -27,7 +27,7 @@ int HueCounter::getHueCount(Mat& data) {
   }
 
   // Initialize parameters
-  int bins = 20;    // n bins
+  int bins = 12;    // n bins
   float range[] = { 0, 255 };
   const float *ranges[] = { range };
  

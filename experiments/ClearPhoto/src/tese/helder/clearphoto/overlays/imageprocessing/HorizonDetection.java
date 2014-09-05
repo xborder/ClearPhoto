@@ -63,17 +63,17 @@ public class HorizonDetection extends ImageProcessingOv {
 		this.edgePaint = new Paint();
 		this.edgePaint.setStyle(Paint.Style.STROKE);
 		this.edgePaint.setColor(Color.GREEN);
-		this.edgePaint.setStrokeWidth(2);
+		this.edgePaint.setStrokeWidth(4);
 
 		this.colorPaint = new Paint();
 		this.colorPaint.setStyle(Paint.Style.STROKE);
 		this.colorPaint.setColor(Color.BLUE);
-		this.colorPaint.setStrokeWidth(2);
+		this.colorPaint.setStrokeWidth(4);
 
 		this.bothPaint = new Paint();
 		this.bothPaint.setStyle(Paint.Style.STROKE);
 		this.bothPaint.setColor(Color.RED);
-		this.bothPaint.setStrokeWidth(2);
+		this.bothPaint.setStrokeWidth(4);
 
 		this.si = new SensorInformation();
 		this.sm = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
@@ -101,6 +101,8 @@ public class HorizonDetection extends ImageProcessingOv {
 	@Override
 	protected void onDraw(Canvas canvas) {
 		drawLines(canvas, bothCoordinates, bothPaint);
+		drawLines(canvas, colorCoordinates, colorPaint);
+		drawLines(canvas, edgeCoordinates, edgePaint);
 //		if(colorCoordinates != null) {
 //			for(int i = 0; i < 16; i+=6)
 //				canvas.drawLine(colorCoordinates[i+0] * X_RATIO, colorCoordinates[i+1] * Y_RATIO, 
@@ -126,13 +128,14 @@ public class HorizonDetection extends ImageProcessingOv {
 				double xDiff = lines[i+2] - lines[i+0]; double yDiff = lines[i+3] - lines[i+1]; 
 				double angle = Math.toDegrees(Math.atan2(yDiff, xDiff));
 				
-				Log.e(">>>", angle + " " + orientation);
+//				Log.e(">>>", angle + " " + orientation);
 				if((orientation == HORIZONTAL_ORIENTATION && angle > -POS_THRESHOLD && angle < POS_THRESHOLD)
 						|| (orientation == VERTICAL_ORIENTATION && angle > 90-POS_THRESHOLD && angle < 90 + POS_THRESHOLD)) {
 					canvas.drawLine(lines[i+0] * X_RATIO, lines[i+1] * Y_RATIO, 
-							lines[i+2] * X_RATIO, lines[i+3] * Y_RATIO, colorPaint);
+							lines[i+2] * X_RATIO, lines[i+3] * Y_RATIO, color);
+					break;
 				} else {
-					Log.e(">>", "not drawn " + lines[i+0] + " " + lines[i+1]+ " " + lines[i+2]+ " " + lines[i+3]);
+//					Log.e(">>", "not drawn " + lines[i+0] + " " + lines[i+1]+ " " + lines[i+2]+ " " + lines[i+3]);
 				}
 			}
 		}
@@ -143,11 +146,11 @@ public class HorizonDetection extends ImageProcessingOv {
 		if(frame_count != 0)
 			return;
 		data.put(0, 0, Arrays.copyOfRange(data_, 0, data_.length));
-		//		ImageProcessing.detectColorHorizon(nativeAddress, data, canny, colorCoordinates);
+		ImageProcessing.detectColorHorizon(nativeAddr, data, canny, colorCoordinates);
 		//		Log.e(">>>>", "COLOR: \t\t" + Arrays.toString(edgeCoordinates));
-		//		ImageProcessing.detectEdgeHorizon(nativeAddress, data, canny, edgeCoordinates);
+		ImageProcessing.detectEdgeHorizon(nativeAddr, data, canny, edgeCoordinates);
 		//		Log.e(">>>>", "EDGES: \t\t" + Arrays.toString(edgeCoordinates));
-				ImageProcessing.detectColorEdgeHorizon(nativeAddr, data, canny, bothCoordinates);
+		ImageProcessing.detectColorEdgeHorizon(nativeAddr, data, canny, bothCoordinates);
 		//		Log.e(">>>>", "COLOREDGES: \t" + Arrays.toString(edgeCoordinates));
 
 		//		bmp = Bitmap.createBitmap(canny.cols(), canny.rows(), Bitmap.Config.ARGB_8888);
@@ -186,6 +189,10 @@ public class HorizonDetection extends ImageProcessingOv {
 //				Log.e(">>>", "vertical " + x);
 			}
 //						Log.e(">>>", "x: "+ x + " y: "+ y + " z: "+ z);
+			
+
+			float incl = SensorManager.getInclination(mRotationM);
+			Log.w(">>>", ""+(incl*180/Math.PI));
 		}		
 	}
 

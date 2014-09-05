@@ -24,6 +24,7 @@ public abstract class Grid extends Overlay {
 	protected boolean highlightPoints;
 	protected ArrayList<Path> pathsToDraw;
 	protected GridSelectionControl gridSelection;
+	protected boolean toDraw;
 	
 	public Grid(Context context, int width, int height) {
 		super(context, width, height);
@@ -33,6 +34,7 @@ public abstract class Grid extends Overlay {
 		this.gridColor.setStrokeWidth(3f);
 
 		this.pathsToDraw = new ArrayList<Path>();
+		this.toDraw = false;
 	}
 
 	@Override
