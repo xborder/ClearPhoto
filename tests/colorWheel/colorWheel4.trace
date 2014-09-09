@@ -1,0 +1,155 @@
+*version
+3
+data-file-overflow=false
+clock=dual
+elapsed-time-usec=143069
+num-method-calls=592
+clock-call-overhead-nsec=6300
+vm=dalvik
+*threads
+1	main
+11	Binder_3
+10	Binder_2
+9	Binder_1
+8	FinalizerWatchdogDaemon
+7	FinalizerDaemon
+6	ReferenceQueueDaemon
+5	Compiler
+4	JDWP
+3	Signal Catcher
+2	GC
+*methods
+0x574a6a10	org/opencv/core/Mat	getNativeObjAddr	()J	Mat.java	2643
+0x574a6c40	org/opencv/core/Mat	put	(II[B)I	Mat.java	2547
+0x574a71b8	org/opencv/core/Mat	type	()I	Mat.java	2394
+0x574a5118	org/opencv/core/Mat	nPutB	(JIII[B)I	Mat.java	-2
+0x574a6030	org/opencv/core/Mat	n_type	(J)I	Mat.java	-2
+0x57180a20	java/lang/Enum	ordinal	()I	Enum.java	85
+0x57263c50	java/util/Arrays	copyOfRange	([BII)[B	Arrays.java	2690
+0x574a9270	java/util/AbstractMap$SimpleImmutableEntry	getKey	()Ljava/lang/Object;	AbstractMap.java	69
+0x574a91f8	java/util/AbstractMap$SimpleImmutableEntry	<init>	(Ljava/util/Map$Entry;)V	AbstractMap.java	63
+0x57155bd8	java/lang/VMThread	currentThread	()Ljava/lang/Thread;	VMThread.java	-2
+0x571b6a80	android/view/View	getMatrix	()Landroid/graphics/Matrix;	View.java	8970
+0x571b7ea0	android/view/View	invalidate	()V	View.java	10520
+0x571b7f48	android/view/View	invalidate	(Z)V	View.java	-1
+0x571b85d8	android/view/View	isOpaque	()Z	View.java	-1
+0x571b4548	android/view/View	skipInvalidate	()Z	View.java	10426
+0x571ce308	android/view/ViewGroup	invalidateChild	(Landroid/view/View;Landroid/graphics/Rect;)V	ViewGroup.java	4295
+0x571ce378	android/view/ViewGroup	invalidateChildInParent	([ILandroid/graphics/Rect;)Landroid/view/ViewParent;	ViewGroup.java	-1
+0x574a8ca0	tese/helder/clearphoto/overlays/imageprocessing/ColorWheel$1	compare	(Ljava/lang/Object;Ljava/lang/Object;)I	ColorWheel.java	1
+0x574a8cd8	tese/helder/clearphoto/overlays/imageprocessing/ColorWheel$1	compare	(Ltese/helder/clearphoto/overlays/imageprocessing/ColorWheel$WheelTriangle;Ltese/helder/clearphoto/overlays/imageprocessing/ColorWheel$WheelTriangle;)I	ColorWheel.java	53
+0x571d0ae0	android/os/Handler	getLooper	()Landroid/os/Looper;	Handler.java	566
+0x571d0cd8	android/os/Handler	obtainMessage	(IIILjava/lang/Object;)Landroid/os/Message;	Handler.java	247
+0x571d1020	android/os/Handler	sendMessage	(Landroid/os/Message;)Z	Handler.java	383
+0x571d1090	android/os/Handler	sendMessageAtTime	(Landroid/os/Message;J)Z	Handler.java	469
+0x571d10c8	android/os/Handler	sendMessageDelayed	(Landroid/os/Message;J)Z	Handler.java	443
+0x574a7908	tese/helder/clearphoto/ImageProcessing	getHueConcentrarion	(Lorg/opencv/core/Mat;[I[III)V	ImageProcessing.java	30
+0x574a7c50	tese/helder/clearphoto/ImageProcessing	nativeGetHueConcentration	(J[I[III)V	ImageProcessing.java	-2
+0x5720ad80	android/os/Debug	startMethodTracing	(Ljava/lang/String;)V	Debug.java	-1
+0x5720adf0	android/os/Debug	startMethodTracing	(Ljava/lang/String;II)V	Debug.java	490
+0x5720af08	android/os/Debug	stopMethodTracing	()V	Debug.java	536
+0x571d2248	android/graphics/Matrix	isIdentity	()Z	Matrix.java	247
+0x571d1980	android/graphics/Matrix	native_isIdentity	(I)Z	Matrix.java	-2
+0x57187a38	java/util/TreeMap	clear	()V	TreeMap.java	190
+0x57187bc0	java/util/TreeMap	find	(Ljava/lang/Object;Ljava/util/TreeMap$Relation;)Ljava/util/TreeMap$Node;	TreeMap.java	-1
+0x57187fe8	java/util/TreeMap	pollFirstEntry	()Ljava/util/Map$Entry;	TreeMap.java	601
+0x57188058	java/util/TreeMap	put	(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;	TreeMap.java	186
+0x57188090	java/util/TreeMap	putInternal	(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;	TreeMap.java	240
+0x57188100	java/util/TreeMap	removeInternal	(Ljava/util/TreeMap$Node;)V	TreeMap.java	-1
+0x571877c8	java/util/TreeMap	immutableCopy	(Ljava/util/Map$Entry;)Ljava/util/AbstractMap$SimpleImmutableEntry;	TreeMap.java	584
+0x57187800	java/util/TreeMap	internalPollFirstEntry	()Ljava/util/Map$Entry;	TreeMap.java	592
+0x571878a8	java/util/TreeMap	rebalance	(Ljava/util/TreeMap$Node;Z)V	TreeMap.java	460
+0x571878e0	java/util/TreeMap	replaceInParent	(Ljava/util/TreeMap$Node;Ljava/util/TreeMap$Node;)V	TreeMap.java	434
+0x57187918	java/util/TreeMap	rotateLeft	(Ljava/util/TreeMap$Node;)V	TreeMap.java	-1
+0x57187950	java/util/TreeMap	rotateRight	(Ljava/util/TreeMap$Node;)V	TreeMap.java	-1
+0x571605b0	java/lang/Math	max	(II)I	Math.java	-2
+0x57160690	java/lang/Math	min	(II)I	Math.java	-2
+0x574a82f0	tese/helder/clearphoto/overlays/imageprocessing/ColorWheel	process	([B)V	ColorWheel.java	-1
+0x571863b8	java/util/TreeSet	add	(Ljava/lang/Object;)Z	TreeSet.java	113
+0x57186460	java/util/TreeSet	clear	()V	TreeSet.java	143
+0x571867a8	java/util/TreeSet	pollFirst	()Ljava/lang/Object;	TreeSet.java	282
+0x572cedd8	android/os/Message	isInUse	()Z	Message.java	-1
+0x572cea18	android/os/Message	obtain	()Landroid/os/Message;	Message.java	107
+0x572ceaf8	android/os/Message	obtain	(Landroid/os/Handler;IIILjava/lang/Object;)Landroid/os/Message;	Message.java	233
+0x571d4800	android/view/ViewRootImpl	checkThread	()V	ViewRootImpl.java	4996
+0x571d5600	android/view/ViewRootImpl	invalidateChildInParent	([ILandroid/graphics/Rect;)Landroid/view/ViewParent;	ViewRootImpl.java	-1
+0x571d5ad0	android/view/ViewRootImpl	scheduleConsumeBatchedInput	()V	ViewRootImpl.java	4559
+0x571d5b08	android/view/ViewRootImpl	scheduleTraversals	()V	ViewRootImpl.java	1092
+0x5717ea28	java/util/ArrayList	get	(I)Ljava/lang/Object;	ArrayList.java	303
+0x572a6548	java/util/TreeMap$Node	first	()Ljava/util/TreeMap$Node;	TreeMap.java	838
+0x572a6580	java/util/TreeMap$Node	getKey	()Ljava/lang/Object;	TreeMap.java	761
+0x572a65b8	java/util/TreeMap$Node	getValue	()Ljava/lang/Object;	TreeMap.java	765
+0x572a6498	java/util/TreeMap$Node	<init>	(Ljava/util/TreeMap$Node;Ljava/lang/Object;)V	TreeMap.java	741
+0x5715f898	dalvik/system/VMDebug	startGC	()V	VMDebug.java	353
+0x5715f940	dalvik/system/VMDebug	startMethodTracing	(Ljava/lang/String;II)V	VMDebug.java	171
+0x5715fac8	dalvik/system/VMDebug	stopMethodTracing	()V	VMDebug.java	-2
+0x571ef0c0	android/view/Choreographer	postCallback	(ILjava/lang/Runnable;Ljava/lang/Object;)V	Choreographer.java	266
+0x571ef0f8	android/view/Choreographer	postCallbackDelayed	(ILjava/lang/Runnable;Ljava/lang/Object;J)V	Choreographer.java	285
+0x571eec90	android/view/Choreographer	access$500	(Landroid/view/Choreographer;JLjava/lang/Object;Ljava/lang/Object;)Landroid/view/Choreographer$CallbackRecord;	Choreographer.java	68
+0x571eeda8	android/view/Choreographer	obtainCallbackLocked	(JLjava/lang/Object;Ljava/lang/Object;)Landroid/view/Choreographer$CallbackRecord;	Choreographer.java	-1
+0x571eede0	android/view/Choreographer	postCallbackDelayedInternal	(ILjava/lang/Object;Ljava/lang/Object;J)V	Choreographer.java	303
+0x571eee88	android/view/Choreographer	scheduleFrameLocked	(J)V	Choreographer.java	-1
+0x572532e8	android/os/Looper	postSyncBarrier	()I	Looper.java	227
+0x57190930	android/os/SystemClock	uptimeMillis	()J	SystemClock.java	-2
+0x574a8f88	tese/helder/clearphoto/overlays/imageprocessing/ColorWheel$WheelTriangle	setAmount	(F)V	ColorWheel.java	-1
+0x574a8ff8	tese/helder/clearphoto/overlays/imageprocessing/ColorWheel$WheelTriangle	showAmount	(Z)V	ColorWheel.java	173
+0x574a8ea0	tese/helder/clearphoto/overlays/imageprocessing/ColorWheel$WheelTriangle	access$0	(Ltese/helder/clearphoto/overlays/imageprocessing/ColorWheel$WheelTriangle;)F	ColorWheel.java	121
+0x572117e8	android/hardware/Camera	postEventFromNative	(Ljava/lang/Object;IIILjava/lang/Object;)V	Camera.java	873
+0x5715f210	java/lang/ref/Reference	get	()Ljava/lang/Object;	Reference.java	133
+0x571a4068	android/graphics/Rect	intersect	(IIII)Z	Rect.java	377
+0x571a4110	android/graphics/Rect	isEmpty	()Z	Rect.java	175
+0x571a4148	android/graphics/Rect	offset	(II)V	Rect.java	271
+0x571a4260	android/graphics/Rect	set	(IIII)V	Rect.java	244
+0x571a4458	android/graphics/Rect	union	(IIII)V	Rect.java	468
+0x574a75c0	org/opencv/core/CvType	channels	(I)I	CvType.java	67
+0x574a75f8	org/opencv/core/CvType	depth	(I)I	CvType.java	71
+0x5749ea48	android/view/Choreographer$CallbackQueue	addCallbackLocked	(JLjava/lang/Object;Ljava/lang/Object;)V	Choreographer.java	758
+0x571545c8	java/lang/Thread	currentThread	()Ljava/lang/Thread;	Thread.java	476
+0x5720ba60	android/os/MessageQueue	enqueueMessage	(Landroid/os/Message;J)Z	MessageQueue.java	-1
+0x5720ba98	android/os/MessageQueue	enqueueSyncBarrier	(J)I	MessageQueue.java	230
+0x571713f8	java/lang/System	arraycopy	(Ljava/lang/Object;ILjava/lang/Object;II)V	System.java	-2
+*end
+SLOW   ü/-‹                 AùW   ş  
+ ™øW   p1   ñ­ W<   ²1   ­ WC   ¹1   ğ‚JWJ   À1   P<&WO   Å1   WU   Ë1   ‘WX   Î1   ˜øW   Z  
+ è!W®  İc  
+ òW¹  æc  
+ òWÀ  íc  
+ ØWÆ  óc  
+ øê,WË  ùc  
+ ê,WÏ  üc  
+ ê,WØ  d  
+ ùê,WÜ  	d  
+ ÙWß  d  
+  Wâ  d  
+ ÈWæ  d  
+ 0	Wë  d  
+ 1	Wù  'd  
+ Wş  +d  
+ `º W  0d  
+ Øí,W  4d  
+ Ùí,W  9d  
+ aº W  Bd  
+ ‘W  Ed  
+ ÉW  Hd  
+ !W  Jd  
+ é!W   Md   ™øWF@  §   øWÆ  T¨   ùWP  Şª   Q<&WU  âª   @lJWZ  çª   ¸qJW^  ëª   0`JWb  ïª   1`JWk  øª   ¹qJWn  ûª   ÀuJWs   «   ÁuJWw  «   øuJW{  «   ùuJW~  «   QJWƒ  «   QJW¬  =­   AlJW´  A­   yJW»  H­   jJW¾  L­   jJWÂ  O­   P|JWÆ  S­   Q|JW0p Ô'  	yJW8p Ù'  `dW>p ß'  8zWCp å'  9zWHp é'  adWJp ì'  (êWQp ò'  )êWUp ö'  ˆJW]p ÿ'  ‰JWap (  ¸cWdp (  X€Whp 
+(  €Wlp (  À{Wpp (  ˜d*Wp "(  ™d*W„p &(  Á{Wˆp )(  ‘€W‹p ,(  Y€Wp /(  ¹cW‘p 2(  (êW•p 6(  )êW˜p 9(  ˆJW›p =(  ‰JWp @(  ¸cW¡p C(  X€W¤p F(  €W§p I(  À{Wªp L(   ŒJW®p P(  ØŒJW²p T(   JW¶p W(  ¡JW¹p Z(   JW¼p ](  ¡JW¿p `(   JWÃp d(  ¡JWÆp g(   JWÉp j(  ¡JWËp m(  ÙŒJWÎp p(  ¡ŒJWÑp s(   
+WÖp w(  !
+WÙp z(  ˜d*WŞp (  ™d*Wáp ƒ(  ¨xWäp †(  °Wêp Œ(  ±Wîp (  ©xWñp “(  Á{Wôp –(  ‘€W÷p ˜(  Y€Wúp ›(  ¹cWıp (  (êW q ¢(  )êWq ¥(  ˆJWq ¨(  ‰JW
+q «(  ¸cWq ®(  X€Wq ±(  €Wq ´(  À{Wq ·(   ŒJWq »(  ØŒJWq ¾(   JWq À(  ¡JW"q Ã(   JW%q Æ(  ¡JW(q É(   JW+q Ì(  ¡JW-q Ï(   JW0q Ò(  ¡JW3q Õ(  ÙŒJW6q Ø(  ¡ŒJW9q Û(   ŒJW<q Ş(  ØŒJW?q á(   JWBq ä(  ¡JWEq ç(   JWHq ê(  ¡JWKq ì(   JWNq ï(  ¡JWQq ò(   JWTq õ(  ¡JWWq ø(  ÙŒJWZq û(  ¡ŒJW\q ş(   
+W`q )  !
+Wcq )  ˜d*Wgq )  ™d*Wjq )  ¨xWmq )  °Wpq )  ±Wsq )  yWwq )  àxW{q )  áxW~q  )  °Wq #)  ±W„q &)  °W‡q ))  ±WŠq +)  yWq .)  ©xWq 1)  Á{W’q 4)  ‘€W•q 7)  Y€W˜q :)  ¹cW›q =)  (êWq @)  )êW¡q C)  ˆJW¥q F)  ‰JW¨q I)  ¸cW«q L)  X€W®q O)  €W±q R)  À{W´q U)   ŒJW·q Y)  ØŒJWºq [)   JW½q ^)  ¡JWÀq a)   JWÃq d)  ¡JWÆq g)  ÙŒJWÉq j)  ¡ŒJWËq m)   ŒJWÏq p)  ØŒJWÒq s)   JWÕq v)  ¡JW×q y)   JWÚq |)  ¡JWİq )  ÙŒJWàq ‚)  ¡ŒJWãq …)   
+Wæq ˆ)  !
+Wéq ‹)  ˜d*Wîq )  ™d*Wñq ’)  ¨xWôq –)  °W÷q ™)  ±Wúq œ)  °Wşq Ÿ)  ±W r ¢)  ©xWr ¥)  Á{Wr ¨)  ‘€W	r «)  Y€Wr ®)  ¹cWr °)  (êWr ´)  )êWr ·)  ˆJWr º)  ‰JWr ½)  ¸cWr À)  X€W"r Ã)  €W%r Æ)  À{W(r É)   ŒJW+r Í)  ØŒJW.r Ğ)   JW1r Ò)  ¡JW4r Õ)   JW7r Ø)  ¡JW:r Û)   JW=r Ş)  ¡JW?r á)   JWBr ä)  ¡JWEr ç)  ÙŒJWHr ê)  ¡ŒJWKr ì)   ŒJWNr ğ)  ØŒJWQr ó)   JWTr ö)  ¡JWWr ù)   JWZr û)  ¡JW]r ş)  ÙŒJW`r *  ¡ŒJWcr *   
+Wfr *  !
+Wir 
+*  ˜d*Wmr *  ™d*Wpr *  ¨xWsr *  °Wwr *  ±Wzr *  ©xW}r *  Á{W€r !*  ‘€Wƒr $*  Y€W†r '*  ¹cW‰r **  (êWŒr -*  )êWr 0*  ˆJW’r 4*  ‰JW•r 7*  ¸cW˜r :*  X€W›r =*  €Wr @*  À{W¡r C*   ŒJW¤r F*  ØŒJW§r I*   JWªr L*  ¡JW­r O*   JW°r R*  ¡JW³r U*   JW¶r X*  ¡JW¹r [*   JW¼r ]*  ¡JW¿r `*  ÙŒJWÂr c*  ¡ŒJWÅr f*   ŒJWÈr i*  ØŒJWËr l*   JWÎr o*  ¡JWÑr r*   JWÔr u*  ¡JWÖr x*  ÙŒJWÙr {*  ¡ŒJWÜr ~*   ŒJWàr *  ØŒJWãr „*   JWår ‡*  ¡JWèr Š*   JWër *  ¡JWîr *   JWñr “*  ¡JWôr •*   JW÷r ˜*  ¡JWúr ›*  ÙŒJWır *  ¡ŒJWÿr ¡*   
+Ws ¤*  !
+Ws §*  ˜d*W
+s ¬*  ™d*Ws ¯*  ¨xWs ²*  °Ws µ*  ±Ws ¸*  yWs ¼*  àxWs ¿*  áxW s Â*  °W#s Å*  ±W&s È*  °W)s Ë*  ±W,s Í*  yW/s Ğ*  PyW2s Ó*  àxW5s Ö*  áxW8s Ú*  °W;s İ*  ±W>s à*  °WAs â*  ±WDs å*  QyWGs è*  ©xWJs ë*  Á{WLs î*  ‘€WOs ñ*  Y€WRs ô*  ¹cWUs ÷*  ¨gWYs ú*  èW\s ş*   xW`s +  He*Wcs +  Ie*Wgs +   Wjs +  àxWms +  áxWps +  ¨xWss +  °Wws +  ±Wys +  ©xW|s +  Ws !+  xW‚s $+  ÈwW†s '+  ø‘JWŠs ,+  €e*Ws /+  e*W‘s 2+  ¸e*W”s 6+  ¹e*W—s 9+  ù‘JWšs <+  ÉwWs >+  éW s A+  p’JW£s E+  q’JW¦s H+  ©gW©s K+  øJW­s N+  ùJW¯s Q+  ¨gW³s T+  èW¶s W+   xW¸s Z+  He*W»s ]+  Ie*W¾s `+   WÁs c+  àxWÄs f+  áxWÇs i+  ¨xWÊs l+  yWÎs o+  àxWÑs r+  áxWÔs v+  °W×s y+  ±WÚs {+  °Wİs ~+  ±Wàs +  yWãs „+  °Wæs ‡+  ±Wés Š+  ©xWìs +  Wïs +  xWñs “+  ÈwWôs –+  ø‘JWøs š+  €e*Wûs +  e*Wşs  +  ¸e*Wt £+  ¹e*Wt ¦+  ù‘JWt ¨+  ÉwW
+t «+  éWt ®+  p’JWt ±+  q’JWt ´+  ©gWt ·+  øJWt º+  ùJWt ½+  ¨gWt À+  èW!t Ã+   xW$t Æ+  He*W't É+  Ie*W*t Ì+   W-t Ï+  àxW0t Ò+  áxW3t Õ+  ¨xW6t Ø+  ©xW:t Û+  W=t Ş+  xW@t á+  ÈwWBt ä+  ø‘JWFt è+  €e*WIt ë+  e*WLt î+  ¸e*WOt ñ+  ¹e*WRt ô+  ù‘JWUt ÷+  ÉwWXt ù+  éW[t ü+  p’JW^t ÿ+  q’JWat ,  ©gWdt ,  øJWgt ,  ùJWit ,  ¨gWlt ,  èWot ,   xWrt ,  He*Wut ,  Ie*Wxt ,   W{t ,  àxW~t  ,  áxWt #,  ¨xW„t &,  °Wˆt ),  ±WŠt ,,  ©xWt /,  Wt 2,  xW“t 5,  ÈwW–t 8,  ø‘JWšt <,  €e*Wt ?,  e*W t B,  ¸e*W£t E,  ¹e*W¦t H,  ù‘JW©t K,  ÉwW¬t M,  éW¯t P,  p’JW²t S,  q’JWµt V,  ©gW¸t Y,  øJW»t \,  ùJW½t _,  ¨gWÀt b,  èWÃt e,   xWÆt h,  He*WÉt k,  Ie*WÌt n,   WÏt q,  àxWÒt t,  áxWÕt w,  ¨xWØt z,  ©xWÛt },  WŞt €,  xWát ƒ,  ÈwWät …,  ø‘JWèt ‰,  €e*Wët Œ,  e*Wît ,  ¸e*Wñt ’,  ¹e*Wôt •,  ù‘JW÷t ˜,  ÉwWùt ›,  éWüt ,  p’JWÿt ¡,  q’JWu ¤,  ©gWu ¦,  øJWu ª,  ùJWu ¬,  ¨gWu ¯,  èWu ²,   xWu µ,  He*Wu ¸,  Ie*Wu »,   Wu ¾,  àxW u Á,  áxW#u Ä,  ¨xW&u Ç,  ©xW)u Ê,  W,u Í,  xW.u Ğ,  ÈwW1u Ó,  ø‘JW5u ×,  €e*W8u Ú,  e*W;u İ,  ¸e*W>u à,  ¹e*WAu ã,  ù‘JWDu æ,  ÉwWGu è,  éWJu ë,  p’JWMu î,  q’JWPu ñ,  ©gWSu ô,  øJWVu ÷,  ùJWXu ú,   ~W\u ş,  HWau -  HEWdu -  IEWiu 
+-  Ø…Wmu -  Ù…Wqu -  `BWyu -  aBW}u -  ãWƒu $-  €jWˆu )-  jWŒu --  Ø…Wu 0-  Ù…W’u 3-  H"W—u 9-  €W›u <-  W¡u C-  I"W¤u E-  xãWªu L-  HAW¯u P-  IAW³u T-  h@W·u X-  i@Wºu \-  yãW¾u _-  €jWÁu c-  jWÅu f-  H"WÈu i-  €WËu l-  WÎu p-  I"WÑu r-  xãWÕu w-  HAWÙu z-  IAWÜu }-  h@Wßu -  i@Wâu „-  yãWæu ‡-  €jWéu ‹-  jWìu -  H"Wïu ‘-  €Wòu ”-  Wõu —-  I"Wøu š-  xãWıu -  HAW v ¢-  IAWv ¥-  h@Wv ¨-  i@W
+v «-  yãWv ¯-  €jWv ²-  jWv µ-  H"Wv ¸-  €Wv »-  Wv ¿-  I"W v Á-   VW$v Å-   HW(v É-  ÈEW,v Í-  Ø[W/v Ñ-  Ù[W3v Õ-  ÉEW6v Ø-  HW9v Û-  AW<v Ş-  AW@v á-  AWDv æ-  AWGv é-  XDWLv í-  YDWPv ñ-  h@WUv ö-  i@WXv ù-  [W\v ı-  à
+W`v .  á
+Wdv .  è2%Whv 	.  0	Wkv .  1	Wvv .  ˜º Wzv .  ê,W€v ".  ê,W†v '.  ™º W‹v ,.  é2%Wv /.  ÀğW’v 4.  øğW–v 7.  àíWšv ;.  0	Wv ?.  1	W¢v D.  HêIW§v H.  ìWªv L.  ¨íW­v O.  ©íW±v S.  ‘ìW´v V.  IêIW¸v Y.  ˆîW»v \.  ‰îW¾v _.  áíWÁv b.  ùğWÄv e.  ÁğWÆv h.  ĞZWÊv k.  ÀğWÍv o.  øğWĞv r.  àíWÓv u.  0	WÖv x.  1	WÛv |.  HêIWŞv .  ìWáv ‚.  ¨íWäv ….  ©íWçv ‰.  ‘ìWêv ‹.  IêIWív .  ˆîWğv ’.  ‰îWóv •.  áíWöv —.  ùğWùv š.  ÁğWüv .  ÑZWÿv  .  	[Ww £.  VWw ¦.  	ãWw ©.  IW
+w ¬.  ¡~Ww ¯.  ñ‚JWw ².  ¯ Ww µ.  ÈúWw ¹. 

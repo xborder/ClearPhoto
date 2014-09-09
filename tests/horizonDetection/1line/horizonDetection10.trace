@@ -1,0 +1,358 @@
+*version
+3
+data-file-overflow=false
+clock=dual
+elapsed-time-usec=2048823
+num-method-calls=3589
+clock-call-overhead-nsec=5423
+vm=dalvik
+*threads
+1	main
+12	android.hardware.SystemSensorManager$SensorThread
+11	Binder_3
+10	Binder_2
+9	Binder_1
+8	FinalizerWatchdogDaemon
+7	FinalizerDaemon
+6	ReferenceQueueDaemon
+5	Compiler
+4	JDWP
+3	Signal Catcher
+2	GC
+*methods
+0x574a8c10	org/opencv/core/Mat	getNativeObjAddr	()J	Mat.java	2643
+0x574a8e40	org/opencv/core/Mat	put	(II[B)I	Mat.java	2547
+0x574a93b8	org/opencv/core/Mat	type	()I	Mat.java	2394
+0x574a7318	org/opencv/core/Mat	nPutB	(JIII[B)I	Mat.java	-2
+0x574a8230	org/opencv/core/Mat	n_type	(J)I	Mat.java	-2
+0x571a38c0	android/view/DisplayEventReceiver	scheduleVsync	()V	DisplayEventReceiver.java	106
+0x571a37d8	android/view/DisplayEventReceiver	nativeScheduleVsync	(I)V	DisplayEventReceiver.java	-2
+0x57263c50	java/util/Arrays	copyOfRange	([BII)[B	Arrays.java	2690
+0x57155bd8	java/lang/VMThread	currentThread	()Ljava/lang/Thread;	VMThread.java	-2
+0x5718e908	java/lang/AbstractStringBuilder	append0	(C)V	AbstractStringBuilder.java	131
+0x5718f0e8	java/lang/AbstractStringBuilder	toString	()Ljava/lang/String;	AbstractStringBuilder.java	-1
+0x5718e778	java/lang/AbstractStringBuilder	<init>	()V	AbstractStringBuilder.java	74
+0x5718e820	java/lang/AbstractStringBuilder	enlargeBuffer	(I)V	AbstractStringBuilder.java	-1
+0x571b6a80	android/view/View	getMatrix	()Landroid/graphics/Matrix;	View.java	8970
+0x571b7ea0	android/view/View	invalidate	()V	View.java	10520
+0x571b7f48	android/view/View	invalidate	(Z)V	View.java	-1
+0x571b85d8	android/view/View	isOpaque	()Z	View.java	-1
+0x571b4548	android/view/View	skipInvalidate	()Z	View.java	10426
+0x57212af8	android/hardware/SensorManager	getInclination	([F)F	SensorManager.java	-1
+0x57212b68	android/hardware/SensorManager	getOrientation	([F[F)[F	SensorManager.java	-1
+0x57212bd8	android/hardware/SensorManager	getRotationMatrix	([F[F[F[F)Z	SensorManager.java	809
+0x57212c48	android/hardware/SensorManager	remapCoordinateSystem	([FII[F)Z	SensorManager.java	969
+0x57212c80	android/hardware/SensorManager	remapCoordinateSystemImpl	([FII[F)Z	SensorManager.java	998
+0x571ce308	android/view/ViewGroup	invalidateChild	(Landroid/view/View;Landroid/graphics/Rect;)V	ViewGroup.java	4295
+0x571ce378	android/view/ViewGroup	invalidateChildInParent	([ILandroid/graphics/Rect;)Landroid/view/ViewParent;	ViewGroup.java	-1
+0x57263228	java/lang/ThreadLocal$Values	access$000	(Ljava/lang/ThreadLocal$Values;)[Ljava/lang/Object;	ThreadLocal.java	144
+0x57263260	java/lang/ThreadLocal$Values	access$100	(Ljava/lang/ThreadLocal$Values;)I	ThreadLocal.java	144
+0x571d0ae0	android/os/Handler	getLooper	()Landroid/os/Looper;	Handler.java	566
+0x571d1020	android/os/Handler	sendMessage	(Landroid/os/Message;)Z	Handler.java	383
+0x571d1090	android/os/Handler	sendMessageAtTime	(Landroid/os/Message;J)Z	Handler.java	469
+0x571d10c8	android/os/Handler	sendMessageDelayed	(Landroid/os/Message;J)Z	Handler.java	443
+0x574aa178	tese/helder/clearphoto/ImageProcessing	detectColorEdgeHorizon	(JLorg/opencv/core/Mat;Lorg/opencv/core/Mat;[I)V	ImageProcessing.java	58
+0x574aa4f8	tese/helder/clearphoto/ImageProcessing	nativeDetectColorEdgeHorizon	(JJJ[I)V	ImageProcessing.java	-2
+0x572123b8	android/hardware/SystemSensorManager	access$000	()I	SystemSensorManager.java	37
+0x57212690	android/hardware/SystemSensorManager	sensors_data_poll	(I[F[I[J)I	SystemSensorManager.java	-2
+0x571616d0	java/lang/Double	doubleToRawLongBits	(D)J	Double.java	-2
+0x5720ad80	android/os/Debug	startMethodTracing	(Ljava/lang/String;)V	Debug.java	-1
+0x5720adf0	android/os/Debug	startMethodTracing	(Ljava/lang/String;II)V	Debug.java	490
+0x5720af08	android/os/Debug	stopMethodTracing	()V	Debug.java	536
+0x57191090	android/util/Log	println_native	(IILjava/lang/String;Ljava/lang/String;)I	Log.java	-2
+0x571913d8	android/util/Log	w	(Ljava/lang/String;Ljava/lang/String;)I	Log.java	225
+0x571d2248	android/graphics/Matrix	isIdentity	()Z	Matrix.java	247
+0x571d1980	android/graphics/Matrix	native_isIdentity	(I)Z	Matrix.java	-2
+0x57152ad0	java/lang/String	<init>	(II[C)V	String.java	441
+0x574a9e20	android/hardware/SensorEvent	<init>	(I)V	SensorEvent.java	455
+0x57160150	java/lang/Math	asin	(D)D	Math.java	-2
+0x571601c0	java/lang/Math	atan2	(DD)D	Math.java	-2
+0x57160230	java/lang/Math	ceil	(D)D	Math.java	-2
+0x571603b8	java/lang/Math	floor	(D)D	Math.java	-2
+0x57160690	java/lang/Math	min	(II)I	Math.java	-2
+0x571608f8	java/lang/Math	round	(D)J	Math.java	738
+0x57160af0	java/lang/Math	sqrt	(D)D	Math.java	-2
+0x57160b98	java/lang/Math	toDegrees	(D)D	Math.java	991
+0x5719fc90	java/lang/ThreadLocal	get	()Ljava/lang/Object;	ThreadLocal.java	53
+0x5719fda8	java/lang/ThreadLocal	values	(Ljava/lang/Thread;)Ljava/lang/ThreadLocal$Values;	ThreadLocal.java	121
+0x572cedd8	android/os/Message	isInUse	()Z	Message.java	-1
+0x572ceef0	android/os/Message	setAsynchronous	(Z)V	Message.java	398
+0x572ce9a8	android/os/Message	<init>	()V	Message.java	428
+0x572cea18	android/os/Message	obtain	()Landroid/os/Message;	Message.java	107
+0x573b8d60	android/util/SparseBooleanArray	get	(I)Z	SparseBooleanArray.java	66
+0x573b8d98	android/util/SparseBooleanArray	get	(IZ)Z	SparseBooleanArray.java	74
+0x573b8c08	android/util/SparseBooleanArray	binarySearch	([IIII)I	SparseBooleanArray.java	224
+0x571d4800	android/view/ViewRootImpl	checkThread	()V	ViewRootImpl.java	4996
+0x571d5600	android/view/ViewRootImpl	invalidateChildInParent	([ILandroid/graphics/Rect;)Landroid/view/ViewParent;	ViewRootImpl.java	-1
+0x571d5ad0	android/view/ViewRootImpl	scheduleConsumeBatchedInput	()V	ViewRootImpl.java	4559
+0x571d5b08	android/view/ViewRootImpl	scheduleTraversals	()V	ViewRootImpl.java	1092
+0x5717ea28	java/util/ArrayList	get	(I)Ljava/lang/Object;	ArrayList.java	303
+0x5717ead0	java/util/ArrayList	isEmpty	()Z	ArrayList.java	319
+0x5717ec58	java/util/ArrayList	size	()I	ArrayList.java	315
+0x5715f898	dalvik/system/VMDebug	startGC	()V	VMDebug.java	353
+0x5715f940	dalvik/system/VMDebug	startMethodTracing	(Ljava/lang/String;II)V	VMDebug.java	171
+0x5715fac8	dalvik/system/VMDebug	stopMethodTracing	()V	VMDebug.java	-2
+0x574a9f48	android/hardware/SensorManager$SensorEventPool	getFromPool	()Landroid/hardware/SensorEvent;	SensorManager.java	1407
+0x574a9f08	android/hardware/SensorManager$SensorEventPool	createSensorEvent	()Landroid/hardware/SensorEvent;	SensorManager.java	1397
+0x571ef0c0	android/view/Choreographer	postCallback	(ILjava/lang/Runnable;Ljava/lang/Object;)V	Choreographer.java	266
+0x571ef0f8	android/view/Choreographer	postCallbackDelayed	(ILjava/lang/Runnable;Ljava/lang/Object;J)V	Choreographer.java	285
+0x571eec90	android/view/Choreographer	access$500	(Landroid/view/Choreographer;JLjava/lang/Object;Ljava/lang/Object;)Landroid/view/Choreographer$CallbackRecord;	Choreographer.java	68
+0x571eed70	android/view/Choreographer	isRunningOnLooperThreadLocked	()Z	Choreographer.java	593
+0x571eeda8	android/view/Choreographer	obtainCallbackLocked	(JLjava/lang/Object;Ljava/lang/Object;)Landroid/view/Choreographer$CallbackRecord;	Choreographer.java	-1
+0x571eede0	android/view/Choreographer	postCallbackDelayedInternal	(ILjava/lang/Object;Ljava/lang/Object;J)V	Choreographer.java	303
+0x571eee88	android/view/Choreographer	scheduleFrameLocked	(J)V	Choreographer.java	-1
+0x571eeec0	android/view/Choreographer	scheduleVsyncLocked	()V	Choreographer.java	589
+0x5716b4f8	java/lang/RealToString	appendDouble	(Ljava/lang/AbstractStringBuilder;D)V	RealToString.java	63
+0x5716b3a0	java/lang/RealToString	convertDouble	(Ljava/lang/AbstractStringBuilder;D)Ljava/lang/String;	RealToString.java	67
+0x5716b3d8	java/lang/RealToString	freeFormat	(Ljava/lang/AbstractStringBuilder;Z)V	RealToString.java	-1
+0x5716b448	java/lang/RealToString	getInstance	()Ljava/lang/RealToString;	RealToString.java	47
+0x5716b480	java/lang/RealToString	longDigitGenerator	(JIZZI)V	RealToString.java	249
+0x5718dc78	java/lang/StringBuilder	append	(D)Ljava/lang/StringBuilder;	StringBuilder.java	184
+0x5718e6c0	java/lang/StringBuilder	toString	()Ljava/lang/String;	StringBuilder.java	663
+0x5718da40	java/lang/StringBuilder	<init>	()V	StringBuilder.java	54
+0x572532e8	android/os/Looper	postSyncBarrier	()I	Looper.java	227
+0x57253120	android/os/Looper	myLooper	()Landroid/os/Looper;	Looper.java	163
+0x571d9a18	android/util/SparseArray	get	(I)Ljava/lang/Object;	SparseArray.java	73
+0x571d9a50	android/util/SparseArray	get	(ILjava/lang/Object;)Ljava/lang/Object;	SparseArray.java	82
+0x571d9888	android/util/SparseArray	binarySearch	([IIII)I	SparseArray.java	337
+0x57190930	android/os/SystemClock	uptimeMillis	()J	SystemClock.java	-2
+0x574a51d0	tese/helder/clearphoto/overlays/imageprocessing/HorizonDetection	process	([B)V	HorizonDetection.java	-1
+0x574a50e8	tese/helder/clearphoto/overlays/imageprocessing/HorizonDetection	getOrientation	()V	HorizonDetection.java	-1
+0x571a4068	android/graphics/Rect	intersect	(IIII)Z	Rect.java	377
+0x571a4110	android/graphics/Rect	isEmpty	()Z	Rect.java	175
+0x571a4148	android/graphics/Rect	offset	(II)V	Rect.java	271
+0x571a4260	android/graphics/Rect	set	(IIII)V	Rect.java	244
+0x571a4458	android/graphics/Rect	union	(IIII)V	Rect.java	468
+0x574a97c0	org/opencv/core/CvType	channels	(I)I	CvType.java	67
+0x574a97f8	org/opencv/core/CvType	depth	(I)I	CvType.java	71
+0x5749ea48	android/view/Choreographer$CallbackQueue	addCallbackLocked	(JLjava/lang/Object;Ljava/lang/Object;)V	Choreographer.java	758
+0x574a9b38	android/hardware/Sensor	getHandle	()I	Sensor.java	204
+0x574a9c88	android/hardware/Sensor	getType	()I	Sensor.java	163
+0x571545c8	java/lang/Thread	currentThread	()Ljava/lang/Thread;	Thread.java	476
+0x5720ba60	android/os/MessageQueue	enqueueMessage	(Landroid/os/Message;J)Z	MessageQueue.java	-1
+0x5720ba98	android/os/MessageQueue	enqueueSyncBarrier	(J)I	MessageQueue.java	230
+0x571713f8	java/lang/System	arraycopy	(Ljava/lang/Object;ILjava/lang/Object;II)V	System.java	-2
+0x574aac88	android/hardware/SystemSensorManager$ListenerDelegate	hasSensor	(Landroid/hardware/Sensor;)Z	SystemSensorManager.java	272
+0x574aacc0	android/hardware/SystemSensorManager$ListenerDelegate	onSensorChangedLocked	(Landroid/hardware/Sensor;[F[JI)V	SystemSensorManager.java	294
+*end
+SLOW   ¥Y‹ª£                 AùW      ñ­ W      ­ W      ĞQJW      P<&W      W       ‘W#   !   ˜øWC   A   ™øW–3  åD   øW55  ‚F   ùW9  YJ   Q<&W9  ]J   @JW9  cJ   ¸“JW9  gJ   0‚JW!9  kJ   1‚JW,9  vJ   ¹“JW09  yJ   À—JW49  ~J   Á—JW89  J   ø—JW;9  …J   ù—JW>9  ˆJ   sJWC9  ŒJ   sJWó;  @M   AJWú;  DM   x¡JW/<  ÙM   ŒJW6<  İM   ŒJW9<  àM   ŒJW<<  ãM   ŒJW><  åM   ø¤JWB<  éM   ‘&!W   mc   ĞêW   |c   ÑêW   €c   šW    †c   PšW#   ‰c   ˆ˜W(   c   ‰˜W.   ”c   QšW2   ™c   šW5   ›c   XìW9   Ÿc   YìW<   ¢c   (êW?   ¥c   )êWB   ¨c   ˆ¬JWF   ¬c   8›JWI   °c   9›JWL   ²c   `;WP   ¶c   ˜;WS   ¹c   Œ;WV   ¼c   	Œ;WZ   Àc   ™;W\   Âc   a;W_   Åc   ‰¬JWa   Çc   ˆœJWd   Êc   ‰œJWg   Íc   À¬JWj   Ğc   HŸJWn   Ôc   IŸJWr   Øc   ˆœJWu   Ûc   ‰œJWw   Şc   ˆœJW‚   èc   ‰œJW„   êc   ê,Wˆ   îc   ê,W   õc   ğî,W’   øc   ñî,W•   ûc    W™   ÿc   ÈWœ   d   0	WŸ   d   1	W­   d   W°   d   `º W´   d   Øí,W¸   d   Ùí,Wº   !d   aº WØ   >d   ‘WÚ   @d   ÉWÜ   Cd   !Wß   Ed   Á¬JWá   Gd   ¸#!Wå   Kd   ¹#!Wè   Nd   &!Wë   Qd   ‘&!W   g   ĞêW*  ™g   ÑêW-  œg   šW2   g   PšW5  £g   ˆ˜W8  ¦g   ‰˜W;  ªg   QšW?  ­g   šWA  °g   XìWE  ³g   YìWH  ¶g   (êWK  ¹g   )êWM  ¼g   ˆ¬JWP  ¿g   8›JWS  Ág   9›JWV  Äg   `;WY  Çg   ˜;W[  Êg   Œ;W^  Ìg   	Œ;Wa  Ïg   ™;Wc  Òg   a;Wf  Ôg   ‰¬JWh  Ög   ˆœJWk  Ùg   ‰œJWm  Üg   À¬JWp  Şg   HŸJWs  ág   IŸJWv  äg   ˆœJWx  çg   ‰œJW{  ég   ˆœJW  ğg   ‰œJWƒ  òg   ê,W†  ôg   ê,W‹  úg   ğî,W  ıg   ñî,W’   h    W”  h   ÈW–  h   0	W™  h   1	W   h   W£  h   `º W§  h   Øí,W©  h   Ùí,W¬  h   aº W½  +h   ‘W¿  .h   ÉWÁ  0h   !WÄ  2h   Á¬JWÆ  5h   ¸#!WÉ  7h   ¹#!WË  :h   &!WÎ  =h   ‘&!Wş  u`  ĞêW	  }`  ÑêW  €`  šW  „`  PšW  ‡`  ˆ˜W  ‹`  ‰˜W  `  QšW  “`  šW!  •`  XìW%  ™`  YìW'  ›`  (êW*  `  )êW-  ¡`  ˆ¬JW0  ¤`  8›JW3  §`  9›JW5  ©`  `;W9  ­`  ˜;W;  ¯`  Œ;W>  ²`  	Œ;WA  µ`  ™;WD  ¸`  a;WF  º`  ‰¬JWH  ¼`  ˆœJWJ  ¾`  ‰œJWM  Á`  À¬JWP  Ä`  HŸJWS  Ç`  IŸJWW  Ë`  ˆœJWY  Í`  ‰œJW[  Ï`  ˆœJWc  ×`  ‰œJWe  Ù`  ê,Wh  Ü`  ê,Wn  â`  ğî,Wq  å`  ñî,Wt  ç`   Ww  ë`  ÈWy  í`  0	W|  ğ`  1	W…  ù`  Wˆ  ü`  `º WŒ   a  Øí,W  a  Ùí,W‘  a  aº W¨  a  ‘Wª  a  ÉW­  !a  !W¯  #a  Á¬JW±  %a  ¸#!W´  (a  ¹#!W·  +a  &!W¹  -a  ‘&!WÃ  7a  ĞêWÅ  :a  ÑêWÈ  <a  šWÊ  >a  PšWÍ  Aa  ˆ˜WÏ  Ca  ‰˜WÒ  Fa  QšWÔ  Ha  šWÖ  Ja  XìWÙ  Ma  YìWÛ  Oa  (êWİ  Qa  )êWà  Ta  ˆ¬JWâ  Va  8›JWä  Xa  9›JWç  [a  `;Wé  ]a  ˜;Wë  _a  Œ;Wí  aa  	Œ;Wğ  da  ™;Wò  fa  a;Wô  ha  ‰¬JWö  ja  ˆœJWù  ma  ‰œJWû  oa  À¬JWı  qa  HŸJW   ta  IŸJW  va  ˆœJW  ya  ‰œJW  {a  ˆœJW
+  ~a  ‰œJW  €a  ê,W  ‚a  ê,W  …a  ğî,W  ˆa  ñî,W  Ša   W  Œa  ÈW  a  0	W  ‘a  1	W!  •a  W$  ˜a  `º W&  ša  Øí,W(  œa  Ùí,W*  a  aº W4  ¨a  ‘W7  «a  ÉW9  ­a  !W;  ¯a  Á¬JW=  ±a  ¸#!W@  ´a  ¹#!WB  ¶a  &!WD  ¸a  ‘&!W€  l  ĞêW   l  ÑêW  $l  šW–  )l  PšW™  ,l  ˆ˜W  1l  ‰˜W£  7l  QšW§  ;l  šWª  >l  XìW®  Bl  YìW±  Dl  (êW´  Gl  )êW·  Jl  ˆ¬JW»  Nl  8›JW¾  Rl  9›JWÁ  Tl  `;WÅ  Xl  ˜;WÈ  [l  Œ;WË  _l  	Œ;WÎ  bl  ™;WÑ  el  a;WÔ  gl  ‰¬JWÖ  il  ˆœJWØ  ll  ‰œJWÛ  ol  À¬JWŞ  rl  HŸJWâ  ul  IŸJWæ  zl  ˆœJWé  |l  ‰œJWë  l  ˆœJWõ  ‰l  ‰œJWø  ‹l  ê,Wü  l  ê,W  –l  ğî,W  ™l  ñî,W  œl   W  Ÿl  ÈW  ¢l  0	W  ¦l  1	W  «l  W  ®l  `º W  ³l  Øí,W"  ¶l  Ùí,W%  ¹l  aº WC  ×l  ‘WF  Ùl  ÉWH  Ül  !WJ  Şl  Á¬JWM  àl  ¸#!WQ  ål  ¹#!WT  çl  &!WW  êl  ‘&!Wb  õl  ĞêWe  øl  ÑêWg  ûl  šWj  ıl  PšWl   m  ˆ˜Wo  m  ‰˜Wr  m  QšWt  m  šWv  
+m  XìWy  m  YìW|  m  (êW~  m  )êW  m  ˆ¬JWƒ  m  8›JW†  m  9›JWˆ  m  `;WŠ  m  ˜;W   m  Œ;W  "m  	Œ;W’  %m  ™;W”  (m  a;W–  *m  ‰¬JW™  ,m  ˆœJW›  .m  ‰œJW  1m  À¬JW   3m  HŸJW¢  6m  IŸJW¥  8m  ˆœJW§  ;m  ‰œJWª  =m  ˆœJW­  @m  ‰œJW¯  Bm  ê,W²  Em  ê,Wµ  Hm  ğî,W·  Km  ñî,W¹  Mm   W¼  Pm  ÈW¾  Rm  0	WÁ  Tm  1	WÅ  Ym  WÈ  [m  `º WÊ  ^m  Øí,WÌ  `m  Ùí,WÏ  bm  aº WÙ  mm  ‘WÛ  om  ÉWŞ  qm  !Wà  sm  Á¬JWâ  vm  ¸#!Wå  xm  ¹#!Wç  {m  &!Wê  }m  ‘&!W&  nu  ĞêW7  zu  ÑêW<  ~u  šWA  „u  PšWE  ‡u  ˆ˜WI  Œu  ‰˜WO  ’u  QšWT  –u  šWW  ™u  XìW[  u  YìW^   u  (êWa  £u  )êWd  ¦u  ˆ¬JWh  ªu  8›JWk  ®u  9›JWn  °u  `;Wr  ´u  ˜;Wu  ¸u  Œ;Wx  »u  	Œ;W{  ¾u  ™;W~  Áu  a;W  Ãu  ‰¬JWƒ  Åu  ˆœJW†  Èu  ‰œJWˆ  Ëu  À¬JWŒ  Îu  HŸJW  Òu  IŸJW•  ×u  ˆœJW—  Úu  ‰œJWš  Üu  ˆœJW¤  æu  ‰œJW¦  èu  ê,W©  ìu  ê,W°  óu  ğî,W´  öu  ñî,W·  ùu   Wº  ıu  ÈW½   v  0	WÀ  v  1	WÉ  v  WÌ  v  `º WĞ  v  Øí,WÔ  v  Ùí,W×  v  aº Wö  8v  ‘Wø  ;v  ÉWú  =v  !Wı  ?v  Á¬JWÿ  Bv  ¸#!W  Ev  ¹#!W  Hv  &!W  Kv  ‘&!W  Uv  ĞêW  Xv  ÑêW  Zv  šW  ]v  PšW  _v  ˆ˜W  av  ‰˜W"  dv  QšW$  gv  šW'  iv  XìW)  lv  YìW,  nv  (êW.  qv  )êW0  sv  ˆ¬JW3  vv  8›JW5  xv  9›JW8  zv  `;W:  }v  ˜;W=  v  Œ;W?  ‚v  	Œ;WB  „v  ™;WD  ‡v  a;WF  ‰v  ‰¬JWI  ‹v  ˆœJWK  v  ‰œJWM  v  À¬JWP  ’v  HŸJWR  •v  IŸJWU  ˜v  ˆœJWW  šv  ‰œJWZ  œv  ˆœJW]  Ÿv  ‰œJW_  ¢v  ê,Wb  ¤v  ê,We  ¨v  ğî,Wh  ªv  ñî,Wj  ­v   Wm  ¯v  ÈWo  ²v  0	Wq  ´v  1	Wv  ¹v  Wy  »v  `º W{  ¾v  Øí,W}  Àv  Ùí,W€  Âv  aº WŠ  Ív  ‘WŒ  Ïv  ÉW  Ñv  !W‘  Ôv  Á¬JW“  Öv  ¸#!W–  Øv  ¹#!W˜  Ûv  &!W›  İv  ‘&!WÍ  ´}  ĞêWÙ  ½}  ÑêWÜ  Á}  šWá  Å}  PšWã  È}  ˆ˜Wç  Ì}  ‰˜Wì  Ğ}  QšWï  Ô}  šWò  Ö}  XìWõ  Ù}  YìW÷  Ü}  (êWú  ß}  )êWı  â}  ˆ¬JW   å}  8›JW  è}  9›JW  ê}  `;W	  í}  ˜;W  ğ}  Œ;W  ó}  	Œ;W  ö}  ™;W  ù}  a;W  û}  ‰¬JW  p~  ˆœJW1  t~  ‰œJW4  v~  À¬JW7  y~  HŸJW:  }~  IŸJW>  ~  ˆœJWA  ƒ~  ‰œJWC  …~  ˆœJWK  ~  ‰œJWM  ~  ê,WP  ’~  ê,WU  ˜~  ğî,WX  š~  ñî,W[  ~   W^   ~  ÈW`  £~  0	Wc  ¥~  1	Wk  ­~  Wn  °~  `º Wr  ´~  Øí,Wt  ·~  Ùí,Ww  ¹~  aº W  Ò~  ‘W’  Ô~  ÉW”  Ö~  !W–  Ø~  Á¬JW˜  Û~  ¸#!W›  Ş~  ¹#!W  à~  &!W   â~  ‘&!W¬  î~  ĞêW¯  ñ~  ÑêW±  ô~  šW´  ö~  PšW¶  ø~  ˆ˜W¸  ú~  ‰˜W»  ı~  QšW½     šWÀ    XìWÂ    YìWÄ    (êWÇ  	  )êWÉ    ˆ¬JWË    8›JWÍ    9›JWĞ    `;WÒ    ˜;WÔ    Œ;WÖ    	Œ;WÙ    ™;WÛ    a;Wİ    ‰¬JWß  !  ˆœJWá  $  ‰œJWã  &  À¬JWæ  (  HŸJWè  *  IŸJWë  -  ˆœJWí  /  ‰œJWï  1  ˆœJWò  4  ‰œJWô  6  ê,W÷  9  ê,Wú  <  ğî,Wü  >  ñî,Wş  @   W   C  ÈW  E  0	W  G  1	W	  K  W  N  `º W  P  Øí,W  R  Ùí,W  U  aº W  _  ‘W  a  ÉW!  c  !W#  e  Á¬JW%  g  ¸#!W'  j  ¹#!W*  l  &!W,  n  ‘&!W^  ‡  ĞêWi  "‡  ÑêWm  %‡  šWq  *‡  PšWt  -‡  ˆ˜Wx  0‡  ‰˜W}  6‡  QšW  9‡  šWƒ  <‡  XìW†  ?‡  YìW‰  A‡  (êWŒ  D‡  )êW  G‡  ˆ¬JW’  J‡  8›JW•  M‡  9›JW—  P‡  `;W›  S‡  ˜;W  V‡  Œ;W   Y‡  	Œ;W£  \‡  ™;W¦  ^‡  a;W¨  a‡  ‰¬JWª  c‡  ˆœJW­  e‡  ‰œJW¯  h‡  À¬JW²  j‡  HŸJWµ  n‡  IŸJW¹  r‡  ˆœJW»  t‡  ‰œJW¾  v‡  ˆœJWÆ  ‡  ‰œJWÈ  ‡  ê,WË  „‡  ê,WÑ  Š‡  ğî,WÔ  ‡  ñî,W×  ‡   WÚ  “‡  ÈWİ  –‡  0	Wà  ˜‡  1	Wå  ‡  Wè   ‡  `º Wë  ¤‡  Øí,Wî  §‡  Ùí,Wñ  ©‡  aº W	  Ä‡  ‘W	  Æ‡  ÉW	  È‡  !W	  Ê‡  Á¬JW	  Í‡  ¸#!W	  Ğ‡  ¹#!W	  Ò‡  &!W	  Õ‡  ‘&!W%	  Ş‡  ĞêW(	  á‡  ÑêW*	  ã‡  šW-	  å‡  PšW/	  è‡  ˆ˜W1	  ê‡  ‰˜W4	  í‡  QšW6	  ï‡  šW9	  ñ‡  XìW;	  ô‡  YìW=	  ö‡  (êW@	  ø‡  )êWB	  ú‡  ˆ¬JWD	  ı‡  8›JWF	  ÿ‡  9›JWI	  ˆ  `;WK	  ˆ  ˜;WM	  ˆ  Œ;WO	  ˆ  	Œ;WR	  
+ˆ  ™;WT	  ˆ  a;WV	  ˆ  ‰¬JWX	  ˆ  ˆœJWZ	  ˆ  ‰œJW\	  ˆ  À¬JW_	  ˆ  HŸJWa	  ˆ  IŸJWd	  ˆ  ˆœJWf	  ˆ  ‰œJWh	   ˆ  ˆœJWk	  #ˆ  ‰œJWm	  &ˆ  ê,Wo	  (ˆ  ê,Wr	  +ˆ  ğî,Wu	  .ˆ  ñî,Ww	  0ˆ   Wy	  2ˆ  ÈW|	  4ˆ  0	W~	  6ˆ  1	W‚	  ;ˆ  W…	  =ˆ  `º W‡	  @ˆ  Øí,W‰	  Bˆ  Ùí,W‹	  Dˆ  aº W–	  Oˆ  ‘W˜	  Qˆ  ÉWš	  Sˆ  !Wœ	  Uˆ  Á¬JWŸ	  Wˆ  ¸#!W¡	  Yˆ  ¹#!W£	  \ˆ  &!W¥	  ^ˆ  ‘&!WÖ	  ¾  ĞêWâ	  È  ÑêWæ	  Ì  šWë	  Ñ  PšWî	  Ô  ˆ˜Wò	  Ø  ‰˜W÷	  Ü  QšWú	  à  šWı	  ã  XìW 
+  æ  YìW
+  é  (êW
+  ë  )êW
+  î  ˆ¬JW
+  ñ  8›JW
+  ô  9›JW
+  ö  `;W
+  ú  ˜;W
+  ı  Œ;W
+  ÿ  	Œ;W
+    ™;W
+    a;W!
+    ‰¬JW#
+  	  ˆœJW&
+    ‰œJW(
+    À¬JW+
+    HŸJW.
+    IŸJW2
+    ˆœJW4
+    ‰œJW7
+    ˆœJW>
+  $  ‰œJWA
+  &  ê,WD
+  )  ê,WI
+  /  ğî,WL
+  2  ñî,WO
+  5   WR
+  8  ÈWV
+  ;  0	WX
+  >  1	W`
+  F  Wc
+  I  `º Wg
+  L  Øí,Wi
+  O  Ùí,Wl
+  R  aº Wˆ
+  n  ‘WŠ
+  p  ÉWŒ
+  r  !W
+  t  Á¬JW‘
+  v  ¸#!W”
+  z  ¹#!W–
+  |  &!W™
+  ~  ‘&!W¢
+  ˆ  ĞêW¥
+  ‹  ÑêW¨
+    šWª
+    PšW¬
+  ’  ˆ˜W®
+  ”  ‰˜W±
+  —  QšW³
+  ™  šW¶
+  ›  XìW¸
+    YìWº
+     (êW½
+  ¢  )êW¿
+  ¤  ˆ¬JWÁ
+  §  8›JWÃ
+  ©  9›JWÅ
+  «  `;WÈ
+  ­  ˜;WÊ
+  °  Œ;WÌ
+  ²  	Œ;WÎ
+  ´  ™;WÑ
+  ¶  a;WÓ
+  ¹  ‰¬JWÕ
+  »  ˆœJW×
+  ½  ‰œJWÙ
+  ¿  À¬JWÛ
+  Á  HŸJWŞ
+  Ä  IŸJWà
+  Æ  ˆœJWã
+  È  ‰œJWå
+  Ë  ˆœJWè
+  Í  ‰œJWê
+  Ğ  ê,Wì
+  Ò  ê,Wï
+  Õ  ğî,Wò
+  ×  ñî,Wô
+  Ú   Wö
+  Ü  ÈWø
+  Ş  0	Wú
+  à  1	Wÿ
+  å  W  ç  `º W  é  Øí,W  ì  Ùí,W  î  aº W  ù  ‘W  û  ÉW  ı  !W  ÿ  Á¬JW  ‘  ¸#!W  ‘  ¹#!W   ‘  &!W"  ‘  ‘&!WS  š  ĞêW_  ¦š  ÑêWb  ªš  šWg  ®š  PšWi  ±š  ˆ˜Wm  µš  ‰˜Wq  ¹š  QšWu  ½š  šWw  ¿š  XìW{  Âš  YìW}  Åš  (êW€  Èš  )êWƒ  Êš  ˆ¬JW†  Îš  8›JW‰  Ñš  9›JWŒ  Óš  `;W  Öš  ˜;W‘  Ùš  Œ;W”  Üš  	Œ;W—  ßš  ™;Wš  áš  a;Wœ  äš  ‰¬JW  æš  ˆœJW¡  èš  ‰œJW£  ëš  À¬JW¦  íš  HŸJW©  ñš  IŸJW­  õš  ˆœJW°  ÷š  ‰œJW²  ùš  ˆœJWº  ›  ‰œJW¼  ›  ê,W¿  ›  ê,WÅ  ›  ğî,WÈ  ›  ñî,WË  ›   WÎ  ›  ÈWĞ  ›  0	WÓ  ›  1	Wİ  $›  Wß  '›  `º Wã  +›  Øí,Wæ  -›  Ùí,Wè  0›  aº W  M›  ‘W  O›  ÉW	  Q›  !W  S›  Á¬JW  U›  ¸#!W  X›  ¹#!W  [›  &!W  ]›  ‘&!W  f›  ĞêW!  i›  ÑêW$  k›  šW&  n›  PšW(  p›  ˆ˜W*  r›  ‰˜W-  u›  QšW/  w›  šW2  y›  XìW4  |›  YìW6  ~›  (êW8  €›  )êW;  ‚›  ˆ¬JW=  …›  8›JW?  ‡›  9›JWB  ‰›  `;WD  Œ›  ˜;WF  ›  Œ;WH  ›  	Œ;WK  ’›  ™;WM  •›  a;WO  —›  ‰¬JWQ  ™›  ˆœJWS  ››  ‰œJWV  ›  À¬JWX  Ÿ›  HŸJWZ  ¢›  IŸJW]  ¤›  ˆœJW_  §›  ‰œJWa  ©›  ˆœJWd  ¬›  ‰œJWf  ®›  ê,Wi  °›  ê,Wl  ³›  ğî,Wn  ¶›  ñî,Wp  ¸›   Wr  º›  ÈWu  ¼›  0	Ww  ¾›  1	W{  Ã›  W}  Å›  `º W€  Ç›  Øí,W‚  Ê›  Ùí,W„  Ì›  aº W  ×›  ‘W‘  Ù›  ÉW“  Û›  !W•  İ›  Á¬JW˜  ß›  ¸#!Wš  â›  ¹#!Wœ  ä›  &!W  æ›  ‘&!WĞ  j¢  ĞêWÛ  s¢  ÑêWŞ  v¢  šWâ  z¢  PšWå  }¢  ˆ˜Wé  €¢  ‰˜Wí  …¢  QšWğ  ˆ¢  šWò  Š¢  XìWö  ¢  YìWø  ¢  (êWû  “¢  )êWı  •¢  ˆ¬JW   ˜¢  8›JW  ›¢  9›JW  ¢  `;W	  ¡¢  ˜;W  £¢  Œ;W  ¦¢  	Œ;W  ©¢  ™;W  ¬¢  a;W  ®¢  ‰¬JW  °¢  ˆœJW  ²¢  ‰œJW  µ¢  À¬JW   ·¢  HŸJW#  »¢  IŸJW'  ¾¢  ˆœJW)  Á¢  ‰œJW+  Ã¢  ˆœJW3  Ë¢  ‰œJW5  Í¢  ê,W8  Ğ¢  ê,W>  Õ¢  ğî,W@  Ø¢  ñî,WC  Û¢   WF  Ş¢  ÈWI  á¢  0	WL  ã¢  1	WQ  é¢  WT  ì¢  `º WW  ï¢  Øí,WZ  ò¢  Ùí,W\  ô¢  aº Wv  £  ‘Wy  £  ÉW{  £  !W}  £  Á¬JW  £  ¸#!W‚  £  ¹#!W…  £  &!W‡  £  ‘&!W  )£  ĞêW”  +£  ÑêW–  .£  šW˜  0£  PšWš  2£  ˆ˜W  4£  ‰˜WŸ  7£  QšW¢  :£  šW¤  <£  XìW¦  >£  YìW©  @£  (êW«  C£  )êW­  E£  ˆ¬JW¯  G£  8›JW±  I£  9›JW´  L£  `;W¶  N£  ˜;W¸  P£  Œ;Wº  R£  	Œ;W½  U£  ™;W¿  W£  a;WÁ  Y£  ‰¬JWÃ  [£  ˆœJWÅ  ]£  ‰œJWÈ  `£  À¬JWÊ  b£  HŸJWÌ  d£  IŸJWÏ  g£  ˆœJWÑ  i£  ‰œJWÓ  k£  ˆœJWÖ  n£  ‰œJWØ  p£  ê,WÚ  r£  ê,Wİ  u£  ğî,Wà  x£  ñî,Wâ  z£   Wä  |£  ÈWæ  ~£  0	Wé  €£  1	Wí  …£  Wï  ‡£  `º Wñ  ‰£  Øí,Wô  ‹£  Ùí,Wö  £  aº W  ™£  ‘W  ›£  ÉW  £  !W  Ÿ£  Á¬JW	  ¡£  ¸#!W  ¤£  ¹#!W  ¦£  &!W  ¨£  ‘&!WK  Ä«	  ĞêW\  Ñ«	  ÑêWa  Ö«	  šWg  Û«	  PšWj  ß«	  ˆ˜Wn  ã«	  ‰˜Wt  è«	  QšWx  í«	  šW{  ï«	  XìW  ô«	  YìW‚  ÷«	  (êW…  ú«	  )êWˆ  ı«	  ˆ¬JWŒ  ¬	  8›JW  ¬	  9›JW’  ¬	  `;W–  ¬	  ˜;W™  ¬	  Œ;W  ¬	  	Œ;W   ¬	  ™;W£  ¬	  a;W¥  ¬	  ‰¬JW§  ¬	  ˆœJWª  ¬	  ‰œJW­  "¬	  À¬JW°  %¬	  HŸJW´  (¬	  IŸJW¸  -¬	  ˆœJW¼  0¬	  ‰œJW¾  3¬	  ˆœJWÉ  =¬	  ‰œJWË  @¬	  ê,WÏ  C¬	  ê,WÖ  J¬	  ğî,WÙ  N¬	  ñî,WÜ  Q¬	   Wà  U¬	  ÈWã  X¬	  0	Wæ  [¬	  1	Wò  f¬	  Wõ  i¬	  `º Wù  n¬	  Øí,Wü  q¬	  Ùí,Wÿ  t¬	  aº W"  –¬	  ‘W$  ™¬	  ÉW&  ›¬	  !W)  ¬	  Á¬JW+   ¬	  ¸#!W/  £¬	  ¹#!W1  ¦¬	  &!W4  ©¬	  ‘&!W>  ³¬	  ĞêWA  ¶¬	  ÑêWD  ¹¬	  šWF  »¬	  PšWI  ¾¬	  ˆ˜WK  À¬	  ‰˜WN  Ã¬	  QšWQ  Æ¬	  šWT  È¬	  XìWV  Ë¬	  YìWY  Í¬	  (êW\  Ğ¬	  )êW^  Ó¬	  ˆ¬JW`  Õ¬	  8›JWc  ×¬	  9›JWe  Ú¬	  `;Wh  Ü¬	  ˜;Wj  ß¬	  Œ;Wl  á¬	  	Œ;Wo  ä¬	  ™;Wq  æ¬	  a;Wt  è¬	  ‰¬JWv  ë¬	  ˆœJWx  í¬	  ‰œJW{  ï¬	  À¬JW}  ò¬	  HŸJW€  ô¬	  IŸJW‚  ÷¬	  ˆœJW…  ú¬	  ‰œJW‡  ü¬	  ˆœJWŠ  ÿ¬	  ‰œJW  ­	  ê,W  ­	  ê,W’  ­	  ğî,W•  
+­	  ñî,W—  ­	   Wš  ­	  ÈWœ  ­	  0	WŸ  ­	  1	W¤  ­	  W§  ­	  `º W©  ­	  Øí,W«   ­	  Ùí,W®  "­	  aº Wº  .­	  ‘W¼  1­	  ÉW¾  3­	  !WÀ  5­	  Á¬JWÃ  7­	  ¸#!WÅ  :­	  ¹#!WÈ  <­	  &!WÊ  ?­	  ‘&!W
+  |½
+  ĞêW  ˆ½
+  ÑêW  Œ½
+  šW%  ‘½
+  PšW(  ”½
+  ˆ˜W-  ™½
+  ‰˜W2  ½
+  QšW6  £½
+  šW9  ¥½
+  XìW=  ©½
+  YìW?  ¬½
+  (êWC  ¯½
+  )êWF  ²½
+  ˆ¬JWI  ¶½
+  8›JWM  ¹½
+  9›JWP  ¼½
+  `;WT  À½
+  ˜;WW  Ã½
+  Œ;WZ  Æ½
+  	Œ;W]  Ê½
+  ™;W`  Í½
+  a;Wb  Ï½
+  ‰¬JWe  Ñ½
+  ˆœJWg  Ô½
+  ‰œJWj  ×½
+  À¬JWm  Ú½
+  HŸJWr  Ş½
+  IŸJWw  ã½
+  ˆœJWz  æ½
+  ‰œJW|  è½
+  ˆœJW‡  ó½
+  ‰œJW‰  ö½
+  ê,W  ù½
+  ê,W“   ¾
+  ğî,W—  ¾
+  ñî,W™  ¾
+   W  
+¾
+  ÈW   ¾
+  0	W¤  ¾
+  1	W¯  ¾
+  W³  ¾
+  `º W·  #¾
+  Øí,Wº  &¾
+  Ùí,W¼  )¾
+  aº Wß  L¾
+  ‘Wâ  N¾
+  ÉWä  Q¾
+  !Wæ  S¾
+  Á¬JWé  U¾
+  ¸#!Wì  Y¾
+  ¹#!Wï  [¾
+  &!Wò  ^¾
+  ‘&!Wü  i¾
+  ĞêWÿ  l¾
+  ÑêW  o¾
+  šW  q¾
+  PšW  t¾
+  ˆ˜W	  v¾
+  ‰˜W  y¾
+  QšW  {¾
+  šW  ~¾
+  XìW  ¾
+  YìW  ƒ¾
+  (êW  …¾
+  )êW  ˆ¾
+  ˆ¬JW  Š¾
+  8›JW   ¾
+  9›JW#  ¾
+  `;W%  ‘¾
+  ˜;W'  ”¾
+  Œ;W*  –¾
+  	Œ;W,  ™¾
+  ™;W/  ›¾
+  a;W1  ¾
+  ‰¬JW3   ¾
+  ˆœJW6  ¢¾
+  ‰œJW8  ¤¾
+  À¬JW:  §¾
+  HŸJW=  ©¾
+  IŸJW?  ¬¾
+  ˆœJWB  ®¾
+  ‰œJWD  ±¾
+  ˆœJWG  ´¾
+  ‰œJWI  ¶¾
+  ê,WL  ¹¾
+  ê,WO  ¼¾
+  ğî,WR  ¾¾
+  ñî,WT  À¾
+   WV  Ã¾
+  ÈWY  Å¾
+  0	W[  È¾
+  1	W`  Ì¾
+  Wb  Ï¾
+  `º We  Ñ¾
+  Øí,Wg  Ô¾
+  Ùí,Wj  Ö¾
+  aº Wv  â¾
+  ‘Wx  å¾
+  ÉWz  ç¾
+  !W}  é¾
+  Á¬JW  ì¾
+  ¸#!W‚  î¾
+  ¹#!W„  ñ¾
+  &!W†  ó¾
+  ‘&!W·  Á½  ĞêWÁ  É½  ÑêWÅ  Í½  šWÉ  Ñ½  PšWÌ  Ô½  ˆ˜WĞ  ×½  ‰˜WÔ  Ü½  QšWØ  ß½  šWÚ  â½  XìWİ  å½  YìWà  è½  (êWâ  ê½  )êWå  í½  ˆ¬JWè  ğ½  8›JWë  ó½  9›JWí  õ½  `;Wğ  ø½  ˜;Wó  û½  Œ;Wö  ı½  	Œ;Wø   ¾  ™;Wû  ¾  a;Wı  ¾  ‰¬JWÿ  ¾  ˆœJW  
+¾  ‰œJW  ¾  À¬JW  ¾  HŸJW
+  ¾  IŸJW  ¾  ˆœJW  ¾  ‰œJW  ¾  ˆœJW  "¾  ‰œJW  $¾  ê,W  '¾  ê,W$  ,¾  ğî,W'  /¾  ñî,W*  2¾   W-  5¾  ÈW0  8¾  0	W2  :¾  1	W7  ?¾  W:  B¾  `º W>  E¾  Øí,WA  H¾  Ùí,WC  K¾  aº W^  f¾  ‘W`  h¾  ÉWb  j¾  !Wd  l¾  Á¬JWg  o¾  ¸#!Wj  r¾  ¹#!Wl  t¾  &!Wn  v¾  ‘&!Ww  ¾  ĞêWz  ‚¾  ÑêW|  „¾  šW~  †¾  PšW€  ˆ¾  ˆ˜Wƒ  ‹¾  ‰˜W…  ¾  QšWˆ  ¾  šWŠ  ’¾  XìW  ”¾  YìW  —¾  (êW‘  ™¾  )êW“  ›¾  ˆ¬JW•  ¾  8›JW˜  Ÿ¾  9›JWš  ¢¾  `;Wœ  ¤¾  ˜;W  ¦¾  Œ;W   ¨¾  	Œ;W£  «¾  ™;W¥  ­¾  a;W§  ¯¾  ‰¬JW©  ±¾  ˆœJW¬  ³¾  ‰œJW®  ¶¾  À¬JW°  ¸¾  HŸJW²  º¾  IŸJWµ  ½¾  ˆœJW·  ¿¾  ‰œJW¹  Á¾  ˆœJW¼  Ä¾  ‰œJW¾  Æ¾  ê,WÁ  È¾  ê,WÃ  Ë¾  ğî,WÆ  Î¾  ñî,WÈ  Ğ¾   WÊ  Ò¾  ÈWÌ  Ô¾  0	WÏ  Ö¾  1	WÓ  Û¾  WÕ  İ¾  `º W×  ß¾  Øí,WÚ  á¾  Ùí,WÜ  ä¾  aº Wç  ï¾  ‘Wê  ò¾  ÉWì  ô¾  !Wî  ö¾  Á¬JWğ  ø¾  ¸#!Wó  ú¾  ¹#!Wõ  ı¾  &!W÷  ÿ¾  ‘&!W$  ŠÆ  ĞêW0  “Æ  ÑêW3  –Æ  šW8  ›Æ  PšW;  Æ  ˆ˜W>  ¡Æ  ‰˜WC  ¦Æ  QšWG  ªÆ  šWI  ¬Æ  XìWL  ¯Æ  YìWO  ²Æ  (êWR  ´Æ  )êWT  ·Æ  ˆ¬JWW  ºÆ  8›JWZ  ½Æ  9›JW]  ÀÆ  `;W`  ÃÆ  ˜;Wb  ÅÆ  Œ;We  ÈÆ  	Œ;Wh  ËÆ  ™;Wk  ÍÆ  a;Wm  ĞÆ  ‰¬JWo  ÒÆ  ˆœJWr  ÔÆ  ‰œJWt  ×Æ  À¬JWv  ÙÆ  HŸJWz  ÜÆ  ŸJW}  àÆ   JWŠ  íÆ  !JW  óÆ  	ŸJW’  õÆ  IŸJW•  ÷Æ  ˆœJW—  úÆ  ‰œJW™  üÆ  ˆœJW¡  Ç  ‰œJW£  Ç  ê,W¦  Ç  ê,W«  Ç  ğî,W­  Ç  ñî,W°  Ç   W³  Ç  ÈW¶  Ç  0	W¸  Ç  1	WÀ  #Ç  WÃ  &Ç  `º WÆ  )Ç  Øí,WÉ  ,Ç  Ùí,WÌ  /Ç  aº Wè  KÇ  ‘Wê  MÇ  ÉWí  OÇ  !Wï  RÇ  Á¬JWñ  TÇ  ¸#!Wô  WÇ  ¹#!W÷  YÇ  &!Wù  \Ç  ‘&!W  fÇ  ĞêW  iÇ  ÑêW  kÇ  šW  nÇ  PšW  pÇ  ˆ˜W  rÇ  ‰˜W  uÇ  QšW  wÇ  šW  yÇ  XìW  |Ç  YìW  ~Ç  (êW  €Ç  )êW   ƒÇ  ˆ¬JW"  …Ç  8›JW$  ‡Ç  9›JW'  ‰Ç  `;W)  ŒÇ  ˜;W+  Ç  Œ;W-  Ç  	Œ;W0  ’Ç  ™;W2  •Ç  a;W4  —Ç  ‰¬JW6  ™Ç  ˆœJW8  ›Ç  ‰œJW:  Ç  À¬JW=  ŸÇ  HŸJW?  ¢Ç  ŸJWA  ¤Ç   JWE  ¨Ç  !JWH  «Ç  	ŸJWK  ­Ç  IŸJWM  ¯Ç  ˆœJWO  ²Ç  ‰œJWQ  ´Ç  ˆœJWT  ·Ç  ‰œJWV  ¹Ç  ê,WX  »Ç  ê,W[  ¾Ç  ğî,W]  ÀÇ  ñî,W`  ÂÇ   Wb  ÅÇ  ÈWd  ÇÇ  0	Wf  ÉÇ  1	Wk  ÎÇ  Wm  ĞÇ  `º Wo  ÒÇ  Øí,Wq  ÔÇ  Ùí,Wt  ÖÇ  aº W€  âÇ  ‘W‚  åÇ  ÉW„  çÇ  !W†  éÇ  Á¬JWˆ  ëÇ  ¸#!W‹  íÇ  ¹#!W  ïÇ  &!W  òÇ  ‘&!WÁ  6Ğ  ĞêWÎ  ?Ğ  ÑêWÒ  CĞ  šW×  GĞ  PšWÚ  JĞ  ˆ˜Wİ  NĞ  ‰˜Wâ  RĞ  QšWæ  VĞ  šWè  XĞ  XìWë  \Ğ  YìWî  ^Ğ  (êWğ  aĞ  )êWó  cĞ  ˆ¬JWö  gĞ  8›JWù  iĞ  9›JWü  lĞ  `;Wÿ  oĞ  ˜;W  rĞ  Œ;W  uĞ  	Œ;W  xĞ  ™;W
+  zĞ  a;W  |Ğ  ‰¬JW  ~Ğ  ˆœJW  Ğ  ‰œJW  ƒĞ  À¬JW  †Ğ  HŸJW  ‰Ğ  ŸJW  Ğ   JW$  •Ğ  !JW)  ™Ğ  	ŸJW+  ›Ğ  IŸJW-  Ğ  ˆœJW0   Ğ  ‰œJW2  ¢Ğ  ˆœJW:  «Ğ  ‰œJW=  ­Ğ  ê,W?  °Ğ  ê,WE  µĞ  ğî,WH  ¸Ğ  ñî,WK  »Ğ   WN  ¾Ğ  ÈWP  ÁĞ  0	WS  ÃĞ  1	W]  ÎĞ  W`  ÑĞ  `º Wd  ÔĞ  Øí,Wg  ×Ğ  Ùí,Wi  ÙĞ  aº W‰  ùĞ  ‘W‹  ûĞ  ÉW  şĞ  !W   Ñ  Á¬JW’  Ñ  ¸#!W•  Ñ  ¹#!W—  Ñ  &!Wš  
+Ñ  ‘&!W¤  Ñ  ĞêW§  Ñ  ÑêW©  Ñ  šW¬  Ñ  PšW®  Ñ  ˆ˜W°   Ñ  ‰˜W³  #Ñ  QšWµ  &Ñ  šW·  (Ñ  XìWº  *Ñ  YìW¼  ,Ñ  (êW¾  /Ñ  )êWÁ  1Ñ  ˆ¬JWÃ  3Ñ  8›JWÅ  5Ñ  9›JWÇ  8Ñ  `;WÊ  :Ñ  ˜;WÌ  <Ñ  Œ;WÎ  >Ñ  	Œ;WÑ  AÑ  ™;WÓ  CÑ  a;WÕ  EÑ  ‰¬JW×  GÑ  ˆœJWÙ  JÑ  ‰œJWÛ  LÑ  À¬JWŞ  NÑ  HŸJWà  PÑ  ŸJWâ  SÑ   JWæ  VÑ  !JWê  [Ñ  	ŸJWì  ]Ñ  IŸJWî  _Ñ  ˆœJWñ  aÑ  ‰œJWó  cÑ  ˆœJWö  fÑ  ‰œJWø  hÑ  ê,Wú  kÑ  ê,Wı  mÑ  ğî,W   pÑ  ñî,W  rÑ   W  tÑ  ÈW  vÑ  0	W  yÑ  1	W  }Ñ  W  Ñ  `º W  ‚Ñ  Øí,W  „Ñ  Ùí,W  †Ñ  aº W"  ’Ñ  ‘W$  ”Ñ  ÉW&  –Ñ  !W(  ˜Ñ  Á¬JW*  ›Ñ  ¸#!W-  Ñ  ¹#!W/  ŸÑ  &!W1  ¢Ñ  ‘&!We  LÙ  ĞêWr  UÙ  ÑêWu  YÙ  šWz  ]Ù  PšW}  `Ù  ˆ˜W€  dÙ  ‰˜W…  hÙ  QšWˆ  lÙ  šW‹  nÙ  XìW  qÙ  YìW‘  tÙ  (êW”  wÙ  )êW–  yÙ  ˆ¬JW™  }Ù  8›JWœ  €Ù  9›JWŸ  ‚Ù  `;W¢  …Ù  ˜;W¥  ˆÙ  Œ;W§  ‹Ù  	Œ;Wª  Ù  ™;W­  Ù  a;W¯  ’Ù  ‰¬JW±  ”Ù  ˆœJW´  —Ù  ‰œJW¶  ™Ù  À¬JW¹  œÙ  HŸJW¼  ŸÙ  ŸJWÀ  £Ù   JWÈ  «Ù  !JWÌ  °Ù  	ŸJWÎ  ²Ù  IŸJWĞ  ´Ù  ˆœJWÓ  ¶Ù  ‰œJWÕ  ¸Ù  ˆœJWİ  ÁÙ  ‰œJWà  ÃÙ  ê,Wâ  ÆÙ  ê,Wè  ËÙ  ğî,Wê  ÎÙ  ñî,Wí  ĞÙ   Wğ  ÓÙ  ÈWó  ÖÙ  0	Wö  ÙÙ  1	Wû  ßÙ  Wş  âÙ  `º W  åÙ  Øí,W  èÙ  Ùí,W  êÙ  aº W(  Ú  ‘W*  Ú  ÉW,  Ú  !W/  Ú  Á¬JW1  Ú  ¸#!W4  Ú  ¹#!W6  Ú  &!W9  Ú  ‘&!WC  'Ú  ĞêWF  *Ú  ÑêWI  ,Ú  šWK  .Ú  PšWM  1Ú  ˆ˜WP  3Ú  ‰˜WR  6Ú  QšWU  8Ú  šWW  :Ú  XìWY  =Ú  YìW\  ?Ú  (êW^  AÚ  )êW`  CÚ  ˆ¬JWb  FÚ  8›JWd  HÚ  9›JWg  JÚ  `;Wi  LÚ  ˜;Wk  NÚ  Œ;Wm  QÚ  	Œ;Wp  SÚ  ™;Wr  UÚ  a;Wt  WÚ  ‰¬JWv  YÚ  ˆœJWx  \Ú  ‰œJWz  ^Ú  À¬JW}  `Ú  HŸJW  bÚ  ŸJW  eÚ   JW…  iÚ  !JW‰  lÚ  	ŸJW‹  oÚ  IŸJW  qÚ  ˆœJW  sÚ  ‰œJW’  uÚ  ˆœJW”  xÚ  ‰œJW—  zÚ  ê,W™  |Ú  ê,Wœ  Ú  ğî,W  Ú  ñî,W   „Ú   W£  †Ú  ÈW¥  ˆÚ  0	W§  ŠÚ  1	W«  Ú  W­  ‘Ú  `º W°  “Ú  Øí,W²  •Ú  Ùí,W´  —Ú  aº WÀ  ¤Ú  ‘WÂ  ¦Ú  ÉWÅ  ¨Ú  !WÇ  ªÚ  Á¬JWÉ  ¬Ú  ¸#!WË  ¯Ú  ¹#!WÎ  ±Ú  &!WĞ  ³Ú  ‘&!W  “ã  ĞêW  œã  ÑêW   ã  šW  ¥ã  PšW  ¨ã  ˆ˜W  «ã  ‰˜W"  °ã  QšW%  ´ã  šW(  ¶ã  XìW+  ºã  YìW.  ¼ã  (êW0  ¿ã  )êW3  Âã  ˆ¬JW6  Åã  8›JW9  Èã  9›JW<  Êã  `;W?  Îã  ˜;WB  Ñã  Œ;WE  Óã  	Œ;WH  Öã  ™;WJ  Ùã  a;WL  Ûã  ‰¬JWO  İã  ˆœJWQ  àã  ‰œJWS  âã  À¬JWV  åã  HŸJWY  èã  ŸJW]  ëã   JWk  úã  !JWr   ä  	ŸJWt  ä  IŸJWv  ä  ˆœJWy  ä  ‰œJW{  	ä  ˆœJWƒ  ä  ‰œJW…  ä  ê,Wˆ  ä  ê,W  ä  ğî,W  ä  ñî,W“  "ä   W–  %ä  ÈW™  (ä  0	Wœ  *ä  1	W¥  4ä  W©  7ä  `º W¬  ;ä  Øí,W¯  =ä  Ùí,W±  @ä  aº WÒ  aä  ‘WÔ  cä  ÉW×  eä  !WÙ  gä  Á¬JWÛ  jä  ¸#!WŞ  mä  ¹#!Wá  oä  &!Wã  rä  ‘&!Wí  {ä  ĞêWğ  ~ä  ÑêWò  €ä  šWô  ƒä  PšW÷  …ä  ˆ˜Wù  ‡ä  ‰˜Wü  Šä  QšWş  Œä  šW   ä  XìW  ‘ä  YìW  “ä  (êW  •ä  )êW	  ˜ä  ˆ¬JW  šä  8›JW  œä  9›JW  ä  `;W  ¡ä  ˜;W  £ä  Œ;W  ¥ä  	Œ;W  ¨ä  ™;W  ªä  a;W  ¬ä  ‰¬JW   ®ä  ˆœJW"  °ä  ‰œJW$  ²ä  À¬JW&  µä  HŸJW(  ·ä  ŸJW+  ¹ä   JW/  ½ä  !JW2  Àä  	ŸJW4  Ãä  IŸJW6  Åä  ˆœJW9  Çä  ‰œJW;  Éä  ˆœJW>  Ìä  ‰œJW@  Îä  ê,WB  Ñä  ê,WE  Ôä  ğî,WH  Öä  ñî,WJ  Øä   WL  Ûä  ÈWN  İä  0	WQ  ßä  1	WU  ãä  WW  æä  `º WY  èä  Øí,W\  êä  Ùí,W^  ìä  aº Wj  ùä  ‘Wl  ûä  ÉWn  ıä  !Wq  ÿä  Á¬JWs  å  ¸#!Wu  å  ¹#!Ww  å  &!Wy  å  ‘&!W¨  ë  ĞêW³  ë  ÑêW¶  ë  šW»  ë  PšW½  "ë  ˆ˜WÁ  %ë  ‰˜WÅ  *ë  QšWÈ  -ë  šWË  /ë  XìWÎ  3ë  YìWĞ  5ë  (êWÓ  8ë  )êWÖ  :ë  ˆ¬JWÙ  =ë  8›JWÛ  @ë  9›JWŞ  Cë  `;Wá  Fë  ˜;Wä  Hë  Œ;Wæ  Kë  	Œ;Wê  Në  ™;Wì  Që  a;Wî  Së  ‰¬JWğ  Uë  ˆœJWó  Wë  ‰œJWõ  Zë  À¬JWø  \ë  HŸJWû  _ë  ŸJWş  cë   JW  jë  !JW	  në  	ŸJW  pë  IŸJW  rë  ˆœJW  uë  ‰œJW  wë  ˆœJW  ~ë  ‰œJW  €ë  ê,W  ƒë  ê,W#  ˆë  ğî,W&  ‹ë  ñî,W)  ë   W,  ë  ÈW.  “ë  0	W1  –ë  1	W9  ë  W<  ¡ë  `º W?  ¤ë  Øí,WB  §ë  Ùí,WE  ©ë  aº Wc  Çë  ‘We  Éë  ÉWg  Ëë  !Wi  êí  Á¬JW…  ğí  ¸#!WŠ  õí  ¹#!W  ùí  &!W  ûí  ‘&!W£  î  ĞêW§  î  ÑêW©  î  šW¬  î  PšW®  î  ˆ˜W°  î  ‰˜W´  î  QšW¶  !î  šW¸  #î  XìW»  &î  YìW¾  )î  (êWÀ  +î  )êWÃ  .î  ˆ¬JWÅ  0î  8›JWÇ  2î  9›JWÊ  5î  `;WÌ  7î  ˜;WÎ  9î  Œ;WÑ  <î  	Œ;WÓ  >î  ™;WÖ  Aî  a;WØ  Cî  ‰¬JWÚ  Eî  ˆœJWÜ  Gî  ‰œJWŞ  Iî  À¬JWá  Lî  HŸJWã  Nî  ŸJWæ  Qî   JWí  Xî  !JWñ  \î  	ŸJWó  ^î  IŸJWõ  `î  ˆœJW÷  bî  ‰œJWù  eî  ˆœJWş  iî  ‰œJW  lî  ê,W  nî  ê,W  rî  ğî,W	  tî  ñî,W  wî   W  yî  ÈW  |î  0	W  ~î  1	W  …î  W  ‡î  `º W  Šî  Øí,W!  î  Ùí,W$  î  aº W7  ¢î  ‘W:  ¥î  ÉW<  §î  !W>  ©î  Á¬JW@  «î  ¸#!WC  ®î  ¹#!WE  °î  &!WG  ²î  ‘&!WŠ  oõ  ĞêWš  |õ  ÑêW  õ  šW¤  …õ  PšW§  ˆõ  ˆ˜W«  Œõ  ‰˜W±  ’õ  QšW¶  —õ  šW¸  ™õ  XìW¼  õ  YìW¿   õ  (êWÂ  £õ  )êWÅ  ¦õ  ˆ¬JWÉ  ªõ  8›JWÌ  ­õ  9›JWÏ  °õ  `;WÓ  ´õ  ˜;WÖ  ·õ  Œ;WÙ  ºõ  	Œ;WÜ  ¾õ  ™;Wß  Àõ  a;Wâ  Ãõ  ‰¬JWä  Åõ  ˆœJWç  Èõ  ‰œJWé  Êõ  À¬JWí  Îõ  HŸJWñ  Òõ  ŸJWõ  Öõ   JWş  àõ  !JW  äõ  	ŸJW  æõ  IŸJW  éõ  ˆœJW
+  ëõ  ‰œJW  îõ  ˆœJW  øõ  ‰œJW  ûõ  ê,W  şõ  ê,W$  ö  ğî,W'  ö  ñî,W*  ö   W.  ö  ÈW1  ö  0	W4  ö  1	W:  ö  W=  ö  `º WA  "ö  Øí,WD  %ö  Ùí,WG  (ö  aº Wq  Rö  ‘Ws  Tö  ÉWv  Wö  !Wx  Yö  Á¬JW{  \ö  ¸#!W~  _ö  ¹#!W  bö  &!W„  eö  ‘&!W  rö  ĞêW“  tö  ÑêW–  wö  šW˜  yö  PšW›  |ö  ˆ˜W  ~ö  ‰˜W   ö  QšW¢  „ö  šW¥  †ö  XìW§  ‰ö  YìWª  ‹ö  (êW¬  ö  )êW¯  ö  ˆ¬JW±  ’ö  8›JW´  •ö  9›JW¶  —ö  `;W¸  ™ö  ˜;W»  œö  Œ;W½  ö  	Œ;WÀ  ¡ö  ™;WÂ  £ö  a;WÄ  ¥ö  ‰¬JWÇ  ¨ö  ˆœJWÉ  ªö  ‰œJWË  ¬ö  À¬JWÎ  ¯ö  HŸJWĞ  ±ö  ŸJWÓ  ´ö   JWÖ  ·ö  !JWÚ  »ö  	ŸJWÜ  ½ö  IŸJWŞ  ¿ö  ˆœJWá  Âö  ‰œJWã  Äö  ˆœJWæ  Çö  ‰œJWè  Éö  ê,Wë  Ìö  ê,Wî  Ïö  ğî,Wğ  Ñö  ñî,Wó  Ôö   Wõ  Öö  ÈW÷  Øö  0	Wú  Ûö  1	Wÿ  àö  W  âö  `º W  åö  Øí,W  çö  Ùí,W	  êö  aº W  ÷ö  ‘W  ùö  ÉW  ûö  !W  şö  Á¬JW   ÷  ¸#!W!  ÷  ¹#!W$  ÷  &!W&  ÷  ‘&!WZ  ıı  ĞêWe  ş  ÑêWi  
+ş  šWn  ş  PšWp  ş  ˆ˜Wt  ş  ‰˜Wx  ş  QšW|  ş  šW~  ş  XìW‚  "ş  YìW„  $ş  (êW‡  'ş  )êWŠ  *ş  ˆ¬JW  -ş  8›JW  0ş  9›JW’  2ş  `;W•  6ş  ˜;W˜  8ş  Œ;W›  ;ş  	Œ;W  >ş  ™;W   Aş  a;W¢  Cş  ‰¬JW¥  Eş  ˆœJW§  Gş  ‰œJW©  Jş  À¬JW¬  Mş  HŸJW¯  Pş  ŸJW³  Sş   JWÀ  `ş  !JWÅ  eş  	ŸJWÇ  hş  IŸJWÉ  jş  ˆœJWÌ  lş  ‰œJWÎ  nş  ˆœJWÖ  vş  ‰œJWØ  xş  ê,WÛ  {ş  ê,Wà  ş  ğî,Wä  „ş  ñî,Wæ  ‡ş   Wé  Šş  ÈWì  Œş  0	Wï  ş  1	Wù  ™ş  Wû  œş  `º Wÿ  Ÿş  Øí,W  ¢ş  Ùí,W  ¤ş  aº W%  Åş  ‘W'  Çş  ÉW)  Éş  !W+  Ìş  Á¬JW-  Îş  ¸#!W0  Ñş  ¹#!W3  Óş  &!W5  Õş  ‘&!W?  àş  ĞêWB  âş  ÑêWD  åş  šWG  çş  PšWI  éş  ˆ˜WK  ëş  ‰˜WN  îş  QšWP  ñş  šWR  óş  XìWU  õş  YìWW  øş  (êWZ  úş  )êW\  üş  ˆ¬JW^  şş  8›JW`  ÿ  9›JWc  ÿ  `;We  ÿ  ˜;Wg  ÿ  Œ;Wi  
+ÿ  	Œ;Wl  ÿ  ™;Wn  ÿ  a;Wp  ÿ  ‰¬JWr  ÿ  ˆœJWu  ÿ  ‰œJWw  ÿ  À¬JWy  ÿ  HŸJW{  ÿ  ŸJW~  ÿ   JW  "ÿ  !JW„  $ÿ  	ŸJW†  'ÿ  IŸJWˆ  )ÿ  ˆœJW‹  +ÿ  ‰œJW  -ÿ  ˆœJW  0ÿ  ‰œJW’  2ÿ  ê,W”  4ÿ  ê,W—  7ÿ  ğî,Wš  :ÿ  ñî,Wœ  <ÿ   W  >ÿ  ÈW   Aÿ  0	W£  Cÿ  1	W§  Gÿ  W©  Iÿ  `º W«  Lÿ  Øí,W®  Nÿ  Ùí,W°  Pÿ  aº W½  ]ÿ  ‘W¿  _ÿ  ÉWÁ  aÿ  !WÃ  cÿ  Á¬JWÅ  eÿ  ¸#!WÇ  hÿ  ¹#!WÊ  jÿ  &!WÌ  lÿ  ‘&!Wü  ¸  ĞêW  À  ÑêW
+  Ã  šW  Ç  PšW  Ê  ˆ˜W  Î  ‰˜W  Ò  QšW  Ö  šW  Ø  XìW#  Ü  YìW%  Ş  (êW(  á  )êW+  ä  ˆ¬JW.  ç  8›JW0  ê  9›JW3  ì  `;W6  ï  ˜;W9  ò  Œ;W<  õ  	Œ;W>  ø  ™;WA  ú  a;WC  ü  ‰¬JWE  ş  ˆœJWH    ‰œJWJ    À¬JWM    HŸJWP  	  ŸJWS     JW[    !JW_    	ŸJWa    IŸJWd    ˆœJWf    ‰œJWh  !  ˆœJWp  )  ‰œJWr  +  ê,Wu  .  ê,Wz  3  ğî,W}  6  ñî,W€  9   W‚  <  ÈW…  >  0	Wˆ  A  1	W  I  W“  L  `º W–  O  Øí,W™  R  Ùí,W›  U  aº W¼  u  ‘W¾  w  ÉWÀ  z  !WÃ  |  Á¬JWÅ  ~  ¸#!WÈ    ¹#!WÊ  ƒ  &!WÍ  †  ‘&!W×    ĞêWÚ  “  ÑêWÜ  –  šWß  ˜  PšWá  š  ˆ˜Wã    ‰˜Wæ  Ÿ  QšWé  ¢  šWë  ¤  XìWí  ¦  YìWï  ¨  (êWò  «  )êWô  ­  ˆ¬JWö  ¯  8›JWø  ±  9›JWû  ´  `;Wı  ¶  ˜;Wÿ  ¸  Œ;W   º  	Œ;W   ½  ™;W   ¿  a;W   Á  ‰¬JW
+   Ã  ˆœJW   Å  ‰œJW   È  À¬JW   Ê  HŸJW   Ì  ŸJW   Ï   JW   Ó  !JW   Ö  	ŸJW   Ø  IŸJW!   Ú  ˆœJW#   Ü  ‰œJW%   Ş  ˆœJW(   á  ‰œJW*   ã  ê,W,   å  ê,W/   é  ğî,W2   ë  ñî,W4   í   W6   ï  ÈW9   ò  0	W;   ô  1	W?   ø  WB   û  `º WD   ı  Øí,WF   ÿ  Ùí,WI     aº WV     ‘WX     ÉWZ     !W]     Á¬JW_     ¸#!Wa     ¹#!Wc     &!Wf     ‘&!W—   &  ĞêW¢   /  ÑêW¦   3  šWª   7  PšW­   :  ˆ˜W°   =  ‰˜Wµ   B  QšW¸   E  šW»   H  XìW¾   K  YìWÁ   M  (êWÃ   P  )êWÆ   S  ˆ¬JWÉ   V  8›JWÌ   Y  9›JWÎ   [  `;WÑ   ^  ˜;WÔ   a  Œ;W×   d  	Œ;WÚ   g  ™;WÜ   i  a;WŞ   k  ‰¬JWá   m  ˆœJWã   p  ‰œJWå   r  À¬JWè   u  HŸJWë   x  ŸJWï   {   JW÷   „  !JWû   ˆ  	ŸJWı   Š  IŸJWÿ   Œ  ˆœJW!    ‰œJW!    ˆœJW!  ™  ‰œJW!  ›  ê,W!    ê,W!  £  ğî,W!  ¦  ñî,W!  ¨   W!  «  ÈW!!  ®  0	W$!  ±  1	W)!  ¶  W-!  ¹  `º W0!  ½  Øí,W3!  ¿  Ùí,W5!  Â  aº WW!  ä  ‘WY!  æ  ÉW\!  è  !W^!  ë  Á¬JW`!  í  ¸#!Wc!  ğ  ¹#!We!  ò  &!Wh!  õ  ‘&!Wr!  ÿ  ĞêWu!    ÑêWw!    šWz!    PšW|!  	  ˆ˜W~!    ‰˜W!    QšWƒ!    šW…!    XìWˆ!    YìWŠ!    (êW!    )êW!    ˆ¬JW‘!    8›JW“!     9›JW–!  "  `;W˜!  %  ˜;Wš!  '  Œ;Wœ!  )  	Œ;WŸ!  ,  ™;W¡!  .  a;W£!  0  ‰¬JW¥!  2  ˆœJW§!  4  ‰œJWª!  6  À¬JW¬!  9  HŸJW®!  ;  ŸJW°!  =   JW´!  A  !JW·!  D  	ŸJW¹!  F  IŸJW¼!  H  ˆœJW¾!  K  ‰œJWÀ!  M  ˆœJWÃ!  P  ‰œJWÅ!  R  ê,WÇ!  T  ê,WÊ!  W  ğî,WÍ!  Y  ñî,WÏ!  \   WÑ!  ^  ÈWÓ!  `  0	WÖ!  b  1	WÚ!  g  Wİ!  i  `º Wß!  l  Øí,Wá!  n  Ùí,Wã!  p  aº Wñ!  ~  ‘Wó!  €  ÉWõ!  ‚  !W÷!  „  Á¬JWù!  †  ¸#!Wü!  ‰  ¹#!Wş!  ‹  &!W "    ‘&!WB"  ó  ĞêWS"     ÑêWY"    šW_"    PšWb"    ˆ˜Wg"    ‰˜Wm"    QšWr"    šWt"     XìWy"  %  YìW|"  (  (êW"  +  )êW‚"  .  ˆ¬JW†"  2  8›JW‰"  5  9›JWŒ"  8  `;W‘"  =  ˜;W”"  @  Œ;W—"  D  	Œ;W›"  G  ™;W"  J  a;W "  L  ‰¬JW¢"  O  ˆœJW¥"  R  ‰œJW¨"  T  À¬JW¬"  X  HŸJW°"  \  ŸJWµ"  a   JWË"  x  !JWÓ"    	ŸJWÕ"  ‚  IŸJWØ"  „  ˆœJWÚ"  ‡  ‰œJWİ"  ‰  ˆœJWè"  •  ‰œJWë"  —  ê,Wî"  š  ê,Wö"  £  ğî,Wú"  ¦  ñî,Wı"  ©   W#  ®  ÈW#  ±  0	W#  µ  1	W#  Ã  W#  Æ  `º W#  Ë  Øí,W"#  Î  Ùí,W%#  Ñ  aº WW#    ‘WY#    ÉW[#    !W]#  
+  Á¬JWa#    ¸#!We#    ¹#!Wh#    &!Wj#    ‘&!Ww#  $  ĞêW{#  (  ÑêW~#  *  šW#  -  PšWƒ#  /  ˆ˜W…#  2  ‰˜Wˆ#  5  QšW‹#  7  šW#  9  XìW#  =  YìW“#  ?  (êW•#  A  )êW˜#  D  ˆ¬JWš#  G  8›JW#  I  9›JWŸ#  L  `;W¢#  N  ˜;W¤#  P  Œ;W¦#  S  	Œ;W©#  U  ™;W¬#  X  a;W®#  Z  ‰¬JW°#  \  ˆœJW²#  _  ‰œJWµ#  a  À¬JW·#  c  HŸJWº#  f  ŸJW¼#  i   JWÀ#  l  !JWÃ#  o  	ŸJWÆ#  r  IŸJWÈ#  t  ˆœJWÊ#  w  ‰œJWÍ#  y  ˆœJWĞ#  |  ‰œJWÒ#  ~  ê,WÕ#    ê,WØ#  „  ğî,WÚ#  †  ñî,Wİ#  ‰   Wß#  ‹  ÈWá#    0	Wä#    1	Wè#  •  Wë#  —  `º Wí#  ™  Øí,Wğ#  œ  Ùí,Wò#    aº W $  ¬  ‘W$  ¯  ÉW$  ±  !W$  ´  Á¬JW
+$  ¶  ¸#!W$  ¹  ¹#!W$  »  &!W$  ½  ‘&!W[$  #  ĞêWl$  #  ÑêWq$  "#  šWw$  (#  PšWz$  ,#  ˆ˜W$  0#  ‰˜W…$  6#  QšW‰$  ;#  šWŒ$  =#  XìW$  B#  YìW“$  E#  (êW–$  H#  )êW™$  K#  ˆ¬JW$  O#  8›JW¡$  R#  9›JW¤$  U#  `;W¨$  Y#  ˜;W«$  \#  Œ;W®$  _#  	Œ;W²$  c#  ™;Wµ$  f#  a;W·$  h#  ‰¬JW¹$  k#  ˆœJW¼$  n#  ‰œJW¿$  p#  À¬JWÂ$  s#  HŸJWÆ$  w#  ŸJWÊ$  |#   JWÖ$  ‡#  !JWÚ$  Œ#  	ŸJWİ$  #  IŸJWß$  #  ˆœJWâ$  “#  ‰œJWä$  •#  ˆœJWï$  ¡#  ‰œJWò$  £#  ê,Wõ$  ¦#  ê,Wü$  ®#  ğî,W %  ±#  ñî,W%  µ#   W%  ¹#  ÈW%  ¼#  0	W%  ¿#  1	W%  Í#  W%  Ğ#  `º W#%  Õ#  Øí,W'%  Ø#  Ùí,W*%  Û#  aº W\%  $  ‘W^%  $  ÉW`%  $  !Wb%  $  Á¬JWe%  $  ¸#!Wi%  $  ¹#!Wk%  $  &!Wn%  $  ‘&!W|%  -$  ĞêW%  1$  ÑêW‚%  3$  šW„%  6$  PšW‡%  8$  ˆ˜W‰%  :$  ‰˜WŒ%  =$  QšW%  @$  šW‘%  C$  XìW”%  E$  YìW–%  H$  (êW™%  J$  )êWœ%  M$  ˆ¬JW%  O$  8›JW %  R$  9›JW£%  T$  `;W¥%  W$  ˜;W¨%  Y$  Œ;Wª%  [$  	Œ;W­%  ^$  ™;W¯%  a$  a;W²%  c$  ‰¬JW´%  e$  ˆœJW¶%  h$  ‰œJW¹%  j$  À¬JW»%  l$  HŸJW½%  o$  ŸJWÀ%  q$   JWÅ%  v$  !JWÈ%  y$  	ŸJWÊ%  {$  IŸJWÌ%  ~$  ˆœJWÏ%  €$  ‰œJWÑ%  ƒ$  ˆœJWÕ%  †$  ‰œJW×%  ˆ$  ê,WÙ%  ‹$  ê,WÜ%  $  ğî,Wà%  ‘$  ñî,Wâ%  ”$   Wå%  –$  ÈWç%  ˜$  0	Wé%  ›$  1	Wî%  Ÿ$  Wğ%  ¢$  `º Wó%  ¤$  Øí,Wõ%  §$  Ùí,Wø%  ©$  aº W&  ¸$  ‘W	&  º$  ÉW&  ¼$  !W&  ¾$  Á¬JW&  Á$  ¸#!W&  Ã$  ¹#!W&  Æ$  &!W&  È$  ‘&!WM&  ¾+  ĞêWX&  Æ+  ÑêW\&  Ê+  šW`&  Î+  PšWc&  Ñ+  ˆ˜Wg&  Õ+  ‰˜Wl&  Ù+  QšWo&  İ+  šWq&  ß+  XìWt&  â+  YìWw&  å+  (êWz&  è+  )êW|&  ê+  ˆ¬JW€&  í+  8›JW‚&  ğ+  9›JW…&  ó+  `;Wˆ&  ö+  ˜;W‹&  ù+  Œ;W&  ü+  	Œ;W‘&  ÿ+  ™;W“&  ,  a;W•&  ,  ‰¬JW˜&  ,  ˆœJWš&  ,  ‰œJW&  
+,  À¬JWŸ&  ,  HŸJW¢&  ,  ŸJW¦&  ,   JW®&  ,  !JW²&   ,  	ŸJW´&  ",  IŸJW¶&  $,  ˆœJW¹&  ',  ‰œJW»&  ),  ˆœJWÃ&  1,  ‰œJWÆ&  3,  ê,WÈ&  6,  ê,WÎ&  <,  ğî,WÑ&  ?,  ñî,WÔ&  B,   W×&  E,  ÈWÚ&  G,  0	WÜ&  J,  1	Wâ&  P,  Wå&  S,  `º Wè&  V,  Øí,Wë&  Y,  Ùí,Wî&  \,  aº W'  ‚,  ‘W'  „,  ÉW'  †,  !W'  ‰,  Á¬JW'  ‹,  ¸#!W '  ,  ¹#!W#'  ,  &!W%'  “,  ‘&!W/'  ,  ĞêW2'   ,  ÑêW5'  ¢,  šW7'  ¥,  PšW9'  §,  ˆ˜W;'  ©,  ‰˜W>'  ¬,  QšW@'  ®,  šWB'  °,  XìWE'  ³,  YìWG'  µ,  (êWI'  ·,  )êWK'  ¹,  ˆ¬JWN'  ¼,  8›JWP'  ¾,  9›JWR'  À,  `;WT'  Â,  ˜;WW'  Å,  Œ;WY'  Ç,  	Œ;W['  É,  ™;W^'  Ì,  a;W`'  Î,  ‰¬JWb'  Ğ,  ˆœJWd'  Ò,  ‰œJWf'  Ô,  À¬JWh'  Ö,  HŸJWk'  Ù,  ŸJWm'  Û,   JWq'  ß,  !JWt'  â,  	ŸJWv'  ä,  IŸJWx'  æ,  ˆœJW{'  é,  ‰œJW}'  ë,  ˆœJW€'  í,  ‰œJW‚'  ğ,  ê,W„'  ò,  ê,W‡'  õ,  ğî,W‰'  ÷,  ñî,WŒ'  ú,   W'  ü,  ÈW'  ş,  0	W’'   -  1	W—'  -  W™'  -  `º W›'  	-  Øí,W'  -  Ùí,W '  -  aº W®'  -  ‘W°'  -  ÉW²'   -  !W´'  "-  Á¬JW·'  $-  ¸#!W¹'  '-  ¹#!W»'  )-  &!W½'  +-  ‘&!W(  H7  ĞêW(  V7  ÑêW(  [7  šW(  a7  PšW"(  d7  ˆ˜W&(  i7  ‰˜W,(  o7  QšW1(  t7  šW4(  v7  XìW8(  {7  YìW;(  ~7  (êW>(  7  )êWA(  ƒ7  ˆ¬JWE(  ˆ7  8›JWI(  Œ7  9›JWL(  7  `;WP(  “7  ˜;WS(  –7  Œ;WW(  ™7  	Œ;WZ(  7  ™;W](   7  a;W`(  ¢7  ‰¬JWb(  ¥7  ˆœJWe(  ¨7  ‰œJWh(  «7  À¬JWk(  ®7  HŸJWo(  ²7  ŸJWt(  ¶7   JW‰(  Ë7  !JW(  Ó7  	ŸJW’(  Õ7  IŸJW•(  ×7  ˆœJW—(  Ú7  ‰œJWš(  Ü7  ˆœJW¦(  è7  ‰œJW¨(  ë7  ê,W«(  î7  ê,W³(  ö7  ğî,W·(  ù7  ñî,Wº(  ü7   W¾(   8  ÈWÁ(  8  0	WÄ(  8  1	WÑ(  8  WÕ(  8  `º WÙ(  8  Øí,Wİ(   8  Ùí,Wà(  "8  aº W)  X8  ‘W)  Z8  ÉW)  \8  !W)  _8  Á¬JW)  a8  ¸#!W")  e8  ¹#!W%)  h8  &!W()  k8  ‘&!W5)  w8  ĞêW8)  z8  ÑêW:)  }8  šW=)  8  PšW?)  ‚8  ˆ˜WB)  „8  ‰˜WE)  ˆ8  QšWH)  Š8  šWJ)  8  XìWM)  8  YìWO)  ’8  (êWQ)  ”8  )êWT)  —8  ˆ¬JWW)  ™8  8›JWY)  œ8  9›JW\)  8  `;W^)  ¡8  ˜;Wa)  £8  Œ;Wc)  ¦8  	Œ;Wf)  ¨8  ™;Wh)  «8  a;Wj)  ­8  ‰¬JWm)  ¯8  ˆœJWo)  ²8  ‰œJWq)  ´8  À¬JWt)  ·8  HŸJWw)  ¹8  ŸJWy)  ¼8   JW~)  Á8  !JW)  Ä8  	ŸJW„)  Æ8  IŸJW†)  É8  ˆœJWˆ)  Ë8  ‰œJW‹)  Í8  ˆœJW)  Ñ8  ‰œJW)  Ó8  ê,W“)  Õ8  ¨é,W˜)  Û8  ©é,W›)  Ş8  ê,W)  à8  ğî,W )  ã8  ñî,W£)  å8   W¥)  è8  ÈW§)  ê8  0	Wí)  09  1	Wó)  79  Wö)  99  `º Wù)  <9  Øí,Wü)  >9  Ùí,Wş)  A9  aº W*  P9  ‘W*  S9  ÉW*  U9  !W*  W9  Á¬JW*  Z9  ¸#!W*  \9  ¹#!W*  _9  &!W*  a9  ‘&!Wd*  „?  ĞêWt*  ?  ÑêWx*  “?  šW~*  ™?  PšW‚*  œ?  ˆ˜W‡*  ¡?  ‰˜W*  ¨?  QšW’*  ¬?  šW”*  ¯?  XìW™*  ³?  YìWœ*  ¶?  (êWŸ*  ¹?  )êW¡*  ¼?  ˆ¬JW¥*  À?  8›JW©*  Ã?  9›JW«*  Æ?  `;W¯*  Ê?  ˜;W²*  Í?  Œ;Wµ*  Ğ?  	Œ;W¹*  Ó?  ™;W»*  Ö?  a;W¾*  Ø?  ‰¬JWÀ*  Û?  ˆœJWÃ*  İ?  ‰œJWÆ*  à?  À¬JWÉ*  ã?  HŸJWÌ*  ç?  ŸJWĞ*  ë?   JWÛ*  õ?  !JWß*  ú?  	ŸJWâ*  ü?  IŸJWä*  ş?  ˆœJWæ*  @  ‰œJWé*  @  ˆœJWô*  @  ‰œJWö*  @  ê,Wù*  @  ¨é,W +  @  ©é,W+  @  ê,W+   @  ğî,W	+  #@  ñî,W+  &@   W+  *@  ÈW+  -@  0	W+  0@  1	W#+  >@  W'+  A@  `º W++  E@  Øí,W.+  I@  Ùí,W1+  K@  aº Wa+  {@  ‘Wc+  }@  ÉWe+  €@  !Wg+  ‚@  Á¬JWj+  „@  ¸#!Wn+  ˆ@  ¹#!Wp+  ‹@  &!Ws+  @  ‘&!W~+  ™@  ĞêW+  œ@  ÑêW„+  @  šW†+  ¡@  PšW‰+  £@  ˆ˜W‹+  ¦@  ‰˜W+  ©@  QšW‘+  «@  šW“+  ®@  XìW–+  °@  YìW˜+  ³@  (êW›+  µ@  )êW+  ¸@  ˆ¬JW +  º@  8›JW¢+  ½@  9›JW¥+  ¿@  `;W§+  Â@  ˜;Wª+  Ä@  Œ;W¬+  Ç@  	Œ;W¯+  É@  ™;W±+  Ì@  a;W³+  Î@  ‰¬JW¶+  Ğ@  ˆœJW¸+  Ó@  ‰œJWº+  Õ@  À¬JW½+  ×@  HŸJW¿+  Ú@  ŸJWÂ+  Ü@   JWÅ+  à@  !JWÉ+  ã@  	ŸJWË+  æ@  IŸJWÍ+  è@  ˆœJWĞ+  ê@  ‰œJWÒ+  í@  ˆœJWÕ+  ğ@  ‰œJW×+  ò@  ê,WÚ+  ô@  ¨é,WŞ+  ø@  ©é,Wà+  û@  ê,Wã+  ı@  ğî,Wå+   A  ñî,Wç+  A   Wê+  A  ÈWì+  A  0	Wï+  	A  1	Wô+  A  Wö+  A  `º Wù+  A  Øí,Wû+  A  Ùí,Wı+  A  aº W,  'A  ‘W,  )A  ÉW,  +A  !W,  -A  Á¬JW,  0A  ¸#!W,  2A  ¹#!W,  5A  &!W,  7A  ‘&!WO,  pG  ĞêWZ,  yG  ÑêW],  |G  šWb,  €G  PšWd,  ƒG  ˆ˜Wh,  ‡G  ‰˜Wl,  ‹G  QšWp,  G  šWr,  ‘G  XìWu,  ”G  YìWx,  —G  (êW{,  ™G  )êW},  œG  ˆ¬JW,  ŸG  8›JWƒ,  ¢G  9›JW†,  ¥G  `;W‰,  ¨G  ˜;WŒ,  «G  Œ;W,  ­G  	Œ;W‘,  °G  ™;W”,  ³G  a;W–,  µG  ‰¬JW˜,  ·G  ˆœJW›,  ¹G  ‰œJW,  ¼G  À¬JW ,  ¾G  HŸJW£,  ÂG  ŸJW¦,  ÅG   JW®,  ÌG  !JW²,  ĞG  	ŸJW´,  ÓG  IŸJW¶,  ÕG  ˆœJW¸,  ×G  ‰œJW»,  ÙG  ˆœJWÂ,  áG  ‰œJWÅ,  ãG  ê,WÇ,  æG  ¨é,WÍ,  ìG  ©é,WĞ,  ïG  ê,WÒ,  ñG  ğî,WÕ,  óG  ñî,W×,  öG   WÚ,  ùG  ÈWİ,  üG  0	Wà,  şG  1	Wå,  H  Wè,  H  `º Wë,  
+H  Øí,Wî,  H  Ùí,Wñ,  H  aº W-  4H  ‘W-  6H  ÉW-  8H  !W-  :H  Á¬JW-  =H  ¸#!W!-  @H  ¹#!W$-  aH  &!WF-  eH  ‘&!WQ-  pH  ĞêWT-  sH  ÑêWV-  uH  šWY-  wH  PšW[-  zH  ˆ˜W]-  |H  ‰˜W`-  H  QšWc-  H  šWe-  „H  XìWg-  †H  YìWj-  ˆH  (êWl-  ‹H  )êWn-  H  ˆ¬JWq-  H  8›JWs-  ’H  9›JWu-  ”H  `;Ww-  –H  ˜;Wy-  ˜H  Œ;W|-  šH  	Œ;W~-  H  ™;W€-  ŸH  a;W‚-  ¡H  ‰¬JW…-  £H  ˆœJW‡-  ¦H  ‰œJW‰-  ¨H  À¬JW‹-  ªH  HŸJW-  ¬H  ŸJW-  ¯H   JW”-  ³H  !JW—-  ¶H  	ŸJW™-  ¸H  IŸJW›-  ºH  ˆœJW-  ¼H  ‰œJW -  ¾H  ˆœJW¢-  ÁH  ‰œJW¥-  ÃH  ê,W§-  ÆH  ¨é,W«-  ÊH  ©é,W­-  ÌH  ê,W¯-  ÎH  ğî,W²-  ĞH  ñî,W´-  ÓH   W¶-  ÕH  ÈW¸-  ×H  0	W»-  ÙH  1	W¿-  ŞH  WÁ-  àH  `º WÄ-  âH  Øí,WÆ-  åH  Ùí,WÈ-  çH  aº W×-  öH  ‘WÙ-  øH  ÉWÛ-  úH  !Wİ-  üH  Á¬JWà-  şH  ¸#!Wâ-  I  ¹#!Wä-  I  &!Wç-  I  ‘&!W#.  çP  ĞêW4.  ôP  ÑêW9.  ùP  šW>.  ÿP  PšWA.  Q  ˆ˜WF.  Q  ‰˜WK.  Q  QšWO.  Q  šWR.  Q  XìWV.  Q  YìWY.  Q  (êW\.  Q  )êW_.  Q  ˆ¬JWc.  #Q  8›JWg.  'Q  9›JWi.  *Q  `;Wm.  -Q  ˜;Wp.  1Q  Œ;Ws.  4Q  	Œ;Ww.  7Q  ™;Wy.  :Q  a;W|.  <Q  ‰¬JW~.  >Q  ˆœJW.  BQ  ‰œJW„.  DQ  À¬JW‡.  GQ  HŸJW‹.  KQ  ŸJW.  OQ   JW¤.  dQ  !JW«.  kQ  	ŸJW­.  mQ  IŸJW¯.  pQ  ˆœJW².  rQ  ‰œJW´.  uQ  ˆœJW¿.  Q  ‰œJWÁ.  ‚Q  ê,WÅ.  …Q  ¨é,WË.  ŒQ  ©é,WÎ.  Q  ê,WÑ.  ‘Q  ğî,WÔ.  ”Q  ñî,W×.  —Q   WÛ.  ›Q  ÈWİ.  Q  0	Wà.  ¡Q  1	Wê.  ªQ  Wí.  ®Q  `º Wò.  ²Q  Øí,Wõ.  µQ  Ùí,Wø.  ¸Q  aº W)/  éQ  ‘W+/  ëQ  ÉW-/  îQ  !W0/  ğQ  Á¬JW2/  óQ  ¸#!W6/  öQ  ¹#!W9/  ùQ  &!W;/  üQ  ‘&!WG/  R  ĞêWJ/  R  ÑêWM/  R  šWO/  R  PšWR/  R  ˆ˜WT/  R  ‰˜WW/  R  QšWZ/  R  šW\/  R  XìW_/  R  YìWa/  !R  (êWd/  $R  )êWf/  &R  ˆ¬JWh/  )R  8›JWk/  +R  9›JWm/  .R  `;Wp/  0R  ˜;Wr/  3R  Œ;Wu/  5R  	Œ;Ww/  8R  ™;Wz/  :R  a;W|/  <R  ‰¬JW~/  ?R  ˆœJW/  AR  ‰œJWƒ/  CR  À¬JW†/  FR  HŸJWˆ/  HR  ŸJW‹/  KR   JW/  OR  !JW‘/  RR  	ŸJW”/  TR  IŸJW–/  VR  ˆœJW™/  YR  ‰œJW›/  [R  ˆœJW/  _R  ‰œJW¡/  aR  ê,W£/  dR  ¨é,W§/  hR  ©é,Wª/  jR  ê,W¬/  lR  ğî,W®/  oR  ñî,W±/  qR   W³/  tR  ÈW¶/  vR  0	W¸/  xR  1	W½/  }R  W¿/  €R  `º WÂ/  ‚R  Øí,WÄ/  …R  Ùí,WÇ/  ‡R  aº WÖ/  –R  ‘WØ/  ˜R  ÉWÚ/  ›R  !Wİ/  R  Á¬JWß/   R  ¸#!Wâ/  ¢R  ¹#!Wä/  ¥R  &!Wç/  §R  ‘&!W(0  ]  ĞêW60  ]  ÑêW;0  ]  šW@0  ]  PšWC0  ]  ˆ˜WG0   ]  ‰˜WM0  &]  QšWQ0  *]  šWT0  -]  XìWX0  1]  YìWZ0  4]  (êW]0  7]  )êW`0  :]  ˆ¬JWe0  >]  8›JWh0  A]  9›JWk0  D]  `;Wn0  H]  ˜;Wr0  K]  Œ;Wu0  N]  	Œ;Wx0  Q]  ™;W{0  U]  a;W~0  W]  ‰¬JW€0  Y]  ˆœJWƒ0  \]  ‰œJW…0  _]  À¬JWˆ0  b]  HŸJWŒ0  e]  ŸJW0  i]   JWš0  s]  !JWŸ0  x]  	ŸJW¡0  {]  IŸJW¤0  }]  ˆœJW¦0  €]  ‰œJW©0  ‚]  ˆœJW³0  Œ]  ‰œJWµ0  ]  ê,W¹0  ’]  ¨é,W¿0  ™]  ©é,WÃ0  œ]  ê,WÅ0  ]  ğî,WÈ0  ¡]  ñî,WË0  ¤]   WÎ0  ¨]  ÈWÑ0  «]  0	WÔ0  ®]  1	Wá0  »]  Wä0  ¾]  `º Wé0  Â]  Øí,Wì0  Æ]  Ùí,Wï0  È]  aº W!1  ú]  ‘W#1  ı]  ÉW&1  ÿ]  !W(1  ^  Á¬JW*1  ^  ¸#!W.1  ^  ¹#!W11  
+^  &!W41  ^  ‘&!W@1  ^  ĞêWC1  ^  ÑêWE1  ^  šWH1  !^  PšWJ1  #^  ˆ˜WL1  &^  ‰˜WO1  )^  QšWR1  +^  šWT1  .^  XìWW1  0^  YìWY1  3^  (êW\1  5^  )êW^1  8^  ˆ¬JWa1  :^  8›JWc1  =^  9›JWf1  ?^  `;Wh1  A^  ˜;Wj1  D^  Œ;Wm1  F^  	Œ;Wo1  I^  ™;Wr1  K^  a;Wt1  N^  ‰¬JWv1  P^  ˆœJWy1  R^  ‰œJW{1  T^  À¬JW~1  W^  HŸJW€1  Y^  ŸJWƒ1  \^   JW‡1  `^  !JWŠ1  c^  	ŸJWŒ1  f^  IŸJW1  h^  ˆœJW‘1  j^  ‰œJW“1  m^  ˆœJW–1  p^  ‰œJW™1  r^  ê,W›1  t^  ¨é,WŸ1  x^  ©é,W¢1  {^  ê,W¤1  }^  ğî,W¦1  €^  ñî,W©1  ‚^   W«1  „^  ÈW­1  ‡^  0	W°1  ‰^  1	W´1  ^  W·1  ^  `º W¹1  ’^  Øí,W»1  •^  Ùí,W¾1  —^  aº WÍ1  ¦^  ‘WÏ1  ©^  ÉWÒ1  «^  !WÔ1  ­^  Á¬JW×1  °^  ¸#!WÙ1  ²^  ¹#!WÛ1  µ^  &!WŞ1  ·^  ‘&!W2  ^d  ĞêW2  fd  ÑêW 2  id  šW$2  nd  PšW&2  pd  ˆ˜W*2  td  ‰˜W/2  yd  QšW22  |d  šW52  d  XìW82  ‚d  YìW:2  „d  (êW=2  ‡d  )êW@2  Šd  ˆ¬JWC2  d  8›JWE2  d  9›JWH2  ’d  `;WK2  •d  ˜;WN2  ˜d  Œ;WQ2  šd  	Œ;WT2  d  ™;WV2   d  a;WX2  ¢d  ‰¬JWZ2  ¤d  ˆœJW]2  §d  ‰œJW_2  ©d  À¬JWb2  ¬d  HŸJWe2  ¯d  ŸJWh2  ²d   JWp2  ¹d  !JWs2  ½d  	ŸJWv2  Àd  IŸJWx2  Âd  ˆœJWz2  Äd  ‰œJW|2  Æd  ˆœJW…2  Ïd  ‰œJW‡2  Ñd  ê,WŠ2  Ôd  ¨é,W2  Ùd  ©é,W’2  Üd  ê,W”2  Şd  ğî,W—2  ád  ñî,W™2  ãd   Wœ2  æd  ÈWŸ2  éd  0	W¢2  ëd  1	W§2  ñd  Wª2  ôd  `º W®2  ÷d  Øí,W°2  úd  Ùí,W³2  ıd  aº WØ2  "e  ‘WÚ2  $e  ÉWÜ2  &e  !Wß2  (e  Á¬JWá2  +e  ¸#!Wä2  .e  ¹#!Wæ2  0e  &!Wé2  3e  ‘&!Wò2  <e  ĞêWõ2  ?e  ÑêW÷2  Ae  šWú2  De  PšWü2  Fe  ˆ˜Wş2  He  ‰˜W3  Ke  QšW3  Me  šW3  Oe  XìW3  Re  YìW
+3  Te  (êW3  Ve  )êW3  Xe  ˆ¬JW3  [e  8›JW3  ]e  9›JW3  _e  `;W3  ae  ˜;W3  de  Œ;W3  fe  	Œ;W3  he  ™;W!3  je  a;W#3  me  ‰¬JW%3  oe  ˆœJW'3  qe  ‰œJW)3  se  À¬JW+3  ue  HŸJW.3  we  ŸJW03  ze   JW33  }e  !JW63  €e  	ŸJW83  ‚e  IŸJW:3  „e  ˆœJW=3  †e  ‰œJW?3  ‰e  ˆœJWA3  ‹e  ‰œJWD3  e  ê,WF3  e  ¨é,WI3  “e  ©é,WK3  •e  ê,WN3  ˜e  ğî,WP3  še  ñî,WR3  œe   WT3  e  ÈWW3  ¡e  0	WY3  £e  1	W]3  §e  W`3  ©e  `º Wb3  ¬e  Øí,Wd3  ®e  Ùí,Wf3  °e  aº Wu3  ¿e  ‘Ww3  Áe  ÉWy3  Ãe  !W|3  Æe  Á¬JW~3  Èe  ¸#!W€3  Êe  ¹#!W‚3  Ìe  &!W…3  Îe  ù¤JW¨_  >  y¡JW±_ ¤>  èPJW·_ ª>  Ø+!WË_ ¾>  ğ
+WÒ_ Å>  ñ
+WÕ_ È>  ğ
+WÙ_ Ì>  ñ
+WÜ_ Ï>  ğ
+Wà_ Ó>  ñ
+Wâ_ Õ>  Ù+!Wæ_ Ù>  H,!Wè_ Û>  €,!Wì_ ß>  ,!Wï_ â>  I,!Wñ_ ä>  h+!Wô_ ç>  ÀW÷_ ê>  ÁW ` ó>  PW` õ>  QW` ù>  ÀW	` ü>  ÁW` ÿ>  i+!W` ?  ˜W` ?  ™W` ?  øW` 
+?  ¸W` ?  ¹W` ?  ùW%` ?  ˜W(` ?  ™W+` ?  øW-`  ?  ¸W/` "?  ¹W2` %?  ùW5` (?  ˜W7` *?  ™W9` ,?  øW<` /?  ¸W>` 1?  ¹WA` 4?  ùWC` 6?  ø*!WI` <?  ÀWL` ??  ÁWO` B?  ù*!WQ` D?  @ÚWW` J?  xçWZ` M?  yçW^` Q?  AÚW`` S?  xÜWc` V?  H´Wf` Y?  üWj` ]?  ÈEWm` `?  Ø[Wp` c?  Ù[Wr` e?  ÉEWu` h?  ¨ıWw` j?  ©ıWz` m?  (2&W|` o?  )2&W` r?  `2&W‚` u?  a2&W„` w?  ‘üW‡` z?  I´WŠ` }?  ø´W` €?   ³W` ‚?  ĞW’` …?  ÑW”` ‡?  €´Wš` Œ?  0W` ‘?  1W¡` ”?  ´W´` §?  Ø³W¶` ©?  éW¹` ¬?  	éW¼` ¯?  éW¾` ±?  	éWÀ` ³?  éWÃ` ¶?  	éWÅ` ¸?  éWÈ` »?  	éWÊ` ½?  éWÍ` ¿?  	éWÏ` Â?  éWÑ` Ä?  	éWÔ` Ç?  éWÖ` É?  	éWØ` Ë?  éWÛ` Î?  	éWİ` Ğ?  éWà` Ó?  	éWâ` Õ?  éWå` ×?  	éWç` Ú?  éWé` Ü?  	éWì` ß?  éWî` á?  	éWğ` @  éWa @  	éWa @  éW!a @  	éW$a @  éW&a @  	éW(a @  éW+a @  	éW-a  @  éW0a #@   èW2a %@  øW8a +@  ùW<a /@  !èW?a 2@  	éWAa 4@  éWDa 6@  	éWFa 9@  Ù³WHa ;@  ¡³WKa =@  ù´WMa @@  yÜWOa B@  ÀæWRa D@  èğWUa H@  Ğ*WYa L@  Ñ*W\a O@  éğW^a Q@  ÁæW`a S@  ØWca V@  Wfa Y@  ‘W‹a ~@  ÙWa €@  éPJWa ƒ@   ~W“a †@  HW—a Š@  HEW™a Œ@  IEWa @  Ø…W¡a ”@  Ù…W¤a —@  `BW«a @  aBW­a  @  ãW³a ¦@  €jW·a ª@  jW»a ®@  Ø…W½a °@  Ù…WÀa ²@  H"WÄa ·@  €WÇa ¹@  WËa ¾@  I"WÍa À@  xãWÒa Å@  HAWÖa É@  IAWÙa Ì@  h@WÜa Ï@  i@Wßa Ò@  yãWâa Õ@  €jWäa ×@  jWça Ú@  H"Wéa Ü@  €Wëa Ş@  Wîa á@  I"Wğa ã@  xãWôa ç@  HAWöa é@  IAWùa ë@  h@Wûa î@  i@Wşa ğ@  yãW b ó@  €jWb ö@  jWb ø@  H"Wb ú@  €W
+b ı@  Wb ÿ@  I"Wb A  xãWb A  HAWb A  IAWb 
+A  h@Wb A  i@Wb A  yãWb A  €jW"b A  jW$b A  H"W'b A  €W)b A  W+b A  I"W.b  A   VW2b %A   HW5b (A  ÈEW8b +A  Ø[W:b -A  Ù[W=b 0A  ÉEW?b 2A  HWAb 4A  AWDb 7A  AWGb 9A  AWJb =A  AWMb ?A  XDWQb DA  YDWSb FA  h@WWb JA  i@WZb MA  [W]b PA  à
+Wab TA  á
+Wcb VA  è2%Wfb YA  0	Wib \A  1	Wsb fA  ˜º Wvb iA  ê,W{b nA  ¨é,Wƒb vA  ©é,W…b xA  ê,Wˆb {A  ™º Wªb A  é2%W­b  A  ÀğW±b £A  øğW³b ¦A  àíW¶b ©A  0	W¹b ¬A  1	W½b °A  HêIWÁb ´A  ìWÄb ¶A  ¨íWÆb ¹A  ©íWÉb ¼A  ‘ìWËb ¾A  IêIWÍb ÀA  ˆîWĞb ÃA  píWÓb ÆA   1%WÕb ÈA  üWÙb ÌA  ÈEWÛb ÎA  Ø[WŞb ĞA  Ù[Wàb ÓA  ÉEWâb ÕA  ¨ıWåb ØA  ©ıWçb ÚA  (2&Wéb ÜA  )2&Wìb ßA  `2&Wîb áA  a2&Wğb ãA  ‘üWób æA  !1%Wõb èA  qíW÷b êA  ÀîWúb íA  À8Wıb ïA  Ø7Wÿb òA  Ù7WUc ÆB  Á8WYc ÉB  ÁîW[c ËB  ‰îW]c ÎB  áíW`c ĞB  ùğWbc ÒB  ÁğWdc ÕB  ĞZWgc ×B  ÀğWkc ÛB  øğWnc ŞB  àíWpc àB  0	Wsc ãB  1	Wyc éB  HêIW{c ìB  ìW~c îB  ¨íW€c ñB  ©íWƒc ôB  ‘ìW…c öB  IêIWˆc øB  ˆîWŠc ûB  ‰îWc ıB  áíWc ÿB  ùğW‘c C  ÁğW“c C  ÑZW–c C  	[W˜c C  VWšc 
+C  	ãWœc C  IWŸc C  ¡~W¡c C  ÑQJW£c C  ¯ W¦c C  ÈúW©c C 

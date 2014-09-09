@@ -12,11 +12,11 @@ This chapter describes the most relevant aspects related to the realization of t
 \section{System Description}
 \label{sec:system_description}
 
+\todo[inline]{Para rever}
 Photo aesthetic quality assessment aims to classify the photographs into high or low quality automatically. \citeauthor{tong2005classification} \cite{tong2005classification} attempted to classify photographs into those taken by professionals or casual users using low-level features derived from computer vision techniques. As already mentioned in Section \ref{subsub:eval_features}, techniques for training classifiers to automatically assess the quality of an image, have already been devised. Since mobile devices are constantly used in photography nowadays, it is only logical that improving photography in such devices is the next step to take.
 
 \subsection{Concept}
-\todo[inline]{Modified}
-The development of this application started by thinking of useful information that could be extracted from a real-time camera feed. The purpose of extracting this information, is to give a user a different insight of the photo that is being taken and help to attain better results without resort to any photo manipulation techniques or tools. It results in an application that processes real-time images and responds with visual cues on top of the processed data.
+The development of this set of features started by thinking of useful information that could be extracted from a real-time camera feed. The purpose of extracting this information, is to give a user a different insight of the photo that is being taken and help to attain better results without resort to any photo manipulation techniques or tools. It results in an application that demonstrates a set of tools and techniques that process real-time images and responds with visual cues on top of the processed data.
 
 These visual cues have as an objective to identify key elements in an image, such as colour information. Colour as already been stated as an important factor in a photograph (Section \ref{subsub:colour_balance}). Therefore, understanding the colour composition and pureness of the colours is useful for a user to study the composition and rearrange the colours before even taking the photo. The same applies when talking about the composition of the elements. As an example, identifying the main object or detect faces may be useful for testing various compositions in an attempt to find the best one.
 
@@ -121,26 +121,55 @@ where the Gaussian function has the parameters $\sigma = 0.7, \sigma^{2} = 0.5$ 
 In our second implementation we created another histogram but in this case we converted the input image to the \emph{HSV} colour space and performed an histogram over the \emph{Hue} channel. Due to the chosen method to visualize, the \emph{Hue} spectrum was quantized into six bins, which correspond to the primary colours red, green and blue, and its consequent secondary colours.
 When processing the input image, a vector with a total length equal to the number of bins, would be accumulated depending on the colour of the pixel, since each bin covered a total of thirty colours with the \emph{Hue} spectrum. The amount percentage for each bin is then calculated and displayed to the user.
 
-As referred in the previous section, the colourfulness of a scenario is always important considering that its what makes an image more vivid. Due to that fact, we also implemented a low saturation detector. This detector works by averaging the \emph{Saturation} channel in the \emph{HSV} colour space and compare its value to a threshold. If the value of saturation of an image is below a threshold of 90, then a suggestion is shown meaning that the use of a monochromatic filter might be useful in that situation. This threshold was defined by comparing the average saturation of images labelled as low-saturation images in the Flickr community.
+As referred in the previous section, the colourfulness of a scenario is always important considering that its what makes an image more vivid. Due to that fact, we also implemented a low saturation detector. This detector works by averaging the \emph{Saturation} channel in the \emph{HSV} colour space and compare its value to a threshold. If the value of saturation of an image is below a threshold of 50, then a suggestion is shown meaning that the use of a monochromatic filter might be useful in that situation. This threshold was defined by comparing the average saturation of 1000 images labelled as low-saturation images in the Flickr community.
 
 \subsubsection{Interface Display}
 In the previous section we described the algorithms for a saturation detector and two similar ways to calculate the colours presented in an image. For the later, it becomes even more important to correctly visualize that information.
 
-For our first implementation which involved the calculation of three histograms based in the \emph{RGB} colour space and one with the image converted to gray scale, we tried to represent this information by using less space than a conventional histogram and by slightly simplifying the amount of information. As shown in Figure X, our histograms are visualized by a bar with a dynamic size within a certain boundaries which define the total range of colours within each channel. The purpose of this representation for the user to have a perception the amount of colours being used in each channel. The size of the bar is dynamic since it is defined by the first and last relevant colours found in a channel.
+For our first implementation which involved the calculation of three histograms based in the \emph{RGB} colour space and one with the image converted to gray scale, we tried to represent this information by using less space than a conventional histogram and by slightly simplifying the amount of information. As shown in Figure \ref{fig:hist_ex1}, our histograms are visualized by a bar with a dynamic size within certain limits which define the total range of colours within each channel. The purpose of this representation for the user to have a perception the amount of colours being used in each channel. The size of the bar is dynamic since it is defined by the first and last relevant colours found in a channel.
 
 As mentioned before, this representation also shows the amount of pixels found near the boundaries of the colour range of each channel. This is represented by a line that grows vertically depending on the amount calculated by the equations \ref{eq:hist1} and \ref{eq:hist2}.
 
+\begin{figure}[htb]
+	\centering
+    \subfigure[] {
+                \includegraphics[width=0.45\textwidth]{interface/colour_histogram/ex1.png}
+    }
+    \subfigure[] {
+                \includegraphics[width=0.35\textwidth]{interface/colour_histogram/ex1_2.png}
+    }
+  \caption{Visual cue chosen for the first implementation of the histogram being applied to a real-time scenario (a) and a reconstruction of the histogram made for the green channel that indicates de colour range in use and the amount of pixels near the limits (b).}
+	\label{fig:hist_ex1}
+\end{figure}
 
-For the second implementation of an histogram, we chose to represent the \emph{Hue} concentration of each bin through a hexagon that resembles a colour wheel divided into six colours. Each section of the hexagon is filled with the percentage amount of the respective colour presented in the input image as shown in the Figure x.
+For the second implementation of an histogram, we chose to represent the \emph{Hue} concentration of each bin through a hexagon that resembles a colour wheel divided into six colours. Each section of the hexagon is filled with the percentage amount of the respective colour presented in the input image as shown in the Figure \ref{fig:hist_ex2}.
 
-For the saturation detection, we only display an icon as an indicator that the usage of a monochromatic filter might be useful in that situation (Figure x).
+\begin{figure}[htb]
+	\centering
+    \subfigure[] {
+                \includegraphics[width=0.45\textwidth]{interface/colour_histogram/ex2.png}
+    }
+    \subfigure[] {
+                \includegraphics[width=0.35\textwidth]{interface/colour_histogram/ex2_2.png}
+    }
+  \caption{Visual cue chosen for the second implementation of the histogram being applied to a real-time scenario (a) and the resulting histogram isolated (b). }
+	\label{fig:hist_ex2}
+\end{figure}
 
+For the saturation detection, we display a thumbnail with the real-time image converted into grayscale on the bottom-right corner of the viewfinder. This is an indicator that the usage of a monochromatic filter might be useful in that situation (Figure \ref{fig:hist_ex3}).
 
+\begin{figure}[htb]
+	\centering
+	\includegraphics[width=0.45\textwidth]{interface/colour_histogram/ex3.png}
+  	\caption{Frame detected as containing low saturation. Indicator shown on the bottom right corner highlighted in a red, which is the input frame converted into grayscale.}
+	\label{fig:hist_ex3}
+\end{figure}
+  
 \subsubsection{Discussion}
 
 After implementing these features, we could conclude a couple of things. Starting by our first implementation of a histogram, the first noticeable problem is the fact that the histogram is made for the \emph{RGB} colour space. Although it is the most used colour space in image manipulation applications and photography systems, the conversion of real-world colours to \emph{RGB} is not direct.
 
-With the representation we created a one-dimensional histogram that omitted the amount of each colour, to show a range of colours being used in the image. This range is determined by the first and last colours found as relevant with the purpose to show the spread of tones across a channel. As a general rule, is most cases a nice balanced shot as nice spread of tones which peak somewhere around the middle and taper off around the edges. Ignoring the peak around the middle and stabilization around the edges, we think this representation successfully serves the purpose giving an idea of the colours being used. The problem with this representation is that it does not contemplate any flaws in the middle of the histogram. This means that if it shows that a range of colours is being used,within that range, there's a possibility that some of the colours were not found in the image. Figure \ref{fig:disc_hist} illustrates this example. Imagining that the blue channel of an image as the histogram shown in Figure \ref{fig:disc_hist1}, there is a concavity between two peaks that contains colours that weren't used. Figure \ref{fig:disc_hist2} displays our representation based on that histogram, where we can see that the concavity in the original histogram and the colours that weren't used in that concavity, are shown as a part of the range of colours detected.
+With the representation we created a one-dimensional histogram that omitted the amount of each colour, to show a range of colours being used in the image. This range is determined by the first and last colours found as relevant with the purpose to show the spread of tones across a channel. As a general rule, is most cases a well balanced shot has a nice spread of tones which peak somewhere around the middle and taper off around the edges. Ignoring the peak around the middle and stabilization around the edges, we think this representation successfully serves the purpose giving an idea of the colours being used. The problem with this representation is that it does not contemplate any flaws in the middle of the histogram. This means that if it shows that a range of colours is being used, within that range, there's a possibility that some of the colours were not found in the image. Figure \ref{fig:disc_hist} illustrates this example. Imagining that the blue channel of an image as the histogram shown in Figure \ref{fig:disc_hist1}, there is a concavity between two peaks that contains colours that weren't used. Figure \ref{fig:disc_hist2} displays our representation based on that histogram, where we can see that the concavity in the original histogram and the colours that weren't used in that concavity, are shown as a part of the range of colours detected.
 
 \begin{figure}[htb]
 	\centering
@@ -152,23 +181,23 @@ With the representation we created a one-dimensional histogram that omitted the 
                 \includegraphics[width=0.3\textwidth]{interface/colour_histogram/hist2_ex.png}
                 \label{fig:disc_hist2}
     }
-  	\caption{Illustrative figure of the problem found in our histogram representation (b) compared to the correspondent regular histogram (a).}
+  	\caption{Illustrative figure of the problem found in our histogram representation (b) compared to the corresponding regular histogram (a).}
 	\label{fig:disc_hist}
 \end{figure}
 
-Our second implementation using an hexagon in resemblance of a colour wheel, it is easier to convert real-world colours to the \emph{HSV} colour space. Although it is easier to perceive the colours being used, it does not have into account the saturation or brightness of each colour. 
-The main problem in this representation is the amount percentages displayed. As it is, each part of the hexagon will be fully filled when all the \emph{Hue} values in the converted image are within the same range, which results in a scaling problem as this rarely happens. Each processed frame normally contains at least a small portion of all the colours presented in the wheel, meaning that with the representation chosen, small amounts of each section will be filled making them almost irrelevant. Even with this problem, the main purpose of this representation is to visualize the colours that have a higher presence in a scenario and what complementary colour should be used to provide a colour balance (Section \ref{subsub:colour_balance}), which we think it really serves the purpose.
+Our second implementation uses an hexagon in resemblance of a colour wheel, it is easier to convert real-world colours to the \emph{HSV} colour space. Although it is easier to perceive the colours being used, it does not have into account the saturation or brightness of each colour. 
+The main problem in this representation is the amount percentages displayed. As it is, each part of the hexagon will be fully filled when all the \emph{Hue} values in the converted image are within the same range, which results in a scaling problem as this rarely happens. Each processed frame normally contains at least a small portion of all the colours presented in the wheel, meaning that with the representation chosen, small amounts of each section will be filled making them almost irrelevant. Even with this problem, the main purpose of this representation is to visualize the colours that have a higher presence in a scenario and what complementary colour should be used to provide a colour balance (Section \ref{subsub:colour_balance}).
 
 
-As for our saturation detection method it is not very complex, however the threshold chosen to classify an input frame as highly saturated or not, was selected by averaging the saturation of a set of images labelled as \emph{low saturation} by the Flickr.com's community. This being said the threshold was calculated over a set of static images which may have been digitally manipulated, which means that in a real-time scenario this threshold might not be the most indicated as it is difficult to find scenarios to test and calculate a more adequate threshold.
+As for our saturation detection method it is not very complex, however the threshold chosen to classify an input frame as highly saturated or not, was selected by averaging the saturation of 1000 images labelled as \emph{low saturation} by the Flickr's community. This being said the threshold was calculated over a set of static images which may have been digitally manipulated. This means that in a real-time scenario this threshold might not be the most indicated as it is difficult to find scenarios to test and calculate a more adequate threshold.
 
 \subsection{Colour Templates and Hue Counting}
 \label{sub:colour}
 
-As said before, much of what viewers perceive and feel about a photo is through colours (Section \ref{subsub:colour_balance}. Although their colour perception depends on the context and is culture-related, colour science studies show that the influence on human emotions or feelings from a certain color or a certain color combination is usually stable under different culture backgrounds \cite{manav2007color}.
+As said before, much of what viewers perceive and feel about a photo is through colours (Section \ref{subsub:colour_balance}). Although their colour perception depends on the context and is culture-related, colour science studies show that the influence on human emotions or feelings from a certain color or a certain color combination is usually stable under different culture backgrounds \cite{manav2007color}.
 Professionals follow certain rules of color composition and scene composition to produce aesthetically pleasing photographs. For example, photographers focus on artistic color combination and properly put colour accents to create unique composition solutions and to invoke certain feelings among the viewers of their artworks. Therefore, exploring the relation between colours is a way to provoke those feelings.
 
-\citeauthor{luo2008photo} explores the harmony of colours in \cite{luo2008photo}, where they developed a feature to measure the color harmony of a photo in terms of learning the color combinations (coexistence of two color in the photo) from the training dataset, to determine if a photo has a high or low quality.
+\citeauthor{luo2008photo} explored the relation between colours \cite{luo2008photo}, in a feature to measure the color harmony of a photo in terms of learning the color combinations (coexistence of two colours in the photo) from the training dataset, to determine if a photo has a high or low quality.
 For each photo in the dataset, a 50-bin histogram is generated for each channel in the \emph{HSV} colour space. The value of the color combination between hue $i$ and hue $j$ is defined as $H_{hue}(i) + H_{hue}(j)$, with a similar definition for the saturation and value channel. A histogram of high (low) quality training photos is generated by the formulas
 \begin{equation}
 H_{high,hue}(i,j) = Avg(H_{high,hue}(i)+H_{high,hue}(j)),
@@ -187,7 +216,7 @@ Although in \cite{luo2008photo}, the purpose of this feature is to train a class
 \subsubsection{Algorithm Description}
 As mentioned before, we implemented a simple scoring system for each input frame and an algorithm that detects the harmonic colour template being used on a real-time input frame.
 
-As for our scoring method, we implemented a feature described by \citeauthor{ke2006design} in \cite{ke2006design}, where the purpose is to measure its colour simplicity. One the main differences between professional photos and snapshots is that photos taken professionally are more colourful and vibrant depending on its brightness and saturation levels, while using a less number of unique hues. The first step in hue count is the conversion of the input frame to the \emph{HSV} colour space. After the colour space conversion, the \emph{Hue} channel is filtered by selecting pixels that have a brightness value in the range $[0.15,0.85]$ and saturation bigger than 0.2 because the hue calculation would be inaccurate if otherwise. The next step is to calculate a 20-bin histogram $H$ with the hue values that passed the filter. After compute the histogram we select the number of bins $N$ that satisfy the equation
+As for our scoring method, we implemented a feature described by \citeauthor{ke2006design} in \cite{ke2006design}, where the purpose is to measure its colour simplicity. One the main differences between professional photos and snapshots is that photos taken professionally are more colourful and vibrant depending on its brightness and saturation levels, while using a less number of unique hues. The first step in hue count is the conversion of the input frame to the \emph{HSV} colour space. After the colour space conversion, the \emph{Hue} channel is filtered by selecting pixels that have a brightness value in the range $[0.15,0.85]$ and saturation higher than 0.2 because the hue calculation would be inaccurate if otherwise. The next step is to calculate a 20-bin histogram $H$ with the hue values that passed the filter. After computing the histogram we select the number of bins $N$ that satisfy the equation
 
 \begin{equation}
 N = {i | H(i) > \alpha m},
@@ -197,7 +226,7 @@ where $m$ is the maximum value of the histogram and $\alpha$ controls the noise 
 score = 20 - N.
 \end{equation}
 
-Our harmonic colour template detector is based in a method described in \cite{cohen2006color}. In the original article, the author uses a set of templates predetermined such as the ones in Figure \ref{fig:templates}, which can also be perceived as the colour distribution of the input image. The harmonic templates may consist of shades of the same colour (type $i, V, T$), complementary colours (type $I, Y, X$) or more complex combinations (type $L$). Although not used, the $N$-type template is applied to grayscale images. In our implementation we focused on templates that for slight variations of the same colour and for complementary colours.
+Our harmonic colour template detector is based in a method described in \cite{cohen2006color}. In the original article, the author uses a predetermined set of templates such as the ones in Figure \ref{fig:templates}, which can also be perceived as the colour distribution of the input image. The harmonic templates may consist of shades of the same colour (type $i, V, T$), complementary colours (type $I, Y, X$) or more complex combinations (type $L$). Although not used, the $N$-type template is applied to grayscale images. In our implementation we focused on templates for slight variations of the same colour and for complementary colours.
 
 \begin{figure}[htb]
 	\centering
@@ -210,7 +239,7 @@ The original article uses a hue histogram and tries to match the histogram with 
 
 We started by converting the input image into the \emph{HSV} colour space and manipulate the \emph{Hue} channel. For our implementation, we used a wheel divided into twelve regions instead of using a full-colour wheel with enabled us to create a 12-bin histogram of quantized hues ordered by amount. The purpose of having an ordered histogram, is to obtain the first two main hues present in the image. Knowing the two main colours and its bins, we can map each bin into one region of a 360 degree wheel. This mapping is what will allow us to determine if a image fits into a monochromatic template or a complementary template, by calculating the difference between the bins of the two main colours.
 
-After classifying an image as having a monochromatic or complementary template, starting in the most relevant bins, we verify if the adjacent bins have an occupation percentage in the image of at least 40\% of the starting bin. this will allow us to know the size of template. Starting in a bin which are mapped into one region in the twelve-region colour wheel, we defined that the maximum size for a monochromatic template or one of the colours in a complementary template, is of three regions.
+After classifying an image as having a monochromatic or complementary template, starting in the most relevant bins, we verify if the adjacent bins have an occupation percentage in the image of at least 40\% of the starting bin. This will allow to know the size of template. Starting in a bin which is mapped into one region in the twelve-region colour wheel, we defined that the maximum size for a monochromatic template or one of the colours in a complementary template, is of three regions.
 
 Since the scoring described before is based on a 20-bin histogram, we decided to modify it and perform the scoring based on a 12-bin histogram. This way, both the scoring and the template detection, are in accordance with one another.
 
@@ -221,11 +250,11 @@ As for the scoring method, we took the most simple approach and decided to show 
 
 \subsubsection{Discussion}
 
-There are no major issues with each of these methods. However the most relevant issue, might be the size of templates. As mentioned before starting in a bin, we verify if the adjacent bins occupy a region that is at least greater than 40\% of the starting point, where the threshold was chosen experimentally with a dataset of static photographic images. the problem with choosing a threshold with a given dataset, is that the threshold might not work perfectly under real-time scenario since the chance of getting snapshots while receiving real-time information is way higher then getting a frame that considered to have aesthetic value.
+There are no major issues with each of these methods. However the most relevant issue, might be the size of templates. As mentioned before, starting in a bin we verify if the adjacent bins occupy a region that is at least larger than 40\% of the starting point, where the threshold was chosen experimentally with a dataset of static photographic images. The problem with choosing a threshold with a given dataset, is that the threshold might not work perfectly in a real-time scenario since the chance of getting snapshots while receiving real-time information is way higher then getting a frame that is considered to have aesthetic value.
 
 \subsection{Face Detection and Composition Guidelines}
 \label{sub:face_guidelines}
-\todo[inline]{Modified}
+\todo[inline]{Para rever}
 
 Since long, the detection and recognition of faces are areas of interest in the domain of computer vision. Such technology has been used in biometric identification, video-conferences and query systems.
 Mobile devices are also able to find and recognize a face. Android provides a simple way for you to identify the faces of people in a bitmap image, with each face containing all the basic location information. Not just faces, but nowadays, Android's cameras already offer an API for detection of eyes and mouth and most recent versions are able to recognize faces to unlock such devices.
@@ -249,19 +278,48 @@ Having detected the faces position and the lines for the grids, we can the calcu
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=0.5\textwidth]{interface/face/haar_features.jpg}
-  	\caption{Type of convolution kernels used to extract features  }
+	\includegraphics[width=0.4\textwidth]{interface/face/haar_features.jpg}
+  	\caption{Type of convolution kernels used to extract features \cite{OCV}.}
 	\label{fig:haar_features}
 \end{figure}
 
 \subsubsection{Interface Display}
 
-We started by displaying the Rule of Thirds and Rule of Golden Section that are viewed as a simple grid over the viewfinder that respects the proportions established by both rules, as illustrated by Figure x.
-Has for the detection of faces, we took the most common approach. Since we know the position of the regions that contain faces, we opted to draw a bounding rectangle around that regions (Figure x).
+We started by displaying the Rule of Thirds and Rule of Golden Section that are viewed as a simple grid over the viewfinder that respects the proportions established by both rules, as illustrated by Figure \ref{fig:face_ex1} and Figure \ref{fig:face_ex2}.
+Has for the detection of faces, we took the most common approach. Since we know the position of the regions that contain faces, we opted to draw a bounding rectangle around that regions (Figure \ref{fig:face_ex3}, \ref{fig:face_ex3}).
 
-After detecting faces we test to see if there is three faces detected. This is so that we can apply the concept of the Rule of Odds with the detected faces. If there are three faces then we can also try and boost the composition by linking their positions and form a triangle. We display the connection between the faces by drawing lines connecting them.
+After detecting faces we test to see if there is three faces detected. This is so that we can apply the concept of the Rule of Odds with the detected faces. If there are three faces then we can also try and boost the composition by linking their positions and form a triangle. We display the connection between the faces by drawing lines between them.
 
-Figure x illustrates this triangle formed by the detected faces as well as the suggestions. Each of the intersection points on both grid highlights when it is a suggested point for a face. To complement the triangle composition when three faces are detected, we also suggests a triangular composition with the nearest intersection points of the grid.
+Figure \ref{fig:face_ex4} illustrates this triangle formed by the detected faces as well as the suggestions. Each of the intersection points on both grid highlights when it is a suggested point for a face. To complement the triangle composition when three faces are detected, we also suggests a triangular composition with the nearest intersection points of the grid in cyan blue as shown in Figure \ref{fig:face_ex5} and Figure \ref{fig:face_ex6}.
+\begin{figure}[htbp]
+	\centering
+    \subfigure[] {
+                \includegraphics[width=0.45\textwidth]{interface/face/ex1.png}
+                \label{fig:face_ex1}
+    }
+    \subfigure[] {
+                \includegraphics[width=0.45\textwidth]{interface/face/ex2.png}
+                \label{fig:face_ex2}
+    }
+    \subfigure[] {
+                \includegraphics[width=0.45\textwidth]{interface/face/ex3.png}
+                \label{fig:face_ex3}
+    }
+    \subfigure[] {
+                \includegraphics[width=0.45\textwidth]{interface/face/ex4.png}
+                \label{fig:face_ex4}
+    }
+    \subfigure[] {
+                \includegraphics[width=0.45\textwidth]{interface/face/ex5.png}
+                \label{fig:face_ex5}
+    }
+    \subfigure[] {
+                \includegraphics[width=0.45\textwidth]{interface/face/ex6.png}
+                \label{fig:face_ex6}
+    }
+  	\caption{Multiple visual cues used to implement this features, such as helping grid (a,b), face detection (c,d) and a mixture of both (e,f), tested when detecting one or three faces.}
+	\label{fig:face_interface}
+\end{figure}
 
 \subsubsection{Discussion}
 
@@ -269,7 +327,7 @@ Due to its simplistic implementation, there aren't any particular problems. The 
 
 Although the user can choose which feature to display at a time, when they're all activated, this many visual cues are quite distracting and occupy a lot of space in the interface.
 
-However, as a proof of concept this visual cues do work but its important to keep in mind that the positions suggested, are simple suggestions, as it is not a certain recipe for obtaining aesthetic results. The user must always have the final word for the placement of the detected faces, on the importance of having odd number of elements and exploration of triangular compositions.
+However, as a proof of concept this visual cues do work but its important to keep in mind that the positions suggested, are simple suggestions, as it is not a recipe for obtaining aesthetic results. The user must always have the final word for the placement of the detected faces, on the importance of having odd number of elements and exploration of triangular compositions.
 
 \subsection{Object Segmentation}
 \label{sub:segmentation}
@@ -278,37 +336,36 @@ Unless it is a photography of a seascape or a landscape, it is normal for a phot
 
 Segmentation of an object in a photo, is a topic that as already been widely researched. One of the simplest ways of extracting information about the object in a real-time scenario is to have information about its background beforehand and subtract. 
 
-In \cite{yang2004real}, \citeauthor{yang2004real} describe a system for security cameras, able to recognize and tracking a moving object. This is possible once the system is collecting information about the background as time passes. Using the information about the background, the system can subtract any object that considers strange to the background, and start the tracking. This method as the advantage of being fast and discard the possibility of training a classifier for object identification. 
-\citeauthor{butler2003real} describe a similar approach in \cite{butler2003real}, where the key is to learn the background and generate a model of it by representing each pixel in the frame by a group of clusters, where these clusters are ordered by the likelihood of modelling the background. Incoming pixels are matched against the corresponding cluster group and classified as part of the background.
-In our case, these methods have an obvious problem. Normally, the subject its already placed when the user wants to take a photo, therefore, the subject would be confused as a background or, the user would have to point the camera before placing the subject to initiate a process of extracting information and learn what's the background. When talking about a  camera in a mobile device or any digital camera, this method is nearly impractical, as the regular user tends to move the arms quite easily ruining the learning process started before. Thus, being an unreliable method for object segmentation.
+\citeauthor{yang2004real} \cite{yang2004real} describe a system for security cameras, able to recognize and tracking a moving object. This is possible once the system is collecting information about the background as time passes. Using the information about the background, the system can subtract any object that considers strange to the background, and start the tracking. This method has the advantage of being fast and discards the possibility of training a classifier for object identification. 
+\citeauthor{butler2003real} describe a similar approach \cite{butler2003real}, where the key is to learn the background and generate a model of it by representing each pixel in the frame by a group of clusters, where these clusters are ordered by the likelihood of modelling the background. Incoming pixels are matched against the corresponding cluster group and classified as part of the background.
+In our case, these methods have an obvious problem. Normally, the subject is already placed when the user wants to take a photo, therefore, the subject would be confused as a background or, the user would have to point the camera before placing the subject to initiate a process of extracting information and learn what is the background. When talking about a  camera in a mobile device or any digital camera, this method is nearly impractical, as the regular user tends to move the arms quite easily ruining the learning process started before. Thus, being an unreliable method for object segmentation.
 
 For our use case, we envision a method for generic object segmentation that could be used in real-time. Since it is for generic objects, we couldn't train a classifier to recognize multiple objects, or use edges information for comparison, as it would need multiple photos for data collection, and the segmentation would be limited to a few objects. 
 
 \subsubsection{Algorithm Description}
 \label{subsub:seg_algorithm}
 
-As mentioned in \cite{Santos} and \cite{kamps2012rules}, colour is a very important feature in a photo. With this in mind, when photographing, the main subject should cause visual impact due to its contrast relative to the background or other elements in the scenery. For this, we used a slightly simplified version of the \emph{Histogram Based Contrast} (HC) method described by \citeauthor{cheng2011global} in \cite{cheng2011global} for extraction of salient regions in a photo that evaluates global contrast differences, calculating saliency values for image pixels using colour statistics. The saliency of a pixel is defined using its colour contrast to all other pixels in the image. This can be described as,
+Colour is a very important feature in a photo \cite{kamps2012rules, Santos}. With this in mind, when photographing, the main subject should cause visual impact due to its contrast relative to the background or other elements in the scenery. For this, we used a slightly simplified version of the \emph{Histogram Based Contrast} (HC) method described by \citeauthor{cheng2011global} in \cite{cheng2011global} for extraction of salient regions in a photo that evaluates global contrast differences, calculating saliency values for image pixels using colour statistics. The saliency of a pixel is defined using its colour contrast to all other pixels in the image. This can be described as,
 
 \begin{equation}
 S(I_{k}) = \sum_{\forall I_{i} \in I} D(I_{k}, I_{i}),
 \end{equation}
 
-where $D(I_{k}, I_{i})$ is the colour distance between saliency value $I_{k}$ and pixel $I_{i}$ in the input image in the \emph{L*a*b*} colour space. Since this computationally expensive, \citeauthor{cheng2011global}, reduces the number of colours needed to consider, by quantizing each colour channel to have 12 different values, reducing the number of colours to $12^{3} = 1728$. Since a natural image covers only a small portion of the full colour space, the less occurring colours are ignored, ensuring that the most occurring ones, cover at least 95\% of the image pixels. The remaining 5\% are replaced by the closest colours in the histogram. Since this quantization might introduce artifacts, the author preforms a smoothing procedure over each saliency value. Each saliency value is replaced by the weighted average of the $n/4$ neighbours where $n$ is the number of colours that fill 95\% of the image pixels.
+where $D(I_{k}, I_{i})$ is the colour distance between saliency value $I_{k}$ and pixel $I_{i}$ in the input image in the \emph{L*a*b*} colour space. Since this is computationally expensive, \citeauthor{cheng2011global}, reduces the number of colours needed to consider, by quantizing each colour channel to have 12 different values, reducing the number of colours to $12^{3} = 1728$. Since a natural image covers only a small portion of the full colour space, the less occurring colours are ignored, ensuring that the most occurring ones, cover at least 95\% of the image pixels. The remaining 5\% are replaced by the closest colours in the histogram. Since this quantization might introduce artifacts, the author preforms a smoothing procedure over each saliency value. Each saliency value is replaced by the weighted average of the $n/4$ neighbours where $n$ is the number of colours that fill 95\% of the image pixels.
 
-After obtaining a saliency map, the map is turned into a binary segmentation mask using a fixed threshold. Finally GrabCut\cite{rother2004grabcut} will be used repeatedly to refine the segmentation result initially obtained by the binary segmentation mask.
+After obtaining a saliency map, the map is turned into a binary segmentation mask using a fixed threshold. Finally GrabCut \cite{rother2004grabcut} will be used repeatedly to refine the segmentation result initially obtained by the binary segmentation mask.
 
 \subsubsection{Implementation Details}
 
-To use this algorithm in a real-time scenario in a mobile device, our implementation had to be more simplified with little changes. GrabCut is too heavy to run smoothly on a mobile device, and for that reason, we had to discard its usage sacrificing the refinement of the segmentation for speed. After obtaining the saliency map described in \cite{cheng2011global}, we give a label to each pixel depending on its value. These labels would be used in GrabCut to define which pixels are considered foreground, probable foreground, background, or probable background. In our case, we used the labels to create masks with the areas defined as probable foreground and probable background.
-We defined experimentally the thresholds, classifying a pixel as probable foreground if its value was bigger or equal to 200 and probable background if it was between 20 and 200.
+To use this algorithm in a real-time scenario in a mobile device, our implementation had to be more simplified with little changes. GrabCut is too heavy to run smoothly on a mobile device, and for that reason, we had to discard its usage sacrificing the refinement of the segmentation for speed. After obtaining the saliency map described in \cite{cheng2011global}, we give a label to each pixel depending on its value. These labels would be used in GrabCut to define which pixels are considered foreground, probable foreground, background, or probable background. In our case, we used the labels to create masks with the areas defined as probable foreground and probable background. A pixel is classified as probable foreground if its value was bigger or equal to 200 and probable background if it was between 20 and 200. We defined experimentally the thresholds using images from the dataset used to test the original algorithm.
 
-After obtaining a mask with each pixel labelled, we created a mask with all pixels that were considered as probable foreground and calculated the center of mass for the resulting mask. To remove artifacts that might exist from using an incorrect threshold value, generate a bounding rectangle that starts at the center of mass calculated and expands in every direction. Each edge will continue expanding while each row or column that passes, has at least a count of 25 pixels belonging to the segmentation mask, and stops when 50 rows or columns have been covered with a count of pixels bellow the previously stated. These thresholds were found experimentally and seem reasonable for the test images.
+After obtaining a mask with each pixel labelled, we created a mask with all pixels that were considered as probable foreground and calculated the center of mass for the resulting mask. To remove artifacts that might exist from using an incorrect threshold value, we generate a bounding rectangle that starts at the calculated center of mass and expands in every direction. Each edge will continue expanding while each row or column that passes, has at least a count of 25 pixels belonging to the segmentation mask, and stops when 50 rows or columns have been covered with a count of pixels bellow the previously stated. These thresholds were found experimentally and seem reasonable for the test images.
 
-Obtained the bounding rectangle and mask with areas considered probable foreground, we had a good estimate of what was the main object in the scenario. The result of the segmentation was a section of the mask containing the probable foreground pixels, cropped in the area defined by the bounding rectangle. Since this algorithm is not sensitive to slight variations in lightning, we merged the probable foreground pixels with the probable background ones and cropped with the bounding rectangle. This would later be helpful filling the gaps in the mask, as this algorithm was not sensitive to slight light changes.
+The obtained bounding rectangle and mask with areas considered probable foreground, is a good estimate of what was the main object in the scenario. The result of the segmentation was a section of the mask containing the probable foreground pixels, cropped in the area defined by the bounding rectangle. Since this algorithm is not sensitive to slight variations in lightning, we merged the probable foreground pixels with the probable background ones and cropped with the bounding rectangle. This would later be helpful filling the gaps in the mask, as this algorithm was not sensitive to slight light changes.
 
 \subsubsection{Interface Display}
 
-Generated the mask we chose to simply show a semi-transparent mask over the live feed obtained from the camera, as shown in Figure \ref{fig:interface_segmentation}. This would be a good indicator of what as the subject in the scenario and if it had any colour striking features relatively to the rest of the elements.
+After generating the mask we chose to simply show a semi-transparent mask over the live feed obtained from the camera, as shown in Figure \ref{fig:interface_segmentation}. This would be a good indicator of what is the subject in the scenario and if it had any colour striking features relatively to the rest of the elements.
 
 \begin{figure}[htbp]
 	\centering
@@ -317,11 +374,11 @@ Generated the mask we chose to simply show a semi-transparent mask over the live
   	\label{fig:interface_segmentation}
 \end{figure}
 
-This could also be used together with guideline such as Rule of Thirds, described in Section \ref{sub:face_guidelines}, to reposition the object and change the composition.
+This could also be used together with a guideline such as Rule of Thirds, described in Section \ref{sub:face_guidelines}, to reposition the object and change the composition.
 
 \subsubsection{Discussion}
 \label{subsub:seg_discussion}
-Being an incomplete algorithm, it does not work perfectly. Since it depends on the global contrast of a subjects colours, this segmentation might not work if the background is not plain or simple. Even with slight camera shake, this algorithm can extract the subject quite effectively. Figure \ref{fig:seg_example} show the multiple stages taken to segment an object in an image and its final result.
+Being an incomplete algorithm, it does not work perfectly. Since it depends on the global contrast of a subjects colours, this segmentation might not work if the background is not plain or simple. Figure \ref{fig:seg_example} show the multiple stages taken to segment an object in an image and its final result.
 \begin{figure}[htb]
 	\hspace*{-45pt}
     \begin{tabular}{cccccccc}
@@ -382,15 +439,14 @@ Being an incomplete algorithm, it does not work perfectly. Since it depends on t
 \end{figure}
 \todo{alterar hspace consoante a página em que ficar}
 
-Has it is possible to observe in Figure \ref{fig:seg_example}, the input image shows a singular object in a plain background with a successful segmentation. The second image it is possible to confirm that, although the object is detected, the foreground threshold is not sensitive to lightning changes, as the darkest side in the can is considered as being a probable background.
+As it is possible to observe in Figure \ref{fig:seg_example}, the input image shows a singular object in a plain background with a successful segmentation. The second image it is possible to confirm that, although the object is detected, the foreground threshold is not sensitive to lightning changes, as the darkest side in the can is considered as being a probable background.
 
-This algorithm also might not work when trying to segment two objects. Example of this is the third input image, where we can verify by the saliency map, that the can is obviously more salient than the other object, therefore, the second object is classified as probable background. Another example of this, is the fourth image. With a plain background and two objects, the object with more vivid colours is the one considered as foreground, leaving the remaining object as part of the foreground.
+This algorithm also might not work when trying to segment two objects. Example of this is the third input image in Figure \ref{fig:seg_example}, where we can verify by the saliency map, that the can is obviously more salient than the other object, therefore, the second object is classified as probable background. Another example of this, is the fourth image. With a plain background and two objects, the object with more vivid colours is the one considered as foreground, leaving the remaining object as part of the foreground.
 
-The fifth image shows an example were lightning changes affect the outcome of the algorithm. In this case, the can and a part of the wall are considered as foreground. The solution to this would be a higher threshold when defining the foreground pixels, as the wall is visibly less salient than the can in the saliency map. Since it is detecting the wall as a part of the foreground, this causes the center of mass to be slightly dislocated and generates a bigger bounding rectangle. When merging the probable foreground pixels with the probable background ones and cropping with the bounding rectangle, it segments a big portion of the image that its not relevant.
+The fifth image shows an example were lightning changes affect the outcome of the algorithm. In this case, the can and a part of the wall are considered as foreground. The solution to this would be a higher threshold when defining the foreground pixels, as the wall is visibly less salient than the can in the saliency map. Since it is detecting the wall as a part of the foreground, this causes the center of mass to be slightly dislocated and generates a larger bounding rectangle. When merging the probable foreground pixels with the probable background ones and cropping with the bounding rectangle, it segments a big portion of the image that its not relevant.
 
 This object segmentation was also used in other functionalities implemented for this thesis.
 
-\todo[inline]{fazer comparação com dataset utilizado no paper}
 \subsection{Image Simplicity}
 \label{sub:background}
 
@@ -402,23 +458,22 @@ Since snapshots often have cluttered backgrounds, professional photos are expect
 
 \subsubsection{Algorithm Description}
 
-We experimented three algorithms that approach this problem. For our first experiment, we implemented an algorithm described in \cite{kaoautomatic}. Although very simple, the intuition behind this algorithm is that a very complex image, is likely to contain a large amount of edges. In \cite{kaoautomatic} the feature is described as:
+We experimented three algorithms to deal with this problem. The first algorithm that we tested was presented by \citeauthor{luo2008photo} in \cite{luo2008photo}, where the author explored the simplicity of a photo through its colour distribution. For a photo, we quantize each colour of the RGB channels into 16 values, creating a histogram with 4096 bins, which gives the counts of quantized colours present in the image. After creating the histogram, we calculate the maximum count ($h_{max}$) in the histogram. The simplicity of a photograph is then defined as:
+\begin{equation}
+	Simplicity = \left(\frac{\|S\|}{4096}\right) * 100%,
+\end{equation}
+where $S$ is the number of bins in the histogram that equal or above $\gamma h_{max}$. $\gamma$ is 0.01 as chosen by the author in the original article. As described in \cite{luo2008photo}, the simplicity factor for high quality photos fall in $[0\%,1.5\%]$, and low quality photos in $[0.5\%,5\%]$.
+
+
+For our second experiment, we implemented an algorithm described in \cite{kaoautomatic}. Although very simple, the intuition behind this algorithm is that a very complex image, is likely to contain a large amount of edges. In \cite{kaoautomatic} the feature is described as:
 
 \begin{equation}
 	B_{complexity} = \frac{n_{e}}{n_{T}},
 \end{equation}
 where $n_{e}$ is the number of pixels that are edge and $n_{T}$ is the total number of pixels.
  
- 
-The second algorithm that we tested was presented by \citeauthor{luo2008photo} in \cite{luo2008photo}, were the author explored the simplicity of a photo through its colour distribution.
 
-As described in \cite{luo2008photo}, for a photo, we quantize each colour of the RGB channels into 16 values, creating a histogram with 4096 bins, which gives the counts of quantized colours present in the image. After creating the histogram, we calculate the maximum count ($h_{max}$) in the histogram. The simplicity of a photograph is then defined as:
-\begin{equation}
-	Simplicity = \left(\frac{\|S\|}{4096}\right) * 100%,
-\end{equation}
-where $S$ is the number of bins in the histogram that equal or bigger than $\gamma h_{max}$. $\gamma$ is 0.01 as chosen by the author in the original article. As described in \cite{luo2008photo}, the simplicity factor for high quality photos fall in $[0\%,1.5\%]$, and low quality photos in $[0.5\%,5\%]$.
-
-In our third experiment we implemented an algorithm described in \cite{ke2006design} by \citeauthor{ke2006design}, were the idea was to compute the spatial distribution of the high frequency edges. Since the snapshots often haven cluttered backgrounds, edges are expected to be uniformly distributed in the image. In professional photographs, the subject is normally well defined and in focus, meaning that high frequency edges will be placed in a smaller area.
+In our third experiment we implemented an algorithm described by \citeauthor{ke2006design} \cite{ke2006design}, were the idea was to compute the spatial distribution of the high frequency edges. Since the snapshots often haven cluttered backgrounds, edges are expected to be uniformly distributed in the image. In professional photographs, the subject is normally well defined and in focus, meaning that high frequency edges will be placed in a smaller area.
 We started by implementing a $3\times3$ Laplacian matrix with $\alpha = 0.2$ as follows:
 \begin{equation}
 \begin{bmatrix}
@@ -428,8 +483,8 @@ We started by implementing a $3\times3$ Laplacian matrix with $\alpha = 0.2$ as 
 \end{bmatrix}
 \end{equation}
 
-This is matrix is then applied to the image and take its absolute value to ignore the direction of the gradients. Since this algorithm is to be applied on coloured images in real-time, we split the channels of each frame and perform this computation on each channel, taking the mean across the channels in the end. This will create a Laplacian image that will be resized to $100\times100$ and normalized to values between 0 and 1. This will help when calculating the amount of area the edges occupy. It is expected for well defined objects as the ones used in high quality photos to produce a smaller bounding box, on the other hand cluttered images, are expected to have the oppose effect.
-The area of the bounding box is calculated by projecting the Laplacian image $L$ onto de $x$ and $y$ axis independently so that:
+This matrix is then applied to the image and we take its absolute value to ignore the direction of the gradients. Since this algorithm is to be applied on coloured images in real-time, we split the channels of each frame and perform this computation on each channel, taking the mean across the channels in the end. This will create a Laplacian image that will be resized to $100\times100$ and normalized to values between 0 and 1. This will help when calculating the amount of area the edges occupy. It is expected for well defined objects as the ones used in high quality photos to produce a smaller bounding box, on the other hand cluttered images, are expected to have the oppose effect.
+The area of the bounding box is calculated by projecting the Laplacian image $L$ onto the $x$ and $y$ axis independently so that:
 \begin{equation}
 P_{x}(i) = \sum_{y} L(i,y),
 \end{equation}
@@ -437,45 +492,54 @@ P_{x}(i) = \sum_{y} L(i,y),
 P_{y}(j) = \sum_{x} L(x,j).
 \end{equation}
 
-This result in two vectors, one for $x$ axis and another one for $y$, that will have a length correspondent to the image width and height, were each position in the vector will have the amount of pixels considered as an edge in that column or row.
+This results in two vectors, one for the $x$ axis and another one for the $y$, that will have a length correspondent to the image width and height, were each position in the vector will have the amount of pixels considered as an edge in that column or row.
 
 After the projection of the Laplacian image onto the $x$ and $y$ axis, we find the position with the largest count of edges for each vector. The position with the maximum count will be considered the peak and we calculate the width $w_{x}$ and $w_{y}$ for each vector, that contains 98\% of the mass of the projections $P_{x}$ and $P_{y}$. The area of the bounding box containing a high density of pixels is then defined by $w_{x}w_{y}$ and the quality measure for the image is then $1-w_{x}w_{y}$.
 
 \subsubsection{Interface Display}
 
-In our application we tried to understand how these three algorithms would perform under a scenario were this feature would be used in real-time. For that we displayed on the screen the scores obtained from each method were, for the first algorithm\cite{kaoautomatic} and third algorithm \cite{ke2006design}, the score is between 0 and 1, and greater values indicate a simplicity in the scenario. 
-For the algorithm presented in \cite{luo2008photo}, can obtain any value between 0\% and 100\% but the author considers a photo simple if the score is between 0.5\% and 5\%. An example of the visualization of these scores can be seen in Figure \ref{fig:simp_ex1}.
-
-Alternatively, these scores could be replaced a bar that represents the full scale of each algorithm with a marker indicating the current score of the frame.
-
-\todo[inline]{Screenshot a mostrar os scores de simplicidade em barras}
+In our application we tried to understand how these three algorithms would perform under a scenario were this feature would be used in real-time. For that we displayed on the screen the scores obtained from each method where (Figure \ref{fig:simp_ex1_2}, \ref{fig:simp_ex2_2}), for the first algorithm \cite{kaoautomatic} and third algorithm \cite{ke2006design}, the score is between 0 and 1, and greater values indicate a simplicity in the scenario. 
+For the algorithm presented in \cite{luo2008photo}, we can obtain any value between 0\% and 100\% but the author defined three two ranges of values where we could fit images considered simple and complex. For input frames that into the $[0\%,1.5\%]$ and $[0.5\%,5\%]$ are considered as simple and complex, respectively. However, there is a range between $[0.5\%,1.5\%]$ where it can be either one.
+ 
+Alternatively, these scores could be replaced by a bar that represents the full scale of each algorithm with a marker indicating the current score of the frame (Figure \ref{fig:simp_ex1_1}, \ref{fig:simp_ex2_2}).
+In the case of the first method \cite{luo2008photo} we have three ranges, that were used to divide the bar into 3 parts equally proportional to each range. They are then differentiated with a simple colouring labelling. If the indicator is in the green or red area, the scenario is considered simple or complex, respectively. If it is a case where it can be considered one of both, it is represented by the yellow area as seen in Figure \ref{fig:simp_ex1_1}. This bar doesn't represent the full scale, as it only goes to 5\% since it is the highest value considered in the authors range.
 
 \subsubsection{Discussion}
+\todo[inline]{rever}
+Between the three methods implemented to detect the simplicity of an image, the method described in \cite{ke2006design} has proven to be the most effective as shown in Figure \ref{fig:simp_ex}. We can't really compare the method described by \citeauthor{luo2008photo} \cite{luo2008photo}, since it uses colour informations instead of edges. However it shows good results when comparing the scores obtained from a frame with a single object (Figure \ref{fig:simp_ex1_1}) with a frame that has more objects and therefore, more complex (Figure \ref{fig:simp_ex2_2}).
 
-Between the three methods implemented to detect the simplicity of an image, the method described in \cite{ke2006design} has proven to be the most effective as shown in Figure \ref{fig:simp_ex}. Comparing the first two methods, since they're based on the number of edges in the image, there is no notable difference between the scores obtained in both images. The method described in \cite{ke2006design} however, has into account the spatial distribution of the edges, which make it more sensible when new elements are added to the image. 
+For the two remaining methods, the third method described by \citeauthor{ke2006design}, presents better results. Both are based on the number of edges in the image, however the method described in \cite{ke2006design} has into account the spatial distribution of the edges, which make it more sensible when new elements are added to the image. Therefore, it presents more reliable results. The scores obtained by method described by \citeauthor{kaoautomatic} \cite{kaoautomatic}, did not vary much regardless of the simplicity of the scenario.
 
 \begin{figure}[htb]
 	\centering
     \subfigure[] {
-                \includegraphics[width=0.45\textwidth]{interface/image_simplicity/ex1.png}
-                \label{fig:simp_ex1}
+                \includegraphics[width=0.45\textwidth]{interface/image_simplicity/ex1_2.png}
+                \label{fig:simp_ex1_2}
     }
     \subfigure[] {
-                \includegraphics[width=0.45\textwidth]{interface/image_simplicity/ex2.png}
-                \label{fig:simp_ex2}
+                \includegraphics[width=0.45\textwidth]{interface/image_simplicity/ex2_2.png}
+                \label{fig:simp_ex2_2}
     }
-  	\caption{Illustrative examples of a simple image (a) versus an image with more elements (b). Each method refers to the algorithms described before in the same order.}
+    \subfigure[] {
+                \includegraphics[width=0.45\textwidth]{interface/image_simplicity/ex1_1.png}
+                \label{fig:simp_ex1_1}
+    }
+    \subfigure[] {
+                \includegraphics[width=0.45\textwidth]{interface/image_simplicity/ex2_1.png}
+                \label{fig:simp_ex2_1}
+    }
+  	\caption{Examples of visual cues given to the user. We experimented showing the results of the three implemented methods (a, b), versus using a more intuitive representation such as a fixed scale with an indicator showing the current score (c, d).}
 	\label{fig:simp_ex}
 \end{figure}
 
-Although not implemented, a slight variation of this algorithm would the  to segment the subjects in the scenario and perform the simplicity calculation on the background, since professional photographers also suggest to use plain backgrounds \cite{Santos}. Since snapshots are considered to have a more cluttered background comparing to professional photos, performing this computation only on segmented backgrounds would result in more accurate scores since the edges of the main subjects would be ignored, and therefore, it would be easier to detects edges on the background.
+Although not implemented, a slight variation of this algorithm would be to segment the subjects in the scenario and perform the simplicity calculation over the background, since professional photographers also suggest to use plain backgrounds \cite{Santos}. Snapshots are considered to have a more cluttered background comparing to professional photos, performing this computation only on segmented backgrounds would result in more accurate scores for the second and third method since the edges of the main subjects would be ignored, and therefore, it would be easier to detects edges on the background. This would also improve the score of the first method since it would then be possible to ignore the colours of the object. Ignoring the colours of the object, we could then obtain a more precise score by calculating the histogram over the background since cluttered background are likely to have more colours than simple background chosen by professionals.
 
 \subsection{Main Line Detection}
 \label{sub:line_detection}
 
-Lines can have an important role in a photograph, as referred in \ref{subsub:leading_lines}. These lines can have multiple interpretations, depending if they are horizontal, vertical, diagonal or curved. They can give a sensation of stability and safety, movement or delimit the begin and the end of a scene.
+Lines can have an important role in a photograph, as referred in Section \ref{subsub:leading_lines}. These lines can have multiple interpretations, depending if they are horizontal, vertical, diagonal or curved. They can give a sensation of stability and safety, movement or delimit the begin and the end of a scene.
 
-A popular method for edge detection is the use of Canny Edge Detector\cite{canny1986computational} which can detect the main edges of an image. This method is applies several convolution filters to each pixel with the goal of finding the pixels where the intensity variation is high\cite{nobrega2013interactive}.
+A popular method for edge detection is the use of Canny Edge Detector \cite{canny1986computational} which can detect the main edges of an image. This method applies several convolution filters to each pixel with the goal of finding the pixels where the intensity variation is high \cite{nobrega2013interactive}.
 The algorithm starts by applying a Gaussian filter which will blur the image reducing the noise and extra edges that might be detected. After the Gaussian filter, it applies two Sobel kernels to find gradients in the horizontal and vertical direction such as:
 \begin{equation}
 S_{x} =
@@ -498,7 +562,7 @@ Finally the gradient of a pixel is calculated by
 \end{equation}
 and the pixel will be accepted as an edge if it is above an upper threshold, below the lower threshold or connected to a pixel that is above the upper threshold.
 
-Another method of line detection used is the through the Hough Transformation\cite{illingworth1988survey}. Lines can be represented in the Cartesian space by the equation
+Another method of line detection used is the Hough Transformation\cite{illingworth1988survey}. Lines can be represented in the Cartesian space by the equation
 \begin{equation}
 	y=mx+b.
 	\label{eq:recta}
@@ -711,8 +775,9 @@ Since we previously stored the position and angle of the horizon line calculated
 Now with the pairs $(\rho_{CD}, \theta_{CD})$ and $(\rho_{ED}, \theta_{ED})$ that represent a probable horizon line in each of the methods, we define the horizon line as an average of the ones obtained from the previous methods.
 
 \subsubsection{Interface Display}
+\todo[inline]{Para rever}
 
-For this feature we chose the simplest way to draw a horizon line which was to draw line in the viewfinder. To eliminate the chance of displaying erroneous results, we took advantage of the Android's sensors. Using information given by the mobile device relative to its accelerometer and magnetic field we area able to filter the results. With this information we can detect the orientation of the mobile device and compare it with the line slope. If the slope of the line is vertical(horizontal) and the orientation of the mobile device is horizontal(vertical), the line is then excluded and not drawn. Figure X has an illustrative example of the horizon line base on the edge detector and color detector previously described, as well as the result obtain by merging the two.
+For this feature we chose the simplest way to draw a horizon line which was to draw line in the viewfinder. To eliminate the chance of displaying erroneous results, we took advantage of the Android's sensors. Using information given by the mobile device relative to its accelerometer and magnetic field we area able to filter the results. With this information we can detect the orientation of the mobile device and compare it with the line slope. If the slope of the line is vertical(horizontal) and the orientation of the mobile device is horizontal(vertical), the line is then excluded and not drawn. Figure \ref{fig:hori_ex} has an illustrative example of the horizon line base on the edge detector and color detector previously described, as well as the result obtain by merging the two.
 \begin{figure}[htbp]
 	\centering
     \includegraphics[width=0.7\textwidth]{interface/horizon_detection/ex1.png}
@@ -721,6 +786,7 @@ For this feature we chose the simplest way to draw a horizon line which was to d
 \end{figure}
 
 \subsubsection{Discussion}
+\todo[inline]{Para rever}
 
 Although this method can perform under the right conditions, it has a high fail rate in detecting the correct horizon line. Previously we stated that the colour detector was not fully implemented. Originally the algorithm has intro account the physical phenomenon of colour de-saturation and brightness increase along zenith-to-horizon direction, which involved extracting the gradient features as expressed in equation \ref{eq:cd_eq}. This was ignored in an attempt to minimize the computational load on the mobile device. 
 The extraction of gradient features would also give useful information about the angle and position of the horizon along with a confidence metric on these parameters. We obtained an angle and position for the horizon line on the colour detector, however we can't obtain the confidence metric. Since the confidence metric would be essential later in the edge detector, we couldn't make our implementation ignore salient that were not related to the horizon line.
@@ -783,22 +849,29 @@ where $\psi_{i}$ and $\psi_{j}$ are the image gradient angles and $\sigma$ defin
 
 \subsubsection{Interface Display}
 
-Since the purpose of this application is to have simple visual cues, we choose to show the user the line of symmetry being detected at the current frame and in which of the categories it belongs, considering the balance detected. As shown in Figure X, on the upper-left corner, there is a list with the three categories of balance. Given difference percentage of occupation amount between the two sides of the symmetry line, one this categories is highlighted informing the user if the current scenario is balanced, unbalanced or has any kind of visual tension.
+Since the purpose of this application is to have simple visual cues, we choose to show the user the line of symmetry being detected at the current frame and in which of the categories it belongs, considering the balance detected. As shown in Figure \ref{fig:balance_inter}, on the upper-left corner, there is a list with the three categories of balance. Given difference percentage of occupation amount between the two sides of the symmetry line, one this categories is highlighted informing the user if the current scenario is balanced, unbalanced or has any kind of visual tension.
 
-\todo[inline]{meter imagem}
+\begin{figure}[htbp]
+	\centering	
+	\includegraphics[width=0.5\textwidth]{interface/image_balance/inter_ex1.png}
+    \caption{Example of the visual cue to inform the user about the scenario balance.}
+    \label{fig:balance_inter}
+\end{figure}
 
 \subsubsection{Discussion}
 
-Although it can give an approximate result from what is expected, this feature has some obvious problems on the chosen algorithms. Originally the algorithm described by \citeauthor{li2006real} in \cite{li2006real} was intended to detect and track objects in real-time based on its symmetric features. Thus, if we imagine a plain background with a simple object, the symmetry line will be calculated according its edges, so the line will go across the object. This proves that if an image is completely one-sided, it can be considered as balanced. This would depend on the symmetry axis chosen by the user which is not the case.
+\todo[inline]{ligeiramente modificado, rever}
+
+Although it can give an approximate result from what is expected, this feature has some obvious problems on the chosen algorithms. Originally the algorithm described by \citeauthor{li2006real} in \cite{li2006real} was intended to detect and track objects in real-time based on its symmetric features. Thus, if we imagine a plain background with a simple object, the symmetry line will be calculated according its edges, so the line will go across the object. This proves that even if the scenario is completely one-sided, it can be considered as balanced. This would depend on the symmetry axis chosen by the user which is not the case.
 This can also bring problems when there is more than one object in the frame, since the lines formed by the chosen peaks, can all be related to the same object. We then added a threshold that gradually increases on each iteration when finding the peaks guaranteeing that the maximum threshold when finding a peak is 
 \begin{equation}
 	max_{threshold} = max_{threshold} - (max_{threshold}*(0.25*n_{peaks})),
 \end{equation}
 where $max_{threshold}$ starts with the maximum value found on the Hough map and gradually decreases with the number of peaks found ($n_{peaks}$).
 
-In a scenario with two objects, it becomes possible to select a symmetry axis for each object and calculate an averaged symmetry line with the two previously found. 
+Figure \ref{fig:image_balance_example} illustrates the problem stated. In Figure \ref{fig:balance_example1} is visible the first problem discussed, where the image is obviously unbalanced to anyone who sees the picture but since the are no edges on the right side, the symmetry axis is calculated only with the edges found on the left side. In this case the result is acceptable as it possible to also draw a horizontal symmetry axis making it perfectly balanced, its just counterintuitive. 
 
-Figure \ref{fig:image_balance_example} what was stated. In Figure \ref{fig:balance_example1} is visible the first problem discussed, where the image is obviously unbalanced to anyone who sees the picture but since the are no edges on the right side, the symmetry axis is calculated only with the edges found on the left side. In this case the result is acceptable as it possible to also draw a horizontal symmetry axis making it perfectly balanced, its just counterintuitive. Figure \ref{fig:balance_example2} illustrates the solution we opted for the second problem. Using a dynamic maximum threshold ($max_{threshold}$), we were able to select a symmetry axis for each object and average them, calculating a correct symmetry axis.
+In a scenario with two objects, it becomes possible to select a symmetry axis for each object and calculate an averaged symmetry line with the two previously found. Figure \ref{fig:balance_example2} illustrates the solution we opted for the second problem. Using a dynamic maximum threshold ($max_{threshold}$), we were able to select a symmetry axis for each object and average them, calculating a correct symmetry axis.
 
 \begin{figure}[htbp]
 	\centering
@@ -814,9 +887,41 @@ Figure \ref{fig:image_balance_example} what was stated. In Figure \ref{fig:balan
     \label{fig:image_balance_example}
 \end{figure}
 
+However, this solution has some difficulty in classifying unbalanced scenarios between two objects were one is obviously larger than the other. Figure \ref{fig:unbalance_test} illustrates an example were the same scenario with two objects of different sizes, are classified differently. This is due to the fact that if one object is obviously larger than the other, the symmetry axis e defined based on the larger object most relevant edges, therefore, the edges from the smallest object aren't taken into account.
+
+\begin{figure}[htbp]
+	\centering
+    \subfigure[] {
+    	\includegraphics[width=0.45\textwidth]{interface/image_balance/ex3.png}
+    	\label{fig:unbalance_test2}
+    }
+    \subfigure[] {
+        \includegraphics[width=0.45\textwidth]{interface/image_balance/ex4.png}
+    	\label{fig:unbalance_test1}
+    }
+    \caption{Examples of an unbalanced image with objects of different sizes were one is classified as unbalanced (a) and the other as balanced (b), as a result of the calculated symmetry axis.}
+    \label{fig:unbalance_test}
+\end{figure}
+
+
 Besides the problem in the discovery of the symmetry axis, the object segmentation also has the problems that were discussed in Section \ref{subsub:seg_discussion} where what we consider an object in the scenario, might not have enough colour contrast relatively to the background.
 
 The thresholds used in this algorithm were chosen experimentally with sample of images considered symmetric or unbalanced, which means that the values might not perform well on various compositions in a real-time case scenario.
 
 \section{Discussion}
 \label{sec:system_discussion}
+\todo[inline]{Para rever}	
+
+Through out this section we enumerated the functionalities implemented on this thesis describing the algorithm implemented for each one, how we show the information to the user and discussing problems and advantages that they might have.
+
+Since colour is an important part of an image, we described some features that are related to the colour properties of an input frame. These features include two different representations of an histogram, one with a bar for each channel and grayscale image that indicate de range of colours being used as well as the indication of quantity of pixels near the edges of the scale, and the other with a representation similar to a colours wheel that indicates the amount of each primary and secondary colour in the \emph{Hue} spectrum. Still related to colour properties, since a highly colourful images affect the viewer and grab their attention, we implemented a saturation detector. When the colours of a scenario are low on saturation it displays a suggestion indicating that a monochromatic filter might be useful.
+
+A rule followed by professional photographer is to use a low number of colours and conjugate them wisely to trigger an emotion in the viewer. With that in mind we implemented a scoring system that is given to the input frame, based on the number of colours detected and a display of the template being used, as it can be a template monochromatic or complementary \cite{cohen2006color}.
+
+More relate to the composition of a photography, we also implemented features based in detecting elements from a real-time feed. The most common detector when talking about photography is the face detector\cite{OCV}. Implemented in a wide variety of systems now available, we took a little step further in mixing this concept with rules related to photography, such as the Rule of Thirds (Section \ref{subsub:rule_thirds}) and triangular compositions \cite{Santos}. Although not implemented, these rules could also be used with our implementation of object segmentation based on saliency maps \cite{cheng2011global}. The object segmentation, even if dependent on the colour contrast of the object in comparison to the rest of the background, gives quite accurate results with simple backgrounds.
+
+Besides the simplicity of the background, in photography, simplistic photos are considered to be very aesthetic \cite{kamps2012rules}. Therefore, we experimented a couple of metrics that rate the simplicity of a scenario based on the on the edges detected. We obtained the best result with the our third metric that gives it is not only based on the number of edges detected, but also as into account the spatial distribution of those edges \cite{ke2006design}.
+
+Still related to the composition, the balance of an image (Section \ref{subsub:balance_elements}) has an important role on the visual impact onto the viewer. The placement of the main subject of a photo off center can create a more dynamic result, because asymmetry makes a photo more appealing to a viewer causing visual tension. With that in mind we implemented a feature to evaluate the balance in the scenario. This is based on a detected symmetry line and the weight of the objects on each side of the symmetry.
+
+The lines that can be found in images are very powerful elements that with a little practice can add dynamic impact to a photograph in terms of mood as well as how they lead an image’s viewer into a photo (Section \ref{subsub:leading_lines}). Varying between vertical, horizontal, diagonal or curved lines, we focused on detecting dominant straight lines without taking into account their inclination, to help the user find and work with of those important lines. Still related with lines, the horizon line is what is important when taking a photography of a seascape of landscape. Although not perfect, our implementation of a horizon detector \cite{zafarifar2008horizon} can still be useful when reposition this line according to the Rule of Thirds \ref{subsub:rule_thirds}.

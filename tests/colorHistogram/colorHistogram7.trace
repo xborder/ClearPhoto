@@ -1,0 +1,249 @@
+*version
+3
+data-file-overflow=false
+clock=dual
+elapsed-time-usec=46485
+num-method-calls=1425
+clock-call-overhead-nsec=4840
+vm=dalvik
+*threads
+1	main
+11	Binder_3
+10	Binder_2
+9	Binder_1
+8	FinalizerWatchdogDaemon
+7	FinalizerDaemon
+6	ReferenceQueueDaemon
+5	Compiler
+4	JDWP
+3	Signal Catcher
+2	GC
+*methods
+0x574a6a10	org/opencv/core/Mat	getNativeObjAddr	()J	Mat.java	2643
+0x574a6c40	org/opencv/core/Mat	put	(II[B)I	Mat.java	2547
+0x574a71b8	org/opencv/core/Mat	type	()I	Mat.java	2394
+0x574a5118	org/opencv/core/Mat	nPutB	(JIII[B)I	Mat.java	-2
+0x574a6030	org/opencv/core/Mat	n_type	(J)I	Mat.java	-2
+0x5718fc70	java/lang/Daemons$FinalizerDaemon	doFinalize	(Ljava/lang/ref/FinalizerReference;)V	Daemons.java	-1
+0x571a38c0	android/view/DisplayEventReceiver	scheduleVsync	()V	DisplayEventReceiver.java	106
+0x571a37d8	android/view/DisplayEventReceiver	nativeScheduleVsync	(I)V	DisplayEventReceiver.java	-2
+0x57263c50	java/util/Arrays	copyOfRange	([BII)[B	Arrays.java	2690
+0x57155bd8	java/lang/VMThread	currentThread	()Ljava/lang/Thread;	VMThread.java	-2
+0x571b6a80	android/view/View	getMatrix	()Landroid/graphics/Matrix;	View.java	8970
+0x571b7ea0	android/view/View	invalidate	()V	View.java	10520
+0x571b7f48	android/view/View	invalidate	(Z)V	View.java	-1
+0x571b85d8	android/view/View	isOpaque	()Z	View.java	-1
+0x571b4548	android/view/View	skipInvalidate	()Z	View.java	10426
+0x571ce308	android/view/ViewGroup	invalidateChild	(Landroid/view/View;Landroid/graphics/Rect;)V	ViewGroup.java	4295
+0x571ce378	android/view/ViewGroup	invalidateChildInParent	([ILandroid/graphics/Rect;)Landroid/view/ViewParent;	ViewGroup.java	-1
+0x5718fdc0	java/lang/Daemons$FinalizerWatchdogDaemon	access$200	()Ljava/lang/Daemons$FinalizerWatchdogDaemon;	Daemons.java	201
+0x57263228	java/lang/ThreadLocal$Values	access$000	(Ljava/lang/ThreadLocal$Values;)[Ljava/lang/Object;	ThreadLocal.java	144
+0x57263260	java/lang/ThreadLocal$Values	access$100	(Ljava/lang/ThreadLocal$Values;)I	ThreadLocal.java	144
+0x571d0ae0	android/os/Handler	getLooper	()Landroid/os/Looper;	Handler.java	566
+0x571d0cd8	android/os/Handler	obtainMessage	(IIILjava/lang/Object;)Landroid/os/Message;	Handler.java	247
+0x571d1020	android/os/Handler	sendMessage	(Landroid/os/Message;)Z	Handler.java	383
+0x571d1090	android/os/Handler	sendMessageAtTime	(Landroid/os/Message;J)Z	Handler.java	469
+0x571d10c8	android/os/Handler	sendMessageDelayed	(Landroid/os/Message;J)Z	Handler.java	443
+0x574a78d0	tese/helder/clearphoto/ImageProcessing	getHistograms	(Lorg/opencv/core/Mat;Lorg/opencv/core/Mat;Lorg/opencv/core/Mat;Lorg/opencv/core/Mat;Lorg/opencv/core/Mat;II)V	ImageProcessing.java	16
+0x574a7c18	tese/helder/clearphoto/ImageProcessing	nativeGetHistograms	(JJJJJII)V	ImageProcessing.java	-2
+0x5719c3b0	android/os/Binder	finalize	()V	Binder.java	348
+0x5719bff0	android/os/Binder	destroy	()V	Binder.java	-2
+0x5720ad80	android/os/Debug	startMethodTracing	(Ljava/lang/String;)V	Debug.java	-1
+0x5720adf0	android/os/Debug	startMethodTracing	(Ljava/lang/String;II)V	Debug.java	490
+0x5720af08	android/os/Debug	stopMethodTracing	()V	Debug.java	536
+0x5715f020	java/lang/ref/FinalizerReference	clear	()V	FinalizerReference.java	44
+0x5715f058	java/lang/ref/FinalizerReference	get	()Ljava/lang/Object;	FinalizerReference.java	39
+0x5715efe0	java/lang/ref/FinalizerReference	remove	(Ljava/lang/ref/FinalizerReference;)V	FinalizerReference.java	60
+0x571d21a0	android/graphics/Matrix	finalize	()V	Matrix.java	787
+0x571d2248	android/graphics/Matrix	isIdentity	()Z	Matrix.java	247
+0x571d1868	android/graphics/Matrix	finalizer	(I)V	Matrix.java	-2
+0x571d1980	android/graphics/Matrix	native_isIdentity	(I)Z	Matrix.java	-2
+0x571500f0	java/lang/Object	finalize	()V	Object.java	224
+0x57150198	java/lang/Object	notify	()V	Object.java	-2
+0x57150278	java/lang/Object	wait	(J)V	Object.java	401
+0x571502b0	java/lang/Object	wait	(JI)V	Object.java	-2
+0x57160690	java/lang/Math	min	(II)I	Math.java	-2
+0x574a2fd8	tese/helder/clearphoto/overlays/imageprocessing/ColorHistogram	process	([B)V	ColorHistogram.java	-1
+0x5718f970	java/lang/Daemons$Daemon	isRunning	()Z	Daemons.java	74
+0x5719fc90	java/lang/ThreadLocal	get	()Ljava/lang/Object;	ThreadLocal.java	53
+0x5719fda8	java/lang/ThreadLocal	values	(Ljava/lang/Thread;)Ljava/lang/ThreadLocal$Values;	ThreadLocal.java	121
+0x572cedd8	android/os/Message	isInUse	()Z	Message.java	-1
+0x572cea18	android/os/Message	obtain	()Landroid/os/Message;	Message.java	107
+0x572ceaf8	android/os/Message	obtain	(Landroid/os/Handler;IIILjava/lang/Object;)Landroid/os/Message;	Message.java	233
+0x571d4800	android/view/ViewRootImpl	checkThread	()V	ViewRootImpl.java	4996
+0x571d5600	android/view/ViewRootImpl	invalidateChildInParent	([ILandroid/graphics/Rect;)Landroid/view/ViewParent;	ViewRootImpl.java	-1
+0x571d5ad0	android/view/ViewRootImpl	scheduleConsumeBatchedInput	()V	ViewRootImpl.java	4559
+0x571d5b08	android/view/ViewRootImpl	scheduleTraversals	()V	ViewRootImpl.java	1092
+0x572d62a0	android/content/res/XmlBlock$Parser	close	()V	XmlBlock.java	445
+0x572d6310	android/content/res/XmlBlock$Parser	finalize	()V	XmlBlock.java	455
+0x5715f898	dalvik/system/VMDebug	startGC	()V	VMDebug.java	353
+0x5715f940	dalvik/system/VMDebug	startMethodTracing	(Ljava/lang/String;II)V	VMDebug.java	171
+0x5715fac8	dalvik/system/VMDebug	stopMethodTracing	()V	VMDebug.java	-2
+0x571ef0c0	android/view/Choreographer	postCallback	(ILjava/lang/Runnable;Ljava/lang/Object;)V	Choreographer.java	266
+0x571ef0f8	android/view/Choreographer	postCallbackDelayed	(ILjava/lang/Runnable;Ljava/lang/Object;J)V	Choreographer.java	285
+0x571eec90	android/view/Choreographer	access$500	(Landroid/view/Choreographer;JLjava/lang/Object;Ljava/lang/Object;)Landroid/view/Choreographer$CallbackRecord;	Choreographer.java	68
+0x571eed70	android/view/Choreographer	isRunningOnLooperThreadLocked	()Z	Choreographer.java	593
+0x571eeda8	android/view/Choreographer	obtainCallbackLocked	(JLjava/lang/Object;Ljava/lang/Object;)Landroid/view/Choreographer$CallbackRecord;	Choreographer.java	-1
+0x571eede0	android/view/Choreographer	postCallbackDelayedInternal	(ILjava/lang/Object;Ljava/lang/Object;J)V	Choreographer.java	303
+0x571eee88	android/view/Choreographer	scheduleFrameLocked	(J)V	Choreographer.java	-1
+0x571eeec0	android/view/Choreographer	scheduleVsyncLocked	()V	Choreographer.java	589
+0x572532e8	android/os/Looper	postSyncBarrier	()I	Looper.java	227
+0x57253120	android/os/Looper	myLooper	()Landroid/os/Looper;	Looper.java	163
+0x57190930	android/os/SystemClock	uptimeMillis	()J	SystemClock.java	-2
+0x572117e8	android/hardware/Camera	postEventFromNative	(Ljava/lang/Object;IIILjava/lang/Object;)V	Camera.java	873
+0x5715f210	java/lang/ref/Reference	get	()Ljava/lang/Object;	Reference.java	133
+0x571a4068	android/graphics/Rect	intersect	(IIII)Z	Rect.java	377
+0x571a4110	android/graphics/Rect	isEmpty	()Z	Rect.java	175
+0x571a4148	android/graphics/Rect	offset	(II)V	Rect.java	271
+0x571a4260	android/graphics/Rect	set	(IIII)V	Rect.java	244
+0x571a4458	android/graphics/Rect	union	(IIII)V	Rect.java	468
+0x574a75c0	org/opencv/core/CvType	channels	(I)I	CvType.java	67
+0x574a75f8	org/opencv/core/CvType	depth	(I)I	CvType.java	71
+0x5749ea48	android/view/Choreographer$CallbackQueue	addCallbackLocked	(JLjava/lang/Object;Ljava/lang/Object;)V	Choreographer.java	758
+0x571545c8	java/lang/Thread	currentThread	()Ljava/lang/Thread;	Thread.java	476
+0x5720ba60	android/os/MessageQueue	enqueueMessage	(Landroid/os/Message;J)Z	MessageQueue.java	-1
+0x5720ba98	android/os/MessageQueue	enqueueSyncBarrier	(J)I	MessageQueue.java	230
+0x571713f8	java/lang/System	arraycopy	(Ljava/lang/Object;ILjava/lang/Object;II)V	System.java	-2
+0x57171a18	java/lang/System	nanoTime	()J	System.java	-2
+0x571a9350	android/graphics/Paint	finalize	()V	Paint.java	2206
+0x571a8938	android/graphics/Paint	finalizer	(I)V	Paint.java	-2
+0x5715fd50	java/lang/ref/ReferenceQueue	poll	()Ljava/lang/ref/Reference;	ReferenceQueue.java	-1
+0x5715fd88	java/lang/ref/ReferenceQueue	remove	()Ljava/lang/ref/Reference;	ReferenceQueue.java	73
+0x5715fdc0	java/lang/ref/ReferenceQueue	remove	(J)Ljava/lang/ref/Reference;	ReferenceQueue.java	91
+*end
+SLOW   шх=ЮК                 сяW   +    XЁW   .    YЁW   0     ЁW
+   3    !ЁW   5    W   8    W   ;    └¤W   >    ┴¤W   A    └¤W   C    ┴¤W   F    ШW    H    ЩW"   K    c-W%   M    аb-W'   P    бb-W*   R    c-W.   W    q№W2   \    p∙W7   `    q∙W;   d    И¤W>   g    └¤WB   l    P¤WG   o    Q¤WJ   s    ┴¤WM   v    Й¤WO   x    p№WR   z    ряWT   }    сяWW   А    XЁWZ   В    YЁW\   Е     ЁW^   З    !ЁWa   Й    Wc   М    Wg   П    └¤Wj   Т    ┴¤Wl   Ф    └¤Wo   Ч    ┴¤Wq   Щ    ШWs   Ь    ЩWv   Ю    c-Wx   б    аb-W{   г    бb-W}   ж    c-WА   и    q№WВ   л    p∙WД   н    q∙WЗ   ░    И¤WК   ▓    └¤WМ   ┤    P¤W╡   ┼   A∙W   ¤   ён W	      Бн W      ╪/JW   
+   P<&W      РW      СW"      Ш°WЙ   ║-   Щ°W$6  гe   Q¤W  Xj   ┴¤W  [j   Й¤W
+  ^j   p№W  bj   ряW  ej   сяW  kj   XЁW  oj  
+ ш!W   pj   YЁW  qj    ЁW   tj  
+ ЄW   uj   !ЁW"  vj  
+ ЄW   xj   W%  yj  
+ ╪W   |j   W*  j  
+ °ъ,W   Аj   └¤W.  Гj  
+ ъ,W   Гj   ┴¤W1  Еj   └¤W4  Иj  
+ ъ,W   Йj   ┴¤W6  Кj  
+ ∙ъ,W   Мj   ШW9  Нj  
+ ┘W!   Оj   ЩW<  Рj  
+  W$   Сj   PУW@  Фj  
+ ╚W'   Хj   8ЙWC  Чj  
+ 0	W+   Шj  
+ 1	W7   еj   9ЙWR  жj  
+ РW;   иj   Ё WU  кj  
+ `║ W>   мj   ё WX  мj   QУWZ  пj  
+ ╪э,WB   пj   q№W]  ▒j  
+ ┘э,WE   ▓j   p∙W`  ┤j   q∙Wc  ╖j  
+ a║ WJ   ╖j   И¤We  ║j  
+ СWM   ║j   └¤Wh  ╝j  
+ ╔WO   ╜j  
+ !WR   ┐j   P¤Wk  ┐j  
+ щ!WT   ┴j   Q¤Wn  ┬j   ┴¤Wp  ┼j   Й¤Ws  ╟j   p№Wu  ╔j   ряWx  ╠j   сяWz  ╧j   XЁW}  ╤j   YЁW  ╙j    ЁWВ  ╓j   !ЁWД  ╪j   WЖ  ┌j   WК  ▐j   └¤WМ  рj   ┴¤WО  уj   └¤WС  хj   ┴¤WУ  шj   ШWЦ  ъj   ЩWШ  ьj   а!WЫ  яj   hWЮ  Єj   iWв  Ўj   б!Wе  ∙j   q№Wз  √j   p∙Wк  ■j   q∙Wм   k   И¤Wп  k   └¤W▒  k   P¤W┤  k   Q¤W╖  k   ┴¤W╣  k   Й¤W╝  k   p№W╛  k   ряW┴  k   сяW├  k   XЁW╞  k   YЁW╚  k    ЁW╦  k   !ЁW═  !k   W╨  $k   W╘  )k   └¤W┘  -k   ┴¤W█  0k   └¤W▐  3k   ┴¤Wс  5k   ШWу  7k   ЩWц  :k   PУWъ  >k   8ЙWь  Ak   9ЙWЄ  Fk   Ё WЇ  Ik   ё Wў  Kk   QУW∙  Mk   q№W№  Pk   p∙W■  Rk   q∙W  Uk   И¤W  Xk   └¤W  Zk   P¤W	  ]k   Q¤W  `k   ┴¤W  bk   Й¤W  ek   p№W  gk   ряW  ik   сяW  lk   XЁW  ok   YЁW  qk    ЁW   tk   !ЁW"  vk   W$  xk   W(  |k   └¤W+  k   ┴¤W4  Йk   └¤W8  Мk   ┴¤W:  Оk   ШW<  Сk   ЩW?  Уk   PУWB  Цk   8ЙWD  Шk   9ЙWI  Эk   Ё WL  аk   ё WN  вk   QУWP  еk   q№WS  зk   p∙WU  йk   q∙WX  мk   И¤WZ  пk   └¤W]  ▒k   P¤W`  ┤k   Q¤Wc  ╖k   ┴¤We  ╣k   Й¤Wg  ╝k   p№Wj  ╛k   ряWm  ┴k   сяWp  ─k   XЁWr  ╞k   YЁW|  ╨k    ЁW  ╙k   !ЁWБ  ╒k   WГ  ╪k   WЗ  █k   └¤WО  уk   ┴¤WС  хk   └¤WУ  шk   ┴¤WЦ  ъk   ШWШ  эk   ЩWЫ  яk   ░├WЯ  єk   Ё┐Wв  Ўk   ё┐Wн  l   Ё W░  l   ё W│  l   ▒├W╡  	l   q№W╖  l   p∙W╚  Ll   q∙W╬  Ql   И¤W╨  Sl   └¤W╙  Vl   P¤W╫  Zl   Q¤W┌  ]l   ┴¤W▌  `l   Й¤W▀  bl   p№Wт  el   ряWх  hl   сяWш  kl   XЁWы  nl   YЁWэ  pl    ЁWЁ  rl   !ЁWЄ  ul   Wї  xl   W·  }l   └¤W¤  Аl   ┴¤W   Вl   └¤W  Еl   ┴¤W  Иl   ШW  Кl   ЩW
+  Нl   PУW  Тl   8ЙW  Хl   °W№6  Юl   9ЙW  бl   Ё W!  дl   ё W#  жl   QУW&  йl   q№W)  лl   p∙W+  оl   q∙W.  ▒l   И¤W0  │l   └¤W3  ╢l   P¤W6  ╕l   Q¤W9  ╗l   ┴¤W;  ╛l   Й¤W=  └l   p№W@  ├l   ряWB  ┼l   сяWE  ╚l   XЁWG  ╩l   YЁWJ  ═l    ЁWL  ╧l   !ЁWO  ╥l   WQ  ╘l   WU  ╪l   └¤WX  █l   ┴¤W[  ▐l   └¤W]  сl   ┴¤W`  уl   ШWc  хl   ЩWe  шl   c-Wi  ьl   аb-Wm  Ёl   бb-Wq  Їl   c-Ws  Ўl   q№Wu  °l   p∙Wx  √l   q∙W{  ¤l   И¤W}   m   └¤W  m   P¤WВ  m   Q¤WЕ  m   ┴¤WЗ  
+m   Й¤WК  m   p№WМ  m   ряWО  m   сяWС  m   XЁWФ  m   YЁWЦ  m    ЁWЩ  m   !ЁWЫ  m   WЮ   m   Wб  $m   └¤Wе  (m   ┴¤Wз  *m   └¤Wй  ,m   ┴¤Wм  /m   ШWо  1m   ЩW▒  4m   PУW│  6m   8ЙW╢  9m   9ЙW╗  >m   Ё W╛  Am   ё W└  Cm   QУW├  Fm   q№W┼  Hm   p∙W╚  Jm   q∙W╩  Mm   И¤W═  Pm   └¤W╨  Sm   P¤W╙  Vm   Q¤W╫  Ym   ┴¤W┘  \m   Й¤W█  ^m   p№W▐  am   ряWс  dm   сяWф  hm   XЁWч  jm   YЁWъ  mm    ЁWэ  pm   !ЁWя  rm   Wё  tm   Wї  xm   └¤W°  {m   ┴¤W·  }m   └¤W¤  m   ┴¤W   Вm   ШW  Дm   ЩW  Зm   а!W  Йm   hW
+  Нm   iW  Тm   б!W  Фm   q№W  Чm   p∙W  Щm   q∙W  Ьm   И¤W  Юm   └¤W  бm   P¤W!  дm   Q¤W$  жm   ┴¤W&  йm   Й¤W(  лm   p№W+  оm   ряW-  ░m   сяW0  │m   XЁW3  ╡m   YЁW6  ╕m    ЁW8  ╗m   !ЁW:  ╜m   W=  ┐m   W@  ├m   └¤WB  ┼m   ┴¤WE  ╚m   └¤WG  ╩m   ┴¤WJ  ╠m   ШWL  ╧m   ЩWN  ╤m   PУWQ  ╘m   8ЙWT  ╫m   9ЙW\  ▀m   Ё W_  тm   ё Wb  хm   QУWd  чm   q№Wg  щm   p∙Wi  ьm   q∙Wk  юm   И¤Wn  ёm   └¤Wp  єm   P¤Ws  Ўm   Q¤Wv  ∙m   ┴¤Wx  √m   Й¤W{  ■m   p№W}   n   ряWА  n   сяWГ  n   XЁWЕ  n   YЁWЗ  
+n    ЁWК  n   !ЁWМ  n   WО  n   WТ  n   └¤WФ  n   ┴¤WЧ  n   └¤WЩ  n   ┴¤WЬ  n   ШWЮ  !n   ЩWа  #n   PУWг  &n   8ЙWе  (n   9ЙWм  /n   Ё Wо  1n   ё W▒  4n   QУW│  6n   q№W╢  9n   p∙W╕  ;n   q∙W╗  >n   И¤W╜  @n   └¤W└  Cn   P¤W┬  En   Q¤W┼  In   ┴¤W╚  Kn   Й¤W╩  Mn   p№W═  Pn   ряW╧  Rn   сяW╙  Vn   XЁW╒  Xn   YЁW╪  [n    ЁW┌  ]n   !ЁW▄  _n   W▀  bn   Wт  en   └¤Wх  hn   ┴¤Wч  jn   └¤Wъ  mn   ┴¤Wь  on   ШWю  qn   ЩWё  tn   ░├Wї  xn   Ё┐W∙  |n   ё┐W  Йn   Ё W	  Мn   ё W  Оn   ▒├W  Сn   q№W  Фn   p∙W  Цn   q∙W  Щn   И¤W  Ьn   └¤W  Яn   P¤W  бn   Q¤W!  дn   ┴¤W$  жn   Й¤W&  йn   p№W)  мn   ряW,  оn   сяW/  ▓n   XЁW1  ┤n   YЁW4  ╢n    ЁW6  ╣n   !ЁW8  ╗n   W;  ╛n   W>  ┴n   └¤WA  ─n   ┴¤WC  ╞n   └¤WF  ╔n   ┴¤WH  ╦n   ШWK  ╬n   ЩWM  ╨n   PУWP  ╙n   8ЙWS  ╒n   9ЙW\  ▀n   Ё W^  сn   ё Wa  фn   QУWc  цn   q№Wf  щn   p∙Wi  ьn   q∙Wl  яn   И¤Wn  ёn   └¤Wq  єn   P¤Ws  Ўn   Q¤Wv  ∙n   ┴¤Wy  №n   Й¤W{  ■n   p№W~  o   ряWБ  o   сяWГ  o   XЁWЖ  	o   YЁWИ  o    ЁWК  o   !ЁWН  o   WП  o   WУ  o   └¤WХ  o   ┴¤WЧ  o   └¤WЪ  o   ┴¤WЬ  o   ШWЯ  "o   ЩWб  $o   c-Wд  'o   аb-Wз  *o   бb-Wк  -o   c-Wм  /o   q№Wо  1o   p∙W▒  4o   q∙W┤  7o   И¤W╢  9o   └¤W╣  <o   P¤W╗  >o   ∙Wг9  Do   Q¤W╛  Ao   ┴¤W┴  Do   Й¤W├  Fo   Q<&Wи9  Ho   p№W┼  Ho   ряW╚  Ko   @lJWн9  Lo   сяW╦  No   ╕qJW░9  Oo   XЁW═  Po   YЁW╨  So   0`JW│9  So    ЁW╥  Uo   !ЁW╘  Wo   1`JW╣9  Yo   W╫  Zo   ╣qJW╝9  \o   W█  ^o   └uJW└9  `o   └¤W▐  `o   ┴uJW├9  co   ┴¤Wр  co   └¤Wу  fo   °uJW╟9  fo   ┴¤Wх  ho   ∙uJW╔9  io   ШWш  ko   ЩWъ  mo   QJW╬9  no   PУWэ  po   8ЙWя  ro   9ЙWЇ  wo   Ё Wў  zo   ё W∙  |o   QУW√  ~o   q№W■  Бo   p∙W   Гo   q∙W  Жo   И¤W  Иo   └¤W  Лo   P¤W
+  Нo   Q¤W  Рo   ┴¤W  Уo   Й¤W  Хo   p№W  Шo   ряW  Ъo   сяW  Эo   XЁW  аo   YЁW  вo    ЁW!  дo   !ЁW$  зo   W&  йo   W)  мo   └¤W,  пo   ┴¤W/  ▒o   └¤W1  ┤o   ┴¤W3  ╢o   ШW6  ╣o   ЩW8  ╗o   а!W;  ╛o   hW>  ┴o   iWB  ┼o   б!WE  ╚o   q№WH  ╩o   p∙WJ  ═o   q∙WM  ╨o   И¤WO  ╥o   └¤WQ  ╘o   P¤WT  ╫o   Q¤WX  █o   ┴¤WZ  ▌o   Й¤W\  ▀o   p№W_  тo   ряWa  фo   сяWd  чo   XЁWg  щo   YЁWi  ьo    ЁWk  юo   !ЁWn  Ёo   Wp  єo   Ws  Ўo   └¤Wv  ∙o   ┴¤Wy  √o   └¤W{  ■o   ┴¤W}   p   ШWА  p   ЩWВ  p   PУWЖ  	p   8ЙWЙ  p   9ЙWР  p   Ё WУ  p   ё WЦ  p   QУWШ  p   q№WЫ  p   p∙WЭ   p   q∙Wа  $p   И¤Wд  &p   └¤Wж  )p   P¤Wй  ,p   Q¤Wм  /p   ┴¤Wо  1p   Й¤W▒  4p   p№W│  6p   ряW╢  9p   сяW╣  <p   XЁW╗  >p   YЁW╛  Ap    ЁW└  Cp   !ЁW├  Ep   W┼  Hp   W╚  Kp   └¤W╦  Mp   ┴¤W═  Pp   └¤W╧  Rp   ┴¤W╥  Up   ШW╘  Wp   ЩW╫  Zp   PУW┘  \p   8ЙW▄  _p   9ЙWр  cp   Ё Wт  ep   ё Wх  hp   QУWш  jp   q№Wъ  mp   p∙Wь  pp   q∙WЁ  sp   И¤Wє  vp   └¤Wї  xp   P¤W°  {p   Q¤W√  ~p   ┴¤W¤  Аp   Й¤W   Гp   p№W  Еp   ряW  Зp   сяW  Лp   XЁW  Нp   YЁW  Рp    ЁW  Тp   !ЁW  Фp   W  Чp   W  Ъp   └¤W  Эp   ┴¤W  Яp   └¤W  вp   ┴¤W!  дp   ШW$  зp   ЩW&  йp   ░├W)  мp   Ё┐W,  пp   ё┐W5  ╕p   Ё W8  ╗p   ё W:  ╜p   ▒├W=  └p   q№W@  ├p   p∙WB  ┼p   q∙WE  ╚p   И¤WH  ╩p   └¤WJ  ═p   P¤WM  ╨p   Q¤WP  ╙p   ┴¤WS  ╓p   Й¤WU  ╪p   p№WX  ┌p   ряWZ  ▌p   сяW]  рp   XЁW`  уp   YЁWc  хp    ЁWe  шp   !ЁWh  ыp   Wj  эp   Wn  ёp   └¤Wp  єp   ┴¤Ws  їp   └¤Wu  °p   ┴¤Ww  ·p   ШWz  ¤p   ЩW|   p   PУW  q   8ЙWВ  q   9ЙWЙ  q   Ё WМ  q   ё WО  q   QУWС  q   q№WУ  q   p∙WЦ  q   q∙WЩ  q   И¤WЫ  q   └¤WЭ   q   P¤Wб  #q   Q¤Wд  'q   ┴¤Wж  )q   QJWН;  .q   Й¤Wй  +q   p№Wл  .q   ряWо  1q   AlJWТ;  2q   сяW▒  3q   XЁW│  6q   ╨xJWЧ;  6q   YЁW╡  8q   jJWЪ;  :q    ЁW╕  ;q   jJWЭ;  =q   !ЁW║  =q   W╝  ?q   jJWа;  @q   jJWв;  Bq   W└  Cq   jJWе;  Eq   └¤W┬  Eq   jJWи;  Gq   ┴¤W┼  Hq   jJWк;  Jq   └¤W╟  Jq   jJWн;  Mq   ┴¤W╩  Mq   ШW╠  Oq   jJW░;  Pq   ЩW╧  Rq   jJW▓;  Rq   c-W╤  Tq   |JW╡;  Uq   аb-W╘  Wq   бb-W╫  Zq   c-W┘  \q   q№W▄  ^q   p∙W▐  aq   q∙Wс  cq   И¤Wу  fq   └¤Wх  hq   P¤Wш  kq   Q¤Wы  nq   ┴¤Wэ  pq   Й¤WЁ  sq   p№WЄ  uq   ряWЇ  wq   сяW°  {q   XЁW·  }q   YЁW¤  q    ЁW   Вq   !ЁW  Дq   W  Жq   W  Кq   └¤W	  Мq   ┴¤W  Пq   └¤W  Сq   ┴¤W  Фq   ШW  Цq   ЩW  Шq   c-W  Ыq   аb-W  Эq   бb-W  аq   c-W  вq   q№W"  еq   p∙W$  зq   q∙W'  кq   И¤W)  мq   └¤W,  оq   P¤W.  ▒q   Q¤W1  ┤q   ┴¤W3  ╢q   Й¤W6  ╣q   p№W8  ╗q   ряW;  ╛q   сяW>  ┴q   XЁW@  ├q   YЁWC  ╞q    ЁWE  ╚q   !ЁWG  ╩q   WJ  ═q   WM  ╨q   └¤WO  ╥q   ┴¤WR  ╒q   └¤WT  ╫q   ┴¤WW  ┌q   ШWY  ▄q   ЩW[  ▐q   PУW^  сq   8ЙWa  фq   9ЙW╒  ┐r   Ё W█  ├r   ё W▐  ╞r   QУWр  ╔r   q№Wф  ╠r   p∙Wч  ╨r   q∙Wэ  ╓r   И¤Wё  ┘r   └¤Wє  █r   P¤Wў  рr   Q¤W√  фr   ┴¤W■  цr   Й¤W 	  шr   p№W	  ьr   ряW	  юr   сяW		  Єr   XЁW	  Їr   YЁW	  ўr    ЁW	  ∙r   !ЁW	  №r   W	  ■r   W	  s   └¤W	  s   ┴¤W 	  s   └¤W#	  s   ┴¤W%	  s   ШW(	  s   ЩW*	  s   а!W-	  s   hW0	  s   iW5	  s   б!W8	   s   q№W:	  #s   p∙W<	  %s   q∙W?	  (s   И¤WB	  *s   └¤WD	  -s   P¤WG	  /s   Q¤WJ	  2s   ┴¤WL	  5s   Й¤WN	  7s   p№WQ	  9s   ряWS	  <s   сяWV	  ?s   XЁWY	  As   YЁW[	  Ds    ЁW]	  Fs   !ЁW`	  Hs   Wb	  Ks   We	  Ns   └¤Wh	  Qs   ┴¤Wj	  Ss   └¤Wm	  Us   ┴¤Wp	  Xs   ШWr	  Zs   ЩWt	  ]s   PУWw	  `s   8ЙWz	  bs   9ЙWА	  hs   Ё WВ	  ks   ё WЕ	  ms   QУWЗ	  os   q№WЙ	  rs   p∙WМ	  ts   q∙WО	  ws   И¤WС	  ys   └¤WУ	  |s   P¤WЦ	  s   Q¤WЩ	  Бs   ┴¤WЫ	  Дs   Й¤WЮ	  Жs   p№Wа	  Йs   ряWг	  Лs   сяWж	  Оs   XЁWи	  Рs   YЁWк	  Уs    ЁWн	  Хs   !ЁWп	  Чs   W▒	  Ъs   W╡	  Эs   └¤W╖	  аs   ┴¤W╣	  вs   └¤W╝	  дs   ┴¤W╛	  зs   ШW┴	  йs   ЩW├	  мs   PУW╞	  оs   8ЙW╚	  ▒s   9ЙW═	  ╡s   Ё W╧	  ╕s   ё W╤	  ║s   QУW╘	  ╝s   q№W╓	  ┐s   p∙W┘	  ┴s   q∙W█	  ─s   И¤W▐	  ╞s   └¤Wр	  ╔s   P¤Wу	  ╦s   Q¤Wц	  ╬s   ┴¤Wш	  ╤s   Й¤Wы	  ╙s   p№Wэ	  ╒s   ряWя	  ╪s   сяWЄ	  █s   XЁWї	  ▌s   YЁWў	  ▀s    ЁW∙	  тs   !ЁW№	  фs   W■	  чs   W
+  ъs   └¤W
+  ьs   ┴¤W
+  яs   └¤W	
+  ёs   ┴¤W
+  Їs   ШW
+  Ўs   ЩW
+  °s   ░├W
+  √s   Ё┐W
+  ■s   ё┐W 
+  	t   Ё W#
+  t   ё W%
+  t   ▒├W'
+  t   q№W*
+  t   p∙W,
+  t   q∙W/
+  t   И¤W1
+  t   └¤W4
+  t   P¤W6
+  t   Q¤W9
+  "t   ┴¤W<
+  $t   Й¤W>
+  &t   p№W@
+  )t   ряWC
+  +t   сяWF
+  .t   XЁWH
+  0t   YЁWJ
+  3t    ЁWM
+  5t   !ЁWO
+  8t   WQ
+  :t   WU
+  =t   └¤WW
+  @t   ┴¤WZ
+  Bt   └¤W\
+  Et   ┴¤W_
+  Gt   ШWa
+  Jt   ЩWd
+  Lt   PУWf
+  Ot   8ЙWi
+  Qt   9ЙWm
+  Ut   Ё Wo
+  Xt   ё Wr
+  Zt   QУWt
+  ]t   q№Ww
+  _t   p∙Wy
+  at   q∙W|
+  dt   И¤W~
+  gt   └¤WА
+  it   P¤WГ
+  lt   Q¤WЖ
+  ot   ┴¤WЙ
+  qt   Й¤WЛ
+  st   p№WН
+  vt   ряWР
+  xt   сяWУ
+  {t   XЁWХ
+  }t   YЁWЧ
+  Аt    ЁWЪ
+  Вt   !ЁWЬ
+  Дt   WЮ
+  Зt   Wв
+  Кt   └¤Wд
+  Нt   ┴¤Wз
+  Пt   └¤Wй
+  Тt   ┴¤Wл
+  Фt   ШWо
+  Цt   ЩW░
+  Щt   c-W│
+  Ыt   аb-W╡
+  Юt   бb-W╕
+  бt   c-W╗
+  гt   q№W╜
+  еt   p∙W┐
+  иt   q∙W┬
+  кt   И¤W─
+  нt   └¤W╟
+  пt   P¤W╔
+  ▓t   Q¤W╠
+  ╡t   ┴¤W╧
+  ╖t   Й¤W╤
+  ║t   p№W╙
+  ╝t   ряW╓
+  ╛t   сяW┘
+  ┴t   XЁW█
+  ─t   YЁW▐
+  ╞t    ЁWр
+  ╚t   !ЁWт
+  ╦t   Wх
+  ═t   Wш
+  ╨t   └¤Wъ
+  ╙t   ┴¤Wэ
+  ╒t   └¤Wя
+  ╪t   ┴¤WЄ
+  ┌t   ШWЇ
+  ▌t   ЩWЎ
+  ▀t   c-W∙
+  сt   аb-W√
+  фt   бb-W■
+  цt   c-W   щt   q№W  ыt   p∙W  эt   q∙W  Ёt   И¤W
+  єt   └¤W  їt   P¤W  °t   Q¤W  √t   ┴¤W  ¤t   Й¤W   t   p№W  u   ряW  u   сяW  u   XЁW!  
+u   YЁW#  u    ЁW&  u   !ЁW(  u   W*  u   W.  u   └¤W0  u   ┴¤W3  u   └¤W5  u   ┴¤W7   u   ШW:  "u   ЩW<  %u   c-W?  'u   аb-WA  *u   бb-WD  ,u   c-WF  /u   q№WH  1u   p∙WK  3u   q∙WM  6u   И¤WP  8u   └¤WR  ;u   P¤WU  =u   Q¤WX  @u   ┴¤WZ  Bu   Й¤W\  Eu   p№W_  Gu   ряWa  Ju   сяWd  Lu   XЁWf  Ou   YЁWi  Qu    ЁWk  Tu   !ЁWm  Vu   Wp  Xu   Ws  [u   └¤Wu  ^u   ┴¤Wx  `u   └¤Wz  cu   ┴¤W}  eu   ШW  hu   ЩWБ  ju   PУWД  lu   8ЙWЖ  ou   9ЙWЛ  tu   Ё WН  vu   ё WР  xu   QУWТ  {u   q№WХ  }u   p∙WЧ  u   q∙WЪ  Вu   И¤WЬ  Дu   └¤WЮ  Зu   P¤Wб  Йu   Q¤Wд  Мu   ┴¤Wж  Пu   Й¤Wи  Сu   p№Wл  Уu   ряWн  Цu   сяW░  Шu   XЁW▓  Ыu   YЁW╡  Эu    ЁW╖  аu   !ЁW╣  вu   W╝  дu   W┐  иu   └¤W┬  кu   ┴¤W─  мu   └¤W╞  пu   ┴¤W╔  ▒u   ШW╦  ┤u   ЩW╬  ╢u   а!W╨  ╣u   hW╙  ╗u   iW╓  ┐u   б!W╪  ┴u   q№W█  ├u   p∙W▌  ╞u   q∙Wр  ╚u   И¤Wт  ╦u   └¤Wх  ═u   P¤Wч  ╨u   Q¤Wъ  ╙u   ┴¤Wэ  ╒u   Й¤Wя  ╫u   p№Wё  ┌u   ряWЇ  ▄u   сяWў  ▀u   XЁW∙  тu   YЁW√  фu    ЁW■  цu   !ЁW   щu   W  ыu   W  юu   └¤W  ёu   ┴¤W  єu   └¤W  Ўu   ┴¤W  °u   ШW  ·u   ЩW  ¤u   PУW   u   8ЙW  v   9ЙW  v   Ё W   v   ё W"  v   QУW%  v   q№W'  v   p∙W)  v   q∙W,  v   И¤W.  v   └¤W1  v   P¤W3  v   Q¤W6  v   ┴¤W9  !v   Й¤W;  $v   p№W>  &v   ряW@  (v   сяWC  +v   XЁWE  .v   YЁWG  0v    ЁWJ  2v   !ЁWL  5v   WO  7v   WR  :v   └¤WT  =v   ┴¤WW  ?v   └¤WY  Bv   ┴¤W[  Dv   ШW^  Fv   ЩW`  Iv   PУWc  Kv   8ЙWe  Nv   9ЙWi  Rv   Ё Wl  Tv   ё Wn  Vv   QУWp  Yv   q№Ws  [v   p∙Wu  ^v   q∙Wx  av   И¤W{  cv   └¤W}  ev   P¤WА  hv   Q¤WГ  kv   ┴¤WЕ  mv   Й¤WЗ  pv   p№WК  rv   ряWН  uv   сяWР  xv   XЁWТ  zv   YЁWФ  }v    ЁWЧ  v   !ЁWЩ  Бv   WЫ  Дv   WЯ  Зv   └¤Wб  Кv   ┴¤Wг  Мv   └¤Wж  Оv   ┴¤Wи  Сv   ШWл  Уv   ЩWн  Цv   ░├W░  Шv   Ё┐W▓  Ыv   ё┐W╕  аv   Ё W║  гv   ё W╜  еv   ▒├W┐  иv   q№W┴  кv   p∙W─  мv   q∙W╞  пv   И¤W╔  ▒v   └¤W╦  ┤v   P¤W╬  ╢v   Q¤W╤  ╣v   ┴¤W╙  ╝v   Й¤W╓  ╛v   p№W╪  ┴v   ряW┌  ├v   сяW▌  ╞v   XЁWр  ╚v   YЁWт  ╦v    ЁWф  ═v   !ЁWч  ╧v   Wщ  ╥v   Wь  ╒v   └¤Wя  ╫v   ┴¤Wё  ┌v   └¤WЇ  ▄v   ┴¤WЎ  ▀v   ШW∙  сv   ЩW√  уv   PУW■  цv   8ЙW   щv   9ЙW  эv   Ё W  яv   ё W	  ёv   QУW  Їv   q№W  Ўv   p∙W  °v   q∙W  √v   И¤W  ¤v   └¤W   w   P¤W  w   Q¤W  w   ┴¤W  w   Й¤W"  
+w   p№W$  w   ряW&  w   сяW)  w   XЁW+  w   YЁW.  w    ЁW0  w   !ЁW2  w   W5  w   W8  !w   └¤W;  #w   ┴¤W=  %w   └¤W?  (w   ┴¤WB  *w   ШWD  -w   ЩWG  /w   c-WI  2w   аb-WL  4w   бb-WN  7w   c-WQ  9w   q№WS  <w   p∙WU  >w   q∙WX  Aw   И¤W[  Cw   └¤W]  Ew   P¤W`  Hw   Q¤Wc  Kw   ┴¤We  Nw   Й¤Wg  Pw   p№Wj  Rw   ряWl  Uw   сяWo  Xw   XЁWr  Zw   YЁWt  ]w    ЁWw  _w   !ЁWy  bw   W{  dw   W  gw   └¤WБ  jw   ┴¤WД  lw   └¤WЖ  ow   ┴¤WИ  qw   ШWЛ  sw   ЩWН  vw   c-WР  xw   аb-WТ  {w   бb-WХ  }w   c-WЧ  w   q№WЩ  Вw   p∙WЬ  Дw   q∙WЮ  Зw   И¤Wб  Йw   └¤Wг  Мw   P¤Wж  Оw   Q¤Wй  Сw   ┴¤Wл  Фw   Й¤Wо  Цw   p№W░  Щw   ряW▓  Ыw   сяW╡  Юw   XЁW╕  аw   YЁW║  гw    ЁW╜  еw   !ЁW┐  зw   W┴  кw   W─  нw   └¤W╟  пw   ┴¤W╔  ▓w   └¤W╠  ┤w   ┴¤W╬  ╖w   ШW╤  ╣w   ЩW╙  ╗w   c-W╒  ╛w   аb-W╪  └w   бb-W┌  ├w   c-W▌  ┼w   q№W▀  ╚w   p∙Wс  ╩w   q∙Wф  ═w   И¤Wч  ╧w   └¤Wщ  ╥w   xWь  ╘w   ░Wя  ╫w   |JW╡n  d▓   ╤xJW└n  i▓   а~W┼n  o▓   HW╦n  t▓   HEW╬n  x▓   IEW╙n  }▓   ╪ЕW╪n  В▓   ┘ЕW▄n  Е▓   `BWфn  Н▓   aBWчn  Р▓   уWюn  Ч▓   АjWЄn  Ь▓   БjWЎn  а▓   ╪ЕW∙n  г▓   ┘ЕW№n  ж▓   H"Wo  л▓   АWo  о▓   БWo  ╡▓   I"Wo  ╖▓   xуWo  ╛▓   HAWo  ├▓   IAWo  ╞▓   h@W o  ╩▓   i@W#o  ═▓   yуW'o  ╨▓   АjW)o  ╙▓   БjW-o  ╓▓   H"W/o  ┘▓   АW2o  █▓   БW5o  ▐▓   I"W7o  с▓   xуW;o  х▓   HAW>o  ш▓   IAWAo  ы▓   h@WDo  ю▓   i@WGo  Ё▓   yуWJo  є▓   АjWLo  Ў▓   БjWOo  ∙▓   H"WRo  √▓   АWTo  ■▓   БWWo  │   I"WZo  │   xуW^o  │   HAWao  │   IAWdo  │   h@Wgo  │   i@Wio  │   yуWlo  │   АjWoo  │   БjWro  │   H"Wuo  │   АWwo  !│   БWzo  $│   I"W}o  &│    VWБo  +│    HWЕo  .│   ╚EWИo  2│   ╪[WМo  6│   ┘[WРo  :│   ╔EWУo  =│   HWЦo  ?│   AWЩo  B│   AWЬo  E│   AWаo  J│   AWгo  L│   XDWзo  P│   YDWкo  S│   h@Wпo  Y│   i@W▓o  \│   [W╡o  _│   р
+W║o  d│   с
+W╜o  g│   ш2%W┴o  j│   0	W─o  n│   1	W╨o  z│   Ш║ W╘o  ~│   ъ,W█o  Д│   ъ,W▀o  Й│   Щ║ Wфo  О│   щ2%Wчo  Р│   └ЁWыo  Х│   °ЁWяo  Ш│   рэWЄo  Ы│   0	Wїo  Ю│   1	W∙o  г│   HъIW■o  з│   РьWp  к│   иэWp  о│   йэWp  ▒│   СьW
+p  ││   IъIWp  ╢│   ИюWp  ╣│   pэWp  ╝│    1%Wp  ┐│   Р№Wp  ┬│   ╚EWp  ╞│   ╪[Wp  ╚│   ┘[W!p  ╦│   ╔EW$p  ╬│   и¤W'p  ╤│   й¤W*p  ╘│   (2&W-p  ╫│   )2&W0p  ┌│   `2&W3p  ▄│   a2&W5p  ▀│   С№W9p  т│   !1%W;p  х│   qэW>p  ч│   └юW@p  ъ│   └8WDp  ю│   ╪7WGp  ё│   ┘7Wмp  т┤   ┴8W░p  х┤   ┴юW│p  ш┤   ЙюW╡p  ъ┤   сэW╕p  э┤   ∙ЁW╗p  я┤   ┴ЁW╜p  Є┤   ╨ZW┴p  ї┤   └ЁW┼p  ∙┤   °ЁW╟p  №┤   рэW╩p   ┤   0	W═p  ╡   1	W╙p  ╡   HъIW╫p  ╡   РьW┘p  ╡   иэW▄p  ╡   йэW▀p  ╡   СьWсp  ╡   IъIWфp  ╡   ИюWчp  ╡   ЙюWщp  ╡   сэWьp  !╡   ∙ЁWюp  #╡   ┴ЁWёp  &╡   ╤ZWєp  (╡   	[WЎp  +╡   VW°p  -╡   	уW√p  0╡   IW■p  3╡   б~W q  5╡   ┘/JWq  8╡   п Wq  <╡   ╚·W
+q  ?╡  

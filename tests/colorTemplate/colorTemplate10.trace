@@ -1,0 +1,249 @@
+*version
+3
+data-file-overflow=false
+clock=dual
+elapsed-time-usec=158250
+num-method-calls=530
+clock-call-overhead-nsec=5907
+vm=dalvik
+*threads
+1	main
+12	Binder_4
+11	Binder_3
+10	Binder_2
+9	Binder_1
+8	FinalizerWatchdogDaemon
+7	FinalizerDaemon
+6	ReferenceQueueDaemon
+5	Compiler
+4	JDWP
+3	Signal Catcher
+2	GC
+*methods
+0x574a6610	org/opencv/core/Mat	getNativeObjAddr	()J	Mat.java	2643
+0x574a6840	org/opencv/core/Mat	put	(II[B)I	Mat.java	2547
+0x574a6db8	org/opencv/core/Mat	type	()I	Mat.java	2394
+0x574a4d18	org/opencv/core/Mat	nPutB	(JIII[B)I	Mat.java	-2
+0x574a5c30	org/opencv/core/Mat	n_type	(J)I	Mat.java	-2
+0x571a38c0	android/view/DisplayEventReceiver	scheduleVsync	()V	DisplayEventReceiver.java	106
+0x571a37d8	android/view/DisplayEventReceiver	nativeScheduleVsync	(I)V	DisplayEventReceiver.java	-2
+0x571554c8	java/lang/ThreadGroup	addThread	(Ljava/lang/Thread;)V	ThreadGroup.java	704
+0x573ccf70	android/view/ViewRootImpl$W	closeSystemDialogs	(Ljava/lang/String;)V	ViewRootImpl.java	5159
+0x573cd1d8	android/view/ViewRootImpl$W	windowFocusChanged	(ZZ)V	ViewRootImpl.java	5112
+0x57263c50	java/util/Arrays	copyOfRange	([BII)[B	Arrays.java	2690
+0x57155bd8	java/lang/VMThread	currentThread	()Ljava/lang/Thread;	VMThread.java	-2
+0x573c9870	com/android/internal/view/BaseIWindow	closeSystemDialogs	(Ljava/lang/String;)V	BaseIWindow.java	62
+0x5718e908	java/lang/AbstractStringBuilder	append0	(C)V	AbstractStringBuilder.java	131
+0x5718e978	java/lang/AbstractStringBuilder	append0	(Ljava/lang/String;)V	AbstractStringBuilder.java	138
+0x5718f0e8	java/lang/AbstractStringBuilder	toString	()Ljava/lang/String;	AbstractStringBuilder.java	-1
+0x5718e7b0	java/lang/AbstractStringBuilder	<init>	(I)V	AbstractStringBuilder.java	78
+0x5725be08	java/lang/IntegralToString	convertInt	(Ljava/lang/AbstractStringBuilder;I)Ljava/lang/String;	IntegralToString.java	-1
+0x5725bf58	java/lang/IntegralToString	intToString	(I)Ljava/lang/String;	IntegralToString.java	166
+0x571b6a80	android/view/View	getMatrix	()Landroid/graphics/Matrix;	View.java	8970
+0x571b7ea0	android/view/View	invalidate	()V	View.java	10520
+0x571b7f48	android/view/View	invalidate	(Z)V	View.java	-1
+0x571b85d8	android/view/View	isOpaque	()Z	View.java	-1
+0x571b4548	android/view/View	skipInvalidate	()Z	View.java	10426
+0x571ce308	android/view/ViewGroup	invalidateChild	(Landroid/view/View;Landroid/graphics/Rect;)V	ViewGroup.java	4295
+0x571ce378	android/view/ViewGroup	invalidateChildInParent	([ILandroid/graphics/Rect;)Landroid/view/ViewParent;	ViewGroup.java	-1
+0x57263228	java/lang/ThreadLocal$Values	access$000	(Ljava/lang/ThreadLocal$Values;)[Ljava/lang/Object;	ThreadLocal.java	144
+0x57263260	java/lang/ThreadLocal$Values	access$100	(Ljava/lang/ThreadLocal$Values;)I	ThreadLocal.java	144
+0x571d0ae0	android/os/Handler	getLooper	()Landroid/os/Looper;	Handler.java	566
+0x571d0cd8	android/os/Handler	obtainMessage	(IIILjava/lang/Object;)Landroid/os/Message;	Handler.java	247
+0x571d1020	android/os/Handler	sendMessage	(Landroid/os/Message;)Z	Handler.java	383
+0x571d1090	android/os/Handler	sendMessageAtTime	(Landroid/os/Message;J)Z	Handler.java	469
+0x571d10c8	android/os/Handler	sendMessageDelayed	(Landroid/os/Message;J)Z	Handler.java	443
+0x574a7460	tese/helder/clearphoto/ImageProcessing	getColorTemplate	(Lorg/opencv/core/Mat;)Ljava/util/ArrayList;	ImageProcessing.java	131
+0x574a77a8	tese/helder/clearphoto/ImageProcessing	nativeGetColorTemplate	(JLjava/util/ArrayList;)V	ImageProcessing.java	-2
+0x5719c028	android/os/Binder	execTransact	(IIII)Z	Binder.java	-1
+0x5720ad80	android/os/Debug	startMethodTracing	(Ljava/lang/String;)V	Debug.java	-1
+0x5720adf0	android/os/Debug	startMethodTracing	(Ljava/lang/String;II)V	Debug.java	490
+0x5720af08	android/os/Debug	stopMethodTracing	()V	Debug.java	536
+0x5715ef38	java/lang/ref/FinalizerReference	<init>	(Ljava/lang/Object;Ljava/lang/ref/ReferenceQueue;)V	FinalizerReference.java	34
+0x5715ef70	java/lang/ref/FinalizerReference	add	(Ljava/lang/Object;)V	FinalizerReference.java	48
+0x57191090	android/util/Log	println_native	(IILjava/lang/String;Ljava/lang/String;)I	Log.java	-2
+0x571913d8	android/util/Log	w	(Ljava/lang/String;Ljava/lang/String;)I	Log.java	225
+0x571a1700	android/os/Parcel	enforceInterface	(Ljava/lang/String;)V	Parcel.java	448
+0x571a1cb0	android/os/Parcel	readInt	()I	Parcel.java	1443
+0x571a1f50	android/os/Parcel	readString	()Ljava/lang/String;	Parcel.java	1473
+0x571a2030	android/os/Parcel	readStrongBinder	()Landroid/os/IBinder;	Parcel.java	1488
+0x571a2148	android/os/Parcel	recycle	()V	Parcel.java	311
+0x571a0888	android/os/Parcel	<init>	(I)V	Parcel.java	2179
+0x571a09a0	android/os/Parcel	freeBuffer	()V	Parcel.java	2198
+0x571a09d8	android/os/Parcel	init	(I)V	Parcel.java	2188
+0x571a0bd0	android/os/Parcel	nativeEnforceInterface	(ILjava/lang/String;)V	Parcel.java	-2
+0x571a0d90	android/os/Parcel	nativeReadInt	(I)I	Parcel.java	-2
+0x571a0e00	android/os/Parcel	nativeReadString	(I)Ljava/lang/String;	Parcel.java	-2
+0x571a0e38	android/os/Parcel	nativeReadStrongBinder	(I)Landroid/os/IBinder;	Parcel.java	-2
+0x571a11b8	android/os/Parcel	obtain	(I)Landroid/os/Parcel;	Parcel.java	2161
+0x571d2248	android/graphics/Matrix	isIdentity	()Z	Matrix.java	247
+0x571d1980	android/graphics/Matrix	native_isIdentity	(I)Z	Matrix.java	-2
+0x57164e18	java/lang/Integer	toString	()Ljava/lang/String;	Integer.java	439
+0x57164588	java/lang/Integer	<init>	(I)V	Integer.java	88
+0x57164ac8	java/lang/Integer	toString	(I)Ljava/lang/String;	Integer.java	452
+0x57153398	java/lang/String	_getChars	(II[CI)V	String.java	913
+0x57153a60	java/lang/String	length	()I	String.java	-2
+0x57152e88	java/lang/String	<init>	([CII)V	String.java	-1
+0x574a82d0	tese/helder/clearphoto/overlays/imageprocessing/ColorTemplates	process	([B)V	ColorTemplates.java	-1
+0x5717f448	java/util/AbstractCollection	toString	()Ljava/lang/String;	AbstractCollection.java	373
+0x5717f130	java/util/AbstractCollection	<init>	()V	AbstractCollection.java	36
+0x57160690	java/lang/Math	min	(II)I	Math.java	-2
+0x57180490	java/util/ArrayList$ArrayListIterator	hasNext	()Z	ArrayList.java	562
+0x571804c8	java/util/ArrayList$ArrayListIterator	next	()Ljava/lang/Object;	ArrayList.java	566
+0x57180418	java/util/ArrayList$ArrayListIterator	<init>	(Ljava/util/ArrayList;)V	ArrayList.java	551
+0x57180450	java/util/ArrayList$ArrayListIterator	<init>	(Ljava/util/ArrayList;Ljava/util/ArrayList$1;)V	ArrayList.java	551
+0x573bd288	android/view/IWindow$Stub	onTransact	(ILandroid/os/Parcel;Landroid/os/Parcel;I)Z	IWindow.java	-1
+0x57243f58	android/app/ActivityThread$ApplicationThread	schedulePauseActivity	(Landroid/os/IBinder;ZZI)V	ActivityThread.java	535
+0x5719fc90	java/lang/ThreadLocal	get	()Ljava/lang/Object;	ThreadLocal.java	53
+0x5719fda8	java/lang/ThreadLocal	values	(Ljava/lang/Thread;)Ljava/lang/ThreadLocal$Values;	ThreadLocal.java	121
+0x572cedd8	android/os/Message	isInUse	()Z	Message.java	-1
+0x572cea18	android/os/Message	obtain	()Landroid/os/Message;	Message.java	107
+0x572ceaf8	android/os/Message	obtain	(Landroid/os/Handler;IIILjava/lang/Object;)Landroid/os/Message;	Message.java	233
+0x571d4800	android/view/ViewRootImpl	checkThread	()V	ViewRootImpl.java	4996
+0x571d4b10	android/view/ViewRootImpl	dispatchCloseSystemDialogs	(Ljava/lang/String;)V	ViewRootImpl.java	4827
+0x571d5600	android/view/ViewRootImpl	invalidateChildInParent	([ILandroid/graphics/Rect;)Landroid/view/ViewParent;	ViewRootImpl.java	-1
+0x571d5ad0	android/view/ViewRootImpl	scheduleConsumeBatchedInput	()V	ViewRootImpl.java	4559
+0x571d5b08	android/view/ViewRootImpl	scheduleTraversals	()V	ViewRootImpl.java	1092
+0x571d5e18	android/view/ViewRootImpl	windowFocusChanged	(ZZ)V	ViewRootImpl.java	-1
+0x5717e868	java/util/ArrayList	add	(Ljava/lang/Object;)Z	ArrayList.java	-1
+0x5717ead0	java/util/ArrayList	isEmpty	()Z	ArrayList.java	319
+0x5717eb08	java/util/ArrayList	iterator	()Ljava/util/Iterator;	ArrayList.java	548
+0x5717ec58	java/util/ArrayList	size	()I	ArrayList.java	315
+0x5717e6a0	java/util/ArrayList	<init>	()V	ArrayList.java	81
+0x5715f898	dalvik/system/VMDebug	startGC	()V	VMDebug.java	353
+0x5715f940	dalvik/system/VMDebug	startMethodTracing	(Ljava/lang/String;II)V	VMDebug.java	171
+0x5715fac8	dalvik/system/VMDebug	stopMethodTracing	()V	VMDebug.java	-2
+0x57161308	java/lang/Number	<init>	()V	Number.java	33
+0x571ef0c0	android/view/Choreographer	postCallback	(ILjava/lang/Runnable;Ljava/lang/Object;)V	Choreographer.java	266
+0x571ef0f8	android/view/Choreographer	postCallbackDelayed	(ILjava/lang/Runnable;Ljava/lang/Object;J)V	Choreographer.java	285
+0x571eec90	android/view/Choreographer	access$500	(Landroid/view/Choreographer;JLjava/lang/Object;Ljava/lang/Object;)Landroid/view/Choreographer$CallbackRecord;	Choreographer.java	68
+0x571eed70	android/view/Choreographer	isRunningOnLooperThreadLocked	()Z	Choreographer.java	593
+0x571eeda8	android/view/Choreographer	obtainCallbackLocked	(JLjava/lang/Object;Ljava/lang/Object;)Landroid/view/Choreographer$CallbackRecord;	Choreographer.java	-1
+0x571eede0	android/view/Choreographer	postCallbackDelayedInternal	(ILjava/lang/Object;Ljava/lang/Object;J)V	Choreographer.java	303
+0x571eee88	android/view/Choreographer	scheduleFrameLocked	(J)V	Choreographer.java	-1
+0x571eeec0	android/view/Choreographer	scheduleVsyncLocked	()V	Choreographer.java	589
+0x5717ed60	java/util/AbstractList	<init>	()V	AbstractList.java	376
+0x5718dc40	java/lang/StringBuilder	append	(C)Ljava/lang/StringBuilder;	StringBuilder.java	124
+0x5718ddc8	java/lang/StringBuilder	append	(Ljava/lang/Object;)Ljava/lang/StringBuilder;	StringBuilder.java	199
+0x5718de00	java/lang/StringBuilder	append	(Ljava/lang/String;)Ljava/lang/StringBuilder;	StringBuilder.java	216
+0x5718e6c0	java/lang/StringBuilder	toString	()Ljava/lang/String;	StringBuilder.java	663
+0x5718da78	java/lang/StringBuilder	<init>	(I)V	StringBuilder.java	67
+0x572532e8	android/os/Looper	postSyncBarrier	()I	Looper.java	227
+0x57253120	android/os/Looper	myLooper	()Landroid/os/Looper;	Looper.java	163
+0x57190930	android/os/SystemClock	uptimeMillis	()J	SystemClock.java	-2
+0x572117e8	android/hardware/Camera	postEventFromNative	(Ljava/lang/Object;IIILjava/lang/Object;)V	Camera.java	873
+0x5715f210	java/lang/ref/Reference	get	()Ljava/lang/Object;	Reference.java	133
+0x5715f128	java/lang/ref/Reference	<init>	(Ljava/lang/Object;Ljava/lang/ref/ReferenceQueue;)V	Reference.java	85
+0x57183068	java/lang/ref/WeakReference	<init>	(Ljava/lang/Object;)V	WeakReference.java	95
+0x571a4068	android/graphics/Rect	intersect	(IIII)Z	Rect.java	377
+0x571a4110	android/graphics/Rect	isEmpty	()Z	Rect.java	175
+0x571a4148	android/graphics/Rect	offset	(II)V	Rect.java	271
+0x571a4260	android/graphics/Rect	set	(IIII)V	Rect.java	244
+0x571a4458	android/graphics/Rect	union	(IIII)V	Rect.java	468
+0x57245510	android/app/ApplicationThreadNative	onTransact	(ILandroid/os/Parcel;Landroid/os/Parcel;I)Z	ApplicationThreadNative.java	72
+0x574a71c0	org/opencv/core/CvType	channels	(I)I	CvType.java	67
+0x574a71f8	org/opencv/core/CvType	depth	(I)I	CvType.java	71
+0x5749e818	android/view/Choreographer$CallbackQueue	addCallbackLocked	(JLjava/lang/Object;Ljava/lang/Object;)V	Choreographer.java	758
+0x57154520	java/lang/Thread	<init>	(Ljava/lang/ThreadGroup;Ljava/lang/String;IZ)V	Thread.java	361
+0x571545c8	java/lang/Thread	currentThread	()Ljava/lang/Thread;	Thread.java	476
+0x5720ba60	android/os/MessageQueue	enqueueMessage	(Landroid/os/Message;J)Z	MessageQueue.java	-1
+0x5720ba98	android/os/MessageQueue	enqueueSyncBarrier	(J)I	MessageQueue.java	230
+0x57228fb8	android/app/ActivityThread	access$200	(Landroid/app/ActivityThread;ILjava/lang/Object;II)V	ActivityThread.java	140
+0x57229ed0	android/app/ActivityThread	queueOrSendMessage	(ILjava/lang/Object;II)V	ActivityThread.java	1979
+0x571713f8	java/lang/System	arraycopy	(Ljava/lang/Object;ILjava/lang/Object;II)V	System.java	-2
+*end
+SLOW   à³X                 AùW   t   ™øW   ‰9   ñ­ W7   Ù9   ­ W<   Ü9   Ğ‚JWC   ä9   P<&WK   ì9   WT   õ9   ‘WW   ø9   ˜øWÛ   _b   ™øWØ?  ğÔ   è!Wo  ZÕ  
+ (ÀW   _Õ   òWy  cÕ  
+ ¸W
+   eÕ   òW€  jÕ  
+ Ø	W   oÕ   ØW…  pÕ  
+ Ù	W   sÕ   øê,WŠ  tÕ  
+ ¹W   vÕ   ê,W  xÕ  
+ ¸W   xÕ  
+ Ø	W"   }Õ   ê,W•  Õ  
+ Ù	W%   €Õ   ùê,W˜  ‚Õ  
+ ¹W(   ƒÕ   ÙW›  …Õ  
+ ˆÒ;W+   ‡Õ    W  ˆÕ   ÈW¢  ŒÕ  
+  W2   Õ   0	W¦  Õ  
+ ĞW5   ‘Õ   1	Wº  ¥Õ   W¾  ¨Õ   `º WÂ  ­Õ   Øí,WÆ  ±Õ  
+ ÑWX   ´Õ   Ùí,WÊ  ´Õ  
+ W[   ·Õ   aº WÎ  ¸Õ  
+ PW_   ºÕ   ‘WÑ  »Õ  
+  Wb   ¾Õ   ÉWÓ  ¾Õ   !WÖ  ÁÕ   é!WÙ  ÃÕ  	 (ÀW   âÕ  	 ¸W   æÕ   øWA  )Ø  
+ W¢   sØ  
+ QW¨   wØ  
+ p˜<W­   }Ø  
+ q˜<W°   €Ø  
+ ‰Ò;W´   „Ø  
+ H!Wº   ŠØ  
+  	W¾   Ø  
+ ¡	W   ÑØ  
+ I!W
+  ÚØ  
+ H!W  ŞØ  
+  	W  áØ  
+ ¡	W  äØ  
+ I!W  éØ  
+ )ÀW  ëØ  	 ˆW/   ]Ù  	 pïW@   lÙ  	 8ïWK   wÙ  	 (ñWO   {Ù  	 )ñWS   Ù  	 9ïWV   ‚Ù  	 qïW\   ˆÙ  	 Ø	Wa   Ù  	 Ù	We   ‘Ù  	 ‰Wh   “Ù  	 ¹Wk   —Ù  	 ¸Wo   ›Ù  	 Ø	Ws   ŸÙ  	 Ù	Wv   ¡Ù  	 ¹Wx   ¥Ù  	 ˆÒ;W}   ©Ù  	  W„   °Ù  	 ĞW‡   ³Ù  	 ÑW¦   ÓÙ  	 Wª   ÖÙ  	 PW®   ÚÙ  	  W²   İÙ  	 W¿   ëÙ  	 QWÂ   îÙ  	 pÏ<WÅ   ñÙ  	 òWÊ   öÙ  	 òWÎ   úÙ  	 KWÓ   ÿÙ  	 ê,W×   Ú  	 ê,Wİ   	Ú  	  Wå   Ú  	 ÈWé   Ú  	 0	Wí   Ú  	 1	Wù   &Ú  	 Wı   )Ú  	 `º W  .Ú  	 Øí,W  2Ú  	 Ùí,W
+  6Ú  	 aº W  <Ú  	 ‘W  >Ú  	 ÉW  AÚ  	 !W  DÚ  	 KW  GÚ  	 qÏ<W  JÚ  	 ‰Ò;W!  MÚ  	 H!W$  PÚ  	  	W(  TÚ  	 ¡	W+  WÚ  	 I!W/  [Ú  	 H!W2  ^Ú  	  	W5  aÚ  	 ¡	W8  dÚ  	 I!W;  gÚ  	 )ÀW?  jÚ    EW   ôÛ    æW   ÿÛ   `íW   Ü   0ñW   Ü   1ñW   
+Ü   aíW    Ü   ¡æW$   Ü   ÈTW1   Ü   h0W7   $Ü   (ñW;   'Ü   )ñW>   *Ü   i0W@   -Ü   hèWE   2Ü   øWN   ;Ü   ùWU   BÜ   ièW[   HÜ   ÉTW_   KÜ   !EWa   OÜ   ùW\E  Äİ   Q<&WbE  Éİ   @hJWgE  Îİ   ¸mJWkE  Òİ   0\JWoE  Öİ   1\JWuE  Üİ   ¹mJWxE  ßİ   ÀqJW|E  âİ   ÁqJWE  æİ   øqJWƒE  éİ   ùqJW†E  ìİ   MJWŠE  ğİ   MJWsH  ôà   AhJW}H  ùà   `tJWƒH   á    æW–H  á   `íW›H  á   0ñWŸH  á   1ñW¢H  á   aíW¥H  !á   ¡æW©H  %á   fJW­H  )á   fJW°H  ,á   ¨wJWµH  2á   (ÀW>  G&  ¸WJ  N&  Ø	WS  W&  Ù	WW  [&  ¹W[  _&  ¸W]  a&  Ø	Wb  e&  Ù	Wd  h&  ¹Wg  k&  U$Wk  o&   Wr  v&  ĞWu  y&  ÑW  ‘&  W  ”&  0 W“  —&  8W—  ›&  òWª  ®&  òWô  ù&  9Wü   '  1 Wÿ  '  °W	  '  W	  	'  ‘W
+	  '  ±W	  '  °W	  '  W	  '  ‘W	  '  ±W	  '  °W	   '  W	  "'  ‘W!	  %'  ±W$	  ('  X?$W'	  +'  ¸"W-	  0'  Ğ"W0	  4'  ê,W4	  8'  ê,W;	  ?'   WA	  E'  ÈWE	  I'  0	WI	  M'  1	WS	  X'  WW	  ['  `º W[	  _'  Øí,W_	  c'  Ùí,Wb	  f'  aº Wh	  l'  ‘Wj	  n'  ÉWm	  q'  !Wp	  t'  Ñ"Wr	  v'  ¹"Wu	  y'  Y?$Wx	  |'  U$Wz	  ~'  H!W~	  ‚'   	W	  …'  ¡	W„	  ˆ'  I!W‰	  '  H!WŒ	  '   	W	  ’'  ¡	W‘	  •'  I!W”	  ˜'  )ÀW—	  ›' 
+ (ÀW´  w1 
+ ¸WÀ  1 
+ Ø	WÅ  „1 
+ Ù	WÊ  ˆ1 
+ ¹WÍ  Œ1 
+ ¸WĞ  1 
+ Ø	WÓ  ’1 
+ Ù	WÖ  •1 
+ ¹WÙ  ˜1 
+ ˆÒ;WŞ  1 
+  Wã  ¢1 
+ ĞWç  ¦1 
+ ÑW÷  ¶1 
+ Wú  ¹1 
+ °Wı  ¼1 
+ W  ¿1 
+ ‘W  Ä1 
+ ±W  Ç1 
+ °W  Ê1 
+ W  Í1 
+ ‘W  Ğ1 
+ ±W  Ó1 
+ ØÑ<W  Ö1 
+ òW  Ú1 
+ òW   ß1 
+ ^W%  ã1 
+ ê,W(  ç1 
+ ê,W.  ì1 
+  W3  ò1 
+ ÈW7  õ1 
+ 0	W:  ù1 
+ 1	W@  ÿ1 
+ WC  2 
+ `º WG  2 
+ Øí,WK  
+2 
+ Ùí,WO  2 
+ aº WS  2 
+ ‘WV  2 
+ ÉWY  2 
+ !W\  2 
+ ^W_  2 
+ ÙÑ<Wb   2 
+ ‰Ò;Wd  #2 
+ H!Wh  &2 
+  	Wk  *2 
+ ¡	Wn  -2 
+ I!Wr  12 
+ H!Wu  42 
+  	Wx  72 
+ ¡	W{  92 
+ I!W~  =2 
+ )ÀW  @2  ˆEWü§ {e  W¨ €e  	W¨ „e  ‰EW
+¨ †e  hèW¨ e  øW¨ ™e  ùW!¨ e  ièW&¨ ¢e  ˆEW+¨ ¨e  W.¨ ªe  	W0¨ ­e  ‰EW3¨ ¯e  hèW7¨ ´e  ièW:¨ ¶e  ©wJW`© İf  atJWd© áf  HôWi© æf  ĞêWl© èf  ÑêWn© ëf  XìWu© ñf  YìWw© ôf  xÚW{© ÷f  °çW}© úf  ±çW‚© ÿf  yÚW…© g  @ÜWˆ© g  éWŠ© g  	éW© 	g  AÜW© g  ëW’© g  PW–© g  W™© g  W›© g  QW© g  	ëW © g  W£©  g  ‘W¦© "g  ÈW¨© %g  ÉW¬© (g  ÈİW®© +g  NW²© .g  ÈJW´© 1g  X¿%W·© 4g  ¾%Wº© 7g  	¾%W¾© ;g  Y¿%WÀ© =g  ÉJWÃ© ?g  NWÅ© Ag  xéWÇ© Dg  `:WË© Hg  a:WÎ© Jg  ˜3WÒ© Ng  øWÕ© Qg  ùWØ© Tg  ™3WÚ© Vg  yéWÜ© Yg  ÉİWŞ© [g  Wá© ]g  ‘Wã© `g   ŞWæ© bg  xéWè© eg  `:Wë© gg  a:Wí© jg  ˜3Wğ© lg  øWò© ng  ùWõ© qg  ™3W÷© sg  yéWù© vg  ŞWû© xg  Wş© zg  ‘W ª }g  ÈWª g  ÉWª g  ÈİWª „g  NW
+ª †g  ÈJWª ˆg  X¿%Wª ‹g  ¾%Wª g  	¾%Wª g  Y¿%Wª ’g  ÉJWª ”g  NWª –g  xéWª ™g  `:Wª ›g  a:W!ª g  ˜3W$ª  g  øW&ª ¢g  ùW)ª ¥g  ™3W+ª §g  yéW-ª ªg  ÉİW0ª ¬g  W2ª ®g  ‘W4ª ±g  W7ª ³g  ‘W9ª µg  @ÜW;ª ¸g  éW>ª ºg  	éW@ª ½g  AÜWBª ¿g  ÀæWEª Ág  èğWHª Äg  ˆ.WLª Ég  øWQª Íg  ùWSª Ğg  ‰.WUª Òg  éğWXª Ôg  ÁæWZª Ög  IôW\ª Ùg  ØW_ª Üg  Wcª ßg  ‘W‚ª ÿg  ÙW…ª h   ~Wˆª h  HWŒª h  HEWª h  IEW’ª h  Ø…W–ª h  Ù…W™ª h  `BW ª h  aBW£ª h  ãW¨ª $h  €jW¬ª )h  jW°ª ,h  Ø…W²ª /h  Ù…W´ª 1h  H"W¹ª 5h  €W¼ª 8h  W¿ª <h  I"WÂª >h  xãWÆª Ch  HAWËª Gh  IAWÍª Jh  h@WÑª Mh  i@WÔª Ph  yãW×ª Sh  €jWÙª Vh  jWÜª Xh  H"WŞª [h  €Wàª ]h  Wãª `h  I"Wåª bh  xãWéª eh  HAWìª hh  IAWîª kh  h@Wñª mh  i@Wóª oh  yãWöª rh  €jWøª uh  jWûª wh  H"Wıª zh  €Wÿª |h  W« ~h  I"W« h  xãW« „h  HAW
+« ‡h  IAW« ‰h  h@W« Œh  i@W« h  yãW« ‘h  €jW« ”h  jW« –h  H"W« ™h  €W« ›h  W!« h  I"W#«  h   VW'« ¤h   HW+« §h  ÈEW.« «h  Ø[W1« ­h  Ù[W4« °h  ÉEW6« ³h  HW8« µh  AW;« ·h  AW>« ºh  AWB« ¾h  AWD« Àh  XDWH« Äh  YDWK« Çh  h@WP« Ìh  i@WR« Ïh  [WU« Òh  à
+WY« Öh  á
+W\« Øh  è2%W_« Ûh  0	Wb« Şh  1	Wi« æh  ˜º Wl« éh  ê,Wp« íh  ê,Wt« ñh  ™º Wx« õh  é2%W{« ÷h  ÀğW« ûh  øğW‚« şh  àíW„« i  0	W‡« i  1	W‹« i  èIW« i  ìW’« i  ¨íW•« i  ©íW—« i  ‘ìWš« i  èIWœ« i  ˆîWŸ« i  píW¢« i   1%W¤« !i  üW¨« $i  ÈEWª« 'i  Ø[W­« )i  Ù[W¯« ,i  ÉEW±« .i  ¨ıW´« 1i  ©ıW·« 3i  (2&W¹« 6i  )2&W¼« 9i  `2&W¿« ;i  a2&WÁ« =i  ‘üWÄ« @i  !1%WÆ« Bi  qíWÈ« Ei  ÀîWË« Gi  À8WÎ« Ji  Ø7WĞ« Mi  Ù7W¬ i  Á8W¬ ’i  ÁîW¬ •i  ‰îW¬ —i  áíW¬ ™i  ùğW¬ œi  ÁğW!¬ i  ĞZW$¬ ¡i  ÀğW'¬ ¤i  øğW*¬ ¦i  àíW,¬ ©i  0	W/¬ ¬i  1	W5¬ ²i  èIW8¬ µi  ìW;¬ ·i  ¨íW=¬ ºi  ©íW@¬ ½i  ‘ìWB¬ ¿i  èIWL¬ íi  ˆîWO¬ ği  ‰îWR¬ òi  áíWT¬ õi  ùğWW¬ ÷i  ÁğWY¬ ùi  ÑZW[¬ ûi  	[W]¬ şi  VW`¬  j  	ãWb¬ j  IWe¬ j  ¡~Wg¬ j  Ñ‚JWj¬ 
+j  ¯ Wm¬ j  ÈúWp¬ j 

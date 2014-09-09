@@ -1,0 +1,972 @@
+<html>
+<head>
+<script type="text/javascript" src="(null)sortable.js"></script>
+<script langugage="javascript">
+function toggle(item) {
+    obj=document.getElementById(item);
+    visible=(obj.style.display!="none" && obj.style.display!="");
+    key=document.getElementById("x" + item);
+    if (visible) {
+        obj.style.display="none";
+        key.innerHTML="+";
+    } else {
+        obj.style.display="block";
+        key.innerHTML="-";
+    }
+}
+function onMouseOver(obj) {
+    obj.style.background="lightblue";
+}
+function onMouseOut(obj) {
+    obj.style.background="white";
+}
+</script>
+<style type="text/css">
+div { font-family: courier; font-size: 13 }
+div.parent { margin-left: 15; display: none }
+div.leaf { margin-left: 10 }
+div.header { margin-left: 10 }
+div.link { margin-left: 10; cursor: move }
+span.parent { padding-right: 10; }
+span.leaf { padding-right: 10; }
+a img { border: 0;}
+table.sortable th { border-width: 0px 1px 1px 1px; background-color: #ccc;}
+a { text-decoration: none; }
+a:hover { text-decoration: underline; }
+table.sortable th, table.sortable td { text-align: left;}table.sortable tr.odd td { background-color: #ddd; }
+table.sortable tr.even td { background-color: #fff; }
+</style>
+</head><body>
+
+<a name="contents"></a>
+<h2>Table of Contents</h2>
+<ul>
+  <li><a href="#exclusive">Exclusive profile</a></li>
+  <li><a href="#inclusive">Inclusive profile</a></li>
+  <li><a href="#class">Class/method profile</a></li>
+  <li><a href="#method">Method/class profile</a></li>
+</ul>
+
+<a name="exclusive"></a>
+<hr>
+<a href="#contents">[Top]</a>
+<a href="#exclusive">[Exclusive]</a>
+<a href="#inclusive">[Inclusive]</a>
+<a href="#class">[Class]</a>
+<a href="#method">[Method]</a>
+<br><br>
+Total cycles: 103492
+
+<br><br>
+Exclusive elapsed times for each method, not including time spent in
+children, sorted by exclusive time.
+
+<br><br>
+<pre>
+    Usecs  self %  sum %  Method
+    71198   68.80  68.80  <a href="#m3">[3]</a> org/opencv/objdetect/CascadeClassifier.detectMultiScale_0 (JJJDIIDDDD)V
+    25631   24.77  93.56  <a href="#m5">[5]</a> dalvik/system/VMDebug.startGC ()V
+     2261    2.18  95.75  <a href="#m0">[0]</a> (toplevel)
+      996    0.96  96.71  <a href="#m7">[7]</a> java/lang/System.arraycopy (Ljava/lang/Object;ILjava/lang/Object;II)V
+      928    0.90  97.61  <a href="#m8">[8]</a> org/opencv/core/Mat.nPutB (JIII[B)I
+      414    0.40  98.01  <a href="#m4">[4]</a> java/util/Arrays.copyOfRange ([BII)[B
+      225    0.22  98.22  <a href="#m9">[9]</a> java/lang/Daemons$FinalizerDaemon.doFinalize (Ljava/lang/ref/FinalizerReference;)V
+      134    0.13  98.35  <a href="#m1">[1]</a> tese/helder/clearphoto/overlays/imageprocessing/FaceDetection.process ([B)V
+      111    0.11  98.46  <a href="#m17">[17]</a> android/os/Debug.startMethodTracing (Ljava/lang/String;II)V
+       85    0.08  98.54  <a href="#m10">[10]</a> java/lang/Daemons$ReferenceQueueDaemon.enqueue (Ljava/lang/ref/Reference;)V
+       70    0.07  98.61  <a href="#m20">[20]</a> org/opencv/core/Rect.tl ()Lorg/opencv/core/Point;
+       69    0.07  98.68  <a href="#m11">[11]</a> org/opencv/core/MatOfRect.toArray ()[Lorg/opencv/core/Rect;
+       67    0.06  98.74  <a href="#m26">[26]</a> java/lang/Object.notify ()V
+       66    0.06  98.80  <a href="#m14">[14]</a> android/graphics/Path.finalize ()V
+       65    0.06  98.87  <a href="#m27">[27]</a> android/graphics/Path.finalizer (I)V
+       56    0.05  98.92  <a href="#m13">[13]</a> java/lang/ref/Reference.enqueueInternal ()Z
+       56    0.05  98.98  <a href="#m21">[21]</a> java/lang/ref/ReferenceQueue.enqueue (Ljava/lang/ref/Reference;)V
+       55    0.05  99.03  <a href="#m19">[19]</a> java/lang/ref/ReferenceQueue.remove (J)Ljava/lang/ref/Reference;
+       49    0.05  99.08  <a href="#m29">[29]</a> java/lang/Daemons$FinalizerWatchdogDaemon.access$200 ()Ljava/lang/Daemons$FinalizerWatchdogDaemon;
+       48    0.05  99.12  <a href="#m15">[15]</a> java/lang/ref/ReferenceQueue.remove ()Ljava/lang/ref/Reference;
+       40    0.04  99.16  <a href="#m6">[6]</a> org/opencv/core/Mat.put (II[B)I
+       33    0.03  99.19  <a href="#m38">[38]</a> java/lang/Daemons$Daemon.isRunning ()Z
+       33    0.03  99.23  <a href="#m39">[39]</a> java/lang/System.nanoTime ()J
+       33    0.03  99.26  <a href="#m22">[22]</a> org/opencv/core/Mat.&lt;init&gt; ()V
+       32    0.03  99.29  <a href="#m12">[12]</a> android/hardware/Camera.postEventFromNative (Ljava/lang/Object;IIILjava/lang/Object;)V
+       31    0.03  99.32  <a href="#m40">[40]</a> java/lang/ref/FinalizerReference.remove (Ljava/lang/ref/FinalizerReference;)V
+       30    0.03  99.35  <a href="#m41">[41]</a> java/lang/ref/ReferenceQueue.poll ()Ljava/lang/ref/Reference;
+       30    0.03  99.38  <a href="#m42">[42]</a> org/opencv/core/Point.&lt;init&gt; (DD)V
+       28    0.03  99.40  <a href="#m30">[30]</a> android/view/View.invalidate (Z)V
+       27    0.03  99.43  <a href="#m43">[43]</a> org/opencv/core/Mat.nGetI (JIII[I)I
+       25    0.02  99.45  <a href="#m31">[31]</a> java/lang/ref/FinalizerReference.add (Ljava/lang/Object;)V
+       24    0.02  99.48  <a href="#m45">[45]</a> java/lang/ref/FinalizerReference.clear ()V
+       24    0.02  99.50  <a href="#m46">[46]</a> java/lang/ref/FinalizerReference.get ()Ljava/lang/Object;
+       23    0.02  99.52  <a href="#m48">[48]</a> java/lang/Object.finalize ()V
+       23    0.02  99.54  <a href="#m25">[25]</a> org/opencv/core/Mat.get (II[I)I
+       22    0.02  99.57  <a href="#m49">[49]</a> android/os/SystemClock.uptimeMillis ()J
+       22    0.02  99.59  <a href="#m33">[33]</a> java/lang/ref/ReferenceQueue.add (Ljava/lang/ref/Reference;)V
+       22    0.02  99.61  <a href="#m50">[50]</a> org/opencv/core/Mat.n_delete (J)V
+       20    0.02  99.63  <a href="#m35">[35]</a> org/opencv/core/Mat.type ()I
+       19    0.02  99.65  <a href="#m53">[53]</a> java/lang/Object.notifyAll ()V
+       19    0.02  99.66  <a href="#m54">[54]</a> org/opencv/core/Mat.n_Mat ()J
+       19    0.02  99.68  <a href="#m2">[2]</a> org/opencv/objdetect/CascadeClassifier.detectMultiScale (Lorg/opencv/core/Mat;Lorg/opencv/core/MatOfRect;DIILorg/opencv/core/Size;Lorg/opencv/core/Size;)V
+       18    0.02  99.70  <a href="#m24">[24]</a> android/os/Handler.sendMessageDelayed (Landroid/os/Message;J)Z
+       18    0.02  99.72  <a href="#m55">[55]</a> org/opencv/core/Mat.n_type (J)I
+       17    0.02  99.73  <a href="#m44">[44]</a> android/os/MessageQueue.enqueueMessage (Landroid/os/Message;J)Z
+       16    0.02  99.75  <a href="#m28">[28]</a> android/view/View.invalidate ()V
+       16    0.02  99.76  <a href="#m34">[34]</a> org/opencv/core/Mat.finalize ()V
+       16    0.02  99.78  <a href="#m56">[56]</a> org/opencv/core/Rect.&lt;init&gt; (IIII)V
+       12    0.01  99.79  <a href="#m36">[36]</a> android/os/Handler.obtainMessage (IIILjava/lang/Object;)Landroid/os/Message;
+       12    0.01  99.80  <a href="#m58">[58]</a> android/os/Message.obtain ()Landroid/os/Message;
+       12    0.01  99.81  <a href="#m51">[51]</a> java/lang/ref/FinalizerReference.&lt;init&gt; (Ljava/lang/Object;Ljava/lang/ref/ReferenceQueue;)V
+       11    0.01  99.83  <a href="#m37">[37]</a> android/os/Handler.sendMessageAtTime (Landroid/os/Message;J)Z
+       11    0.01  99.84  <a href="#m47">[47]</a> android/os/Message.obtain (Landroid/os/Handler;IIILjava/lang/Object;)Landroid/os/Message;
+       11    0.01  99.85  <a href="#m61">[61]</a> org/opencv/core/CvType.channels (I)I
+       11    0.01  99.86  <a href="#m52">[52]</a> org/opencv/core/Mat.total ()J
+       11    0.01  99.87  <a href="#m18">[18]</a> org/opencv/core/MatOfRect.&lt;init&gt; ()V
+       11    0.01  99.88  <a href="#m57">[57]</a> org/opencv/core/Size.&lt;init&gt; ()V
+       11    0.01  99.89  <a href="#m62">[62]</a> org/opencv/core/Size.&lt;init&gt; (DD)V
+       10    0.01  99.90  <a href="#m23">[23]</a> android/os/Handler.sendMessage (Landroid/os/Message;)Z
+       10    0.01  99.91  <a href="#m63">[63]</a> android/view/View.skipInvalidate ()Z
+       10    0.01  99.92  <a href="#m65">[65]</a> org/opencv/core/CvType.depth (I)I
+        9    0.01  99.93  <a href="#m16">[16]</a> android/os/Debug.startMethodTracing (Ljava/lang/String;)V
+        9    0.01  99.94  <a href="#m66">[66]</a> java/lang/ref/Reference.get ()Ljava/lang/Object;
+        9    0.01  99.94  <a href="#m67">[67]</a> org/opencv/core/Mat.n_total (J)J
+        9    0.01  99.95  <a href="#m32">[32]</a> tese/helder/clearphoto/overlays/grids/Grid.highligthPowerPoint ([F)V
+        8    0.01  99.96  <a href="#m68">[68]</a> android/view/View.isOpaque ()Z
+        8    0.01  99.97  <a href="#m59">[59]</a> java/lang/Object.wait ()V
+        8    0.01  99.98  <a href="#m60">[60]</a> java/lang/Object.wait (J)V
+        8    0.01  99.98  <a href="#m69">[69]</a> java/lang/ref/Reference.&lt;init&gt; (Ljava/lang/Object;Ljava/lang/ref/ReferenceQueue;)V
+        7    0.01  99.99  <a href="#m70">[70]</a> android/os/Message.isInUse ()Z
+        5    0.00 100.00  <a href="#m72">[72]</a> android/os/Debug.stopMethodTracing ()V
+        5    0.00 100.00  <a href="#m73">[73]</a> java/lang/Math.min (II)I
+</pre>
+<a name="inclusive"></a>
+<hr>
+<a href="#contents">[Top]</a>
+<a href="#exclusive">[Exclusive]</a>
+<a href="#inclusive">[Inclusive]</a>
+<a href="#class">[Class]</a>
+<a href="#method">[Method]</a>
+<br><br>
+
+Inclusive elapsed times for each method and its parents and children,
+sorted by inclusive time.
+
+<br><br>
+<pre>
+index  %/total %/self  index     calls         usecs name
+<a name="m0"></a>----------------------------------------------------
+[0]    100.0%                     0+0         103492 (toplevel)
+                 2.2%   excl                    2261
+                96.5%    <a href="#m1">[1]</a>      1/1          99880 tese/helder/clearphoto/overlays/imageprocessing/FaceDetection.process ([B)V
+                 0.6%    <a href="#m9">[9]</a>      7/7            602 java/lang/Daemons$FinalizerDaemon.doFinalize (Ljava/lang/ref/FinalizerReference;)V
+                 0.2%   <a href="#m10">[10]</a>      1/1            240 java/lang/Daemons$ReferenceQueueDaemon.enqueue (Ljava/lang/ref/Reference;)V
+                 0.2%   <a href="#m12">[12]</a>      1/1            161 android/hardware/Camera.postEventFromNative (Ljava/lang/Object;IIILjava/lang/Object;)V
+                 0.1%   <a href="#m15">[15]</a>      8/8            150 java/lang/ref/ReferenceQueue.remove ()Ljava/lang/ref/Reference;
+                 0.1%   <a href="#m16">[16]</a>      1/1            130 android/os/Debug.startMethodTracing (Ljava/lang/String;)V
+                 0.1%   <a href="#m17">[17]</a>      1/1            121 android/os/Debug.startMethodTracing (Ljava/lang/String;II)V
+                 0.0%   <a href="#m33">[33]</a>      1/1             41 java/lang/ref/ReferenceQueue.add (Ljava/lang/ref/Reference;)V
+                 0.0%   <a href="#m38">[38]</a>      8/8             33 java/lang/Daemons$Daemon.isRunning ()Z
+                 0.0%   <a href="#m19">[19]</a>      1/8             24 java/lang/ref/ReferenceQueue.remove (J)Ljava/lang/ref/Reference;
+                 0.0%   <a href="#m59">[59]</a>      2/2             11 java/lang/Object.wait ()V
+                 0.0%   <a href="#m64">[64]</a>      1/1             10 dalvik/system/VMDebug.startMethodTracing (Ljava/lang/String;II)V
+                 0.0%    <a href="#m5">[5]</a>      1/2              8 dalvik/system/VMDebug.startGC ()V
+                 0.0%   <a href="#m60">[60]</a>      1/2              8 java/lang/Object.wait (J)V
+                 0.0%   <a href="#m71">[71]</a>      2/4              6 java/lang/Object.wait (JI)V
+                 0.0%   <a href="#m41">[41]</a>      1/7              6 java/lang/ref/ReferenceQueue.poll ()Ljava/lang/ref/Reference;
+                 0.0%   <a href="#m72">[72]</a>      1/1              5 android/os/Debug.stopMethodTracing ()V
+<a name="m1"></a>----------------------------------------------------
+               100.0%    <a href="#m0">[0]</a>      1/1          99880 (toplevel)
+[1]     96.5%                     1+0          99880 tese/helder/clearphoto/overlays/imageprocessing/FaceDetection.process ([B)V
+                 0.1%   excl                     134
+                71.3%    <a href="#m2">[2]</a>      1/1          71217 org/opencv/objdetect/CascadeClassifier.detectMultiScale (Lorg/opencv/core/Mat;Lorg/opencv/core/MatOfRect;DIILorg/opencv/core/Size;Lorg/opencv/core/Size;)V
+                27.1%    <a href="#m4">[4]</a>      1/1          27046 java/util/Arrays.copyOfRange ([BII)[B
+                 1.0%    <a href="#m6">[6]</a>      1/1           1005 org/opencv/core/Mat.put (II[B)I
+                 0.2%   <a href="#m11">[11]</a>      1/1            177 org/opencv/core/MatOfRect.toArray ()[Lorg/opencv/core/Rect;
+                 0.1%   <a href="#m18">[18]</a>      1/1            108 org/opencv/core/MatOfRect.&lt;init&gt; ()V
+                 0.1%   <a href="#m20">[20]</a>      8/8            100 org/opencv/core/Rect.tl ()Lorg/opencv/core/Point;
+                 0.0%   <a href="#m32">[32]</a>      1/1             45 tese/helder/clearphoto/overlays/grids/Grid.highligthPowerPoint ([F)V
+                 0.0%   <a href="#m28">[28]</a>      1/2             26 android/view/View.invalidate ()V
+                 0.0%   <a href="#m57">[57]</a>      1/1             16 org/opencv/core/Size.&lt;init&gt; ()V
+                 0.0%   <a href="#m62">[62]</a>      1/2              6 org/opencv/core/Size.&lt;init&gt; (DD)V
+<a name="m2"></a>----------------------------------------------------
+               100.0%    <a href="#m1">[1]</a>      1/1          71217 tese/helder/clearphoto/overlays/imageprocessing/FaceDetection.process ([B)V
+[2]     68.8%                     1+0          71217 org/opencv/objdetect/CascadeClassifier.detectMultiScale (Lorg/opencv/core/Mat;Lorg/opencv/core/MatOfRect;DIILorg/opencv/core/Size;Lorg/opencv/core/Size;)V
+                 0.0%   excl                      19
+               100.0%    <a href="#m3">[3]</a>      1/1          71198 org/opencv/objdetect/CascadeClassifier.detectMultiScale_0 (JJJDIIDDDD)V
+<a name="m3"></a>----------------------------------------------------
+               100.0%    <a href="#m2">[2]</a>      1/1          71198 org/opencv/objdetect/CascadeClassifier.detectMultiScale (Lorg/opencv/core/Mat;Lorg/opencv/core/MatOfRect;DIILorg/opencv/core/Size;Lorg/opencv/core/Size;)V
+[3]     68.8%                     1+0          71198 org/opencv/objdetect/CascadeClassifier.detectMultiScale_0 (JJJDIIDDDD)V
+               100.0%   excl                   71198
+<a name="m4"></a>----------------------------------------------------
+               100.0%    <a href="#m1">[1]</a>      1/1          27046 tese/helder/clearphoto/overlays/imageprocessing/FaceDetection.process ([B)V
+[4]     26.1%                     1+0          27046 java/util/Arrays.copyOfRange ([BII)[B
+                 1.5%   excl                     414
+                94.8%    <a href="#m5">[5]</a>      1/2          25631 dalvik/system/VMDebug.startGC ()V
+                 3.7%    <a href="#m7">[7]</a>      1/1            996 java/lang/System.arraycopy (Ljava/lang/Object;ILjava/lang/Object;II)V
+                 0.0%   <a href="#m73">[73]</a>      1/1              5 java/lang/Math.min (II)I
+<a name="m5"></a>----------------------------------------------------
+               100.0%    <a href="#m4">[4]</a>      1/2          25631 java/util/Arrays.copyOfRange ([BII)[B
+                 0.0%    <a href="#m0">[0]</a>      1/2              8 (toplevel)
+[5]     24.8%                     2+0          25639 dalvik/system/VMDebug.startGC ()V
+               100.0%   excl                   25631
+<a name="m6"></a>----------------------------------------------------
+               100.0%    <a href="#m1">[1]</a>      1/1           1005 tese/helder/clearphoto/overlays/imageprocessing/FaceDetection.process ([B)V
+[6]      1.0%                     1+0           1005 org/opencv/core/Mat.put (II[B)I
+                 4.0%   excl                      40
+                92.3%    <a href="#m8">[8]</a>      1/1            928 org/opencv/core/Mat.nPutB (JIII[B)I
+                 2.5%   <a href="#m35">[35]</a>      1/2             25 org/opencv/core/Mat.type ()I
+                 0.6%   <a href="#m61">[61]</a>      1/2              6 org/opencv/core/CvType.channels (I)I
+                 0.6%   <a href="#m65">[65]</a>      1/2              6 org/opencv/core/CvType.depth (I)I
+<a name="m7"></a>----------------------------------------------------
+               100.0%    <a href="#m4">[4]</a>      1/1            996 java/util/Arrays.copyOfRange ([BII)[B
+[7]      1.0%                     1+0            996 java/lang/System.arraycopy (Ljava/lang/Object;ILjava/lang/Object;II)V
+               100.0%   excl                     996
+<a name="m8"></a>----------------------------------------------------
+               100.0%    <a href="#m6">[6]</a>      1/1            928 org/opencv/core/Mat.put (II[B)I
+[8]      0.9%                     1+0            928 org/opencv/core/Mat.nPutB (JIII[B)I
+               100.0%   excl                     928
+<a name="m9"></a>----------------------------------------------------
+               100.0%    <a href="#m0">[0]</a>      7/7            602 (toplevel)
+[9]      0.6%                     7+0            602 java/lang/Daemons$FinalizerDaemon.doFinalize (Ljava/lang/ref/FinalizerReference;)V
+                37.4%   excl                     225
+                25.1%   <a href="#m14">[14]</a>      6/6            151 android/graphics/Path.finalize ()V
+                 8.1%   <a href="#m29">[29]</a>     14/14            49 java/lang/Daemons$FinalizerWatchdogDaemon.access$200 ()Ljava/lang/Daemons$FinalizerWatchdogDaemon;
+                 6.8%   <a href="#m34">[34]</a>      1/1             41 org/opencv/core/Mat.finalize ()V
+                 5.5%   <a href="#m39">[39]</a>      7/7             33 java/lang/System.nanoTime ()J
+                 5.1%   <a href="#m40">[40]</a>      7/7             31 java/lang/ref/FinalizerReference.remove (Ljava/lang/ref/FinalizerReference;)V
+                 4.0%   <a href="#m26">[26]</a>      7/14            24 java/lang/Object.notify ()V
+                 4.0%   <a href="#m45">[45]</a>      7/7             24 java/lang/ref/FinalizerReference.clear ()V
+                 4.0%   <a href="#m46">[46]</a>      7/7             24 java/lang/ref/FinalizerReference.get ()Ljava/lang/Object;
+<a name="m10"></a>----------------------------------------------------
+               100.0%    <a href="#m0">[0]</a>      1/1            240 (toplevel)
+[10]     0.2%                     1+0            240 java/lang/Daemons$ReferenceQueueDaemon.enqueue (Ljava/lang/ref/Reference;)V
+                35.4%   excl                      85
+                64.6%   <a href="#m13">[13]</a>      7/7            155 java/lang/ref/Reference.enqueueInternal ()Z
+<a name="m11"></a>----------------------------------------------------
+               100.0%    <a href="#m1">[1]</a>      1/1            177 tese/helder/clearphoto/overlays/imageprocessing/FaceDetection.process ([B)V
+[11]     0.2%                     1+0            177 org/opencv/core/MatOfRect.toArray ()[Lorg/opencv/core/Rect;
+                39.0%   excl                      69
+                40.7%   <a href="#m25">[25]</a>      1/1             72 org/opencv/core/Mat.get (II[I)I
+                11.3%   <a href="#m52">[52]</a>      1/1             20 org/opencv/core/Mat.total ()J
+                 9.0%   <a href="#m56">[56]</a>      4/4             16 org/opencv/core/Rect.&lt;init&gt; (IIII)V
+<a name="m12"></a>----------------------------------------------------
+               100.0%    <a href="#m0">[0]</a>      1/1            161 (toplevel)
+[12]     0.2%                     1+0            161 android/hardware/Camera.postEventFromNative (Ljava/lang/Object;IIILjava/lang/Object;)V
+                19.9%   excl                      32
+                52.8%   <a href="#m23">[23]</a>      1/1             85 android/os/Handler.sendMessage (Landroid/os/Message;)Z
+                21.7%   <a href="#m36">[36]</a>      1/1             35 android/os/Handler.obtainMessage (IIILjava/lang/Object;)Landroid/os/Message;
+                 5.6%   <a href="#m66">[66]</a>      1/1              9 java/lang/ref/Reference.get ()Ljava/lang/Object;
+<a name="m13"></a>----------------------------------------------------
+               100.0%   <a href="#m10">[10]</a>      7/7            155 java/lang/Daemons$ReferenceQueueDaemon.enqueue (Ljava/lang/ref/Reference;)V
+[13]     0.1%                     7+0            155 java/lang/ref/Reference.enqueueInternal ()Z
+                36.1%   excl                      56
+                63.9%   <a href="#m21">[21]</a>      7/7             99 java/lang/ref/ReferenceQueue.enqueue (Ljava/lang/ref/Reference;)V
+<a name="m14"></a>----------------------------------------------------
+               100.0%    <a href="#m9">[9]</a>      6/6            151 java/lang/Daemons$FinalizerDaemon.doFinalize (Ljava/lang/ref/FinalizerReference;)V
+[14]     0.1%                     6+0            151 android/graphics/Path.finalize ()V
+                43.7%   excl                      66
+                43.0%   <a href="#m27">[27]</a>      6/6             65 android/graphics/Path.finalizer (I)V
+                13.2%   <a href="#m48">[48]</a>      6/7             20 java/lang/Object.finalize ()V
+<a name="m15"></a>----------------------------------------------------
+               100.0%    <a href="#m0">[0]</a>      8/8            150 (toplevel)
+[15]     0.1%                     8+0            150 java/lang/ref/ReferenceQueue.remove ()Ljava/lang/ref/Reference;
+                32.0%   excl                      48
+                52.0%   <a href="#m19">[19]</a>      7/8             78 java/lang/ref/ReferenceQueue.remove (J)Ljava/lang/ref/Reference;
+<a name="m16"></a>----------------------------------------------------
+               100.0%    <a href="#m0">[0]</a>      1/1            130 (toplevel)
+[16]     0.1%                     1+0            130 android/os/Debug.startMethodTracing (Ljava/lang/String;)V
+                 6.9%   excl                       9
+<a name="m17"></a>----------------------------------------------------
+               100.0%    <a href="#m0">[0]</a>      1/1            121 (toplevel)
+[17]     0.1%                     1+0            121 android/os/Debug.startMethodTracing (Ljava/lang/String;II)V
+                91.7%   excl                     111
+<a name="m18"></a>----------------------------------------------------
+               100.0%    <a href="#m1">[1]</a>      1/1            108 tese/helder/clearphoto/overlays/imageprocessing/FaceDetection.process ([B)V
+[18]     0.1%                     1+0            108 org/opencv/core/MatOfRect.&lt;init&gt; ()V
+                10.2%   excl                      11
+                89.8%   <a href="#m22">[22]</a>      1/1             97 org/opencv/core/Mat.&lt;init&gt; ()V
+<a name="m19"></a>----------------------------------------------------
+                76.5%   <a href="#m15">[15]</a>      7/8             78 java/lang/ref/ReferenceQueue.remove ()Ljava/lang/ref/Reference;
+                23.5%    <a href="#m0">[0]</a>      1/8             24 (toplevel)
+[19]     0.1%                     8+0            102 java/lang/ref/ReferenceQueue.remove (J)Ljava/lang/ref/Reference;
+                53.9%   excl                      55
+                23.5%   <a href="#m41">[41]</a>      6/7             24 java/lang/ref/ReferenceQueue.poll ()Ljava/lang/ref/Reference;
+                 2.9%   <a href="#m60">[60]</a>      1/2              3 java/lang/Object.wait (J)V
+<a name="m20"></a>----------------------------------------------------
+               100.0%    <a href="#m1">[1]</a>      8/8            100 tese/helder/clearphoto/overlays/imageprocessing/FaceDetection.process ([B)V
+[20]     0.1%                     8+0            100 org/opencv/core/Rect.tl ()Lorg/opencv/core/Point;
+                70.0%   excl                      70
+                30.0%   <a href="#m42">[42]</a>      8/8             30 org/opencv/core/Point.&lt;init&gt; (DD)V
+<a name="m21"></a>----------------------------------------------------
+               100.0%   <a href="#m13">[13]</a>      7/7             99 java/lang/ref/Reference.enqueueInternal ()Z
+[21]     0.1%                     7+0             99 java/lang/ref/ReferenceQueue.enqueue (Ljava/lang/ref/Reference;)V
+                56.6%   excl                      56
+                43.4%   <a href="#m26">[26]</a>      7/14            43 java/lang/Object.notify ()V
+<a name="m22"></a>----------------------------------------------------
+               100.0%   <a href="#m18">[18]</a>      1/1             97 org/opencv/core/MatOfRect.&lt;init&gt; ()V
+[22]     0.1%                     1+0             97 org/opencv/core/Mat.&lt;init&gt; ()V
+                34.0%   excl                      33
+                46.4%   <a href="#m31">[31]</a>      1/1             45 java/lang/ref/FinalizerReference.add (Ljava/lang/Object;)V
+                19.6%   <a href="#m54">[54]</a>      1/1             19 org/opencv/core/Mat.n_Mat ()J
+<a name="m23"></a>----------------------------------------------------
+               100.0%   <a href="#m12">[12]</a>      1/1             85 android/hardware/Camera.postEventFromNative (Ljava/lang/Object;IIILjava/lang/Object;)V
+[23]     0.1%                     1+0             85 android/os/Handler.sendMessage (Landroid/os/Message;)Z
+                11.8%   excl                      10
+                88.2%   <a href="#m24">[24]</a>      1/1             75 android/os/Handler.sendMessageDelayed (Landroid/os/Message;J)Z
+<a name="m24"></a>----------------------------------------------------
+               100.0%   <a href="#m23">[23]</a>      1/1             75 android/os/Handler.sendMessage (Landroid/os/Message;)Z
+[24]     0.1%                     1+0             75 android/os/Handler.sendMessageDelayed (Landroid/os/Message;J)Z
+                24.0%   excl                      18
+                46.7%   <a href="#m37">[37]</a>      1/1             35 android/os/Handler.sendMessageAtTime (Landroid/os/Message;J)Z
+                29.3%   <a href="#m49">[49]</a>      1/1             22 android/os/SystemClock.uptimeMillis ()J
+<a name="m25"></a>----------------------------------------------------
+               100.0%   <a href="#m11">[11]</a>      1/1             72 org/opencv/core/MatOfRect.toArray ()[Lorg/opencv/core/Rect;
+[25]     0.1%                     1+0             72 org/opencv/core/Mat.get (II[I)I
+                31.9%   excl                      23
+                37.5%   <a href="#m43">[43]</a>      1/1             27 org/opencv/core/Mat.nGetI (JIII[I)I
+                18.1%   <a href="#m35">[35]</a>      1/2             13 org/opencv/core/Mat.type ()I
+                 6.9%   <a href="#m61">[61]</a>      1/2              5 org/opencv/core/CvType.channels (I)I
+                 5.6%   <a href="#m65">[65]</a>      1/2              4 org/opencv/core/CvType.depth (I)I
+<a name="m26"></a>----------------------------------------------------
+                64.2%   <a href="#m21">[21]</a>      7/14            43 java/lang/ref/ReferenceQueue.enqueue (Ljava/lang/ref/Reference;)V
+                35.8%    <a href="#m9">[9]</a>      7/14            24 java/lang/Daemons$FinalizerDaemon.doFinalize (Ljava/lang/ref/FinalizerReference;)V
+[26]     0.1%                    14+0             67 java/lang/Object.notify ()V
+               100.0%   excl                      67
+<a name="m27"></a>----------------------------------------------------
+               100.0%   <a href="#m14">[14]</a>      6/6             65 android/graphics/Path.finalize ()V
+[27]     0.1%                     6+0             65 android/graphics/Path.finalizer (I)V
+               100.0%   excl                      65
+<a name="m28"></a>----------------------------------------------------
+                58.1%   <a href="#m32">[32]</a>      1/2             36 tese/helder/clearphoto/overlays/grids/Grid.highligthPowerPoint ([F)V
+                41.9%    <a href="#m1">[1]</a>      1/2             26 tese/helder/clearphoto/overlays/imageprocessing/FaceDetection.process ([B)V
+[28]     0.1%                     2+0             62 android/view/View.invalidate ()V
+                25.8%   excl                      16
+                74.2%   <a href="#m30">[30]</a>      2/2             46 android/view/View.invalidate (Z)V
+<a name="m29"></a>----------------------------------------------------
+               100.0%    <a href="#m9">[9]</a>     14/14            49 java/lang/Daemons$FinalizerDaemon.doFinalize (Ljava/lang/ref/FinalizerReference;)V
+[29]     0.0%                    14+0             49 java/lang/Daemons$FinalizerWatchdogDaemon.access$200 ()Ljava/lang/Daemons$FinalizerWatchdogDaemon;
+               100.0%   excl                      49
+<a name="m30"></a>----------------------------------------------------
+               100.0%   <a href="#m28">[28]</a>      2/2             46 android/view/View.invalidate ()V
+[30]     0.0%                     2+0             46 android/view/View.invalidate (Z)V
+                60.9%   excl                      28
+                21.7%   <a href="#m63">[63]</a>      2/2             10 android/view/View.skipInvalidate ()Z
+                17.4%   <a href="#m68">[68]</a>      2/2              8 android/view/View.isOpaque ()Z
+<a name="m31"></a>----------------------------------------------------
+               100.0%   <a href="#m22">[22]</a>      1/1             45 org/opencv/core/Mat.&lt;init&gt; ()V
+[31]     0.0%                     1+0             45 java/lang/ref/FinalizerReference.add (Ljava/lang/Object;)V
+                55.6%   excl                      25
+                44.4%   <a href="#m51">[51]</a>      1/1             20 java/lang/ref/FinalizerReference.&lt;init&gt; (Ljava/lang/Object;Ljava/lang/ref/ReferenceQueue;)V
+<a name="m32"></a>----------------------------------------------------
+               100.0%    <a href="#m1">[1]</a>      1/1             45 tese/helder/clearphoto/overlays/imageprocessing/FaceDetection.process ([B)V
+[32]     0.0%                     1+0             45 tese/helder/clearphoto/overlays/grids/Grid.highligthPowerPoint ([F)V
+                20.0%   excl                       9
+                80.0%   <a href="#m28">[28]</a>      1/2             36 android/view/View.invalidate ()V
+<a name="m33"></a>----------------------------------------------------
+               100.0%    <a href="#m0">[0]</a>      1/1             41 (toplevel)
+[33]     0.0%                     1+0             41 java/lang/ref/ReferenceQueue.add (Ljava/lang/ref/Reference;)V
+                53.7%   excl                      22
+                46.3%   <a href="#m53">[53]</a>      1/1             19 java/lang/Object.notifyAll ()V
+<a name="m34"></a>----------------------------------------------------
+               100.0%    <a href="#m9">[9]</a>      1/1             41 java/lang/Daemons$FinalizerDaemon.doFinalize (Ljava/lang/ref/FinalizerReference;)V
+[34]     0.0%                     1+0             41 org/opencv/core/Mat.finalize ()V
+                39.0%   excl                      16
+                53.7%   <a href="#m50">[50]</a>      1/1             22 org/opencv/core/Mat.n_delete (J)V
+                 7.3%   <a href="#m48">[48]</a>      1/7              3 java/lang/Object.finalize ()V
+<a name="m35"></a>----------------------------------------------------
+                65.8%    <a href="#m6">[6]</a>      1/2             25 org/opencv/core/Mat.put (II[B)I
+                34.2%   <a href="#m25">[25]</a>      1/2             13 org/opencv/core/Mat.get (II[I)I
+[35]     0.0%                     2+0             38 org/opencv/core/Mat.type ()I
+                52.6%   excl                      20
+                47.4%   <a href="#m55">[55]</a>      2/2             18 org/opencv/core/Mat.n_type (J)I
+<a name="m36"></a>----------------------------------------------------
+               100.0%   <a href="#m12">[12]</a>      1/1             35 android/hardware/Camera.postEventFromNative (Ljava/lang/Object;IIILjava/lang/Object;)V
+[36]     0.0%                     1+0             35 android/os/Handler.obtainMessage (IIILjava/lang/Object;)Landroid/os/Message;
+                34.3%   excl                      12
+                65.7%   <a href="#m47">[47]</a>      1/1             23 android/os/Message.obtain (Landroid/os/Handler;IIILjava/lang/Object;)Landroid/os/Message;
+<a name="m37"></a>----------------------------------------------------
+               100.0%   <a href="#m24">[24]</a>      1/1             35 android/os/Handler.sendMessageDelayed (Landroid/os/Message;J)Z
+[37]     0.0%                     1+0             35 android/os/Handler.sendMessageAtTime (Landroid/os/Message;J)Z
+                31.4%   excl                      11
+                68.6%   <a href="#m44">[44]</a>      1/1             24 android/os/MessageQueue.enqueueMessage (Landroid/os/Message;J)Z
+<a name="m38"></a>----------------------------------------------------
+               100.0%    <a href="#m0">[0]</a>      8/8             33 (toplevel)
+[38]     0.0%                     8+0             33 java/lang/Daemons$Daemon.isRunning ()Z
+               100.0%   excl                      33
+<a name="m39"></a>----------------------------------------------------
+               100.0%    <a href="#m9">[9]</a>      7/7             33 java/lang/Daemons$FinalizerDaemon.doFinalize (Ljava/lang/ref/FinalizerReference;)V
+[39]     0.0%                     7+0             33 java/lang/System.nanoTime ()J
+               100.0%   excl                      33
+<a name="m40"></a>----------------------------------------------------
+               100.0%    <a href="#m9">[9]</a>      7/7             31 java/lang/Daemons$FinalizerDaemon.doFinalize (Ljava/lang/ref/FinalizerReference;)V
+[40]     0.0%                     7+0             31 java/lang/ref/FinalizerReference.remove (Ljava/lang/ref/FinalizerReference;)V
+               100.0%   excl                      31
+<a name="m41"></a>----------------------------------------------------
+                80.0%   <a href="#m19">[19]</a>      6/7             24 java/lang/ref/ReferenceQueue.remove (J)Ljava/lang/ref/Reference;
+                20.0%    <a href="#m0">[0]</a>      1/7              6 (toplevel)
+[41]     0.0%                     7+0             30 java/lang/ref/ReferenceQueue.poll ()Ljava/lang/ref/Reference;
+               100.0%   excl                      30
+<a name="m42"></a>----------------------------------------------------
+               100.0%   <a href="#m20">[20]</a>      8/8             30 org/opencv/core/Rect.tl ()Lorg/opencv/core/Point;
+[42]     0.0%                     8+0             30 org/opencv/core/Point.&lt;init&gt; (DD)V
+               100.0%   excl                      30
+<a name="m43"></a>----------------------------------------------------
+               100.0%   <a href="#m25">[25]</a>      1/1             27 org/opencv/core/Mat.get (II[I)I
+[43]     0.0%                     1+0             27 org/opencv/core/Mat.nGetI (JIII[I)I
+               100.0%   excl                      27
+<a name="m44"></a>----------------------------------------------------
+               100.0%   <a href="#m37">[37]</a>      1/1             24 android/os/Handler.sendMessageAtTime (Landroid/os/Message;J)Z
+[44]     0.0%                     1+0             24 android/os/MessageQueue.enqueueMessage (Landroid/os/Message;J)Z
+                70.8%   excl                      17
+                29.2%   <a href="#m70">[70]</a>      1/1              7 android/os/Message.isInUse ()Z
+<a name="m45"></a>----------------------------------------------------
+               100.0%    <a href="#m9">[9]</a>      7/7             24 java/lang/Daemons$FinalizerDaemon.doFinalize (Ljava/lang/ref/FinalizerReference;)V
+[45]     0.0%                     7+0             24 java/lang/ref/FinalizerReference.clear ()V
+               100.0%   excl                      24
+<a name="m46"></a>----------------------------------------------------
+               100.0%    <a href="#m9">[9]</a>      7/7             24 java/lang/Daemons$FinalizerDaemon.doFinalize (Ljava/lang/ref/FinalizerReference;)V
+[46]     0.0%                     7+0             24 java/lang/ref/FinalizerReference.get ()Ljava/lang/Object;
+               100.0%   excl                      24
+<a name="m47"></a>----------------------------------------------------
+               100.0%   <a href="#m36">[36]</a>      1/1             23 android/os/Handler.obtainMessage (IIILjava/lang/Object;)Landroid/os/Message;
+[47]     0.0%                     1+0             23 android/os/Message.obtain (Landroid/os/Handler;IIILjava/lang/Object;)Landroid/os/Message;
+                47.8%   excl                      11
+                52.2%   <a href="#m58">[58]</a>      1/1             12 android/os/Message.obtain ()Landroid/os/Message;
+<a name="m48"></a>----------------------------------------------------
+                87.0%   <a href="#m14">[14]</a>      6/7             20 android/graphics/Path.finalize ()V
+                13.0%   <a href="#m34">[34]</a>      1/7              3 org/opencv/core/Mat.finalize ()V
+[48]     0.0%                     7+0             23 java/lang/Object.finalize ()V
+               100.0%   excl                      23
+<a name="m49"></a>----------------------------------------------------
+               100.0%   <a href="#m24">[24]</a>      1/1             22 android/os/Handler.sendMessageDelayed (Landroid/os/Message;J)Z
+[49]     0.0%                     1+0             22 android/os/SystemClock.uptimeMillis ()J
+               100.0%   excl                      22
+<a name="m50"></a>----------------------------------------------------
+               100.0%   <a href="#m34">[34]</a>      1/1             22 org/opencv/core/Mat.finalize ()V
+[50]     0.0%                     1+0             22 org/opencv/core/Mat.n_delete (J)V
+               100.0%   excl                      22
+<a name="m51"></a>----------------------------------------------------
+               100.0%   <a href="#m31">[31]</a>      1/1             20 java/lang/ref/FinalizerReference.add (Ljava/lang/Object;)V
+[51]     0.0%                     1+0             20 java/lang/ref/FinalizerReference.&lt;init&gt; (Ljava/lang/Object;Ljava/lang/ref/ReferenceQueue;)V
+                60.0%   excl                      12
+                40.0%   <a href="#m69">[69]</a>      1/1              8 java/lang/ref/Reference.&lt;init&gt; (Ljava/lang/Object;Ljava/lang/ref/ReferenceQueue;)V
+<a name="m52"></a>----------------------------------------------------
+               100.0%   <a href="#m11">[11]</a>      1/1             20 org/opencv/core/MatOfRect.toArray ()[Lorg/opencv/core/Rect;
+[52]     0.0%                     1+0             20 org/opencv/core/Mat.total ()J
+                55.0%   excl                      11
+                45.0%   <a href="#m67">[67]</a>      1/1              9 org/opencv/core/Mat.n_total (J)J
+<a name="m53"></a>----------------------------------------------------
+               100.0%   <a href="#m33">[33]</a>      1/1             19 java/lang/ref/ReferenceQueue.add (Ljava/lang/ref/Reference;)V
+[53]     0.0%                     1+0             19 java/lang/Object.notifyAll ()V
+               100.0%   excl                      19
+<a name="m54"></a>----------------------------------------------------
+               100.0%   <a href="#m22">[22]</a>      1/1             19 org/opencv/core/Mat.&lt;init&gt; ()V
+[54]     0.0%                     1+0             19 org/opencv/core/Mat.n_Mat ()J
+               100.0%   excl                      19
+<a name="m55"></a>----------------------------------------------------
+               100.0%   <a href="#m35">[35]</a>      2/2             18 org/opencv/core/Mat.type ()I
+[55]     0.0%                     2+0             18 org/opencv/core/Mat.n_type (J)I
+               100.0%   excl                      18
+<a name="m56"></a>----------------------------------------------------
+               100.0%   <a href="#m11">[11]</a>      4/4             16 org/opencv/core/MatOfRect.toArray ()[Lorg/opencv/core/Rect;
+[56]     0.0%                     4+0             16 org/opencv/core/Rect.&lt;init&gt; (IIII)V
+               100.0%   excl                      16
+<a name="m57"></a>----------------------------------------------------
+               100.0%    <a href="#m1">[1]</a>      1/1             16 tese/helder/clearphoto/overlays/imageprocessing/FaceDetection.process ([B)V
+[57]     0.0%                     1+0             16 org/opencv/core/Size.&lt;init&gt; ()V
+                68.8%   excl                      11
+                31.2%   <a href="#m62">[62]</a>      1/2              5 org/opencv/core/Size.&lt;init&gt; (DD)V
+<a name="m58"></a>----------------------------------------------------
+               100.0%   <a href="#m47">[47]</a>      1/1             12 android/os/Message.obtain (Landroid/os/Handler;IIILjava/lang/Object;)Landroid/os/Message;
+[58]     0.0%                     1+0             12 android/os/Message.obtain ()Landroid/os/Message;
+               100.0%   excl                      12
+<a name="m59"></a>----------------------------------------------------
+               100.0%    <a href="#m0">[0]</a>      2/2             11 (toplevel)
+[59]     0.0%                     2+0             11 java/lang/Object.wait ()V
+                72.7%   excl                       8
+                 0.0%   <a href="#m71">[71]</a>      1/4              0 java/lang/Object.wait (JI)V
+<a name="m60"></a>----------------------------------------------------
+                72.7%    <a href="#m0">[0]</a>      1/2              8 (toplevel)
+                27.3%   <a href="#m19">[19]</a>      1/2              3 java/lang/ref/ReferenceQueue.remove (J)Ljava/lang/ref/Reference;
+[60]     0.0%                     2+0             11 java/lang/Object.wait (J)V
+                72.7%   excl                       8
+                 0.0%   <a href="#m71">[71]</a>      1/4              0 java/lang/Object.wait (JI)V
+<a name="m61"></a>----------------------------------------------------
+                54.5%    <a href="#m6">[6]</a>      1/2              6 org/opencv/core/Mat.put (II[B)I
+                45.5%   <a href="#m25">[25]</a>      1/2              5 org/opencv/core/Mat.get (II[I)I
+[61]     0.0%                     2+0             11 org/opencv/core/CvType.channels (I)I
+               100.0%   excl                      11
+<a name="m62"></a>----------------------------------------------------
+                54.5%    <a href="#m1">[1]</a>      1/2              6 tese/helder/clearphoto/overlays/imageprocessing/FaceDetection.process ([B)V
+                45.5%   <a href="#m57">[57]</a>      1/2              5 org/opencv/core/Size.&lt;init&gt; ()V
+[62]     0.0%                     2+0             11 org/opencv/core/Size.&lt;init&gt; (DD)V
+               100.0%   excl                      11
+<a name="m63"></a>----------------------------------------------------
+               100.0%   <a href="#m30">[30]</a>      2/2             10 android/view/View.invalidate (Z)V
+[63]     0.0%                     2+0             10 android/view/View.skipInvalidate ()Z
+               100.0%   excl                      10
+<a name="m64"></a>----------------------------------------------------
+               100.0%    <a href="#m0">[0]</a>      1/1             10 (toplevel)
+[64]     0.0%                     1+0             10 dalvik/system/VMDebug.startMethodTracing (Ljava/lang/String;II)V
+                 0.0%   excl                       0
+<a name="m65"></a>----------------------------------------------------
+                60.0%    <a href="#m6">[6]</a>      1/2              6 org/opencv/core/Mat.put (II[B)I
+                40.0%   <a href="#m25">[25]</a>      1/2              4 org/opencv/core/Mat.get (II[I)I
+[65]     0.0%                     2+0             10 org/opencv/core/CvType.depth (I)I
+               100.0%   excl                      10
+<a name="m66"></a>----------------------------------------------------
+               100.0%   <a href="#m12">[12]</a>      1/1              9 android/hardware/Camera.postEventFromNative (Ljava/lang/Object;IIILjava/lang/Object;)V
+[66]     0.0%                     1+0              9 java/lang/ref/Reference.get ()Ljava/lang/Object;
+               100.0%   excl                       9
+<a name="m67"></a>----------------------------------------------------
+               100.0%   <a href="#m52">[52]</a>      1/1              9 org/opencv/core/Mat.total ()J
+[67]     0.0%                     1+0              9 org/opencv/core/Mat.n_total (J)J
+               100.0%   excl                       9
+<a name="m68"></a>----------------------------------------------------
+               100.0%   <a href="#m30">[30]</a>      2/2              8 android/view/View.invalidate (Z)V
+[68]     0.0%                     2+0              8 android/view/View.isOpaque ()Z
+               100.0%   excl                       8
+<a name="m69"></a>----------------------------------------------------
+               100.0%   <a href="#m51">[51]</a>      1/1              8 java/lang/ref/FinalizerReference.&lt;init&gt; (Ljava/lang/Object;Ljava/lang/ref/ReferenceQueue;)V
+[69]     0.0%                     1+0              8 java/lang/ref/Reference.&lt;init&gt; (Ljava/lang/Object;Ljava/lang/ref/ReferenceQueue;)V
+               100.0%   excl                       8
+<a name="m70"></a>----------------------------------------------------
+               100.0%   <a href="#m44">[44]</a>      1/1              7 android/os/MessageQueue.enqueueMessage (Landroid/os/Message;J)Z
+[70]     0.0%                     1+0              7 android/os/Message.isInUse ()Z
+               100.0%   excl                       7
+<a name="m71"></a>----------------------------------------------------
+               100.0%    <a href="#m0">[0]</a>      2/4              6 (toplevel)
+                 0.0%   <a href="#m59">[59]</a>      1/4              0 java/lang/Object.wait ()V
+                 0.0%   <a href="#m60">[60]</a>      1/4              0 java/lang/Object.wait (J)V
+[71]     0.0%                     4+0              6 java/lang/Object.wait (JI)V
+                 0.0%   excl                       0
+<a name="m72"></a>----------------------------------------------------
+               100.0%    <a href="#m0">[0]</a>      1/1              5 (toplevel)
+[72]     0.0%                     1+0              5 android/os/Debug.stopMethodTracing ()V
+               100.0%   excl                       5
+                 0.0%   <a href="#m75">[75]</a>      1/1              0 dalvik/system/VMDebug.stopMethodTracing ()V
+<a name="m73"></a>----------------------------------------------------
+               100.0%    <a href="#m4">[4]</a>      1/1              5 java/util/Arrays.copyOfRange ([BII)[B
+[73]     0.0%                     1+0              5 java/lang/Math.min (II)I
+               100.0%   excl                       5
+</pre>
+<a name="class"></a>
+<hr>
+<a href="#contents">[Top]</a>
+<a href="#exclusive">[Exclusive]</a>
+<a href="#inclusive">[Inclusive]</a>
+<a href="#class">[Class]</a>
+<a href="#method">[Method]</a>
+<br><br>
+
+Exclusive elapsed time for each class, summed over all the methods
+in the class.
+
+<br><br>
+<div class="header"><span class="parent">&nbsp;</span>&nbsp;&nbsp;&nbsp;Cycles %/total Cumul.% &nbsp;Calls+Recur&nbsp; Class</div>
+<div class="link" onClick="javascript:toggle('d0')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xd0">+</span>&nbsp;&nbsp;&nbsp;&nbsp;71217 &nbsp;&nbsp;&nbsp;68.8 &nbsp;&nbsp;&nbsp;68.8 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; org/opencv/objdetect/CascadeClassifier</div>
+<div class="parent" id="d0">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;71198&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;71198&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m3">[3]</a>&nbsp;detectMultiScale_0&nbsp;(JJJDIIDDDD)V</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;19&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;71217&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m2">[2]</a>&nbsp;detectMultiScale&nbsp;(Lorg/opencv/core/Mat;Lorg/opencv/core/MatOfRect;DIILorg/opencv/core/Size;Lorg/opencv/core/Size;)V</div>
+</div>
+<div class="link" onClick="javascript:toggle('d1')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xd1">+</span>&nbsp;&nbsp;&nbsp;&nbsp;25631 &nbsp;&nbsp;&nbsp;24.8 &nbsp;&nbsp;&nbsp;93.6 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dalvik/system/VMDebug</div>
+<div class="parent" id="d1">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;25631&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;25639&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m5">[5]</a>&nbsp;startGC&nbsp;()V</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m64">[64]</a>&nbsp;startMethodTracing&nbsp;(Ljava/lang/String;II)V</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m75">[75]</a>&nbsp;stopMethodTracing&nbsp;()V</div>
+</div>
+<div class="link" onClick="javascript:toggle('d2')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xd2">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1166 &nbsp;&nbsp;&nbsp;&nbsp;1.1 &nbsp;&nbsp;&nbsp;94.7 &nbsp;&nbsp;&nbsp;&nbsp;14+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; org/opencv/core/Mat</div>
+<div class="parent" id="d2">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;928&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;928&nbsp;&nbsp;&nbsp;&nbsp;79.6&nbsp;&nbsp;&nbsp;&nbsp;79.6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m8">[8]</a>&nbsp;nPutB&nbsp;(JIII[B)I</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;40&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1005&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.4&nbsp;&nbsp;&nbsp;&nbsp;83.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m6">[6]</a>&nbsp;put&nbsp;(II[B)I</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;33&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;97&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.8&nbsp;&nbsp;&nbsp;&nbsp;85.8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m22">[22]</a>&nbsp;&lt;init&gt;&nbsp;()V</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;27&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;27&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.3&nbsp;&nbsp;&nbsp;&nbsp;88.2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m43">[43]</a>&nbsp;nGetI&nbsp;(JIII[I)I</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;23&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;72&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.0&nbsp;&nbsp;&nbsp;&nbsp;90.1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m25">[25]</a>&nbsp;get&nbsp;(II[I)I</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;22&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;22&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.9&nbsp;&nbsp;&nbsp;&nbsp;92.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m50">[50]</a>&nbsp;n_delete&nbsp;(J)V</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;20&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;38&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.7&nbsp;&nbsp;&nbsp;&nbsp;93.7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m35">[35]</a>&nbsp;type&nbsp;()I</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;19&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;19&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.6&nbsp;&nbsp;&nbsp;&nbsp;95.4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m54">[54]</a>&nbsp;n_Mat&nbsp;()J</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;18&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;18&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.5&nbsp;&nbsp;&nbsp;&nbsp;96.9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m55">[55]</a>&nbsp;n_type&nbsp;(J)I</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;41&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.4&nbsp;&nbsp;&nbsp;&nbsp;98.3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m34">[34]</a>&nbsp;finalize&nbsp;()V</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;11&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;20&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.9&nbsp;&nbsp;&nbsp;&nbsp;99.2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m52">[52]</a>&nbsp;total&nbsp;()J</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.8&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m67">[67]</a>&nbsp;n_total&nbsp;(J)J</div>
+</div>
+<div class="link" onClick="javascript:toggle('d3')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xd3">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1029 &nbsp;&nbsp;&nbsp;&nbsp;1.0 &nbsp;&nbsp;&nbsp;95.7 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; java/lang/System</div>
+<div class="parent" id="d3">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;996&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;996&nbsp;&nbsp;&nbsp;&nbsp;96.8&nbsp;&nbsp;&nbsp;&nbsp;96.8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m7">[7]</a>&nbsp;arraycopy&nbsp;(Ljava/lang/Object;ILjava/lang/Object;II)V</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;33&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;33&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.2&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m39">[39]</a>&nbsp;nanoTime&nbsp;()J</div>
+</div>
+<div class="link" onClick="javascript:toggle('d4')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xd4">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;414 &nbsp;&nbsp;&nbsp;&nbsp;0.4 &nbsp;&nbsp;&nbsp;96.1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; java/util/Arrays</div>
+<div class="parent" id="d4">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;414&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;27046&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m4">[4]</a>&nbsp;copyOfRange&nbsp;([BII)[B</div>
+</div>
+<div class="link" onClick="javascript:toggle('d5')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xd5">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;225 &nbsp;&nbsp;&nbsp;&nbsp;0.2 &nbsp;&nbsp;&nbsp;96.3 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; java/lang/Daemons$FinalizerDaemon</div>
+<div class="parent" id="d5">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;225&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;602&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m9">[9]</a>&nbsp;doFinalize&nbsp;(Ljava/lang/ref/FinalizerReference;)V</div>
+</div>
+<div class="link" onClick="javascript:toggle('d6')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xd6">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;211 &nbsp;&nbsp;&nbsp;&nbsp;0.2 &nbsp;&nbsp;&nbsp;96.5 &nbsp;&nbsp;&nbsp;&nbsp;31+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; java/lang/ref/ReferenceQueue</div>
+<div class="parent" id="d6">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;56&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;99&nbsp;&nbsp;&nbsp;&nbsp;26.5&nbsp;&nbsp;&nbsp;&nbsp;26.5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m21">[21]</a>&nbsp;enqueue&nbsp;(Ljava/lang/ref/Reference;)V</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;55&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;102&nbsp;&nbsp;&nbsp;&nbsp;26.1&nbsp;&nbsp;&nbsp;&nbsp;52.6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m19">[19]</a>&nbsp;remove&nbsp;(J)Ljava/lang/ref/Reference;</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;48&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;150&nbsp;&nbsp;&nbsp;&nbsp;22.7&nbsp;&nbsp;&nbsp;&nbsp;75.4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m15">[15]</a>&nbsp;remove&nbsp;()Ljava/lang/ref/Reference;</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;30&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;30&nbsp;&nbsp;&nbsp;&nbsp;14.2&nbsp;&nbsp;&nbsp;&nbsp;89.6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m41">[41]</a>&nbsp;poll&nbsp;()Ljava/lang/ref/Reference;</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;22&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;41&nbsp;&nbsp;&nbsp;&nbsp;10.4&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m33">[33]</a>&nbsp;add&nbsp;(Ljava/lang/ref/Reference;)V</div>
+</div>
+<div class="link" onClick="javascript:toggle('d7')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xd7">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;134 &nbsp;&nbsp;&nbsp;&nbsp;0.1 &nbsp;&nbsp;&nbsp;96.7 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tese/helder/clearphoto/overlays/imageprocessing/FaceDetection</div>
+<div class="parent" id="d7">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;134&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;99880&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m1">[1]</a>&nbsp;process&nbsp;([B)V</div>
+</div>
+<div class="link" onClick="javascript:toggle('d8')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xd8">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;131 &nbsp;&nbsp;&nbsp;&nbsp;0.1 &nbsp;&nbsp;&nbsp;96.8 &nbsp;&nbsp;&nbsp;&nbsp;12+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; android/graphics/Path</div>
+<div class="parent" id="d8">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;66&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;151&nbsp;&nbsp;&nbsp;&nbsp;50.4&nbsp;&nbsp;&nbsp;&nbsp;50.4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m14">[14]</a>&nbsp;finalize&nbsp;()V</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;65&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;65&nbsp;&nbsp;&nbsp;&nbsp;49.6&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m27">[27]</a>&nbsp;finalizer&nbsp;(I)V</div>
+</div>
+<div class="link" onClick="javascript:toggle('d9')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xd9">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;125 &nbsp;&nbsp;&nbsp;&nbsp;0.1 &nbsp;&nbsp;&nbsp;96.9 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; android/os/Debug</div>
+<div class="parent" id="d9">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;111&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;121&nbsp;&nbsp;&nbsp;&nbsp;88.8&nbsp;&nbsp;&nbsp;&nbsp;88.8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m17">[17]</a>&nbsp;startMethodTracing&nbsp;(Ljava/lang/String;II)V</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;130&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7.2&nbsp;&nbsp;&nbsp;&nbsp;96.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m16">[16]</a>&nbsp;startMethodTracing&nbsp;(Ljava/lang/String;)V</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m72">[72]</a>&nbsp;stopMethodTracing&nbsp;()V</div>
+</div>
+<div class="link" onClick="javascript:toggle('d10')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xd10">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;125 &nbsp;&nbsp;&nbsp;&nbsp;0.1 &nbsp;&nbsp;&nbsp;97.0 &nbsp;&nbsp;&nbsp;&nbsp;30+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; java/lang/Object</div>
+<div class="parent" id="d10">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;67&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;67&nbsp;&nbsp;&nbsp;&nbsp;53.6&nbsp;&nbsp;&nbsp;&nbsp;53.6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;14+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m26">[26]</a>&nbsp;notify&nbsp;()V</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;23&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;23&nbsp;&nbsp;&nbsp;&nbsp;18.4&nbsp;&nbsp;&nbsp;&nbsp;72.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m48">[48]</a>&nbsp;finalize&nbsp;()V</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;19&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;19&nbsp;&nbsp;&nbsp;&nbsp;15.2&nbsp;&nbsp;&nbsp;&nbsp;87.2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m53">[53]</a>&nbsp;notifyAll&nbsp;()V</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;11&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6.4&nbsp;&nbsp;&nbsp;&nbsp;93.6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m59">[59]</a>&nbsp;wait&nbsp;()V</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;11&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6.4&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m60">[60]</a>&nbsp;wait&nbsp;(J)V</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m71">[71]</a>&nbsp;wait&nbsp;(JI)V</div>
+</div>
+<div class="link" onClick="javascript:toggle('d11')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xd11">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;116 &nbsp;&nbsp;&nbsp;&nbsp;0.1 &nbsp;&nbsp;&nbsp;97.1 &nbsp;&nbsp;&nbsp;&nbsp;23+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; java/lang/ref/FinalizerReference</div>
+<div class="parent" id="d11">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;31&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;31&nbsp;&nbsp;&nbsp;&nbsp;26.7&nbsp;&nbsp;&nbsp;&nbsp;26.7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m40">[40]</a>&nbsp;remove&nbsp;(Ljava/lang/ref/FinalizerReference;)V</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;25&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;45&nbsp;&nbsp;&nbsp;&nbsp;21.6&nbsp;&nbsp;&nbsp;&nbsp;48.3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m31">[31]</a>&nbsp;add&nbsp;(Ljava/lang/Object;)V</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;24&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;24&nbsp;&nbsp;&nbsp;&nbsp;20.7&nbsp;&nbsp;&nbsp;&nbsp;69.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m45">[45]</a>&nbsp;clear&nbsp;()V</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;24&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;24&nbsp;&nbsp;&nbsp;&nbsp;20.7&nbsp;&nbsp;&nbsp;&nbsp;89.7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m46">[46]</a>&nbsp;get&nbsp;()Ljava/lang/Object;</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;12&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;20&nbsp;&nbsp;&nbsp;&nbsp;10.3&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m51">[51]</a>&nbsp;&lt;init&gt;&nbsp;(Ljava/lang/Object;Ljava/lang/ref/ReferenceQueue;)V</div>
+</div>
+<div class="link" onClick="javascript:toggle('d12')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xd12">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;86 &nbsp;&nbsp;&nbsp;&nbsp;0.1 &nbsp;&nbsp;&nbsp;97.2 &nbsp;&nbsp;&nbsp;&nbsp;12+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; org/opencv/core/Rect</div>
+<div class="parent" id="d12">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;70&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100&nbsp;&nbsp;&nbsp;&nbsp;81.4&nbsp;&nbsp;&nbsp;&nbsp;81.4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m20">[20]</a>&nbsp;tl&nbsp;()Lorg/opencv/core/Point;</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16&nbsp;&nbsp;&nbsp;&nbsp;18.6&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m56">[56]</a>&nbsp;&lt;init&gt;&nbsp;(IIII)V</div>
+</div>
+<div class="link" onClick="javascript:toggle('d13')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xd13">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;85 &nbsp;&nbsp;&nbsp;&nbsp;0.1 &nbsp;&nbsp;&nbsp;97.3 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; java/lang/Daemons$ReferenceQueueDaemon</div>
+<div class="parent" id="d13">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;85&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;240&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m10">[10]</a>&nbsp;enqueue&nbsp;(Ljava/lang/ref/Reference;)V</div>
+</div>
+<div class="link" onClick="javascript:toggle('d14')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xd14">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;80 &nbsp;&nbsp;&nbsp;&nbsp;0.1 &nbsp;&nbsp;&nbsp;97.4 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; org/opencv/core/MatOfRect</div>
+<div class="parent" id="d14">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;69&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;177&nbsp;&nbsp;&nbsp;&nbsp;86.2&nbsp;&nbsp;&nbsp;&nbsp;86.2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m11">[11]</a>&nbsp;toArray&nbsp;()[Lorg/opencv/core/Rect;</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;11&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;108&nbsp;&nbsp;&nbsp;&nbsp;13.8&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m18">[18]</a>&nbsp;&lt;init&gt;&nbsp;()V</div>
+</div>
+<div class="link" onClick="javascript:toggle('d15')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xd15">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;73 &nbsp;&nbsp;&nbsp;&nbsp;0.1 &nbsp;&nbsp;&nbsp;97.4 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; java/lang/ref/Reference</div>
+<div class="parent" id="d15">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;56&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;155&nbsp;&nbsp;&nbsp;&nbsp;76.7&nbsp;&nbsp;&nbsp;&nbsp;76.7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m13">[13]</a>&nbsp;enqueueInternal&nbsp;()Z</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9&nbsp;&nbsp;&nbsp;&nbsp;12.3&nbsp;&nbsp;&nbsp;&nbsp;89.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m66">[66]</a>&nbsp;get&nbsp;()Ljava/lang/Object;</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8&nbsp;&nbsp;&nbsp;&nbsp;11.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m69">[69]</a>&nbsp;&lt;init&gt;&nbsp;(Ljava/lang/Object;Ljava/lang/ref/ReferenceQueue;)V</div>
+</div>
+<div class="link" onClick="javascript:toggle('d16')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xd16">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;62 &nbsp;&nbsp;&nbsp;&nbsp;0.1 &nbsp;&nbsp;&nbsp;97.5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; android/view/View</div>
+<div class="parent" id="d16">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;28&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;46&nbsp;&nbsp;&nbsp;&nbsp;45.2&nbsp;&nbsp;&nbsp;&nbsp;45.2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m30">[30]</a>&nbsp;invalidate&nbsp;(Z)V</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;62&nbsp;&nbsp;&nbsp;&nbsp;25.8&nbsp;&nbsp;&nbsp;&nbsp;71.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m28">[28]</a>&nbsp;invalidate&nbsp;()V</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10&nbsp;&nbsp;&nbsp;&nbsp;16.1&nbsp;&nbsp;&nbsp;&nbsp;87.1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m63">[63]</a>&nbsp;skipInvalidate&nbsp;()Z</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8&nbsp;&nbsp;&nbsp;&nbsp;12.9&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m68">[68]</a>&nbsp;isOpaque&nbsp;()Z</div>
+</div>
+<div class="link" onClick="javascript:toggle('d17')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xd17">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;51 &nbsp;&nbsp;&nbsp;&nbsp;0.0 &nbsp;&nbsp;&nbsp;97.6 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; android/os/Handler</div>
+<div class="parent" id="d17">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;18&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;75&nbsp;&nbsp;&nbsp;&nbsp;35.3&nbsp;&nbsp;&nbsp;&nbsp;35.3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m24">[24]</a>&nbsp;sendMessageDelayed&nbsp;(Landroid/os/Message;J)Z</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;12&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;35&nbsp;&nbsp;&nbsp;&nbsp;23.5&nbsp;&nbsp;&nbsp;&nbsp;58.8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m36">[36]</a>&nbsp;obtainMessage&nbsp;(IIILjava/lang/Object;)Landroid/os/Message;</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;11&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;35&nbsp;&nbsp;&nbsp;&nbsp;21.6&nbsp;&nbsp;&nbsp;&nbsp;80.4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m37">[37]</a>&nbsp;sendMessageAtTime&nbsp;(Landroid/os/Message;J)Z</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;85&nbsp;&nbsp;&nbsp;&nbsp;19.6&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m23">[23]</a>&nbsp;sendMessage&nbsp;(Landroid/os/Message;)Z</div>
+</div>
+<div class="link" onClick="javascript:toggle('d18')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xd18">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;49 &nbsp;&nbsp;&nbsp;&nbsp;0.0 &nbsp;&nbsp;&nbsp;97.6 &nbsp;&nbsp;&nbsp;&nbsp;14+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; java/lang/Daemons$FinalizerWatchdogDaemon</div>
+<div class="parent" id="d18">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;49&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;49&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;14+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m29">[29]</a>&nbsp;access$200&nbsp;()Ljava/lang/Daemons$FinalizerWatchdogDaemon;</div>
+</div>
+<div class="link" onClick="javascript:toggle('d19')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xd19">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;33 &nbsp;&nbsp;&nbsp;&nbsp;0.0 &nbsp;&nbsp;&nbsp;97.6 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; java/lang/Daemons$Daemon</div>
+<div class="parent" id="d19">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;33&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;33&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m38">[38]</a>&nbsp;isRunning&nbsp;()Z</div>
+</div>
+<div class="link" onClick="javascript:toggle('d20')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xd20">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;32 &nbsp;&nbsp;&nbsp;&nbsp;0.0 &nbsp;&nbsp;&nbsp;97.7 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; android/hardware/Camera</div>
+<div class="parent" id="d20">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;161&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m12">[12]</a>&nbsp;postEventFromNative&nbsp;(Ljava/lang/Object;IIILjava/lang/Object;)V</div>
+</div>
+<div class="link" onClick="javascript:toggle('d21')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xd21">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;30 &nbsp;&nbsp;&nbsp;&nbsp;0.0 &nbsp;&nbsp;&nbsp;97.7 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; android/os/Message</div>
+<div class="parent" id="d21">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;12&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;12&nbsp;&nbsp;&nbsp;&nbsp;40.0&nbsp;&nbsp;&nbsp;&nbsp;40.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m58">[58]</a>&nbsp;obtain&nbsp;()Landroid/os/Message;</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;11&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;23&nbsp;&nbsp;&nbsp;&nbsp;36.7&nbsp;&nbsp;&nbsp;&nbsp;76.7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m47">[47]</a>&nbsp;obtain&nbsp;(Landroid/os/Handler;IIILjava/lang/Object;)Landroid/os/Message;</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7&nbsp;&nbsp;&nbsp;&nbsp;23.3&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m70">[70]</a>&nbsp;isInUse&nbsp;()Z</div>
+</div>
+<div class="link" onClick="javascript:toggle('d22')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xd22">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;30 &nbsp;&nbsp;&nbsp;&nbsp;0.0 &nbsp;&nbsp;&nbsp;97.7 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; org/opencv/core/Point</div>
+<div class="parent" id="d22">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;30&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;30&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m42">[42]</a>&nbsp;&lt;init&gt;&nbsp;(DD)V</div>
+</div>
+<div class="link" onClick="javascript:toggle('d23')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xd23">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;22 &nbsp;&nbsp;&nbsp;&nbsp;0.0 &nbsp;&nbsp;&nbsp;97.7 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; android/os/SystemClock</div>
+<div class="parent" id="d23">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;22&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;22&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m49">[49]</a>&nbsp;uptimeMillis&nbsp;()J</div>
+</div>
+<div class="link" onClick="javascript:toggle('d24')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xd24">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;22 &nbsp;&nbsp;&nbsp;&nbsp;0.0 &nbsp;&nbsp;&nbsp;97.8 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; org/opencv/core/Size</div>
+<div class="parent" id="d24">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;11&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16&nbsp;&nbsp;&nbsp;&nbsp;50.0&nbsp;&nbsp;&nbsp;&nbsp;50.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m57">[57]</a>&nbsp;&lt;init&gt;&nbsp;()V</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;11&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;11&nbsp;&nbsp;&nbsp;&nbsp;50.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m62">[62]</a>&nbsp;&lt;init&gt;&nbsp;(DD)V</div>
+</div>
+<div class="link" onClick="javascript:toggle('d25')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xd25">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;21 &nbsp;&nbsp;&nbsp;&nbsp;0.0 &nbsp;&nbsp;&nbsp;97.8 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; org/opencv/core/CvType</div>
+<div class="parent" id="d25">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;11&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;11&nbsp;&nbsp;&nbsp;&nbsp;52.4&nbsp;&nbsp;&nbsp;&nbsp;52.4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m61">[61]</a>&nbsp;channels&nbsp;(I)I</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10&nbsp;&nbsp;&nbsp;&nbsp;47.6&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m65">[65]</a>&nbsp;depth&nbsp;(I)I</div>
+</div>
+<div class="link" onClick="javascript:toggle('d26')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xd26">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;17 &nbsp;&nbsp;&nbsp;&nbsp;0.0 &nbsp;&nbsp;&nbsp;97.8 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; android/os/MessageQueue</div>
+<div class="parent" id="d26">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;17&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;24&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m44">[44]</a>&nbsp;enqueueMessage&nbsp;(Landroid/os/Message;J)Z</div>
+</div>
+<div class="link" onClick="javascript:toggle('d27')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xd27">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9 &nbsp;&nbsp;&nbsp;&nbsp;0.0 &nbsp;&nbsp;&nbsp;97.8 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tese/helder/clearphoto/overlays/grids/Grid</div>
+<div class="parent" id="d27">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;45&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m32">[32]</a>&nbsp;highligthPowerPoint&nbsp;([F)V</div>
+</div>
+<div class="link" onClick="javascript:toggle('d28')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xd28">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5 &nbsp;&nbsp;&nbsp;&nbsp;0.0 &nbsp;&nbsp;&nbsp;97.8 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; java/lang/Math</div>
+<div class="parent" id="d28">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m73">[73]</a>&nbsp;min&nbsp;(II)I</div>
+</div>
+<a name="method"></a>
+<hr>
+<a href="#contents">[Top]</a>
+<a href="#exclusive">[Exclusive]</a>
+<a href="#inclusive">[Inclusive]</a>
+<a href="#class">[Class]</a>
+<a href="#method">[Method]</a>
+<br><br>
+
+Exclusive elapsed time for each method, summed over all the classes
+that contain a method with the same name.
+
+<br><br>
+<div class="header"><span class="parent">&nbsp;</span>&nbsp;&nbsp;&nbsp;Cycles %/total Cumul.% &nbsp;Calls+Recur&nbsp; Method</div>
+<div class="link" onClick="javascript:toggle('e0')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xe0">+</span>&nbsp;&nbsp;&nbsp;&nbsp;71198 &nbsp;&nbsp;&nbsp;68.8 &nbsp;&nbsp;&nbsp;68.8 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; detectMultiScale_0</div>
+<div class="parent" id="e0">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;71198&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;71198&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m3">[3]</a>&nbsp;org/opencv/objdetect/CascadeClassifier.detectMultiScale_0&nbsp;(JJJDIIDDDD)V</div>
+</div>
+<div class="link" onClick="javascript:toggle('e1')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xe1">+</span>&nbsp;&nbsp;&nbsp;&nbsp;25631 &nbsp;&nbsp;&nbsp;24.8 &nbsp;&nbsp;&nbsp;93.6 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; startGC</div>
+<div class="parent" id="e1">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;25631&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;25639&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m5">[5]</a>&nbsp;dalvik/system/VMDebug.startGC&nbsp;()V</div>
+</div>
+<div class="link" onClick="javascript:toggle('e2')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xe2">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;996 &nbsp;&nbsp;&nbsp;&nbsp;1.0 &nbsp;&nbsp;&nbsp;94.5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; arraycopy</div>
+<div class="parent" id="e2">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;996&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;996&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m7">[7]</a>&nbsp;java/lang/System.arraycopy&nbsp;(Ljava/lang/Object;ILjava/lang/Object;II)V</div>
+</div>
+<div class="link" onClick="javascript:toggle('e3')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xe3">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;928 &nbsp;&nbsp;&nbsp;&nbsp;0.9 &nbsp;&nbsp;&nbsp;95.4 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; nPutB</div>
+<div class="parent" id="e3">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;928&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;928&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m8">[8]</a>&nbsp;org/opencv/core/Mat.nPutB&nbsp;(JIII[B)I</div>
+</div>
+<div class="link" onClick="javascript:toggle('e4')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xe4">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;414 &nbsp;&nbsp;&nbsp;&nbsp;0.4 &nbsp;&nbsp;&nbsp;95.8 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; copyOfRange</div>
+<div class="parent" id="e4">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;414&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;27046&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m4">[4]</a>&nbsp;java/util/Arrays.copyOfRange&nbsp;([BII)[B</div>
+</div>
+<div class="link" onClick="javascript:toggle('e5')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xe5">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;225 &nbsp;&nbsp;&nbsp;&nbsp;0.2 &nbsp;&nbsp;&nbsp;96.0 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; doFinalize</div>
+<div class="parent" id="e5">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;225&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;602&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m9">[9]</a>&nbsp;java/lang/Daemons$FinalizerDaemon.doFinalize&nbsp;(Ljava/lang/ref/FinalizerReference;)V</div>
+</div>
+<div class="link" onClick="javascript:toggle('e6')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xe6">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;141 &nbsp;&nbsp;&nbsp;&nbsp;0.1 &nbsp;&nbsp;&nbsp;96.2 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enqueue</div>
+<div class="parent" id="e6">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;85&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;240&nbsp;&nbsp;&nbsp;&nbsp;60.3&nbsp;&nbsp;&nbsp;&nbsp;60.3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m10">[10]</a>&nbsp;java/lang/Daemons$ReferenceQueueDaemon.enqueue&nbsp;(Ljava/lang/ref/Reference;)V</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;56&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;99&nbsp;&nbsp;&nbsp;&nbsp;39.7&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m21">[21]</a>&nbsp;java/lang/ref/ReferenceQueue.enqueue&nbsp;(Ljava/lang/ref/Reference;)V</div>
+</div>
+<div class="link" onClick="javascript:toggle('e7')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xe7">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;134 &nbsp;&nbsp;&nbsp;&nbsp;0.1 &nbsp;&nbsp;&nbsp;96.3 &nbsp;&nbsp;&nbsp;&nbsp;23+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; remove</div>
+<div class="parent" id="e7">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;55&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;102&nbsp;&nbsp;&nbsp;&nbsp;41.0&nbsp;&nbsp;&nbsp;&nbsp;41.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m19">[19]</a>&nbsp;java/lang/ref/ReferenceQueue.remove&nbsp;(J)Ljava/lang/ref/Reference;</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;48&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;150&nbsp;&nbsp;&nbsp;&nbsp;35.8&nbsp;&nbsp;&nbsp;&nbsp;76.9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m15">[15]</a>&nbsp;java/lang/ref/ReferenceQueue.remove&nbsp;()Ljava/lang/ref/Reference;</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;31&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;31&nbsp;&nbsp;&nbsp;&nbsp;23.1&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m40">[40]</a>&nbsp;java/lang/ref/FinalizerReference.remove&nbsp;(Ljava/lang/ref/FinalizerReference;)V</div>
+</div>
+<div class="link" onClick="javascript:toggle('e8')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xe8">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;134 &nbsp;&nbsp;&nbsp;&nbsp;0.1 &nbsp;&nbsp;&nbsp;96.4 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; process</div>
+<div class="parent" id="e8">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;134&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;99880&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m1">[1]</a>&nbsp;tese/helder/clearphoto/overlays/imageprocessing/FaceDetection.process&nbsp;([B)V</div>
+</div>
+<div class="link" onClick="javascript:toggle('e9')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xe9">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;132 &nbsp;&nbsp;&nbsp;&nbsp;0.1 &nbsp;&nbsp;&nbsp;96.6 &nbsp;&nbsp;&nbsp;&nbsp;19+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;init&gt;</div>
+<div class="parent" id="e9">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;33&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;97&nbsp;&nbsp;&nbsp;&nbsp;25.0&nbsp;&nbsp;&nbsp;&nbsp;25.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m22">[22]</a>&nbsp;org/opencv/core/Mat.&lt;init&gt;&nbsp;()V</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;30&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;30&nbsp;&nbsp;&nbsp;&nbsp;22.7&nbsp;&nbsp;&nbsp;&nbsp;47.7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m42">[42]</a>&nbsp;org/opencv/core/Point.&lt;init&gt;&nbsp;(DD)V</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16&nbsp;&nbsp;&nbsp;&nbsp;12.1&nbsp;&nbsp;&nbsp;&nbsp;59.8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m56">[56]</a>&nbsp;org/opencv/core/Rect.&lt;init&gt;&nbsp;(IIII)V</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;12&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;20&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9.1&nbsp;&nbsp;&nbsp;&nbsp;68.9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m51">[51]</a>&nbsp;java/lang/ref/FinalizerReference.&lt;init&gt;&nbsp;(Ljava/lang/Object;Ljava/lang/ref/ReferenceQueue;)V</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;11&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;108&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8.3&nbsp;&nbsp;&nbsp;&nbsp;77.3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m18">[18]</a>&nbsp;org/opencv/core/MatOfRect.&lt;init&gt;&nbsp;()V</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;11&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8.3&nbsp;&nbsp;&nbsp;&nbsp;85.6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m57">[57]</a>&nbsp;org/opencv/core/Size.&lt;init&gt;&nbsp;()V</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;11&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;11&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8.3&nbsp;&nbsp;&nbsp;&nbsp;93.9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m62">[62]</a>&nbsp;org/opencv/core/Size.&lt;init&gt;&nbsp;(DD)V</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6.1&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m69">[69]</a>&nbsp;java/lang/ref/Reference.&lt;init&gt;&nbsp;(Ljava/lang/Object;Ljava/lang/ref/ReferenceQueue;)V</div>
+</div>
+<div class="link" onClick="javascript:toggle('e10')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xe10">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;120 &nbsp;&nbsp;&nbsp;&nbsp;0.1 &nbsp;&nbsp;&nbsp;96.7 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; startMethodTracing</div>
+<div class="parent" id="e10">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;111&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;121&nbsp;&nbsp;&nbsp;&nbsp;92.5&nbsp;&nbsp;&nbsp;&nbsp;92.5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m17">[17]</a>&nbsp;android/os/Debug.startMethodTracing&nbsp;(Ljava/lang/String;II)V</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;130&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7.5&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m16">[16]</a>&nbsp;android/os/Debug.startMethodTracing&nbsp;(Ljava/lang/String;)V</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m64">[64]</a>&nbsp;dalvik/system/VMDebug.startMethodTracing&nbsp;(Ljava/lang/String;II)V</div>
+</div>
+<div class="link" onClick="javascript:toggle('e11')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xe11">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;105 &nbsp;&nbsp;&nbsp;&nbsp;0.1 &nbsp;&nbsp;&nbsp;96.8 &nbsp;&nbsp;&nbsp;&nbsp;14+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; finalize</div>
+<div class="parent" id="e11">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;66&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;151&nbsp;&nbsp;&nbsp;&nbsp;62.9&nbsp;&nbsp;&nbsp;&nbsp;62.9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m14">[14]</a>&nbsp;android/graphics/Path.finalize&nbsp;()V</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;23&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;23&nbsp;&nbsp;&nbsp;&nbsp;21.9&nbsp;&nbsp;&nbsp;&nbsp;84.8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m48">[48]</a>&nbsp;java/lang/Object.finalize&nbsp;()V</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;41&nbsp;&nbsp;&nbsp;&nbsp;15.2&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m34">[34]</a>&nbsp;org/opencv/core/Mat.finalize&nbsp;()V</div>
+</div>
+<div class="link" onClick="javascript:toggle('e12')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xe12">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;70 &nbsp;&nbsp;&nbsp;&nbsp;0.1 &nbsp;&nbsp;&nbsp;96.8 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tl</div>
+<div class="parent" id="e12">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;70&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m20">[20]</a>&nbsp;org/opencv/core/Rect.tl&nbsp;()Lorg/opencv/core/Point;</div>
+</div>
+<div class="link" onClick="javascript:toggle('e13')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xe13">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;69 &nbsp;&nbsp;&nbsp;&nbsp;0.1 &nbsp;&nbsp;&nbsp;96.9 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; toArray</div>
+<div class="parent" id="e13">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;69&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;177&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m11">[11]</a>&nbsp;org/opencv/core/MatOfRect.toArray&nbsp;()[Lorg/opencv/core/Rect;</div>
+</div>
+<div class="link" onClick="javascript:toggle('e14')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xe14">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;67 &nbsp;&nbsp;&nbsp;&nbsp;0.1 &nbsp;&nbsp;&nbsp;97.0 &nbsp;&nbsp;&nbsp;&nbsp;14+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; notify</div>
+<div class="parent" id="e14">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;67&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;67&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;14+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m26">[26]</a>&nbsp;java/lang/Object.notify&nbsp;()V</div>
+</div>
+<div class="link" onClick="javascript:toggle('e15')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xe15">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;65 &nbsp;&nbsp;&nbsp;&nbsp;0.1 &nbsp;&nbsp;&nbsp;97.0 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; finalizer</div>
+<div class="parent" id="e15">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;65&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;65&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m27">[27]</a>&nbsp;android/graphics/Path.finalizer&nbsp;(I)V</div>
+</div>
+<div class="link" onClick="javascript:toggle('e16')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xe16">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;56 &nbsp;&nbsp;&nbsp;&nbsp;0.1 &nbsp;&nbsp;&nbsp;97.1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; get</div>
+<div class="parent" id="e16">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;24&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;24&nbsp;&nbsp;&nbsp;&nbsp;42.9&nbsp;&nbsp;&nbsp;&nbsp;42.9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m46">[46]</a>&nbsp;java/lang/ref/FinalizerReference.get&nbsp;()Ljava/lang/Object;</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;23&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;72&nbsp;&nbsp;&nbsp;&nbsp;41.1&nbsp;&nbsp;&nbsp;&nbsp;83.9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m25">[25]</a>&nbsp;org/opencv/core/Mat.get&nbsp;(II[I)I</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9&nbsp;&nbsp;&nbsp;&nbsp;16.1&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m66">[66]</a>&nbsp;java/lang/ref/Reference.get&nbsp;()Ljava/lang/Object;</div>
+</div>
+<div class="link" onClick="javascript:toggle('e17')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xe17">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;56 &nbsp;&nbsp;&nbsp;&nbsp;0.1 &nbsp;&nbsp;&nbsp;97.1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enqueueInternal</div>
+<div class="parent" id="e17">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;56&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;155&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m13">[13]</a>&nbsp;java/lang/ref/Reference.enqueueInternal&nbsp;()Z</div>
+</div>
+<div class="link" onClick="javascript:toggle('e18')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xe18">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;49 &nbsp;&nbsp;&nbsp;&nbsp;0.0 &nbsp;&nbsp;&nbsp;97.2 &nbsp;&nbsp;&nbsp;&nbsp;14+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; access$200</div>
+<div class="parent" id="e18">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;49&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;49&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;14+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m29">[29]</a>&nbsp;java/lang/Daemons$FinalizerWatchdogDaemon.access$200&nbsp;()Ljava/lang/Daemons$FinalizerWatchdogDaemon;</div>
+</div>
+<div class="link" onClick="javascript:toggle('e19')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xe19">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;47 &nbsp;&nbsp;&nbsp;&nbsp;0.0 &nbsp;&nbsp;&nbsp;97.2 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; add</div>
+<div class="parent" id="e19">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;25&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;45&nbsp;&nbsp;&nbsp;&nbsp;53.2&nbsp;&nbsp;&nbsp;&nbsp;53.2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m31">[31]</a>&nbsp;java/lang/ref/FinalizerReference.add&nbsp;(Ljava/lang/Object;)V</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;22&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;41&nbsp;&nbsp;&nbsp;&nbsp;46.8&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m33">[33]</a>&nbsp;java/lang/ref/ReferenceQueue.add&nbsp;(Ljava/lang/ref/Reference;)V</div>
+</div>
+<div class="link" onClick="javascript:toggle('e20')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xe20">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;44 &nbsp;&nbsp;&nbsp;&nbsp;0.0 &nbsp;&nbsp;&nbsp;97.3 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; invalidate</div>
+<div class="parent" id="e20">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;28&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;46&nbsp;&nbsp;&nbsp;&nbsp;63.6&nbsp;&nbsp;&nbsp;&nbsp;63.6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m30">[30]</a>&nbsp;android/view/View.invalidate&nbsp;(Z)V</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;62&nbsp;&nbsp;&nbsp;&nbsp;36.4&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m28">[28]</a>&nbsp;android/view/View.invalidate&nbsp;()V</div>
+</div>
+<div class="link" onClick="javascript:toggle('e21')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xe21">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;40 &nbsp;&nbsp;&nbsp;&nbsp;0.0 &nbsp;&nbsp;&nbsp;97.3 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; put</div>
+<div class="parent" id="e21">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;40&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1005&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m6">[6]</a>&nbsp;org/opencv/core/Mat.put&nbsp;(II[B)I</div>
+</div>
+<div class="link" onClick="javascript:toggle('e22')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xe22">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;33 &nbsp;&nbsp;&nbsp;&nbsp;0.0 &nbsp;&nbsp;&nbsp;97.4 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; isRunning</div>
+<div class="parent" id="e22">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;33&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;33&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m38">[38]</a>&nbsp;java/lang/Daemons$Daemon.isRunning&nbsp;()Z</div>
+</div>
+<div class="link" onClick="javascript:toggle('e23')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xe23">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;33 &nbsp;&nbsp;&nbsp;&nbsp;0.0 &nbsp;&nbsp;&nbsp;97.4 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; nanoTime</div>
+<div class="parent" id="e23">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;33&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;33&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m39">[39]</a>&nbsp;java/lang/System.nanoTime&nbsp;()J</div>
+</div>
+<div class="link" onClick="javascript:toggle('e24')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xe24">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;32 &nbsp;&nbsp;&nbsp;&nbsp;0.0 &nbsp;&nbsp;&nbsp;97.4 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; postEventFromNative</div>
+<div class="parent" id="e24">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;161&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m12">[12]</a>&nbsp;android/hardware/Camera.postEventFromNative&nbsp;(Ljava/lang/Object;IIILjava/lang/Object;)V</div>
+</div>
+<div class="link" onClick="javascript:toggle('e25')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xe25">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;30 &nbsp;&nbsp;&nbsp;&nbsp;0.0 &nbsp;&nbsp;&nbsp;97.4 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; poll</div>
+<div class="parent" id="e25">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;30&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;30&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m41">[41]</a>&nbsp;java/lang/ref/ReferenceQueue.poll&nbsp;()Ljava/lang/ref/Reference;</div>
+</div>
+<div class="link" onClick="javascript:toggle('e26')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xe26">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;27 &nbsp;&nbsp;&nbsp;&nbsp;0.0 &nbsp;&nbsp;&nbsp;97.5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; nGetI</div>
+<div class="parent" id="e26">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;27&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;27&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m43">[43]</a>&nbsp;org/opencv/core/Mat.nGetI&nbsp;(JIII[I)I</div>
+</div>
+<div class="link" onClick="javascript:toggle('e27')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xe27">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;24 &nbsp;&nbsp;&nbsp;&nbsp;0.0 &nbsp;&nbsp;&nbsp;97.5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; clear</div>
+<div class="parent" id="e27">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;24&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;24&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m45">[45]</a>&nbsp;java/lang/ref/FinalizerReference.clear&nbsp;()V</div>
+</div>
+<div class="link" onClick="javascript:toggle('e28')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xe28">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;23 &nbsp;&nbsp;&nbsp;&nbsp;0.0 &nbsp;&nbsp;&nbsp;97.5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; obtain</div>
+<div class="parent" id="e28">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;12&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;12&nbsp;&nbsp;&nbsp;&nbsp;52.2&nbsp;&nbsp;&nbsp;&nbsp;52.2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m58">[58]</a>&nbsp;android/os/Message.obtain&nbsp;()Landroid/os/Message;</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;11&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;23&nbsp;&nbsp;&nbsp;&nbsp;47.8&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m47">[47]</a>&nbsp;android/os/Message.obtain&nbsp;(Landroid/os/Handler;IIILjava/lang/Object;)Landroid/os/Message;</div>
+</div>
+<div class="link" onClick="javascript:toggle('e29')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xe29">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;22 &nbsp;&nbsp;&nbsp;&nbsp;0.0 &nbsp;&nbsp;&nbsp;97.5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uptimeMillis</div>
+<div class="parent" id="e29">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;22&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;22&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m49">[49]</a>&nbsp;android/os/SystemClock.uptimeMillis&nbsp;()J</div>
+</div>
+<div class="link" onClick="javascript:toggle('e30')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xe30">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;22 &nbsp;&nbsp;&nbsp;&nbsp;0.0 &nbsp;&nbsp;&nbsp;97.6 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; n_delete</div>
+<div class="parent" id="e30">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;22&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;22&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m50">[50]</a>&nbsp;org/opencv/core/Mat.n_delete&nbsp;(J)V</div>
+</div>
+<div class="link" onClick="javascript:toggle('e31')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xe31">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;20 &nbsp;&nbsp;&nbsp;&nbsp;0.0 &nbsp;&nbsp;&nbsp;97.6 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; type</div>
+<div class="parent" id="e31">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;20&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;38&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m35">[35]</a>&nbsp;org/opencv/core/Mat.type&nbsp;()I</div>
+</div>
+<div class="link" onClick="javascript:toggle('e32')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xe32">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;19 &nbsp;&nbsp;&nbsp;&nbsp;0.0 &nbsp;&nbsp;&nbsp;97.6 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; notifyAll</div>
+<div class="parent" id="e32">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;19&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;19&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m53">[53]</a>&nbsp;java/lang/Object.notifyAll&nbsp;()V</div>
+</div>
+<div class="link" onClick="javascript:toggle('e33')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xe33">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;19 &nbsp;&nbsp;&nbsp;&nbsp;0.0 &nbsp;&nbsp;&nbsp;97.6 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; n_Mat</div>
+<div class="parent" id="e33">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;19&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;19&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m54">[54]</a>&nbsp;org/opencv/core/Mat.n_Mat&nbsp;()J</div>
+</div>
+<div class="link" onClick="javascript:toggle('e34')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xe34">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;19 &nbsp;&nbsp;&nbsp;&nbsp;0.0 &nbsp;&nbsp;&nbsp;97.6 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; detectMultiScale</div>
+<div class="parent" id="e34">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;19&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;71217&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m2">[2]</a>&nbsp;org/opencv/objdetect/CascadeClassifier.detectMultiScale&nbsp;(Lorg/opencv/core/Mat;Lorg/opencv/core/MatOfRect;DIILorg/opencv/core/Size;Lorg/opencv/core/Size;)V</div>
+</div>
+<div class="link" onClick="javascript:toggle('e35')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xe35">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;18 &nbsp;&nbsp;&nbsp;&nbsp;0.0 &nbsp;&nbsp;&nbsp;97.7 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sendMessageDelayed</div>
+<div class="parent" id="e35">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;18&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;75&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m24">[24]</a>&nbsp;android/os/Handler.sendMessageDelayed&nbsp;(Landroid/os/Message;J)Z</div>
+</div>
+<div class="link" onClick="javascript:toggle('e36')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xe36">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;18 &nbsp;&nbsp;&nbsp;&nbsp;0.0 &nbsp;&nbsp;&nbsp;97.7 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; n_type</div>
+<div class="parent" id="e36">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;18&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;18&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m55">[55]</a>&nbsp;org/opencv/core/Mat.n_type&nbsp;(J)I</div>
+</div>
+<div class="link" onClick="javascript:toggle('e37')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xe37">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;17 &nbsp;&nbsp;&nbsp;&nbsp;0.0 &nbsp;&nbsp;&nbsp;97.7 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enqueueMessage</div>
+<div class="parent" id="e37">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;17&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;24&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m44">[44]</a>&nbsp;android/os/MessageQueue.enqueueMessage&nbsp;(Landroid/os/Message;J)Z</div>
+</div>
+<div class="link" onClick="javascript:toggle('e38')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xe38">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16 &nbsp;&nbsp;&nbsp;&nbsp;0.0 &nbsp;&nbsp;&nbsp;97.7 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; wait</div>
+<div class="parent" id="e38">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;11&nbsp;&nbsp;&nbsp;&nbsp;50.0&nbsp;&nbsp;&nbsp;&nbsp;50.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m59">[59]</a>&nbsp;java/lang/Object.wait&nbsp;()V</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;11&nbsp;&nbsp;&nbsp;&nbsp;50.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m60">[60]</a>&nbsp;java/lang/Object.wait&nbsp;(J)V</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m71">[71]</a>&nbsp;java/lang/Object.wait&nbsp;(JI)V</div>
+</div>
+<div class="link" onClick="javascript:toggle('e39')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xe39">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;12 &nbsp;&nbsp;&nbsp;&nbsp;0.0 &nbsp;&nbsp;&nbsp;97.7 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; obtainMessage</div>
+<div class="parent" id="e39">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;12&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;35&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m36">[36]</a>&nbsp;android/os/Handler.obtainMessage&nbsp;(IIILjava/lang/Object;)Landroid/os/Message;</div>
+</div>
+<div class="link" onClick="javascript:toggle('e40')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xe40">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;11 &nbsp;&nbsp;&nbsp;&nbsp;0.0 &nbsp;&nbsp;&nbsp;97.7 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sendMessageAtTime</div>
+<div class="parent" id="e40">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;11&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;35&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m37">[37]</a>&nbsp;android/os/Handler.sendMessageAtTime&nbsp;(Landroid/os/Message;J)Z</div>
+</div>
+<div class="link" onClick="javascript:toggle('e41')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xe41">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;11 &nbsp;&nbsp;&nbsp;&nbsp;0.0 &nbsp;&nbsp;&nbsp;97.7 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; channels</div>
+<div class="parent" id="e41">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;11&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;11&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m61">[61]</a>&nbsp;org/opencv/core/CvType.channels&nbsp;(I)I</div>
+</div>
+<div class="link" onClick="javascript:toggle('e42')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xe42">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;11 &nbsp;&nbsp;&nbsp;&nbsp;0.0 &nbsp;&nbsp;&nbsp;97.7 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; total</div>
+<div class="parent" id="e42">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;11&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;20&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m52">[52]</a>&nbsp;org/opencv/core/Mat.total&nbsp;()J</div>
+</div>
+<div class="link" onClick="javascript:toggle('e43')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xe43">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10 &nbsp;&nbsp;&nbsp;&nbsp;0.0 &nbsp;&nbsp;&nbsp;97.8 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sendMessage</div>
+<div class="parent" id="e43">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;85&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m23">[23]</a>&nbsp;android/os/Handler.sendMessage&nbsp;(Landroid/os/Message;)Z</div>
+</div>
+<div class="link" onClick="javascript:toggle('e44')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xe44">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10 &nbsp;&nbsp;&nbsp;&nbsp;0.0 &nbsp;&nbsp;&nbsp;97.8 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; skipInvalidate</div>
+<div class="parent" id="e44">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m63">[63]</a>&nbsp;android/view/View.skipInvalidate&nbsp;()Z</div>
+</div>
+<div class="link" onClick="javascript:toggle('e45')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xe45">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10 &nbsp;&nbsp;&nbsp;&nbsp;0.0 &nbsp;&nbsp;&nbsp;97.8 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; depth</div>
+<div class="parent" id="e45">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m65">[65]</a>&nbsp;org/opencv/core/CvType.depth&nbsp;(I)I</div>
+</div>
+<div class="link" onClick="javascript:toggle('e46')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xe46">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9 &nbsp;&nbsp;&nbsp;&nbsp;0.0 &nbsp;&nbsp;&nbsp;97.8 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; n_total</div>
+<div class="parent" id="e46">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m67">[67]</a>&nbsp;org/opencv/core/Mat.n_total&nbsp;(J)J</div>
+</div>
+<div class="link" onClick="javascript:toggle('e47')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xe47">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9 &nbsp;&nbsp;&nbsp;&nbsp;0.0 &nbsp;&nbsp;&nbsp;97.8 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; highligthPowerPoint</div>
+<div class="parent" id="e47">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;45&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m32">[32]</a>&nbsp;tese/helder/clearphoto/overlays/grids/Grid.highligthPowerPoint&nbsp;([F)V</div>
+</div>
+<div class="link" onClick="javascript:toggle('e48')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xe48">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8 &nbsp;&nbsp;&nbsp;&nbsp;0.0 &nbsp;&nbsp;&nbsp;97.8 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; isOpaque</div>
+<div class="parent" id="e48">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m68">[68]</a>&nbsp;android/view/View.isOpaque&nbsp;()Z</div>
+</div>
+<div class="link" onClick="javascript:toggle('e49')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xe49">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7 &nbsp;&nbsp;&nbsp;&nbsp;0.0 &nbsp;&nbsp;&nbsp;97.8 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; isInUse</div>
+<div class="parent" id="e49">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m70">[70]</a>&nbsp;android/os/Message.isInUse&nbsp;()Z</div>
+</div>
+<div class="link" onClick="javascript:toggle('e50')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xe50">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5 &nbsp;&nbsp;&nbsp;&nbsp;0.0 &nbsp;&nbsp;&nbsp;97.8 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; stopMethodTracing</div>
+<div class="parent" id="e50">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m72">[72]</a>&nbsp;android/os/Debug.stopMethodTracing&nbsp;()V</div>
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m75">[75]</a>&nbsp;dalvik/system/VMDebug.stopMethodTracing&nbsp;()V</div>
+</div>
+<div class="link" onClick="javascript:toggle('e51')" onMouseOver="javascript:onMouseOver(this)" onMouseOut="javascript:onMouseOut(this)"><span class="parent" id="xe51">+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5 &nbsp;&nbsp;&nbsp;&nbsp;0.0 &nbsp;&nbsp;&nbsp;97.8 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; min</div>
+<div class="parent" id="e51">
+<div class="leaf"><span class="leaf">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;100.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#m73">[73]</a>&nbsp;java/lang/Math.min&nbsp;(II)I</div>
+</div>
+
+</body>
+</html>
