@@ -146,9 +146,9 @@ public class HorizonDetection extends ImageProcessingOv {
 		if(frame_count != 0)
 			return;
 		data.put(0, 0, Arrays.copyOfRange(data_, 0, data_.length));
-		ImageProcessing.detectColorHorizon(nativeAddr, data, canny, colorCoordinates);
+//		ImageProcessing.detectColorHorizon(nativeAddr, data, canny, colorCoordinates);
 		//		Log.e(">>>>", "COLOR: \t\t" + Arrays.toString(edgeCoordinates));
-		ImageProcessing.detectEdgeHorizon(nativeAddr, data, canny, edgeCoordinates);
+//		ImageProcessing.detectEdgeHorizon(nativeAddr, data, canny, edgeCoordinates);
 		//		Log.e(">>>>", "EDGES: \t\t" + Arrays.toString(edgeCoordinates));
 		ImageProcessing.detectColorEdgeHorizon(nativeAddr, data, canny, bothCoordinates);
 		//		Log.e(">>>>", "COLOREDGES: \t" + Arrays.toString(edgeCoordinates));

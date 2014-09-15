@@ -84,7 +84,7 @@ pair<Point,Point> ImageBalance::getSymmetryLine(FastSymmetryDetector detector) {
 
     meanPoint.x /= result.size();
     meanPoint.y /= result.size();
-	LOGE("%f/%d = %f",m,result.size(),m/result.size());
+
     m /= result.size();
 
     if(m == 0.0f)

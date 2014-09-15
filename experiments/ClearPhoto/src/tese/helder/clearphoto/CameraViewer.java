@@ -30,12 +30,14 @@ import android.graphics.Canvas;
 import android.hardware.Camera;
 import android.hardware.Camera.PreviewCallback;
 import android.hardware.Camera.Size;
+import android.os.Debug;
 import android.util.Log;
 import android.util.Pair;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.Toast;
 
 /** A basic Camera preview class */
 public class CameraViewer extends SurfaceView implements SurfaceHolder.Callback, PreviewCallback {
@@ -152,40 +154,180 @@ public class CameraViewer extends SurfaceView implements SurfaceHolder.Callback,
 		setupCamera();
 	}
 
+	private long dif = -1, startT = -1;
+	private long testTime = 60000000000l;
+	private int i = 1;
 	@Override
 	public void onPreviewFrame(byte[] data, Camera camera) {
+		if(i > 10)
+			i = 1;
+		
 		if(faceDetection != null) {
+//			if(startT== -1) {
+//				Toast.makeText(act, "STARTED 1m face detection",Toast.LENGTH_LONG).show();
+//				startT = System.nanoTime();
+//				android.os.Debug.startMethodTracing("faceDetection");
+//			}
+//			long dif = System.nanoTime() - startT;
+//			if(dif >= testTime) {
+//				android.os.Debug.stopMethodTracing();
+//				Toast.makeText(act, "FINISHED 1m face detection",Toast.LENGTH_LONG).show();
+//			}
+			android.os.Debug.startMethodTracing("faceDetection"+i);
 			faceDetection.process(data);
+			android.os.Debug.stopMethodTracing();
+			i++;
 		}
 		if(colorHistogram != null) {
+//			if(startT== -1) {
+//				Toast.makeText(act, "STARTED 1m color histogram",Toast.LENGTH_LONG).show();
+//				startT = System.nanoTime();
+//				android.os.Debug.startMethodTracing("colorHistogram");
+//			}
+//			long dif = System.nanoTime() - startT;
+//			if(dif >= testTime) {
+//				android.os.Debug.stopMethodTracing();
+//				Toast.makeText(act, "FINISHED 1m color histogram",Toast.LENGTH_LONG).show();
+//			}
+			android.os.Debug.startMethodTracing("colorHistogram"+i);
 			colorHistogram.process(data);
+			android.os.Debug.stopMethodTracing();
+			i++;
 		}
 		if(colorWheel != null) {
+//			if(startT== -1) {
+//				Toast.makeText(act, "STARTED 1m color wheel",Toast.LENGTH_LONG).show();
+//				startT = System.nanoTime();
+//				android.os.Debug.startMethodTracing("colorWheel");
+//			}
+//			long dif = System.nanoTime() - startT;
+//			if(dif >= testTime) {
+//				android.os.Debug.stopMethodTracing();
+//				Toast.makeText(act, "FINISHED 1m color wheel",Toast.LENGTH_LONG).show();
+//			}
+			android.os.Debug.startMethodTracing("colorWheel"+i);
 			colorWheel.process(data);
+			android.os.Debug.stopMethodTracing();i++;
 		}
 		if(saturation != null) {
+//			if(startT== -1) {
+//				Toast.makeText(act, "STARTED 1m saturation detection",Toast.LENGTH_LONG).show();
+//				startT = System.nanoTime();
+//				android.os.Debug.startMethodTracing("saturationDetection");
+//			}
+//			long dif = System.nanoTime() - startT;
+//			if(dif >= testTime) {
+//				android.os.Debug.stopMethodTracing();
+//				Toast.makeText(act, "FINISHED 1m saturation detection",Toast.LENGTH_LONG).show();
+//			}
+			android.os.Debug.startMethodTracing("saturationDetection"+i);
 			saturation.process(data);
+			android.os.Debug.stopMethodTracing();i++;
 		}
 		if(horizonDetection != null){
+//			if(startT== -1) {
+//				Toast.makeText(act, "STARTED 1m horizon detection",Toast.LENGTH_LONG).show();
+//				startT = System.nanoTime();
+//				android.os.Debug.startMethodTracing("horizonDetection");
+//			}
+//			long dif = System.nanoTime() - startT;
+//			if(dif >= testTime) {
+//				android.os.Debug.stopMethodTracing();
+//				Toast.makeText(act, "FINISHED 1m horizon detection",Toast.LENGTH_LONG).show();
+//			}
+			android.os.Debug.startMethodTracing("horizonDetection"+i);
 			horizonDetection.process(data);
+			android.os.Debug.stopMethodTracing();i++;
 		}
 		if(majorLines != null) {
+//			if(startT== -1) {
+//				Toast.makeText(act, "STARTED 1m major lines detection",Toast.LENGTH_LONG).show();
+//				startT = System.nanoTime();
+//				android.os.Debug.startMethodTracing("majorLines");
+//			}
+//			long dif = System.nanoTime() - startT;
+//			if(dif >= testTime) {
+//				android.os.Debug.stopMethodTracing();
+//				Toast.makeText(act, "FINISHED 1m major lines detection",Toast.LENGTH_LONG).show();
+//			}
+			android.os.Debug.startMethodTracing("majorLines"+i);
 			majorLines.process(data);
+			android.os.Debug.stopMethodTracing();i++;
 		}
 		if(objectSegmentation != null) {
+//			if(startT== -1) {
+//				Toast.makeText(act, "STARTED 1m object segmentation",Toast.LENGTH_LONG).show();
+//				startT = System.nanoTime();
+//				android.os.Debug.startMethodTracing("objectSegmentation");
+//			}
+//			long dif = System.nanoTime() - startT;
+//			if(dif >= testTime) {
+//				android.os.Debug.stopMethodTracing();
+//				Toast.makeText(act, "FINISHED 1m object segmentation",Toast.LENGTH_LONG).show();
+//			}
+			android.os.Debug.startMethodTracing("objectSegmentation"+i);
 			objectSegmentation.process(data);
+			android.os.Debug.stopMethodTracing();i++;
 		}
 		if(bgSimplicity != null) {
+//			if(startT== -1) {
+//				Toast.makeText(act, "STARTED 1m image simplicity",Toast.LENGTH_LONG).show();
+//				startT = System.nanoTime();
+//				android.os.Debug.startMethodTracing("imageSimplicity");
+//			}
+//			long dif = System.nanoTime() - startT;
+//			if(dif >= testTime) {
+//				android.os.Debug.stopMethodTracing();
+//				Toast.makeText(act, "FINISHED 1m imageSimplicity",Toast.LENGTH_LONG).show();
+//			}
+			android.os.Debug.startMethodTracing("imageSimplicity"+i);
 			bgSimplicity.process(data);
+			android.os.Debug.stopMethodTracing();i++;
 		}
 		if(hueCount != null) {
+//			if(startT== -1) {
+//				Toast.makeText(act, "STARTED 1m hue count",Toast.LENGTH_LONG).show();
+//				startT = System.nanoTime();
+//				android.os.Debug.startMethodTracing("hueCount");
+//			}
+//			long dif = System.nanoTime() - startT;
+//			if(dif >= testTime) {
+//				android.os.Debug.stopMethodTracing();
+//				Toast.makeText(act, "FINISHED 1m hue count",Toast.LENGTH_LONG).show();
+//			}
+			android.os.Debug.startMethodTracing("hueCount"+i);
 			hueCount.process(data);
+			android.os.Debug.stopMethodTracing();i++;
 		}
 		if(imageBalance != null) {
+//			if(startT== -1) {
+//				Toast.makeText(act, "STARTED 1m image balance",Toast.LENGTH_LONG).show();
+//				startT = System.nanoTime();
+//				android.os.Debug.startMethodTracing("imageBalance");
+//			}
+//			long dif = System.nanoTime() - startT;
+//			if(dif >= testTime) {
+//				android.os.Debug.stopMethodTracing();
+//				Toast.makeText(act, "FINISHED 1m image balance",Toast.LENGTH_LONG).show();
+//			}
+			android.os.Debug.startMethodTracing("imageBalance"+i);
 			imageBalance.process(data);
+			android.os.Debug.stopMethodTracing();i++;
 		}
 		if(colorTemplate != null) {
+//			if(startT== -1) {
+//				Toast.makeText(act, "STARTED 1m colour template",Toast.LENGTH_LONG).show();
+//				startT = System.nanoTime();
+//				android.os.Debug.startMethodTracing("colorTemplate");
+//			}
+//			long dif = System.nanoTime() - startT;
+//			if(dif >= testTime) {
+//				android.os.Debug.stopMethodTracing();
+//				Toast.makeText(act, "FINISHED 1m colour template",Toast.LENGTH_LONG).show();
+//			}
+			android.os.Debug.startMethodTracing("colorTemplate"+i);
 			colorTemplate.process(data);
+			android.os.Debug.stopMethodTracing();i++;
 		}
 	}
 

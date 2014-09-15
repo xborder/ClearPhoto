@@ -94,7 +94,7 @@ public abstract class Grid extends Overlay {
 		if(nearest != null && nearest.length/2 == 3) {
 			Paint pa = new Paint();
 			pa.setStyle(Paint.Style.FILL);
-			pa.setColor(Color.CYAN);
+			pa.setColor(Color.BLUE);
 			pa.setAlpha(150);
 			pa.setStrokeWidth(3f);
 			float x0 = nearest[0], y0 = nearest[1];

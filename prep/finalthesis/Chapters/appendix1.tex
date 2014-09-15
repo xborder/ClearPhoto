@@ -1,13 +1,351 @@
-\chapter{Lorem Ipsum}
-\label{app:lorem_ipsum}
+\chapter{Algorithms Execution Time Tables}
+\label{app:exec_times}
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nisl turpis, iaculis ac interdum non, fringilla ac justo. Fusce vel mauris sem, sit amet congue turpis. Curabitur vestibulum porttitor aliquet. Donec at tellus vitae risus hendrerit rutrum. Duis vel nulla in lectus bibendum semper eu eu lorem. Phasellus id diam est. Etiam condimentum, augue nec euismod scelerisque, arcu dui iaculis libero, in dignissim lectus nibh vel lacus. Sed nulla nulla, molestie vel sollicitudin eu, facilisis pharetra sapien. Phasellus ac mi nec nisl aliquam mattis quis id tortor. Nunc posuere posuere erat quis sodales. Donec euismod, felis quis mollis lacinia, enim libero iaculis nisi, id ornare urna ante vel turpis. Suspendisse facilisis tellus eu libero lacinia molestie. Duis euismod sagittis ligula. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Quisque felis est, aliquet at vulputate molestie, luctus et mi. Praesent vitae metus quis velit semper pulvinar.
+\begin{table}[h]
+	\footnotesize
+    \begin{center}
+    \begin{tabular}{c c c}
+    \hline 
+    &\multicolumn{2}{c}{\textbf{Execution Time (ms)}}\\
+    \textbf{\#} &
+    \textbf{Success} & \textbf{Fail}\\ \hline
+	1 &	52 &	117\\
+	2 &	30 &	105\\
+	3 &	35 &	115\\
+	4 &	31 &	139\\
+	5 &	40 &	119\\
+	6 &	58 &	111\\
+	7 &	50 &	116\\
+	8 &	30 & 	115\\
+	9 &	16 &	117\\
+	10 &	32 &	178\\
+	\hline
+	Average (ms) &	37.40&	118.63 \\
+	Standard deviation (ms) &	8.98&	8.55\\
+	\hline	
+	& \multicolumn{2}{c}{\textbf{Total Time (ms)}}\\
+    \hline
+    Average	& 75.92 & 147.77 \\
+    Standard deviation & 16.55 & 29.78\\
+    \hline
+    \end{tabular}
+	\end{center}
+	\caption{Total processing a frame and displaying the result, and execution times of the saturation detection algorithm in cases where the scenario is or not saturated.}
+	\label{tab:sat}
+\end{table}
 
-Etiam semper eleifend lorem eleifend vestibulum. Phasellus blandit, justo in varius iaculis, risus nisl commodo nulla, sed ultricies sem mi vitae mi. Proin rutrum pulvinar erat laoreet pulvinar. In at dapibus orci. Curabitur sagittis mattis fringilla. Ut ut libero neque, sed aliquet lectus. Suspendisse vulputate aliquam sapien sit amet luctus. Etiam quis est velit. Cras mi nibh, vehicula a porta ut, venenatis ac purus. Praesent eu odio magna, eu gravida ligula. Sed ultrices luctus pharetra. Nullam et ipsum turpis. Donec lectus nisl, pretium in venenatis in, rutrum non enim. Aenean venenatis augue non neque elementum ut tempus nulla viverra. Fusce ac massa eget quam varius pretium.
+\begin{table}[h]
+	\footnotesize
+    \begin{center}
+    \begin{tabular}{c c}
+    \hline 
+    \textbf{\#} & \textbf{Execution Time (ms)}\\ \hline
+	1&	21\\
+	2&	46\\
+	3&	32\\
+	4&	43\\
+	5&	64\\
+	6&	42\\
+	7&	28\\
+	8&	31\\
+	9&	65\\
+	10&	37\\
+	\hline
+	Average (ms) &	40.38 \\
+	Standard deviation (ms) & 11.48\\
+	\hline
+    & \textbf{Total Time (ms)}\\
+    \hline
+    Average	& 85.60\\
+    Standard deviation & 27.84\\
+    \hline
+    \end{tabular}
+	\end{center}
+    \caption{Total processing a frame and displaying the result, and execution time of calculating the colour histograms using the \emph{RGB} channels and grayscale.}
+\end{table}
 
-Vestibulum nibh neque, malesuada cursus congue id, consectetur sed lacus. Aenean volutpat elementum elit eu convallis. Vestibulum odio enim, egestas a tincidunt ut, accumsan sollicitudin tortor. Sed felis velit, vestibulum a consequat ut, iaculis sed lectus. Proin quis faucibus tellus. Nulla tempor iaculis nisi. Phasellus rutrum tellus id risus hendrerit aliquam. Praesent venenatis neque ac lectus viverra semper. Curabitur consectetur enim ac quam aliquet pellentesque laoreet magna elementum. Maecenas purus urna, suscipit sit amet posuere vel, sagittis eget diam. Nullam condimentum augue quis lectus mattis malesuada. Nulla porttitor sagittis mollis. Ut sit amet odio vitae tellus consectetur aliquet. Donec venenatis eros sed nibh luctus laoreet non non nunc. Etiam aliquam, ipsum vel laoreet consectetur, magna urna elementum elit, at euismod lacus neque nec dolor. Nulla facilisis viverra mauris, eget rhoncus leo aliquam eget. Nunc dictum malesuada tellus vitae scelerisque. Cras id eros sapien.
+\begin{table}[h]
+	\footnotesize
+    \begin{center}
+    \begin{tabular}{c c}
+    \hline
+    \end{tabular}
+    \begin{tabular}{c  c}
+    \hline 
+    \textbf{\#} & \textbf{Execution Time (ms)}\\ \hline
+	1&	68\\
+	2&	109\\
+	3&	147\\
+	4&	95\\
+	5&	71\\
+	6&	83\\
+	7&	60\\
+	8&	114\\
+	9&	77\\
+	10&	106\\
+	\hline
+	Average (ms) &	98.13 \\
+	Standard deviation (ms) & 27.38\\
+	\hline
+    &\textbf{Total Time (ms)}\\
+    \hline
+    Average	& 152.17\\
+    Standard deviation & 20.63\\
+    \hline
+    \end{tabular}
+	\end{center}
+    \caption{Total processing a frame and displaying the result, and execution time of calculating the histograms using the hue channel.}
+\end{table}
 
-Nullam scelerisque interdum dolor, vitae luctus enim dictum sagittis. Suspendisse potenti. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Pellentesque ut eros quis est tempor accumsan. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec eu eros laoreet nibh tempus imperdiet. Nulla lacinia convallis tempus. Nulla id turpis risus, nec sagittis dui. Donec odio enim, laoreet id porta sit amet, consequat at lacus. Etiam luctus, ante ut dapibus sodales, felis erat elementum enim, non accumsan ante lacus sed nisi. Vestibulum augue ipsum, faucibus sed posuere a, volutpat vitae purus. Mauris sodales interdum orci nec lobortis. Sed ac pretium eros. Curabitur posuere, sem quis vehicula semper, nisl justo mollis velit, ac suscipit enim nunc accumsan risus.
+\begin{table}[h]
+	\footnotesize
+    \begin{center}
+    \begin{tabular}{c c c}
+    \hline 
+    \textbf{\#} & \textbf{Execution Time (ms)}\\ \hline
+	1&	67\\
+	2&	117\\
+	3&	100\\
+	4&	76\\
+	5&	60\\
+	6&	86\\
+	7&	61\\
+	8&	54\\
+	9&	74\\
+	10&	109\\
+	\hline
+	Average (ms) &	77.63 \\
+	Standard deviation (ms) & 21.98\\
+	\hline 
+	&\textbf{Total Time (ms)}\\
+    \hline
+    Average	& 128.28\\
+    Standard deviation & 24.26\\
+    \hline
+    \end{tabular}
+	\end{center}
+    \caption{Total processing a frame and displaying the result, and execution time of calculating the colour templates.}
+\end{table}
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin hendrerit convallis est, vel dapibus felis fringilla viverra. Nulla blandit nunc quis magna rhoncus eu tincidunt ligula cursus. Aliquam erat volutpat. Nunc ornare, elit id consequat ullamcorper, orci velit vestibulum elit, at pretium velit elit sed arcu. Curabitur est tellus, ornare eget sodales elementum, pretium eget nunc. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum quam orci, dapibus a convallis quis, convallis sit amet ante. Aenean consequat sollicitudin eros, at commodo ligula molestie eget. Ut consectetur vehicula sapien et aliquet. Fusce ullamcorper enim et libero pulvinar tristique. Phasellus a augue malesuada nisi bibendum placerat. In nec congue enim. Aliquam vitae elit a nulla rhoncus rhoncus sed sit amet ligula. Duis tempor tincidunt eros in congue. Nunc lorem justo, aliquam id pretium ut, sodales eu metus. Nam lectus dui, convallis ac cursus id, semper sit amet libero.
+\begin{table}[h]
+	\footnotesize
+    \begin{center}
+    \begin{tabular}{c c c}
+    \hline 
+    \textbf{\#} & \textbf{Execution Time (ms)}\\ \hline
+1&	66\\
+2&	55\\
+3&	41\\
+4&	67\\
+5&	54\\
+6&	67\\
+7&	57\\
+8&	41\\
+9&	53\\
+10&	61\\
+	\hline
+	Average (ms) &	55.38 \\
+	Standard deviation (ms) & 10.14\\
+	\hline
+	& \textbf{Total Time (ms)}\\
+    \hline
+    Average	& 56.75\\
+    Standard deviation & 8.29\\
+    \hline
+    \end{tabular}
+	\end{center}
+    \caption{Total processing a frame and displaying the result, and execution time of calculating the score based on the number of colours being used from the \emph{Hue} channel.}
+\end{table}
 
+\begin{table}[h]
+	\footnotesize
+    \begin{center}	
+    \begin{tabular}{c c c c c}
+    \hline 
+    & \multicolumn{4}{c}{\textbf{Execution Time (ms)}}\\
+    \hline
+    \textbf{\#} & \textbf{1 Face} & \textbf{3 Faces} & \textbf{1 Face w/ Comp.} & \textbf{3 Faces w/ Comp.}\\
+	\hline    
+1&	72&	48&	52&	63\\
+2&	64&	88&	34&	99\\
+3&	41&	30&	55&	50\\
+4&	72&	212&	33&	53\\
+5&	47&	89&	39&	59\\
+6&	41&	30&	54&	52\\
+7&	73&	33&	50&	40\\
+8&	63&	33&	31&	66\\
+9&	70&	31&	60&	56\\
+10&	52&	67&	60&	42\\
+
+	\hline
+	Average (ms) &	60.13 & 52.38 & 47.13 & 55.13\\
+	Standard deviation (ms) & 11.99 & 25.50 & 10.32 & 7.64\\
+	\hline
+    &\multicolumn{4}{c}{\textbf{Total Time (ms)}}\\
+    \hline
+	Average&	93.24&	85.99&	78.60&	92.99\\
+	Standard deviation&	14.78&	31.23&	9.79&	11.95\\
+	\hline
+    \end{tabular}
+	\end{center}
+    \caption{Total processing a frame and displaying the result, and execution time of finding one or three faces while using or not the composition rules.}
+    \label{tab:face}
+\end{table}
+
+\begin{table}[h]
+	\footnotesize
+    \begin{center}
+    \begin{tabular}{c c c}
+    \hline 
+    \textbf{\#} & \textbf{Execution Time (ms)}\\ \hline
+1&	193\\
+2&	187\\
+3&	257\\
+4&	209\\
+5&	198\\
+6&	191\\
+7&	184\\
+8&	197\\
+9&	193\\
+10&	109\\
+	\hline
+	Average (ms) &	194 \\
+	Standard deviation (ms) & 7.65\\
+	\hline
+	& \textbf{Total Time (ms)}\\
+    \hline
+    Average	& 239.52\\
+    Standard deviation & 8.18\\
+    \end{tabular}
+	\end{center}
+    \caption{Total processing a frame and displaying the result, and execution time of calculating the saliency map and segmenting the object.}
+\end{table}
+
+\begin{table}[h]
+	\footnotesize
+    \begin{center}
+    \begin{tabular}{c c c c c}
+    \hline     
+    & \multicolumn{3}{c}{\textbf{Execution Time (ms)}}\\
+    \hline
+    \textbf{\#} & \textbf{Method 1 \cite{luo2008photo}} & \textbf{Method 2 \cite{kaoautomatic}} & \textbf{Method 3 \cite{ke2006design}}\\
+	\hline
+1&	125&	139&	250\\
+2&	110&	82&	191\\
+3&	168&	113&	216\\
+4&	95&	83&	175\\
+5&	118&	108&	162\\
+6&	144&	79&	148\\
+7&	94&	102&	147\\
+8&	116&	142&	167\\
+9&	154&	104&	148\\
+10&	174&	119&	139\\
+	\hline
+	Average (ms) &	128.75 & 106.25 & 169.25\\
+	Standard deviation (ms) & 24.48 & 18.65 & 24.34\\
+	\hline
+	& \multicolumn{3}{c}{\textbf{Total Time (ms)}}\\
+	\hline
+	Average&	172.29&	143.14&	221.28 \\
+	Standard deviation&	33.59&	32.33&	37.62\\
+    \end{tabular}
+	\end{center}
+    \caption{Total processing a frame and displaying the result, and execution time of calculating the simplicity with each one of the tested methods.}
+    \label{tab:simplicity}
+\end{table}
+
+\begin{table}[h]
+	\footnotesize
+    \begin{center}
+    \begin{tabular}{c c c c}
+    \hline 
+    & \multicolumn{3}{c}{\textbf{Execution Time (ms)}}\\
+    \hline
+    \textbf{\#} & \textbf{$T$ = 40} & \textbf{$T$ = 100} & \textbf{$T$ = 160}\\
+	\hline    
+1&	354&	283&	489\\
+2&	374&	313&	384\\
+3&	478&	314&	382\\
+4&	387&	406&	376\\
+5&	381&	321&	472\\
+6&	366&	299&	389\\
+7&	349&	303&	404\\
+8&	373&	281&	411\\
+9&	412&	332&	432\\
+10&	380&	320&	363\\
+	\hline
+	Average (ms) &	378.38 & 310.63 & 406.25\\
+	Standard deviation (ms) & 16.94 & 15.24 & 32.31\\
+	\hline
+	&\multicolumn{3}{c}{\textbf{Total Time (ms)}}\\
+    \hline
+	Average&	434.18&	356.56&	455.28\\
+	Standard deviation&	50.29&	25.10&	43.41\\
+    \hline
+    \end{tabular}
+	\end{center}
+    \caption{Total processing a frame and displaying the result, and execution time of finding the most relevant lines in a scenario with different thresholds ($T$).}
+    \label{tab:major_lines}
+\end{table}
+
+
+\begin{table}[h]
+	\footnotesize
+    \begin{center}
+    \begin{tabular}{c c}
+    \hline 
+    \textbf{\#} & \textbf{Execution Time (ms)}\\ \hline
+1&	1721\\
+2&	2848\\
+3&	2874\\
+4&	2983\\
+5&	2897\\
+6&	2731\\
+7&	2562\\
+8&	1704\\
+9&	1707\\
+10&	1729\\
+	\hline
+	Average (ms) &	2383.63 \\
+
+	Standard deviation (ms) & 560.30\\
+	\hline
+	& \textbf{Total Time (ms)}\\
+    \hline
+    Average	& 2659.29\\
+    Standard deviation & 485.30\\
+    \hline
+    \end{tabular}
+	\end{center}
+    \caption{Total processing a frame and displaying the result, and execution time of finding the horizon line.}
+\end{table}
+
+\begin{table}[h]
+	\footnotesize
+    \begin{center}
+    \begin{tabular}{c c}
+    \hline 
+    \textbf{\#} & \textbf{Execution Time (ms)}\\ \hline
+    1&	361\\
+	2&	332\\
+	3&	336\\
+	4&	357\\
+	5&	327\\
+	6&	331\\
+	7&	296\\
+	8&	349\\
+	9&	364\\
+	10&	296\\
+	\hline
+	Average (ms) &	336.13\\
+	Standard deviation (ms) & 20.55\\
+	\hline
+	&\textbf{Total Time (ms)}\\
+    \hline
+    Average	& 593.68\\
+    Standard deviation & 111.35\\
+    \hline
+    \end{tabular}
+	\end{center}
+    \caption{Total processing a frame and displaying the result, and execution time of calculating the image balance.}
+\end{table}

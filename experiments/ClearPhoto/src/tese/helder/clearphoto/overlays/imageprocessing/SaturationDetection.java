@@ -25,7 +25,7 @@ import android.view.HapticFeedbackConstants;
 import android.view.View;
 
 public class SaturationDetection extends ImageProcessingOv {
-	private static final int THRESHOLD = 90;
+	private static final int THRESHOLD = 50;//90;
 
 	private Bitmap grayscale;
 	private boolean refresh;
@@ -39,11 +39,13 @@ public class SaturationDetection extends ImageProcessingOv {
 		this.previewWidth = previewWidth;
 //		this.icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_bw_suggestion);
 		this.data = new Mat(previewHeight + previewHeight/2, previewWidth, CvType.CV_8UC1);
+		this.grayscale = Bitmap.createBitmap(previewWidth, previewHeight, Bitmap.Config.ARGB_8888);
+		
 		
 		this.paint = new Paint();
 		this.paint.setStyle(Paint.Style.FILL);
 		this.paint.setColor(Color.WHITE);
-		this.paint.setTextSize(100.0f);
+		this.paint.setTextSize(40.0f);
 //		b = BitmapFactory.decodeResource(getResources(), R.raw.lolol3);
 //		ByteArrayOutputStream stream = new ByteArrayOutputStream();
 //		b.compress(Bitmap.CompressFormat.PNG, 100, stream);
@@ -57,7 +59,8 @@ public class SaturationDetection extends ImageProcessingOv {
 //		canvas.drawBitmap(b, 0, 0, null);
 		if(refresh) {
 			canvas.drawBitmap(grayscale, width - 200 - 20, height - 150 - 20, null);
-			canvas.drawText("?", width - 20 - 125, height - 20 - 40, paint);
+			canvas.drawText("Low", width - 20 - 130, height - 20 - 40, paint);
+			canvas.drawText("Saturation", width - 20 - 190, height - 20 - 10, paint);
 		}
 	}
 

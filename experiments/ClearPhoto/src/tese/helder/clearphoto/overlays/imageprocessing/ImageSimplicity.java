@@ -27,8 +27,7 @@ public class ImageSimplicity  extends ImageProcessingOv {
 	private Mat data;
 	private Bitmap bitmap;
 	private float[] results;
-	private Paint paint;
-	private Paint barsPaint;
+	private Paint paint, barsPaint, m1Good, m1Bad, m1Maybe;
 	public ImageSimplicity(Context context, int previewWidth, int previewHeight, int width, int height) {
 		super(context, width, height);
 
@@ -38,10 +37,22 @@ public class ImageSimplicity  extends ImageProcessingOv {
 		this.paint.setColor(Color.WHITE);
 		this.paint.setTextSize(40.0f);
 
+		this.m1Bad = new Paint();
+		this.m1Bad.setStyle(Paint.Style.FILL);
+		this.m1Bad.setColor(Color.RED);
+		
+		this.m1Maybe = new Paint();
+		this.m1Maybe.setStyle(Paint.Style.FILL);
+		this.m1Maybe.setColor(Color.YELLOW);
+		
+		this.m1Good = new Paint();
+		this.m1Good.setStyle(Paint.Style.FILL);
+		this.m1Good.setColor(Color.GREEN);
+		
 		this.barsPaint = new Paint();
 		this.barsPaint.setStyle(Paint.Style.FILL);
 		this.barsPaint.setColor(Color.WHITE);
-		this.barsPaint.setTextSize(2.0f);
+		
 		this.icon = BitmapFactory.decodeResource(getResources(), R.drawable.arrow_icon);
 //		bitmap = BitmapFactory.decodeResource(getResources(), R.raw.teste);
 //		ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -62,16 +73,16 @@ public class ImageSimplicity  extends ImageProcessingOv {
 			canvas.drawText("Method 2:", 15, height - 120, paint);
 			canvas.drawText("Method 3:", 15, height - 20, paint);
 			
-			canvas.drawLine(250, height - 220 , 550, height - 220, barsPaint);
-			canvas.drawLine(250, height - 120 , 550, height - 120, barsPaint);
-			canvas.drawLine(250, height - 20 , 550, height - 20, barsPaint);
+			canvas.drawRect(250, height - 240, 290, height - 220, m1Good);
+			canvas.drawRect(290, height - 240, 340, height - 220, m1Maybe);
+			canvas.drawRect(340, height - 240, 550, height - 220, m1Bad);
 			
-			Log.w(">>", "results 0 "+ results[0]*300/100);
-			Log.w(">>", "results 1 "+ results[1]*300);
-			Log.w(">>", "results 2 "+ results[2]*300);
-			canvas.drawBitmap(icon, 250 + results[0]*300/100 - 15, height - 220 - 30, null);
-			canvas.drawBitmap(icon, 250 + results[1]*300 - 15, height - 120 - 30, null);
-			canvas.drawBitmap(icon, 250 + results[2]*300 - 15, height - 20 - 30, null);
+			canvas.drawRect(250, height - 140 , 550, height - 120, barsPaint);
+			canvas.drawRect(250, height - 40 , 550, height - 20, barsPaint);
+			
+			canvas.drawBitmap(icon, 250 + results[0]*300/5 - 15, height - 220 - 35, null);
+			canvas.drawBitmap(icon, 250 + results[1]*300 - 15, height - 120 - 35, null);
+			canvas.drawBitmap(icon, 250 + results[2]*300 - 15, height - 20 - 35, null);
 		}
 	}
 
