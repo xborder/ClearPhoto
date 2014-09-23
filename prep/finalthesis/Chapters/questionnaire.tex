@@ -1,0 +1,315 @@
+\documentclass[a4paper,10pt,BCOR10mm,oneside,headsepline]{scrartcl}
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{wasysym}% provides \ocircle and \Box
+\usepackage{enumitem}% easy control of topsep and leftmargin for lists
+\usepackage{color}% used for background color
+\usepackage{forloop}% used for \Qrating and \Qlines
+\usepackage{ifthen}% used for \Qitem and \QItem
+\usepackage{typearea}
+\areaset{17cm}{26cm}
+\setlength{\topmargin}{-1cm}
+\usepackage{scrpage2}
+\pagestyle{scrheadings}
+\ihead{ClearPhoto - Questionnaire}
+\ohead{\pagemark}
+\chead{}
+\cfoot{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Beginning of questionnaire command definitions %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% 2010, 2012 by Sven Hartenstein
+%% mail@svenhartenstein.de
+%% http://www.svenhartenstein.de
+%%
+%% Please be warned that this is NOT a full-featured framework for
+%% creating (all sorts of) questionnaires. Rather, it is a small
+%% collection of LaTeX commands that I found useful when creating a
+%% questionnaire. Feel free to copy and adjust any parts you like.
+%% Most probably, you will want to change the commands, so that they
+%% fit your taste.
+%%
+%% Also note that I am not a LaTeX expert! Things can very likely be
+%% done much more elegant than I was able to. If you have suggestions
+%% about what can be improved please send me an email. I intend to
+%% add good tipps to my website and to name contributers of course.
+%%
+%% 10/2012: Thanks to karathan for the suggestion to put \noindent
+%% before \rule!
+
+%% \Qq = Questionaire question. Oh, this is just too simple. It helps
+%% making it easy to globally change the appearance of questions.
+\newcommand{\Qq}[1]{\textbf{#1}}
+
+%% \QO = Circle or box to be ticked. Used both by direct call and by
+%% \Qrating and \Qlist.
+\newcommand{\QO}{$\Box$}% or: $\ocircle$
+
+%% \Qrating = Automatically create a rating scale with NUM steps, like
+%% this: 0--0--0--0--0.
+\newcounter{qr}
+\newcommand{\Qrating}[1]{\QO\forloop{qr}{1}{\value{qr} < #1}{---\QO}}
+
+%% \Qline = Again, this is very simple. It helps setting the line
+%% thickness globally. Used both by direct call and by \Qlines.
+\newcommand{\Qline}[1]{\noindent\rule{#1}{0.6pt}}
+
+%% \Qlines = Insert NUM lines with width=\linewith. You can change the
+%% \vskip value to adjust the spacing.
+\newcounter{ql}
+\newcommand{\Qlines}[1]{\forloop{ql}{0}{\value{ql}<#1}{\vskip0em\Qline{\linewidth}}}
+
+%% \Qlist = This is an environment very similar to itemize but with
+%% \QO in front of each list item. Useful for classical multiple
+%% choice. Change leftmargin and topsep accourding to your taste.
+\newenvironment{Qlist}{%
+\renewcommand{\labelitemi}{\QO}
+\begin{itemize}[leftmargin=1.5em,topsep=-.5em]
+}{%
+\end{itemize}
+}
+
+%% \Qtab = A "tabulator simulation". The first argument is the
+%% distance from the left margin. The second argument is content which
+%% is indented within the current row.
+\newlength{\qt}
+\newcommand{\Qtab}[2]{
+\setlength{\qt}{\linewidth}
+\addtolength{\qt}{-#1}
+\hfill\parbox[t]{\qt}{\raggedright #2}
+}
+
+%% \Qitem = Item with automatic numbering. The first optional argument
+%% can be used to create sub-items like 2a, 2b, 2c, ... The item
+%% number is increased if the first argument is omitted or equals 'a'.
+%% You will have to adjust this if you prefer a different numbering
+%% scheme. Adjust topsep and leftmargin as needed.
+\newcounter{itemnummer}
+\newcommand{\Qitem}[2][]{% #1 optional, #2 notwendig
+\ifthenelse{\equal{#1}{}}{\stepcounter{itemnummer}}{}
+\ifthenelse{\equal{#1}{a}}{\stepcounter{itemnummer}}{}
+\begin{enumerate}[topsep=2pt,leftmargin=2.8em]
+\item[\textbf{\arabic{itemnummer}#1.}] #2
+\end{enumerate}
+}
+
+%% \QItem = Like \Qitem but with alternating background color. This
+%% might be error prone as I hard-coded some lengths (-5.25pt and
+%% -3pt)! I do not yet understand why I need them.
+\definecolor{bgodd}{rgb}{0.8,0.8,0.8}
+\definecolor{bgeven}{rgb}{0.9,0.9,0.9}
+\newcounter{itemoddeven}
+\newlength{\gb}
+\newcommand{\QItem}[2][]{% #1 optional, #2 notwendig
+\setlength{\gb}{\linewidth}
+\addtolength{\gb}{-5.25pt}
+\ifthenelse{\equal{\value{itemoddeven}}{0}}{%
+\noindent\colorbox{bgeven}{\hskip-3pt\begin{minipage}{\gb}\Qitem[#1]{#2}\end{minipage}}%
+\stepcounter{itemoddeven}%
+}{%
+\noindent\colorbox{bgodd}{\hskip-3pt\begin{minipage}{\gb}\Qitem[#1]{#2}\end{minipage}}%
+\setcounter{itemoddeven}{0}%
+}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% End of questionnaire command definitions %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\section*{User Data}
+
+\Qitem{ \Qq{Gener?} M \QO{} F \QO{}}
+\Qitem{ \Qq{Age?} \Qline{1.5cm}}
+
+\section*{User's Past Experience}
+\Qitem{ \Qq{Do you take photographs?} \hskip0.4cm Yes \QO{} \hskip0.5cm No \QO{} }
+
+\Qitem{ \Qq{Do you have any knowledge in photography?} \hskip0.4cm Yes \QO{} \hskip0.5cm No \QO{} }
+
+\Qitem{ \Qq{If yes, how do you classify your knowledge in photography?} \hskip0.4cm Professional \QO{} \hskip0.5cm Amateur \QO{} }
+
+
+\Qitem{ \Qq{If yes, what kind of device do you normally use to take photographs?}
+\begin{Qlist}
+\item Still cameras \Qtab{3cm}{Never \Qrating{5} Regularly}
+\item Instant cameras  \Qtab{3cm}{Never \Qrating{5} Regularly}
+\item DSLR cameras  \Qtab{3cm}{Never \Qrating{5} Regularly}
+\item Camera phone  \Qtab{3cm}{Never \Qrating{5} Regularly}
+\item Other: \Qline{4cm} \Qtab{3cm}{Never \Qrating{5} Regularly}
+\end{Qlist}
+}
+
+\section*{About this questionnaire}
+
+\minisec{RGB Histograms}
+\vskip.5em
+
+\Qitem{ \Qq{The purpose of the dynamic bar is clear }}
+\Qtab{3cm}{Strongly disagree \Qrating{5} Strongly agree}
+
+\Qitem{ \Qq{The purpose of the growing line is clear }}
+\Qtab{3cm}{Strongly disagree \Qrating{5} Strongly agree}
+
+\Qitem{ \Qq{Gives a good idea of the range of colours being used }}
+\Qtab{3cm}{Strongly disagree \Qrating{5} Strongly agree}
+
+\Qitem{ \Qq{This tool is useful in a real scenario}}
+\Qtab{3cm}{Strongly disagree \Qrating{5} Strongly agree}
+
+\minisec{Hue Colour Histogram}
+\vskip.5em
+
+\Qitem{ \Qq{The number of colours in the spectrum is adequate}}
+\Qtab{3cm}{Strongly disagree \Qrating{5} Strongly agree}
+
+\Qitem{ \Qq{Can easily see the most used colour and which complementary colour should be used to balance the image}}
+\Qtab{3cm}{Strongly disagree \Qrating{5} Strongly agree}
+
+\Qitem{ \Qq{Gives a good idea of the range of colours being used}}
+\Qtab{3cm}{Strongly disagree \Qrating{5} Strongly agree}
+
+\Qitem{ \Qq{This tool is useful in a real scenario}}
+\Qtab{3cm}{Strongly disagree \Qrating{5} Strongly agree}
+
+
+\minisec{Saturation Detection}
+\vskip.5em
+
+\Qitem{ \Qq{The visual cue for this feature encourages the usage of a monochromatic filter}}
+\Qtab{3cm}{Strongly disagree \Qrating{5} Strongly agree}
+
+\Qitem{ \Qq{This tool is useful in a real scenario}}
+\Qtab{3cm}{Strongly disagree \Qrating{5} Strongly agree}
+
+
+\minisec{Colour Template Detector}
+\vskip.5em
+
+\Qitem{ \Qq{The colour scale is adequate}}
+\Qtab{3cm}{Strongly disagree \Qrating{5} Strongly agree}
+
+\Qitem{ \Qq{This feature foes along well with the hue scoring feature}}
+\Qtab{3cm}{Strongly disagree \Qrating{5} Strongly agree}
+
+\Qitem{ \Qq{It is easy to understand the difference between scenarios with a monochromatic or complementary colour schemes}}
+\Qtab{3cm}{Strongly disagree \Qrating{5} Strongly agree}
+
+\Qitem{ \Qq{This tool is useful in a real scenario}}
+\Qtab{3cm}{Strongly disagree \Qrating{5} Strongly agree}
+
+
+\minisec{Hue Count Score}
+\vskip.5em
+
+\Qitem{ \Qq{The scoring scale is adequate}}
+\Qtab{3cm}{Strongly disagree \Qrating{5} Strongly agree}
+
+\Qitem{ \Qq{This feature goes along well with the colour template detection}}
+\Qtab{3cm}{Strongly disagree \Qrating{5} Strongly agree}
+
+\Qitem{ \Qq{The scoring can reflect the simplicity of a scenario}}
+\Qtab{3cm}{Strongly disagree \Qrating{5} Strongly agree}
+
+\Qitem{ \Qq{This tool is useful in a real scenario}}
+\Qtab{3cm}{Strongly disagree \Qrating{5} Strongly agree}
+
+\minisec{Face Detection}
+\vskip.5em
+
+\Qitem{ \Qq{This feature is useful when used with rule of thirds or golden rule of thirds}}
+\Qtab{3cm}{Strongly disagree \Qrating{5} Strongly agree}
+
+\Qitem{ \Qq{The connection between three faces is useful to explore the rule of odds}}
+\Qtab{3cm}{Strongly disagree \Qrating{5} Strongly agree}
+
+\Qitem{ \Qq{The connections between three faces is useful to explore the triangular composition}}
+\Qtab{3cm}{Strongly disagree \Qrating{5} Strongly agree}
+
+\Qitem{ \Qq{The suggestive placements are useful}}
+\Qtab{3cm}{Strongly disagree \Qrating{5} Strongly agree}
+
+\Qitem{ \Qq{When used with a grid, it is too much visual information}}
+\Qtab{3cm}{Strongly disagree \Qrating{5} Strongly agree}
+
+
+\Qitem{ \Qq{This tool is useful in a real scenario}}
+\Qtab{3cm}{Strongly disagree \Qrating{5} Strongly agree}
+
+
+\minisec{Horizon Detection}
+\vskip.5em
+
+\Qitem{ \Qq{The resulting line gives the expected horizon line}}
+\Qtab{3cm}{Strongly disagree \Qrating{5} Strongly agree}
+
+\Qitem{ \Qq{This feature performs well in real-time}}
+\Qtab{3cm}{Strongly disagree \Qrating{5} Strongly agree}
+
+\Qitem{ \Qq{This tool is useful in a real scenario}}
+\Qtab{3cm}{Strongly disagree \Qrating{5} Strongly agree}
+
+\minisec{Main Lines Detection}
+\vskip.5em
+
+\Qitem{ \Qq{The resulting lines correspond to the leading lines in the scenario}}
+\Qtab{3cm}{Strongly disagree \Qrating{5} Strongly agree}
+
+\Qitem{ \Qq{The visual cue facilitates the usage of leading lines in a composition}}
+\Qtab{3cm}{Strongly disagree \Qrating{5} Strongly agree}
+
+\Qitem{ \Qq{This tool is useful in a real scenario}}
+\Qtab{3cm}{Strongly disagree \Qrating{5} Strongly agree}
+
+\minisec{Generic Object Segmentation}
+\vskip.5em
+
+\Qitem{ \Qq{The object segmentation is accurate}}
+\Qtab{3cm}{Strongly disagree \Qrating{5} Strongly agree}
+
+\Qitem{ \Qq{This tool is useful in a real scenario}}
+\Qtab{3cm}{Strongly disagree \Qrating{5} Strongly agree}
+
+\minisec{Image Simplicity Detection}
+\vskip.5em
+
+\Qitem{ \Qq{Bars are a good visual indicator for this feature}}
+\Qtab{3cm}{Strongly disagree \Qrating{5} Strongly agree}
+
+\Qitem{ \Qq{Numbers are a good visual indicator for this feature}}
+\Qtab{3cm}{Strongly disagree \Qrating{5} Strongly agree}
+
+\Qitem{ \Qq{The first method displays a good result for simplicity of the scenario}}
+\Qtab{3cm}{Strongly disagree \Qrating{5} Strongly agree}
+
+\Qitem{ \Qq{The second method displays a good result for simplicity of the scenario}}
+\Qtab{3cm}{Strongly disagree \Qrating{5} Strongly agree}
+
+\Qitem{ \Qq{The third method displays a good result for simplicity of the scenario}}
+\Qtab{3cm}{Strongly disagree \Qrating{5} Strongly agree}
+
+\Qitem{ \Qq{This tool is useful in a real scenario}}
+\Qtab{3cm}{Strongly disagree \Qrating{5} Strongly agree}
+
+\minisec{Image Balance Detection}
+\vskip.5em
+
+\Qitem{ \Qq{The symmetry axis is accurate}}
+\Qtab{3cm}{Strongly disagree \Qrating{5} Strongly agree}
+
+\Qitem{ \Qq{The visual cue displays a correct result from what was expected}}
+\Qtab{3cm}{Strongly disagree \Qrating{5} Strongly agree}
+
+\Qitem{ \Qq{The symmetry axis is accurate}}
+\Qtab{3cm}{Strongly disagree \Qrating{5} Strongly agree}
+
+\Qitem{ \Qq{This tool is useful in a real scenario}}
+\Qtab{3cm}{Strongly disagree \Qrating{5} Strongly agree}
+
+\section*{Suggestions and Comments}
+
+\Qitem{ \Qq{Any comments and suggestions are appreciated.} \Qlines{6} }
+\end{document}

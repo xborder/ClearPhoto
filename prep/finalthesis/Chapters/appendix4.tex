@@ -1,0 +1,76 @@
+\chapter{Horizon Detection Results}
+\label{app:horizon_results}
+\begin{table}[htbp]
+	\footnotesize
+\begin{center}
+\begin{tabular}{ c c c c c c c c c }
+\hline
+\textbf{LANDSCAPe} & \multicolumn{ 2}{c}{\textbf{Real}} & \multicolumn{ 2}{c}{\textbf{Algorithm}} & \multicolumn{ 2}{c}{\textbf{Absolute Error}} & \multicolumn{ 2}{c}{\textbf{Relative Error}} \\ \hline
+\multicolumn{1}{l}{} & \textbf{Position} & \textbf{Angle} & \textbf{Position} & \textbf{Angle} & \textbf{Position} & \textbf{Angle} & \textbf{Position} & \textbf{Angle} \\ \hline
+\#1 & 336.5 & 0.00098 & 309 & -0.00781 & 27.5 & 0.00879 & 8.17\% & 899.98\% \\
+\#2 & 305.5 & 0.03222 & 283 & 0.14258 & 22.5 & 0.11037 & 7.36\% & 342.59\% \\ 
+\#3 & 151.5 & -0.01269 & 151 & -0.03417 & 0.5 & 0.02147 & 0.33\% & 169.14\% \\
+\#4 & 152.5 & 0.00488 & 155 & -0.05317 & 2.5 & 0.05806 & 1.64\% & 1188.98\% \\
+\#5 & 169.5 & 0.00488 & 165 & 0.00098 & 4.5 & 0.00391 & 2.65\% & 80.00\% \\ 
+\#6 & 726 & 0.07858 & 853 & 0.00130 & 127 & 0.07728 & 17.49\% & 98.34\% \\ 
+\#7 & 170.5 & 0.00293 & 165 & -0.06923 & 5.5 & 0.07215 & 3.23\% & 2462.89\% \\ 
+\#8 & 220.5 & -0.06728 & 233 & -0.07991 & 12.5 & 0.01263 & 5.67\% & 18.77\% \\ 
+\#9 & 166.5 & 0.00684 & 155 & 0.00879 & 11.5 & 0.00195 & 6.91\% & 28.57\% \\ 
+\#10 & 168.5 & 0.02246 & 168 & 0.00879 & 0.5 & 0.01367 & 0.30\% & 60.86\% \\ 
+\#11 & 263 & -0.00195 & 236 & -0.01660 & 27 & 0.01465 & 10.27\% & 749.92\% \\ 
+\#12 & 337.5 & 0.01465 & 331 & 0.00879 & 6.5 & 0.00586 & 1.93\% & 40.00\% \\ 
+\#13 & 440 & -0.00195 & 325 & -0.91620 & 115 & 0.91424 & 26.14\% & 46809.28\% \\ 
+\#14 & 361 & 0.02343 & 449 & 0.50979 & 88 & 0.48636 & 24.38\% & 2075.50\% \\ 
+\#15 & 161.5 & 0.03612 & 204 & 0.03514 & 42.5 & 0.00098 & 26.32\% & 2.70\% \\ \hline
+& & & & & & \textbf{Average} & 9.52\% & 3668.50\% \\ \hline
+\end{tabular}
+\end{center}
+\caption{Detection results of the implemented algorithm for each of the test images labelled as \emph{landscape}. Absolute error indicates the absolute difference between each parameter and the manually-annotated horizon line. Relative error is the absolute error normalized to the corresponding parameter of the manually-annotated horizon line.}
+\label{tab:land_tab}
+\end{table}
+
+\begin{table}[htbp]
+	\footnotesize
+\begin{center}
+\begin{tabular}{ccccccccc}
+\hline
+\textbf{SEASCAPE} & \multicolumn{ 2}{c}{\textbf{Real}} & \multicolumn{ 2}{c}{\textbf{Algorithm}} & \multicolumn{ 2}{c}{\textbf{Absolute Error}} & \multicolumn{ 2}{c}{\textbf{Relative Error}} \\ \hline
+ & \textbf{Position} & \textbf{Angle} & \textbf{Position} & \textbf{Angle} & \textbf{Position} & \textbf{Angle} & \textbf{Position} & \textbf{Angle} \\ \hline
+\#1 & 313.5 & 0.00488 & 323 & 0.01758 & 9.5 & 0.01269 & 3.03\% & 259.97\% \\ 
+\#2 & 210.5 & 0.06534 & 231 & 0.00098 & 20.5 & 0.06436 & 9.74\% & 98.51\% \\ 
+\#3 & 354.5 & 0.01660 & 371 & 0.02636 & 16.5 & 0.00976 & 4.65\% & 58.80\% \\ 
+\#4 & 429.5 & 0.02441 & 295 & 0.03563 & 134.5 & 0.01122 & 31.32\% & 45.97\% \\ 
+\#5 & 165 & 0.03332 & 167 & 0.06048 & 2 & 0.02716 & 1.21\% & 81.51\% \\ 
+\#6 & 276 & 0.02343 & 286 & 0.00879 & 10 & 0.01464 & 3.62\% & 62.49\% \\ 
+\#7 & 173 & 0.02148 & 167 & 0.06048 & 6 & 0.03900 & 3.47\% & 181.56\% \\ 
+\#8 & 258.5 & 0.00098 & 236 & -0.01660 & 22.5 & 0.01758 & 8.70\% & 1799.85\% \\ \hline
+\multicolumn{1}{l}{} & \multicolumn{1}{l}{} & \multicolumn{1}{l}{} & \multicolumn{1}{l}{} & \multicolumn{1}{l}{} & \multicolumn{1}{l}{} & \textbf{Average:} & 8.22\% & 323.58\% \\ \hline
+\end{tabular}
+\end{center}
+\caption{Detection results of the implemented algorithm for each of the test images labelled as \emph{seacape}. Absolute error indicates the absolute difference between each parameter and the manually-annotated horizon line. Relative error is the absolute error normalized to the corresponding parameter of the manually-annotated horizon line.}
+\label{tab:sea_tab}
+\end{table}
+
+\begin{table}[htbp]
+	\footnotesize
+\begin{center}
+\begin{tabular}{ccccccccc}
+\hline
+\textbf{HORIZON} & \multicolumn{ 2}{c}{\textbf{Real}} & \multicolumn{ 2}{c}{\textbf{Algorithm}} & \multicolumn{ 2}{c}{\textbf{Absolute Error}} & \multicolumn{ 2}{c}{\textbf{Relative Error}} \\ \hline
+ & \textbf{Position} & \textbf{Angle} & \textbf{Position} & \textbf{Angle} & \textbf{Position} & \textbf{Angle} & \textbf{Position} & \textbf{Angle} \\ \hline
+\#1 & 465.5 & -0.00684 & 209 & 0.03514 & 256.5 & 0.04198 & 55.10\% & 614.08\% \\ 
+\#2 & 563.5 & -0.02636 & 427 & -0.01660 & 136.5 & 0.00976 & 24.22\% & 37.03\% \\ 
+\#3 & 156.5 & -0.00488 & 472 & 0.08718 & 315.5 & 0.09206 & 201.60\% & 1885.48\% \\ 
+\#4 & 427 & 0.02343 & 184 & 0.03563 & 243 & 0.01220 & 56.91\% & 52.05\% \\ 
+\#5 & 171.5 & 0.00098 & 373 & 0.21955 & 201.5 & 0.21857 & 117.49\% & 22381.74\% \\ 
+\#6 & 304 & -0.00586 & 254 & 0.46365 & 50 & 0.46951 & 16.45\% & 8013.01\% \\ 
+\#7 & 464 & 0.00391 & 437 & -0.03465 & 27 & 0.03856 & 5.82\% & 987.15\% \\ 
+\#8 & 451 & 0.00596 & 452 & 0.02683 & 1 & 0.02087 & 0.22\% & 349.90\% \\ 
+\#9 & 147 & 0.00977 & 222 & 0.00098 & 75 & 0.00879 & 51.02\% & 90.00\% \\ \hline
+\multicolumn{1}{l}{} & \multicolumn{1}{l}{} & \multicolumn{1}{l}{} & \multicolumn{1}{l}{} & \multicolumn{1}{l}{} & \multicolumn{1}{l}{} & \textbf{Average:} & 59.22\% & 4224.54\% \\ \hline
+\end{tabular}
+\end{center}
+\caption{Detection results of the implemented algorithm for each of the test images labelled as \emph{horizon}. Absolute error indicates the absolute difference between each parameter and the manually-annotated horizon line. Relative error is the absolute error normalized to the corresponding parameter of the manually-annotated horizon line.}
+\label{tab:hor_tab}
+\end{table}
+
