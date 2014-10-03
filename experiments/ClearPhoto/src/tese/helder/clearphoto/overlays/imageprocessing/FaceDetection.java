@@ -159,7 +159,7 @@ public class FaceDetection extends ImageProcessingOv {
 	public void process(byte[] data) {
 		frame = data;
 		grayFrame.put(0, 0, Arrays.copyOfRange(data, 0, width*height));
-
+		Log.e("cenas", "cenas");
 		MatOfRect faces = new MatOfRect();
 		if (detector != null) {
 			detector.detectMultiScale(grayFrame, faces, 1.1, 2, 2, new Size(mAbsoluteFaceSize, mAbsoluteFaceSize), new Size());

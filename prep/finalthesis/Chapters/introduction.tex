@@ -4,14 +4,9 @@
 \chapter{Introduction}
 \label{cha:introduction}
 
-
-
-\section{Context}
-\label{sec:context}
-
 Decades before photography was created La Roche (1729 - 1778) described, in his imaginary tale \emph{Giphantie} the possibility to permanently capture images from nature, on a canvas which had been coated with a sticky substance. Following La Roche prediction, Thomas Wedgwood succeeded in capturing the first silhouettes temporarily, culminating in the first successful picture by Joseph Niépce in 1826 \cite{lemagny1987history}. 
 
-Since that time, photography has evolved from revealing pictures in the photographic paper to its digitization. The development of digital cameras and its commercialization through the last 20 years enabled photographers to explore and master new techniques.
+Since that time, photography has evolved from revealing pictures in photographic paper to its digitization. The development of digital cameras and its commercialization through the last 20 years enabled photographers to explore and master new techniques.
 Aided by the invention of photo editing software and the evolution of the industry, there was a mass popularization of multi-function mobile systems with the capability of taking high quality photos. 
 Taking advantage of these systems and creating software that can facilitate a photographer's job or improve the learning conditions of such a task, is the next logical step to take.
 
@@ -21,37 +16,37 @@ This is the perfect scenario for developing applications that explore the world 
 
 \section{Problem Description and Objectives}
 \label{sec:problem_description}
-Digital photography is tightly related to computational photography. Although the concept is increasingly being adopted, it refers broadly to sensing strategies and algorithmic techniques that enhance or extend the capabilities of digital photography \cite{szeliski2012technical} , creating new kind of images that cannot be captured with a traditional camera \cite{pulli2009mobile}. 
+Digital photography is tightly related to computational photography. Although the concept is increasingly being adopted, it refers broadly to sensing strategies and algorithmic techniques that enhance or extend the capabilities of digital photography \cite{szeliski2012technical}, creating a new kind of images that cannot be captured with a traditional camera \cite{pulli2009mobile}. 
 
-Taking full advantage of multi purpose handheld devices in order to obtain the best aesthetic results, is a process that is not yet well explored. 
-Of the many devices that make part of our daily life, the smartphone might be the most widely disseminated one. Although, for many professionals it might not replace high-end cameras, we can't deny the fact that many smartphone owners use the embedded camera and have taken photography in a different perspective since the device popularization. A major problem is that the manufacturers do not take advantage of the embedded camera capabilities on their default mobile operating systems, due to the lack of control offered through their APIs.
+Taking full advantage of multi purpose handheld devices, applications centred in obtaining the best aesthetic results, is something that is not yet well explored. 
+Of the many devices that make part of our daily life, the smartphone might be the most widely disseminated one. Although, for many professionals it might not replace high-end cameras, we can not deny the fact that many smartphone owners use the embedded camera and have taken photography in a different perspective since the device popularization. A major problem is that the manufacturers do not take advantage of the embedded camera capabilities on their default mobile operating systems, due to the lack of control offered through their APIs.
 
-There is a lot of work done in terms of improving a photo by using editing software (e.g, Adobe Photoshop), but the main purpose of these tools is to edit the result after a photo session. For instance, imagine that a photographer is trying to take a photo of a mountain scenery. Unless the individual is experienced and took many photographs of the same scenery in different angles and different focal lengths, for an amateur, the more common option will be to photograph with the mountain centred in the viewfinder, since this is the subject. Completely unaware of the aesthetic difference between a mountain centred and a dislocated one, this kind of photograph would be impossible to edit without reducing its size, or relocate the subject without including some degree of distortion.
+There is a lot of work done in terms of improving a photo by using editing software (e.g, Adobe Photoshop), but the main purpose of these tools is to edit the result after a photo session. For instance, if we imagine that a photographer is trying to take a photo of a mountain scenery. Unless the individual is experienced and takes many photographs of the same scenery in different angles and different focal lengths, for an amateur, the more common option will be to photograph with the mountain centred in the viewfinder, since this is the subject. Completely unaware of the aesthetic difference between a mountain centred and a dislocated one, this kind of photograph would be impossible to edit without reducing its size, or relocate the subject including some degree of distortion.
 
-Even though the APIs lack  support, using this type of systems to reduce the gap between professional and amateur photographers, and enriching the users experience by offering options beyond the standard ones, is the approach considered in this dissertation.
+Even though the APIs lack support, using this type of systems to reduce the gap in knowledge between professional and amateur photographers, and enriching the users experience by offering options beyond the standard ones is the approach considered in this dissertation.
 
-Therefore, the objective of this thesis is to present a set of tools and techniques where the user can get a better understanding of the scenery and ways to obtain a photograph with a better aesthetic result.
+Therefore, the objective of this thesis is to present a set of tools and techniques where the user can get a better understanding of the scenery and provide ways to obtain a photograph with a better aesthetic result.
 
 \section{Presented Solution}
 \label{sec:solution}
 
-The aim is to provide a more enriching experience for the smartphone owner that uses the camera application frequently. The idea is to aid a photographer by offering a capture system able to interpret a scene, in a semi-automatic way, with the final purpose of obtaining the best aesthetic results.
+The aim is to provide a more enriching experience for the smartphone owner that uses the camera application frequently. The final purpose is to obtain the best aesthetic results by offering a capture system able to interpret a scene, in a semi-automatic way.
 
-Before capturing an image, the user will be able to access a set of tools that show information about the scenery through a simple interface.
+Before capturing an image, the user will be able to access a set of tools that show information about the scenery through simple visual cues.
 
-This application includes a set of tools to draw grids and suggestions that will aid when taking a photo. While the grids will help in the correct placement of the subject that is being photographed, the suggestions will consist in a visual cue or a rating calculated from the scene that is being captured at the moment.
-Being colour an important part of an image, some of these suggestions are related to the colourfulness of the scenery, where the user can get a better understanding of the colours being used and which colours are complementary with simplified histograms or color wheels.
+This application includes a set of tools to draw grids and suggestions that will aid when taking a photo. While the grids will help in the correct placement of the subject that is being photographed, the suggestions will consist in a visual cue or a rating calculated from the scene that is being captured.
+Being colour an important part of an image, some of these suggestions are related to the colourfulness of the scenery, where the user can get a better understanding of the colours being used and which colours are complementary through simplified histograms or color wheels.
 
-Another type of suggestions are related to composition of the image, to help a user understand what is the subject in the scenery through object segmentation. Other useful features include the detection of prominent lines and detection of the horizon line for sceneries of landscape or seascape.
+Another type of suggestions are related to composition of the image. Some features have been implemented to help a user understand what is the subject in the scenery through object segmentation, the detection of prominent lines and detection of the horizon line for sceneries of landscape or seascape.
 
-The technology used to develop this solution is a smartphone with an Android operating system. Currently we are using the Samsung Galaxy Note with Android 4.1 as it has support for both camera. The system will be developed in Java and C++ using both Software Development Kit (SDK) \cite{SDK} and Native Development Kit (NDK) \cite{NDK} available for Android.  Along with the NDK, the OpenCV (Open Source Computer Vision) \cite{OCV} library will be used for image processing.
+The technology used to develop this solution is a smartphone with an Android operating system. Currently we are using the Samsung Galaxy Note with Android 4.1. The system will be developed in Java and C++ using both Software Development Kit (SDK) \cite{SDK} and Native Development Kit (NDK) \cite{NDK} available for Android.  Along with the NDK, the OpenCV (Open Source Computer Vision) \cite{OCV} library will be used for image processing.
 
 \section{Contributions}
 \label{sec:contributions}
 
 The main contributions of this thesis are:
 \begin{enumerate}
-	\item \textbf{Photography tool for mobile devices}: Introduces a novel approach, incorporating the knowledge of how to obtain pleasant aesthetic results. Since not all users with mobile devices have enough \emph{know-how} when taking photographs, the main objective of this dissertation is to make functionalities and knowledge in photo composition available to the most casual user, resulting in a thinner gap between amateur and professional photographers;
+	\item \textbf{Photography tool for mobile devices}: Introduces a novel approach, incorporating the knowledge of how to obtain pleasant aesthetic results. Since not all users with mobile devices have enough \emph{know-how} when taking photographs, the main objective of this dissertation is to make functionalities and knowledge in photo composition available to the most casual photographer. This results in a thinner gap between amateur and professional photographers;
 
 	\item \textbf{Library for image processing}: Contribute with a modular library with a set of calls for later use in other applications;
 	
@@ -64,4 +59,4 @@ The main contributions of this thesis are:
 
 This document is structured in five chapters: introduction, related work, system description and functionalities, results and evaluation, conclusions and future work.
 The first chapter, \textbf{Introduction}, presents an overview of the dissertation, where several issues will be addressed such as context, problem description, proposed solution and the expected contributions. The second chapter, \textbf{Related Work}, is dedicated to systems related to this thesis whose features or techniques are relevant to our solution. This chapter focuses on fundamental concepts and processing techniques related to photography, applications for image capturing and processing, systems relevant for aesthetic assessment and computer vision algorithms.
-The third chapter, \textbf{System Description and Functionalities}, describes the implemented solution, first by defining the concept and architecture, and then presenting the functionalities in detail, as well as the technologies used. The fourth chapter, \textbf{Results and Evaluation}, analyses the results obtained from evaluating our solution. The last chapter, \textbf{Conclusion and Future Work}, critiques and comments the work developed in this thesis and possible improvements outlined as future work.
+The third chapter, \textbf{System Description and Functionalities}, describes the implemented solution, first by defining the concept and architecture, and then presenting the functionalities in detail, as well as the technologies used. The fourth chapter, \textbf{Results and Evaluation}, describes our testing methods and analyses the results obtained from evaluating our solution. The last chapter, \textbf{Conclusions and Future Work}, critiques and comments the work developed in this thesis and possible improvements outlined as future work.

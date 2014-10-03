@@ -25,7 +25,7 @@ import android.view.HapticFeedbackConstants;
 import android.view.View;
 
 public class SaturationDetection extends ImageProcessingOv {
-	private static final int THRESHOLD = 50;//90;
+	private static final int THRESHOLD = 100;//90;
 
 	private Bitmap grayscale;
 	private boolean refresh;
